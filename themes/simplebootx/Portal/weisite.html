@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>应用中心</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/application.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<style type="text/css">
+.anlidiv{display:none; position:fixed; top:50%; margin-top:-229px; left:50%; margin-left:-149px; z-index:1100;}
+.anlidiv li{ width:262px; height:458px; background-color:#FFF; float:left; margin-left:36px; border-radius:3px;}
+.adddiv{ margin:19px; height:417px; border:1px dashed #c7c7c7; text-align:center;}
+.adddiv img{margin-top:162px;}
+.adddiv p{font-size:16px; color:#9b9c9e; margin-top:28px;}
+.anlidiv li .imagediv{height:383px; overflow:auto; overflow-x:hidden;}
+.anlidiv li .imagediv .tu{ width:100%;}
+.anlidiv li .biaoti{font-size:14px; color:#353535; text-align:center; margin:12px 0;}
+.anlidiv li .btnp{font-size:12px;}
+.anlidiv li .btnp a{display:block; width:63px; height:21px; line-height:21px; text-align:center; background-color:#f6751a; color:#FFF; float:left; margin-left:48px; border-radius:3px;}
+.anlidiv li .zheceng{position: absolute; top:0; bottom:0; left:0; right:0; background-color:#000; opacity:0.8; filter:Alpha(opacity=80); display:none;}
+.anlidiv li .maqu{width: 158px; height:158px; padding:8px; background-color:#FFF; position:absolute; top:50%; left:50%; margin-top:-87px; margin-left:-87px; display:none;}
+.anlidiv li .close{position:absolute; right:-10px; top:-10px;}
+.typelist{ line-height:15px; margin:60px 0 30px;}
+.typelist li{float:left; font-size:14px; color:#787878; width:101px; cursor:pointer; text-align:center;}
+.typelist li.active{ color:#88c7fa;}
+.search{padding-top:15px;margin:40px 0 10px;}
+.search input{outline:none; padding:0 10px; border:none; border-left:1px solid #ddd; font-family:'微软雅黑';}
+.search .fa{font-size:18px; cursor:pointer;color:#FA741B;}
+.addbtn{display:block; float:right; width:123px; height:36px; line-height:36px; text-align:center; font-size:14px; color:#FFF; background-color:#6bb0fe; margin-left:28px; margin-top:-10px; border-radius:5px;}
+.addbtn:hover{ background-color:#3078cb;}
+</style>
+</head>
+
+<body>
+<tc_include file="Public:nav" />
+<img src="__TMPL__Public/images/guanggao1.jpg" class="wt100" />
+<div class="pagediv">
+	<div class="soudiv d_n">
+    	<div class="f_r">
+        	<input type="text" class="suoinput f_l" placeholder="请输入搜索内容" />
+            <p class="soubtn f_l"><span class="fa fa-search"></span>搜索</p>
+        </div>
+        <p class="c_b"></p>
+    </div>
+    <div>
+        <ul class="f_l typelist">
+            <li  style=" border-right:1px solid #d1d1d1; width:80px; text-align:left;"><a  href="{:U('portal/index/application',array('menu'=>1))}" style="color: #787878;">营销工具</a></li>
+            <li class="active"><a  href="#" style="color: #88c7fa;">微官网</a></li>
+        </ul>
+        <div class="f_r search" style="margin-bottom:15px;"><input type="text" placeholder="请输入活动关键字" value="{$keyword}" id="searchname1"/><span class="fa fa-search" id="search1"></span></div>
+        <p class="c_b"></p>
+    </div>
+	<php>
+		$curr_user = sp_get_current_user();
+		$is_create =0;$level = intval($curr_user['level']);
+		if(empty($curr_user)){
+			$is_create = 0;
+		}else{
+			$is_create = 1;
+		}
+	</php>
+	<ul class="yingyonglist">
+		<foreach name="list" item="vo">
+			<li style="height:350px;">
+				<div class="tudiv" style="height:300px;">
+					<img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" class="tupian" />
+				</div>
+				<!--<p class="title">{$vo.slide_name}</p>
+				<p class="jianjie">{$vo.slide_des}</p>
+				-->
+				<p class="gongneng">
+				<!--<a href="javascript:void(0);" class="anli">查看活动说明</a>-->
+                <if condition="$is_create eq 1">
+				<a href="{:U('apps/weisite/add',array('module'=>$vo['module'],'id'=>$vo['template_id'],'menu'=>1))}" class="create">创建</a>
+				<else/>
+				<a href="{:U('user/login')}" class="create">创建</a></if></p>
+				<p class="c_b"></p>
+			</li>
+           
+		</foreach>
+        <p class="c_b"></p>
+    </ul>
+</div>
+<tc_include file="Public:footer"/>
+<div id="fullbg"></div>
+<ul class="anlidiv" style="margin-left:-298px;/*数量*149*/">
+	<li>
+    	<div class="adddiv"><img src="__TMPL__Public/images/add.png"/><p>创建一个新活动</p></div>
+    </li>
+    <li>
+    	<div class="imagediv p_r">
+        	<img src="__TMPL__Public/images/mubantu.jpg" class="tu" />
+            <div class="zheceng"></div>
+            <div class="maqu"><img src="__TMPL__Public/images/close.png" class="close" onclick="erweimaclose(this)"/></div>
+        </div>
+        <p class="biaoti">大牛教育开学季3人团立减800元</p>
+        <p class="btnp"><a href="javascript:void(0);" onclick="yulan(this)">预览</a><a href="#">+创建</a></p>
+    </li>
+</ul>
+<div class="yulanqu">
+	<div class="neidiv">
+    	<div class="f_l waike">
+        	<div class="neirong">
+            	<img src="__TMPL__Public/images/mubantu.jpg" id="preview_img"/>
+            </div>
+        </div>
+        <div class="youce">
+        	<span class="fa fa-close"></span>
+        	<p class="name activity_name">教育机构<!--<span>免费</span>--></p>
+            <!--<p class="time activity_time">发布时间：2016-7-5</p>-->
+            <div class="erweima">
+            	<!--<img src="__TMPL__Public/images/daerweima.jpg" />-->
+				<div id="erweima_r" style="margin:0 auto;text-align:center;"></div>
+                <p>扫描二维码查看预览效果</p>
+            </div>
+            <a href="javascript:void(0);" class="subok">立即使用</a>
+        </div>
+        <div class="c_b"></div>
+    </div>
+</div>
+<div class="tangoumai">
+	<div class="zuodiv"></div>
+    <div class="youdiv f_r">
+    	<h3>如何进行支付？</h3>
+        <p class="shuoming">请咨询招生秀客服</p>
+        <p class="dianhua">13001265153</p>
+        <p class="saoma">扫描添加客服微信</p>
+        <img src="__TMPL__Public/images/kefuqrcode.jpg" class="erweima" />
+    </div>
+	<img src="__TMPL__Public/images/close.png" class="close" onclick="closeBg('#fullbg','.tangoumai')" />
+</div>
+<div class="fufuwudiv p_r">
+	<div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+    	<p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">13001265153</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<p style="position:fixed; width:5px; height:5px; border:1px solid #eee; right:0; top:50%;" onclick="anli()"></p>
+<div class="fuxinxi" style="display:none;">
+	<div class="titlediv">
+    	<p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+    	<tr>
+        	<td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+    	<tr>
+        	<td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+    	<tr>
+        	<td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+    	<tr>
+        	<td class="lefttd">机构项目</td>
+            <td>
+            	<label><input type="checkbox" value="1" />幼少儿培训</label>
+            	<label><input type="checkbox" value="1" />初高中培训</label>
+            	<label><input type="checkbox" value="1" />幼儿园</label>
+            	<label><input type="checkbox" value="1" />早教机构</label><br/>
+            	<label><input type="checkbox" value="1" />文化课培训</label>
+            	<label><input type="checkbox" value="1" />素质教育课程</label>
+            	<label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+        	<td class="lefttd">地区</td>
+            <td class="address">
+            	<select>
+                	<option>请选择省份</option>
+                </select>
+            	<select style="margin-right:0;">
+                	<option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td class="lefttd">规模</td>
+            <td>
+            	<label><input type="radio" value="1" />300人以下</label>
+            	<label><input type="radio" value="1" />300-800人</label>
+            	<label><input type="radio" value="1" />800-3000人</label>
+            	<label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+        	<td class="lefttd"></td>
+            <td align="center">
+            	<input type="submit" class="tijiao" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/qrcode.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	$(".yingyonglist li").hover(function(){
+		$(this).find(".zheceng").show();
+		},function(){
+		$(this).find(".zheceng").hide();
+	});
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$(".anli").click(function(){
+		var level = "{$curr_user['level']}";
+		var img = $(this).attr("data-img");
+		var link = $(this).attr("data-link");
+		var shiyong = $(this).attr("data-shiyong");
+		$("#preview_img").attr("src",img);
+		if(level==2&&($(this).attr("data-module")=="olympicrefuel"||$(this).attr("data-module")=="cheerchina"||$(this).attr("data-module")=="bigwheel"||$(this).attr("data-module")=="invitegift"
+		||$(this).attr("data-module")=="weishare"||$(this).attr("data-module")=="groupbuy"||$(this).attr("data-module")=="weimeet"||$(this).attr("data-module")=="scratch"||$(this).attr("data-module")=="weicheer"||$(this).attr("data-module")=="questionnaire"||$(this).attr("data-module")=="weidiom"||$(this).attr("data-module")=="weigreet"||$(this).attr("data-module")=="score"||$(this).attr("data-module")=="challenge"||$(this).attr("data-module")=="yyvote"||$(this).attr("data-module")=="flower"||$(this).attr("data-module")=="weiprice")
+		)
+		{
+            $(".subok").html("立即使用");
+            $(".subok").attr("href",shiyong);
+        }
+		else
+        {
+            $(".subok").html("联系客服");
+            $(".subok").attr("href",'javascript:void(0)');
+        } 
+		$(".activity_name").html($(this).attr("data-title"));
+		$("#erweima_r").html("");
+		var qrcode = new QRCode(document.getElementById("erweima_r"), {
+			width : 100,
+			height : 100
+		});
+		function makeCode () {		
+			qrcode.makeCode(link);
+		}
+		makeCode();
+		showBg("#fullbg",".yulanqu",false);
+		$("body").css("overflow","hidden");
+	});
+	$(".goumai").click(function(){
+		showBg("#fullbg",".tangoumai");
+	});
+	$(".yulanqu .youce .fa-close").click(function(){
+		closeBg('#fullbg','.yulanqu');
+		$('body').css('overflow','auto');
+	});
+    /*
+    $(".subok").click(function(){
+        var module=$(".anli").attr('data-module');
+        if(module!='olympicrefuel'&&module!='cheerchina')
+        {
+            $(".subok").attr('href','#');
+        }
+    });
+    */
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+})
+$(".tijiao").click(function(){
+    var school=$("input[name='school']").val();
+    var contact=$("input[name='contact']").val();
+    var mobile=$("input[name='mobile']").val();
+    //alert(school+contact+mobile);
+    $.post("{:U('user/profile/full_post')}",
+        {
+           school:school,
+           contact:contact,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //$('.fuxinxi').hide();
+                 window.location.reload();
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+})
+function yulan(obj)
+{
+	$(obj).parent().parent().find(".imagediv").scrollTop(0).css("overflow","hidden");
+	$(obj).parent().parent().find(".zheceng,.maqu").css("right","0").show();
+}
+function erweimaclose(obj)
+{
+	$(obj).parent().parent().css({overflow:"auto",overflowX:"hidden"});
+	$(obj).parent().parent().find(".zheceng,.maqu").hide();
+}
+function anli()
+{
+	showBg("#fullbg",".anlidiv",true);
+}
+</script>
+</html>

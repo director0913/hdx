@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/prize.css"/>
+	</head>
+	<body>
+		<div class="jiazaik" style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.2);z-index:999;display: block;">
+			<div id="loading" class="loading">加载中...</div>
+		</div>
+		<div class="jiazi">
+			<div class="tuihou">
+				<a href="index.html" target="_top"><img class="chacha" src="image/cuowu.png"/></a>
+			</div>
+			<div class="biaoti">
+				<span style="font-weight: bold;" class="title"></span>
+				<p style="font-size: 40px;">兑换期限：<span clas="do_start_time"></span> - <span class="do_end_time"></span></p>
+			</div>
+		</div>
+		<div class="duijiangma">
+			<div>兑奖码：<span class="get_code"></span></div>
+			<div>凭卷联系现场工作人员兑奖</div>
+		</div>
+		<div class="fengexian"></div>
+		<div class="xiangqin">
+			<div class="djxq">兑奖卷详情</div>
+			<div class="neirong">
+				<p>有效日期&nbsp;&nbsp;<span class="do_start_time"></span>至<span class="do_end_time"></span></p>
+				<p>兑奖地址&nbsp;&nbsp;<span class="do_address"></span></p>
+			</div>
+		</div>
+		<div class="fengexian"></div>
+		<div class="xiangqin">
+			<a class="kefudianhua" href=""><div class="djxq">客服电话<img style="float: right;width:80px;height:auto;" src="image/dianhau.png"/></div></a>
+			<div class="djxq" style="display: none;"><a class="tiaozhuan" href=""></a><span class="zidingyi"></span><span style="float: right;">></span></div>
+		</div>
+		<!--<div class="lijiduijiang">
+			<div class="djbottom">立即兑奖</div>
+		</div>-->
+		<div class="erweima" style="display: none;">
+			<img class="erweimabuqux" src="" style="width:500px;height:500px;margin-top: 50%;"/>
+		</div>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				function GetQueryString(name) { 
+				　　　var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+				     var r = window.location.search.substr(1).match(reg); 
+				　　　if (r!=null) return (r[2]); 
+				　　　return null; 
+				}  
+				var orid = GetQueryString("orid"); 
+				$.ajax({
+	                url:httpurl+"Cutdown/cut_end",
+	                type:"post",
+	                data:{
+	                	or_id:orid,
+	                },
+	                success:function(e){
+	                	$('.title').html(e.com_name);
+	                	$('.do_start_time').html(e.do_start_time);
+	                	$('.do_end_time').html(e.do_end_time);
+	                	$('.get_code').html(e.get_code);
+	                	$('.do_address').html(e.do_address);
+	                	$('.kefudianhua').attr('href','tel://'+e.service_phone);
+	                	if(e.self_button==1){
+	                		$('.zidingyi').html('页面跳转');
+	                		$('.tiaozhuan').attr('href',e.button_link);
+	                		$('.djxq').attr('style','display: block;');
+	                	}
+	                	if(e.self_button==2){
+	                		$('.zidingyi').html('一建关注');
+	                		$('.djxq').attr('style','display: block;');
+	                		$('.erweimabuqux').attr('src',e.button_img);
+	                		$('.erweima').attr('style','display: block;');
+	                	}
+                        $('.jiazaik').attr('style','display: none;');
+	                },
+	           	});
+	           	$('.erweima').click(function(){
+	           		$('.erweima').attr('style','display: none;');
+	           	})
+	           	$('.erweimabuqux').click(function(e){
+					e.stopPropagation();
+				})
+			})
+		</script>
+	</body>
+</html>

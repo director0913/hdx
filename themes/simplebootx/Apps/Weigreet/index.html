@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />
+<title>{$title}</title>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weigreet/css/index.css?v=4"/>
+<style>
+	.hide{display:none;}
+	.show{display:block;}
+	.pointer{margin:10px auto;}
+</style>
+<style>
+.pager {margin: 0 auto;width: 670px;padding-top: 30px;padding-bottom: 20px;}
+.pager  a{display: inline-block;width: 56px;height: 66px;line-height: 66px;text-align: center;font-size: 28px;color: #ff9b4b;border-top: 1px solid #ff9b4b;border-bottom: 3px solid #ff9b4b;border-left: 2px solid #ff9b4b;border-right: 2px solid #ff9b4b;margin-right: 10px;
+}
+.pager .current {background: #ff9b4b;display: inline-block;width: 59px;height: 69px;line-height: 66px;text-align: center;font-size: 28px;color: #fff;margin-right: 10px;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+<script type="text/javascript" src="__TMPL__Apps/Weimeet/js/jquery.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Weigreet/js/zhezhao.js?i=1"></script>
+</head>
+<body>
+<php>
+	if($shareid){
+		$curr_class="hide";$ncurr_class="show";
+	}else{
+	  if($is_me&&$is_register){
+		$curr_class="hide";$ncurr_class="show";
+	 }else{
+		$curr_class="show";$ncurr_class="hide";
+	 }
+	 
+	}
+
+</php>
+<div class="bgc">
+    <img src="__TMPL__Apps/Weigreet/images/top.jpg" width="750"/>
+    <img src="__TMPL__Apps/Weigreet/images/explain.png" alt="" class="explain" id="explain" onclick='baoxiang()'/>
+	<div class="biaoti">{$school_name}</div>
+</div>
+<!-- 画小人开始 -->
+<div class="pointer {$curr_class}" id="pointer">
+    <!--<div class="biaoti">{$school}</div>-->
+    <div class="title"><p>{$slogan}</p></div>
+    <img src="__TMPL__Apps/Weigreet/images/hua.png" alt="" class="draw_title"/>
+    <div class="draw"><canvas id='canvas' width="490" height="490"></canvas></div>
+	<img src="{$shareuser['thumb']}" id="draw_image" style="display:none;">
+    <div class="painter_btn">
+        <img src="__TMPL__Apps/Weigreet/images/again.png" alt="" class="again fl" onclick="reset()"/>
+        <img src="__TMPL__Apps/Weigreet/images/finish.png" alt="" class="finish fr" onclick="zhufu()"/>
+    </div>
+</div>
+<!-- 画小人结束 -->
+<!-- 写祝福开始 -->
+<div class="wish" id="wish">
+    <div class="xiaoren"><img src="__TMPL__Apps/Weigreet/images/xiaoren.jpg" id="card_image" alt="" /></div>
+    <div class="zhufu">
+        <textarea class="write" id="bianji" placeholder="填写你的祝福语吧～" maxlength=14>{$shareuser['parent_msg']}</textarea>
+    </div>
+    <div class="login">
+            <p><input type="text" id="name" placeholder="请输入姓名"></p>
+            <p><input type="tel" id="tel" placeholder="请输入手机号"></p>
+			<p <if condition="empty($params['age'])">style="display:none" </if>>
+				<input type="tel" id="age" name="age" placeholder="请输入年龄" value="{$user['age']}"/>
+			</p>
+			<p <if condition="empty($params['cless'])">style="display:none" </if>>
+				<input type="text" id="cless" name="cless" placeholder="请输入班级" value="{$user['class']}"/>
+			</p>
+			<php>
+			    if(!$params['other_remark']){
+			    	$params['other_remark']="备注";
+			    }
+				if($params['other_school']){
+			    	$other=explode(',',$params['other_school']);
+			    }
+			</php>
+			<if condition="!empty($params['school'])">
+				<p>
+					<if condition="empty($params['other_school'])">
+						<input type="text" class="sign-up-name" id="school" name="school" placeholder="请输入学校" value="{$user['school']}"/>
+					<else/>
+						<select  name="school" id="school">
+							<volist name="other" id="vo">
+								<option  value ="{$vo}"  <if condition="$user['school'] eq $vo">selected="selected" </if>>{$vo}</option>
+							</volist>
+						</select>
+					</if>
+				</p>
+			</if>
+			<p <if condition="empty($params['qita'])">style="display:none" </if>>
+				<input type="text" class="sign-up-name" id="remark" name="remark" placeholder="请输入{$params['other_remark']}" value="{$user['remark']}"/>
+			</p>
+    </div>
+    <div class="shuoming">*我们不会以任何方式泄露您的信息，请放心填写。</div>
+    <div class="zhufu_btn"><img src="__TMPL__Apps/Weigreet/images/heka.png" alt="" onclick='heka()'/></div>
+</div>
+<!-- 写祝福结束 -->
+<!-- 贺卡开始 -->
+<div class="heka {$ncurr_class}" id="heka">
+    <div class="heka_title">
+        <p class="touxiang"><img src="{$shareavatar}"  alt="" /></p>
+        <p class="text"><span>{$sharename}</span>的祝福贺卡</p>
+    </div>
+    <div class="heka_cont">
+        <div class="heka_tu"><img src="{$shareuser['thumb']}" id="hcard_image" alt=""/></div>
+        <div class="heka_neirong">
+            <!--<img src="__TMPL__Apps/weigreet/images/baby.png" alt="" class="baby"/>-->
+            <div class="heka_write">{$shareuser['parent_msg']}</div>
+            <img src="__TMPL__Apps/Weigreet/images/wish.png" alt="" class="best fr"/>
+        </div>
+    </div>
+    <div class="heka_btn">
+		<if condition="$is_me eq 1">
+			<div class="zan" onclick="jizan()">去积赞</div>
+		<else/>
+		    <div class="zan" onclick="dianzan()">点赞</div>
+		</if>
+		<if condition="$is_me eq 1">
+			<div class="xiugai" onclick='fanhui()'>修改贺卡></div>
+		</if>
+    </div>
+    <div class="dianzan">已获得<span id="jcount"><php> echo intval($shareuser['total_num']);</php></span>个赞</div>
+    <ul class="user wei_c_b">
+		<foreach name="jilu" item="jj">
+			<li><img src="{$jj.avatar}" alt="" /></li>
+		</foreach>
+    </ul>
+    <!-- 规则开始 -->
+    <div class="guize">
+        <p class="bg_top"></p>
+        <p class="guize_title">活动说明</p>
+        <div class="text">{$rule|htmlspecialchars_decode}</div>
+        <p class="bg_bottom"></p>
+    </div>
+    <div class="guize">
+        <p class="bg_top"></p>
+        <p class="guize_title">关于我们</p>
+        <div class="text">{$activityremark|htmlspecialchars_decode}</div>
+        <p class="bg_bottom"></p>
+    </div>
+    <!-- 规则结束 -->
+    <!-- 列表开始 -->
+    <div class="liebiao">
+        <table>
+            <tr class="tt">
+                <th class="shenhong wd120">名次</th>
+                <th class="shenhong wd180">姓名</th>
+                <th class="shenhong wd250">手机</th>
+                <th class="qianhong wd160">点赞数</th>
+            </tr>
+			<foreach name="ulist" item="u">
+				 <tr>
+					<td class="wd120 padleft30">
+					<php>
+					if(empty($_GET['p'])){
+						$curr_p = 1;
+					}else{
+						$curr_p = intval($_GET['p']);
+					} 
+					echo ($curr_p-1)*15+$key+1; 
+					</php></td>
+					<td class="wd180">{$u['username']}</td>
+					<td class="wd250"><php> echo substr_replace($u['mobile'],'****',3,-4);</php></td>
+					<td class="qianhong wd160">{$u['total_num']}</td>
+				</tr>
+			</foreach>
+           
+        </table>
+		<!-- 分页开始 -->
+		{$page}
+		<!-- 分页结束 -->
+    </div>
+    <!-- 列表结束 -->
+    <div class="footer_heka"><img src="__TMPL__Apps/Weigreet/images/footer.png" alt="" /></div>
+</div>
+<!-- 贺卡结束 -->
+<!-- 活动说明开始 -->
+<div id="baoxiang">
+    <p class="baoxiang_title">活动说明<img src="__TMPL__Apps/Weigreet/images/close.png" onclick="closeBg('fullbg','baoxiang')"/></p>
+    <div class="container">
+        <div class="detail">
+            <div class="detail_text">{$rule|htmlspecialchars_decode}</div>
+        </div>
+    </div>
+</div>
+<!-- 活动说明结束 -->
+<!-- 点赞开始 -->
+<div id="dianzan">
+    <img src="__TMPL__Apps/Weigreet/images/dianzan.png" onclick="closeBg('fullbg2','dianzan')" class="dianzan_tu"/>
+    <p class="wenzi">谢谢你的赞～</p> 
+</div>
+<!-- 点赞结束 -->
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<if condition="$is_me eq 1">
+	<p id="btn" class="hide" onclick='canjia()'>我也要玩</p>
+<else/>
+	<p id="btn" class="show" onclick='canjia()'>我也要玩</p>
+</if>
+<div class="footer {$curr_class}"><img src="__TMPL__Apps/Weigreet/images/footer.png" alt="" /></div>
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+</body>
+<script type="text/javascript">
+var super_awesome_multitouch_drawing_canvas_thingy = null;
+var image_data = null;
+var is_register = "{$is_register}";
+//重画函数
+function reset(){
+	var canvas = document.getElementById("canvas");
+	canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+}
+//完成触发函数
+function zhufu(){
+	var canvas = document.getElementById("canvas");
+	var w = canvas.width,h = canvas.height;
+	image_data = canvas.toDataURL("image/png");
+	$("#draw_image").attr("src",image_data);
+	$("#card_image").attr("src",image_data);
+	$("#hcard_image").attr("src",image_data);
+	var update_url = "{:U('apps/Weigreet/update_user',array('id'=>$id))}";
+	$.post(update_url,{thumb:image_data},function(res){
+		//alert(res.info);
+		if(res.status<0){
+			alert(res.info);
+		}else{
+			if(is_register==0){
+				$("#wish").show();
+				$("#pointer").hide();
+				$("#btn").hide();
+				$(".footer").show();
+			}else{
+				$("#wish").show();
+				$(".login").hide();
+				$("#pointer").hide();
+				$("#btn").hide();
+				$("#heka").hide();
+				$(".shuoming").hide();
+				$(".footer").show();
+			}
+			
+			$("body").css("height",$(window).height()+"px");
+			$("body").css("position","relative");
+		}
+	});
+}
+//生成贺卡
+function heka(){
+	var name= $("#name").val();
+	var tel= $("#tel").val();
+	var message = $("#bianji").val(); 
+	var remark=$('[name="remark"]').val(); 
+	var age=$('[name="age"]').val();
+	var cless=$('[name="cless"]').val();
+	var school=$('[name="school"]').val();
+	if(!message){alert("请填写祝福！");return false;}
+	var resgit_url = "{:U('apps/Weigreet/register',array('id'=>$id))}";
+	if(is_register=="1"){
+		resgit_url = "{:U('apps/Weigreet/update_message',array('id'=>$id))}";
+	}else{
+		if(!name){alert("请填写姓名！");return false;}
+		if(!tel){alert("请填写手机号！");return false;}
+		if(tel.length!=11){alert("请填写11位手机号！");return false;}
+	}
+	$.post(resgit_url,{name:name,tel:tel,age:age,cless:cless,school:school,remark:remark,message:message,thumb:image_data},function(res){
+		if(res.status){
+			is_register = 1;
+			$("#hcard_image").attr("src",image_data);
+			$(".heka_write").html(message);
+			$("#wish").hide();
+			$("#heka").show();
+			$("#explain").hide();
+			$(".footer").hide();
+			$("#btn").hide();
+			window.location.href = res.url+"&tt=7788";
+		}else{
+			alert(res.info);
+		}
+	});
+	return false;
+}
+//修改贺卡
+function fanhui(){
+	//alert("修改贺卡！！！！");
+	$("#wish").hide();
+	$("#heka").hide();
+	$("#explain").show();
+	$("#pointer").show();
+	$("#btn").hide();
+	$(".footer").show();
+	super_awesome_multitouch_drawing_canvas_thingy = new CanvasDrawr({id:"canvas", size: 15 });
+	var canvas = document.getElementById("canvas");
+    var image = document.getElementById("draw_image");
+    canvas.getContext('2d').drawImage(image,0,0);
+}
+function canjia(){
+	var url = "{:U('apps/Weigreet/index',array('id'=>$id,'tt'=>time()))}";
+	window.location.href = url;
+}
+function baoxiang(){
+    showBg('fullbg','baoxiang',false);
+}
+var is_zan = true;
+//点赞函数处理
+function dianzan(){
+	if(is_zan){
+		 //点赞函数处理
+		 is_zan = false;
+		 var url = "{:U('apps/Weigreet/add_vote',array('id'=>$id,'shareid'=>$shareid))}";
+		 $.post(url,null,function(res){
+			is_zan = true;
+			if(res.status){
+				if(!res.is_vote_history){
+					$(".wei_c_b").append('<li><img src="'+res.avatar+'" alt="" /></li>');
+				}
+				var jcount = $("#jcount").text();
+				jcount = parseInt(jcount);
+				jcount = jcount+1;
+				$("#jcount").text(jcount);
+				//更新点赞人数
+				$(".wenzi").text("谢谢你的赞～");
+				showBg('fullbg2','dianzan',true);
+			}else{
+				alert(res.info);
+			}
+		 });
+	}
+}
+//积赞函数处理
+function jizan(){
+	$(".wenzi").text("邀请小伙伴一起来赞吧～");
+	showBg('fullbg2','dianzan',true);
+}
+/***********画板js代码******************/
+var CanvasDrawr = function(options) {
+    // 这个是设定画布信息
+    var canvas = document.getElementById(options.id),
+        ctxt = canvas.getContext("2d");
+       
+    canvas.style.width = '100%'
+    canvas.width = canvas.offsetWidth;
+    canvas.style.width = '';
+    // 设定来自options的属性
+    ctxt.lineWidth = options.size || Math.ceil(Math.random() * 35);
+    ctxt.lineCap = options.lineCap || "round";
+    ctxt.pX = undefined;
+    ctxt.pY = undefined;
+    var lines = [,,];
+    var offset = $(canvas).offset();
+   
+    var self = {
+        //初始化，绑定touchstart 和 touchmove 事件
+        init: function() {        
+            canvas.addEventListener('touchstart', self.preDraw, false);
+            canvas.addEventListener('touchmove', self.draw, false); 
+        },
+        preDraw: function(event) {
+			//当touchstart时，获取相对canvas的x\y位置，画笔的颜色
+            $.each(event.touches, function(i, touch) {
+              
+                var id      = touch.identifier,
+                    colors  = ["black", "black", "black", "black", "black", "black"],
+                    mycolor = colors[Math.floor(Math.random() * colors.length)];
+             
+                lines[id] = { x     : this.pageX - offset.left,
+                              y     : this.pageY - offset.top,
+                              color : mycolor
+                           };
+            });
+            event.preventDefault();
+        },
+        draw: function(event) {
+			//touchmove开始划线
+            var e = event, hmm = {};
+            $.each(event.touches, function(i, touch) {
+                var id = touch.identifier,
+                    moveX = this.pageX - offset.left - lines[id].x,
+                    moveY = this.pageY - offset.top - lines[id].y;//移动的x\y
+                var ret = self.move(id, moveX, moveY);//canvas的画线
+                lines[id].x = ret.x;
+                lines[id].y = ret.y;
+            });
+            event.preventDefault();
+        },
+        move: function(i, changeX, changeY) {
+			//这个地方需要了解下canvas 的知识哦。
+            ctxt.strokeStyle = lines[i].color;//设定颜色
+            ctxt.beginPath();//开始路径
+            ctxt.moveTo(lines[i].x, lines[i].y);//移动到
+            ctxt.lineTo(lines[i].x + changeX, lines[i].y + changeY);//画线
+            ctxt.stroke();//填充颜色
+            ctxt.closePath();//结束路径
+            return { x: lines[i].x + changeX, y: lines[i].y + changeY };//返回最后的点坐标
+        }
+    };
+    return self.init();//运行init
+};
+
+$(function(){
+  super_awesome_multitouch_drawing_canvas_thingy = new CanvasDrawr({id:"canvas", size: 15 });
+  var canvas = document.getElementById("canvas");
+  var image = document.getElementById("draw_image");
+  canvas.getContext('2d').drawImage(image,0,0);
+});
+</script>
+<tc_include file="Public:mobile" />
+</html>

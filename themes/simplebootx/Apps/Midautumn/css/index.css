@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+ul{ list-style-type:none;}
+.c_b{ clear:both;}
+.d_n{ display:none;}
+.t_c{ text-align:center;}
+.w50{ width:50%;}
+.f_l{ float:left;}
+.f_r{ float:right;}
+.pd13{ padding:8px 13px;}
+.mt20{ margin-top:20px;}
+body{ width:640px; background:#33075e url(../images/beijing.jpg) 0 0 no-repeat; background-size:640px auto; font-family:"微软雅黑";}
+.topdiv{ position:absolute; top:100px; left:0; right:0; text-align:center;}
+#yinyue{position:absolute; z-index:2; top:20px; right:38px; width:70px; height:70px;background:url(../images/music.png) center center no-repeat; animation: bgRotate 6s linear infinite; background-size:auto 100%; -webkit-animation: bgRotate 6s linear infinite; -moz-animation: bgRotate 6s linear infinite; -o-animation: bgRotate 6s linear infinite;}
+.topdiv img{ width:586px;}
+.topdiv .xuexiao{ position:absolute; top:-30px; left:0; right:0; font-size:32px; color:#FFF; font-weight:bold;}
+.topdiv .title{ position:absolute; bottom:45px; left:110px; right:120px; font-size:35px; color:#FFF; font-weight:bold; overflow:hidden;text-shadow:3px 3px 3px #e9740b;}
+.canyu,.canyudiv{ margin-top:427px;}
+.canyu .putongp,.canyudiv .putongp{ font-size:32px; line-height:51px; color:#FFF; text-align:center;}
+.canyu .putongp span,.canyudiv .putongp span{ font-weight:bold; color:#ffd902;}
+.canyu .btnp,.canyudiv .btnp{ margin-top:40px;}
+.canyu .touxiang{ width:361px; margin:0 auto; padding-bottom:50px;}
+.canyu .touxiang .tupian{ width:75px; height:75px; border:5px solid #f5f0dc; border-radius:50%; background-color:#d7cdc1; padding:1px; float:left; margin-right:10px;}
+.canyu .touxiang .tupian img{ width:100%; border-radius:50%;}
+.canyu .touxiang .xinxi{ overflow:hidden;}
+.canyu .touxiang .xinxi p{ font-size:26px; color:#FFF; line-height:38px;}
+.binglist{ margin:0 15px; margin-top:57px;}
+.binglist li{ float:left; margin:0 5px; width:108px; height:143px; border:2px dashed #fdd9a9; position:relative;}
+.binglist li.active{ border-color:transparent;}
+.binglist li img{ width:100%; height:100%;}
+.binglist li .pengyou{ position:absolute; width:66px; height:66px; top:-55px; left:50%; margin-left:-35px; border:4px solid #d7cdc1; border-radius:50%;}
+.binglist li .pengyou img{ border-radius:50%;}
+
+.xinxidiv{ margin:116px 20px 20px;}
+.xinxidiv .tab li{ float:left; width:176px; height:54px; line-height:54px; border:3px solid #1c86f6; border-bottom:none; border-radius:35px 35px 0 0; background:#4babff; color:#FFF; font-size:25px; text-align:center; margin:0 8px;}
+.xinxidiv .tab li.active{ border-bottom:3px solid #FFF; background-color:#FFF; color:#1b96c0;}
+.xinxidiv .neirongdiv{ min-height:200px; border:3px solid #1c86f6; border-radius:8px; background-color:#FFF; margin-top:-3px;}
+.xinxidiv .neirongdiv .guize .btndiv{ height:78px; padding:23px 0 20px; margin:0 24px; border-top:2px solid #e8e8e8;}
+.xinxidiv .neirongdiv .guize .btndiv p{ width:400px; height:79px; line-height:79px; background-color:#42bc43; margin:0 auto; text-align:center; font-size:32px; color:#FFF; border-radius:10px;}
+.xinxidiv .neirongdiv .pd13 img{ max-width:100%;}
+.haoyou ul{ padding:0 15px;}
+.haoyou ul li{ padding:15px 0; border-bottom:1px solid #787d81;}
+.haoyou ul li .touxiang{ width:91px; float:left; margin:13px 13px 13px 0;}
+.haoyou ul li div{ float:left; font-size:25px; line-height:46px; color:#252628; margin-top:10px;}
+.haoyou ul li div span{ color:#f8d612;}
+.haoyou ul li .yuebing{ width:90px; margin-left:13px; float:right;}
+.banquan{ font-size:16px; color:#FFF; margin:20px 0; text-align:center;}
+
+.fullbg{ position:fixed; top:0; left:0; right:0; bottom:0; z-index:100; background-color:#000; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity:0.7; opacity:0.7; display:none;}
+#fenxiang{ position:fixed;width:400px;height:210px;top:50%; left:50%; margin-top:-105px; margin-left:-200px; z-index:110; display:none;}
+@keyframes bgRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@-webkit-keyframes bgRotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes bgRotate{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}}@-o-keyframes bgRotate{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(360deg)}}
+.ting{animation-play-state: paused !important; -webkit-animation-play-state: paused !important; animation:inherit !important; -webkit-animation:inherit !important; -moz-animation:inherit !important; -o-animation:inherit !important;}
+
+
+.baoxiang{ position:fixed; top:50%; left:50%; z-index:110; width:528px; height:500px; margin-top:-250px; margin-left:-264px; background-color:#fef8d8; text-align:center; border-radius:25px; border:3px solid #380b6a; display:none;}
+.baoxiang .liwu{ margin:32px 0 22px;}
+.baoxiang p{ font-size:32px; line-height:46px; color:#473d45;}
+.baoxiang .jiangname{ font-size:28px; color:#F30;}
+.baoxiang .btn{ margin-top:28px;}
+
+.erweima{ position:fixed; top:50%; left:50%; z-index:110; width:506px; height:488px; margin-left:-253px; margin-top:-244px; background-color:#FFF; border-radius:8px; text-align:center; display:none;}
+.erweima img{ width:266px; margin-top:38px;}
+.erweima .zhiwen{ width:200px;}
+.erweima p{ font-size:27px; color:#6f6f6f; margin-top:65px;}
+
+.bangmang{ position:fixed; top:50%; left:50%; z-index:110; width:393px; height:660px; margin-top:-330px; margin-left:-197px; text-align:center; display:none;}
+.bangmang img{ width:100%;}
+.bangmang p{ font-size:34px; color:#FFF; line-height:158px;}
+.bangmang p span{ color:#fddb00;}
+
+#tianxx{ width:580px; border-radius:12px; margin:-325px 0 0 -290px; background-color:#fef8d8; border:3px solid #380b6a; color:#473d45; font-size:28px; display:none; text-align:center; position:fixed; z-index:110; top:35%; left:50%;}
+#tianxx .closeimg {position:absolute; top:28px; right:28px; width:40px; height:40px;}
+.gift { height:110px; width:378px; margin:35px auto 20px; text-align:center; overflow:hidden;}
+.gift img{ height:100%;}
+#tianxx .tishi{ text-align:center; border-bottom:2px dashed #555; margin:0 30px 30px; padding-bottom:30px;}
+.inputdiv { height:63px; margin-top:20px;}
+.inputdiv input,select{ height:63px; width:388px; border:none; border-radius:9px; font-size:28px; padding-left:15px; outline:none;}

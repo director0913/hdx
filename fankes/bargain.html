@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/tongyong.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bargain.css"/>
+	</head>
+	<body>
+		<!--假授权框-->
+		<!--<div class="shouquan" style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.5);z-index:999;display: none;">-->
+			<!--<div style="width:80%;height:40%;margin: auto;margin-top:25%;background-color: #fff;">-->
+				<!--<div style="width:100%;height:150px;line-height: 150px;text-align: center;font-size:50px;">微信用户授权</div>-->
+				<!--<div style="width:80%;height:150px;line-height: 150px;font-size:35px;margin: auto;border-bottom: 2px solid #aaa;">全民砍价申请获取以下权限:</div>-->
+				<!--<div style="width:80%;height:150px;line-height: 150px;font-size:35px;margin: auto;color: #aaa;">获取你的公开信息（昵称、头像等）</div>-->
+				<!--<div style="width:80%;height:50px;font-size:35px;margin: auto;color: #aaa;text-align:right;">-->
+					<!--<span class="jujueshouq" style="color: #aaa;margin-right: 3rem;">拒绝</span>-->
+					<!--<span class="yongxshouq" style="color: #0bb20c;">允许</span>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--加载-->
+		<div class="jiazaik" style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.2);z-index:999;display: block;">
+			<div id="loading" class="loading">加载中...</div>
+		</div>
+		<!--商品  -->
+		<div class="bargain">
+			<!-- 音乐图标 -->
+			<div class="musicImg">
+				<img src="image/musicON.png" width="100%"/>
+			</div>
+			<audio id="bgMusic" src="" autoplay="autoplay"></audio>
+		  <!--商品信息  -->
+		  <div class="commodity">
+		    <image src='' class="shangptu" style='width:100%;height:100%;'></image>
+		    <div class="end_time">距离活动结束还有：<span class="dayStr"></span>天<span class="hrStr"></span>小时<span class="minStr"></span>分<span class="secStr"></span>秒</div>
+		    <div class="experience">
+		      <!--<div class="experience_jint"> > </div>-->
+		      <div class="experience_jiaz"></div>
+		    </div>
+		  </div>
+		  <!--商品价格库存  -->
+		  <div class="commodity_stock">
+		    <div class="stock_list">
+		      <div class="stock_top">原价</div>
+		      <div class="original_price"></div>
+		    </div>
+		    <div class="stock_list">
+		      <div class="stock_top">可砍至</div>
+		      <div class="cut_price"></div>
+		    </div>
+		    <div class="stock_list">
+		      <div class="stock_top">库存</div>
+		      <div class="com_num"></div>
+		    </div>
+		  </div>
+		  <!--商品砍价进度  -->
+		  <div class="kanjia_progress">
+		    <div class="jinduttiao">
+		     	<div class="baifenbi"></div>
+		    </div>
+		    <div class="jindushuzi">
+		      <div class="jindu_zuo original_price">￥100</div>
+		      <div class="jindu_you cut_price">￥0</div>
+		    </div>
+		    <div class="yijingkanl">已经砍了<span class="yikan" style='color:#D0096E;font-weight:bold;'></span>元。离目标还有<span class="haiyou" style='color:#D0096E;font-weight:bold;'></span>元</div>
+		    <div class="zhaohuoban zikanyidao" style="display: none;">自砍一刀</div>
+		    <div class="zhaohuoban zhaorenbangm" style="display: none;">找小伙伴帮忙</div>
+		    <div class="zhaohuoban youshangjiao" style="display: none;background-color: #aaa;">右上角分享给好友</div>
+		    <div class="zhaohuoban bangkanyidao" style="display: none;">帮砍一刀</div>
+		    <div class="zhaohuoban kanjiachenggong" style="display: none;">砍价成功</div>
+		    <div class="zhaohuoban wancheng" style="display: none;">砍价完成</div>
+		  </div>
+		  <!--砍价高手  -->
+		  <div class="kanjiagaos" style="display:none;">
+		    <div class="kanjiagaoshou">
+		      <div class="bianxian"></div>
+		      <div class="zhongyangzi">砍价高手</div>
+		      <div class="bianxian"></div>
+		    </div>
+			  <div id="actListBox">
+				  <div class="kanjiaren" v-for="v in recoms" style="margin-bottom: 1em;">
+					  <div class="kanjia_toux" v-bind:style="{ 'background': 'url(' + v.user_img + ')','background-size':'100%' }"></div>
+					  <div class="kanjia_name">
+						  <div>{{v.user_name}} 帮忙砍了</div>
+						  <div>{{v.create_time}} <span style='color:#F37DB3;float:right;'>{{v.cut_money}}元</span></div>
+					  </div>
+				  </div>
+			  </div>
+
+		    <div class="kanjiamingdan">
+		        <text>共有<span class="duoshaoren"></span>名好友帮忙砍价</text>
+		        <!--<text style='float:right;'>上一页 <text>1/1</text> 下一页</text>-->
+		    </div>
+		  </div>
+		  <!--创建活动  -->
+		  <div class="activity" style='border: 1px solid #000;color:#000;margin-bottom: 2em;'>去首页看看</div>
+		</div>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script type="text/javascript">
+            $('.musicImg').bind('touchstart',function(){
+                console.log(document.getElementById('bgMusic').paused)
+                if(document.getElementById('bgMusic').paused){
+                    document.getElementById('bgMusic').play();
+                    $('.musicImg img').attr('src','image/musicON.png');
+                }else{
+                    document.getElementById('bgMusic').pause();
+                    $('.musicImg img').attr('src','image/musicOFF.png')
+                }
+            });
+			$(function(){
+				function GetQueryString(name) { 
+				　　　var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+				     var r = window.location.search.substr(1).match(reg); 
+				　　　if (r!=null) return (r[2]); 
+				　　　return null; 
+				}  
+				var com_id = GetQueryString("com_id"); 
+				var or_id = GetQueryString("or_id");
+                var suser_id = GetQueryString("user_id");
+                alert(suser_id);
+                if(suser_id!=null){
+                    localStorage.setItem('user_id',suser_id);
+                }else{
+                	top.location.href = '/index.php/Api/Userinfo/get_user_info?com_id='+com_id+'&or_id='+or_id;
+                }
+                var user_id = localStorage.getItem('user_id');
+
+                if(user_id!=null){
+                	$.ajax({
+		                url:httpurl+"Cutdown/create_cut",
+		                type:"get",
+		                data:{
+		                	com_id:com_id,
+		                	user_id:user_id,
+		                	or_id:or_id
+		                },
+		                success:function(e){
+		                	// console.log(e);
+							//活动id
+                            localStorage.setItem('ac_id',e.ac_id);
+							//活动音乐
+                            $('#bgMusic').attr('src',e.bgm);
+		                	//活动结束时间
+	                        shijian(e.end_times);
+							//砍价进度
+							if(e.yikan!=null){
+								$('.yikan').html(e.yikan);
+							}else{
+								$('.yikan').html(0);
+							}
+	                        
+	                        $('.haiyou').html(e.haiyou);
+	                        var baifenb = e.baifenb+'%';
+	                        $('.baifenbi').attr('style','width:'+baifenb+';height:100%;background-color: #FEAC14;');
+	
+							//商品信息
+		                	var goods = e.commodity;
+		                	$('.shangptu').attr('src',goods.thumb);
+		                	$('.experience_jiaz').html(goods.com_name);
+		                	$('.original_price').html('￥'+goods.original_price);
+		                	$('.cut_price').html('￥'+goods.cut_price);
+		                	$('.com_num').html(goods.com_num);
+		                	
+		                	//判断是否自砍一刀
+		                	if(e.if_i_cut==0){
+		                		$('.zhaorenbangm').attr('style','display: block;');
+		                	}else{
+		                		$('.zikanyidao').attr('style','display: block;');
+		                	}
+		                	//创建的order表的id
+		                	or_id = e.or_id;
+	                        
+							//砍价高手
+							var actors = e.actors;
+	                        if(actors!=undefined && actors!=''){
+	                        	$('.kanjiagaos').attr('style','display: block;');
+	                            reitems.recoms = reitems.recoms.concat(convert(actors));
+	                            $('.duoshaoren').html(e.actors_num);
+							}
+	                        
+	                        //判断是否是帮砍
+	                        var useridss = e.userids;
+	                        if(useridss!=undefined){
+	                            if(useridss!=user_id){
+	                                $('.zhaorenbangm').attr('style','display: none;');
+	                                $('.zikanyidao').attr('style','display: none;');
+	                                $('.bangkanyidao').attr('style','display: block;');
+	                            }
+							}
+							//砍价是否以完成
+							if(e.yiwanc==1){
+								$('.zikanyidao').attr('style','display: none;');
+	                            $('.zhaorenbangm').attr('style','display: none;');
+	                            $('.youshangjiao').attr('style','display: none;');
+	                            $('.bangkanyidao').attr('style','display: none;');
+	                            $('.kanjiachenggong').attr('style','display: none;');
+	                            $('.wancheng').attr('style','display: block;');
+							}
+
+                            var href = window.location.href;
+                            $.ajax({
+                                url:'/getsu.php',
+                                type:"post",
+                                data:{
+                                    urls:href,
+                                },
+                                async:false,
+                                success:function(e){
+                                    console.log(e);
+                                    var obj = JSON.parse(e);
+                                    var data = obj.result;
+                                    fenxiang(data);
+                                },
+                            });
+                            function fenxiang(e){
+                                wx.config({
+                                    debug: false,
+                                    appId: e.appId,
+                                    timestamp: e.timestamp,
+                                    nonceStr: e.nonceStr,
+                                    signature: e.signature,
+                                    jsApiList: [
+                                        'onMenuShareTimeline',
+                                        'onMenuShareAppMessage',
+                                    ]
+                                });
+                                fen();
+                            }
+                            function fen(){
+                                wx.ready(function(){
+                                    /*分享到朋友圈*/
+                                    wx.onMenuShareTimeline({
+                                        title: '老铁来一刀！', // 分享标题
+                                        desc: '朋友，我正在XX平台砍价，只差一点点了，帮我一下，拜托拜托！', // 分享描述
+                                        link:"/fankes/bargain.html?com_id="+com_id+"&or_id="+e.or_id, // 分享链接
+                                        imgUrl: '/fankes/image/images/AAEIABACGAAg-qyM0gUo_eqN7QIwwgM4_gE.jpg', // 分享图标
+                                        success: function () {
+                                            // 用户确认分享后执行的回调函数
+                                        },
+                                        cancel: function () {
+                                            // 用户取消分享后执行的回调函数
+                                        }
+                                    });
+                                    //分享给好友
+                                    wx.onMenuShareAppMessage({
+                                        title:'老铁来一刀！',
+                                        desc:'朋友，我正在XX平台砍价，只差一点点了，帮我一下，拜托拜托',//分享描述
+                                        link:"/fankes/bargain.html?com_id="+com_id+"&or_id="+e.or_id,//分享链接
+                                        imgUrl: '/fankes/image/images/AAEIABACGAAg-qyM0gUo_eqN7QIwwgM4_gE.jpg',//分享图标
+                                        success:function(){
+
+                                        },
+
+                                        cancel:function(){
+
+                                        }
+
+                                    });
+
+                                });
+                            }
+                            $('.jiazaik').attr('style','display: none;');
+                            // if_author = e.if_author;
+                            // if(e.if_author==0){
+                            //     $('.shouquan').attr('style','width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.5);z-index:999;display: block;');
+                            // }
+                        },
+		           	});
+                }
+                // $('.jujueshouq').click(function () {
+                //     $('.shouquan').attr('style','display: none;');
+                // })
+                // $('.yongxshouq').click(function () {
+                //     $.ajax({
+                //         url:httpurl+"Cutdown/shouquan",
+                //         type:"post",
+                //         data:{
+                //             user_id:user_id,
+                //         },
+                //         success:function(e){
+                //             if(e==1){
+                //                 alert('授权成功！');
+                //                 window.location.reload();
+                //             }
+                //         },
+                //     });
+                // })
+                var reitems = new Vue({
+                    el: '#actListBox',
+                    data: {
+                        recoms: [] //列表信息流数据
+                    }
+                });
+
+                function convert(items) {
+                    var newItems = [];
+                    items.forEach(function(item) {
+                        newItems.push({
+                            user_img: item.user_img,
+                            user_name: item.user_name,
+                            cut_money: item.cut_money,
+                            create_time: item.create_time
+                        });
+                    });
+                    return newItems;
+                }
+	           	$('.zikanyidao').click(function(){
+                    // if(if_author==0){
+                    //     alert('未授权不能砍价！');
+                    //     return false;
+                    // }
+	           		$.ajax({
+		                url:httpurl+"Cutdown/cut_help",
+		                type:"post",
+		                data:{
+		                	com_id:com_id,
+                            cus_id:user_id,
+		                	or_id:or_id
+		                },
+		                success:function(e){
+		                	if(e==1){
+                                window.location.reload();
+		                	}
+		                },
+		           	});
+	           	})
+	           	//帮砍一刀
+	           	$('.bangkanyidao').click(function(){
+                    // if(if_author==0){
+                    //     alert('未授权不能砍价！');
+                    //     return false;
+                    // }
+	           		$.ajax({
+		                url:httpurl+"Cutdown/cut_help",
+		                type:"post",
+		                data:{
+		                	com_id:com_id,
+		                	cus_id:user_id,
+		                	or_id:or_id
+		                },
+		                success:function(e){
+		                	$('.bangkanyidao').attr('style','display: none;');
+		                	$('.kanjiachenggong').attr('style','display: block;');
+		                	if(e==1){
+		                		 window.location.reload();
+		                	}else if(e==4){
+		                		alert('您已帮砍成功，不能再砍！');
+		                	}else if(e==3){
+		                		alert('砍价已完成！');
+		                		$('.zikanyidao').attr('style','display: none;');
+	                            $('.zhaorenbangm').attr('style','display: none;');
+	                            $('.youshangjiao').attr('style','display: none;');
+	                            $('.bangkanyidao').attr('style','display: none;');
+	                            $('.kanjiachenggong').attr('style','display: none;');
+	                            $('.wancheng').attr('style','display: block;');
+		                	}else if(e==5){
+                                alert('砍价失败，您的帮砍次数已达上限！');
+							}
+
+		                },
+		           	});
+	           	})
+	           	
+		        //倒计时
+				function shijian(end_times){
+					var endt = Date.parse(end_times) / 1000;//结束时间
+			        var totalSecond = endt - Date.parse(new Date()) / 1000;
+			        var interval = setInterval(function () {
+			          // 秒数  
+			          var second = totalSecond;
+			
+			          // 天数位  
+			          var day = Math.floor(second / 3600 / 24);
+			          var dayStr = day.toString();
+			          if (dayStr.length == 1) dayStr = '0' + dayStr;
+			
+			          // 小时位  
+			          var hr = Math.floor((second - day * 3600 * 24) / 3600);
+			          var hrStr = hr.toString();
+			          if (hrStr.length == 1) hrStr = '0' + hrStr;
+			
+			          // 分钟位  
+			          var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
+			          var minStr = min.toString();
+			          if (minStr.length == 1) minStr = '0' + minStr;
+			
+			          // 秒位  
+			          var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
+			          var secStr = sec.toString();
+			          if (secStr.length == 1) secStr = '0' + secStr;
+			
+						$('.dayStr').html(dayStr);
+						$('.hrStr').html(hrStr);
+						$('.minStr').html(minStr);
+						$('.secStr').html(secStr);
+						
+			          totalSecond--;
+			          if (totalSecond < 0) {
+			            clearInterval(interval);
+						$('.dayStr').html(00);
+						$('.hrStr').html(00);
+						$('.minStr').html(00);
+						$('.secStr').html(00);
+			          }
+			        }, 1000);
+				}
+			      	$('.zhaorenbangm').click(function(){
+			      		
+						$('.youshangjiao').attr('style','display: block;background-color: #aaa;');
+			            $('.zhaorenbangm').attr('style','display: none;');
+			           
+			     	})
+
+					$('.activity').click(function(){
+                        var ac_id = localStorage.getItem('ac_id');
+                        top.location.href = "index.html?user_id="+user_id+'&ac_id='+ac_id;
+					})
+			})
+		</script>
+		
+		
+	</body>
+</html>

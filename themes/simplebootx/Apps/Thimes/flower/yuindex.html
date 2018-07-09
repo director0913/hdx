@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>寻找最美萌娃</title>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<style>
+*{ margin:0; padding:0;}
+.wt100{ width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+body{width:320px;background:#ffdd48}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+.bgc{position:relative;width:320px;}
+.jigou{width:180px;position:absolute;top:90px;left:50%;margin-left:-90px;color:#8b8680;font-size:14px;text-align:center}
+.bg_title{width:180px;position:absolute;top:115px;left:50%;margin-left:-90px;color:#512101;font-size:15px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/bigwheel/images/wxTitle.jpg"  class="wt100" />
+    <div class="jichu">
+        <p class="slogan">寻找最美萌娃</p>
+        <span class="czspan" onclick="dianji('slogan','base')">编辑</span>
+    </div>
+</div>
+<div class="caozuoqu">
+    <div class="bgc">
+        <img src="__TMPL__Apps/Thimes/flower/images/banner.png" width="320"/>
+        <div class="jigou">
+            <div class="jichu">
+                <p class="school_name">满天星教育集团</p>
+                <span class="czspan" onclick="dianji('school_name','basic')">编辑</span>
+            </div>
+        </div>
+        <div class="bg_title">
+            <div class="jichu">
+                <p class="slogan">最美教师节评选大赛</p>
+                <span class="czspan" onclick="dianji('slogan','basic')">编辑</span>
+            </div>
+        </div>
+    </div>
+    <img src="__TMPL__Apps/Thimes/flower/images/footer.png" alt="" />
+</div>
+
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+</body>
+<script type="text/javascript">
+$(function(){ 
+	// genggai("title");
+	genggai("school");
+	genggai("slogan");
+    $(".jichu").bind({
+        'mousemove':function(){
+            $(this).css("border-color","#03C");
+            $(this).children(".czspan").css("display","block");
+        },
+        'mouseout':function(){
+            $(this).css("border-color","transparent");
+            $(this).children(".czspan").css("display","none");
+        }
+    }) 
+})  
+</script>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>重置密码</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color: #fff;}
+.nav{margin:60px 30px 0;height:30px;border-bottom:1px solid #bdbdbd;padding-bottom:10px;color:#bdbdbd;text-align:center;font-size:16px;}
+.content{margin:50px 35px;}
+.list li{position: relative;}
+.list li i{ position:absolute; bottom:20px; left:6px;font-size:20px; color:#bdbdbd;}
+.list li .yanzheng{ position:absolute;bottom:26px; right:8px; font-size:13px; color:#fc7219;}
+input[type="text"],input[type="tel"],input[type="password"]{padding:10px 10px 10px 30px;}
+.btn{height:38px;background-color: #fc7219;color:#fff;border-radius:2px;text-align: center;line-height:38px;font-size:16px;margin-top:20px;display:block;}
+</style>
+</head>
+<body>
+<ul class="nav">重置密码</ul>
+<div class="content">
+    <ul class="list">
+        <li>
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <!--
+            <div class="yanzheng">获取验证码</div>
+            -->
+            <input type="password" id="password" placeholder="新密码"/>
+        </li>
+        <li>
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <input type="password" id="repassword" placeholder="确认密码"/>
+        </li>
+        <input type="hidden" name="hash" id="hash" value="{$hash}">
+    </ul>
+    <a class="btn" href="javascript:void(0)">提交</a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+$(function(){
+    $(".btn").click(function(){
+        var password = $("#password").val();
+        var repassword = $("#repassword").val();
+        var hash = $("#hash").val();
+        var url = "{:U('user/login/dopassword_reset')}";
+        //alert(password+">>"+repassword+">>"+hash);
+        $.post(url,{password:password,repassword:repassword,hash:hash},function(res){
+            //alert(res.status+">>"+res.url+">>"+res.info);
+            if(res.status){
+                alert(res.info);
+                url="{:U('portal/mindex/user_center',array('menu'=>3))}";
+                window.location.href=url;
+            }else{
+                alert(res.info);
+            }
+        });
+            
+
+     });
+
+
+
+
+
+});
+</script>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>注册</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color: #fff;}
+.content{margin:60px 35px;}
+.shuoming{font-size:13px;color:#bdbdbd;margin-bottom:6px;}
+.list li{position: relative;}
+.list li i{ position:absolute; bottom:20px; left:6px;font-size:20px; color:#bdbdbd;}
+.list li .yanzheng{ position:absolute;bottom:26px; right:8px; font-size:13px; color:#fc7219;}
+input[type="text"],input[type="tel"],input[type="password"]{padding:10px 10px 10px 30px;}
+.btn{height:38px;background-color: #fc7219;color:#fff;border-radius:2px;text-align: center;line-height:38px;font-size:16px;margin-top:20px;display:block;margin-bottom:12px;}
+.denglu{font-size:13px;color:#bdbdbd;}
+.denglu a{display:inline-block; color:#fc7219;}
+</style>
+</head>
+<body>
+<div class="content">
+    <div class="shuoming">我们将发送验证码到您的手机</div>
+    <ul class="list">
+        <li>
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <input type="text" name="user_nicename" placeholder="姓名(后期可修改)"/>
+        </li>
+        <li>
+            <i class="aui-iconfont aui-icon-mobile"></i>
+            <div class="yanzheng getyanzheng">获取验证码</div>
+            <input type="tel" name="mobile" placeholder="手机号"/>
+        </li>
+        <li>
+            <i class="aui-iconfont aui-icon-loading"></i>
+            <input type="text" name="vertify" placeholder="验证码"/>
+        </li>
+        <li style="display:none;">
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <input type="hidden" name="password" value="123456" placeholder="设置密码"/>
+        </li>
+        <li style="display:none;">
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <input type="hidden" name="password2" value="123456" placeholder="确认密码"/>
+        </li>
+        <li>
+            <i class="aui-iconfont aui-icon-vip"></i>
+            <input type="text" name="level" placeholder="会员注册码(金牌会员填写)"/>
+        </li>
+    </ul>
+    <a class="btn next_step" href="javascript:void(0)">确认</a>
+    <div class="denglu aui-pull-right">已有账号？<a href="{:U('portal/mindex/login')}">登录</a></div>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+$(function(){
+    $(".getyanzheng").click(function(){dongyanzheng();});
+    $(".next_step").click(function(){
+        var user_nicename = $('input[name=user_nicename]').val();
+        var mobile = $('input[name=mobile]').val();
+        var vertify =$('input[name=vertify]').val();
+        var password = $('input[name=password]').val();
+        var password2 = $('input[name=password2]').val();
+        var vertify = $('input[name=vertify]').val();
+        var level = $('input[name=level]').val();
+		if(!user_nicename){alert("用户名不能为空！");return false;}
+        if(!mobile||mobile.length!=11){alert("请填写11位手机号！");return false; }
+        if(!vertify){alert("请填写验证码！");return false;   }
+		if(!password){alert("密码不能为空！");return false;}
+		if(!password2){alert("确认密码不能为空！");return false;}
+		if(password2!=password){alert("两次输入密码不一致！");return false;}
+
+        var yan=true;
+        if(!jianchamima('password','password2')) yan=false;
+        if(!jianchamima('password2','password')) yan=false;
+        if(!yan)
+            return false;
+        var url = "{:U('user/register/doregister')}";
+        $.post(url,{user_nicename:user_nicename,mobile:mobile,password:password,password2:password2,vertify:vertify,level:level},function(res){
+            if(res.status){
+                url="{:U('portal/mindex/user_center')}";
+                window.location.href = url;
+            }else{
+                alert(res.info);
+            }
+        });
+
+    });
+});
+function dongyanzheng()
+{
+    var mobile = $('input[name=mobile]').val();
+    if(!mobile||mobile.length!=11){
+        alert("请填写11位手机号！");return false;
+    }
+    //解除点击事件。
+   $(".getyanzheng").unbind();
+    //调用发送验证码接口
+    var url = "{:U('api/checkcode/sendMobbile_msg')}";
+    $.post(url,{mobile:mobile,type:'register'},function(res){
+        if(res.status){
+			$(".getyanzheng").html("发送中……");
+            zongshi=60;
+            $(".getyanzheng").html(zongshi+"秒后获取").unbind().css("color","#ddd");
+            jishi=setInterval("daoshi()",1000)
+        }else{
+			alert(res.info);
+            $(".getyanzheng").html("获取验证码");
+            $(".getyanzheng").click(function(){dongyanzheng();})
+        }
+    });
+}
+function jianchamima(objname,biname)
+{
+    var obj=$("input[name='"+objname+"']").eq(0);
+    //两个提示信息都清空。
+    $(obj).parent().find(".xinxi").html("");
+    if(biname!="password")
+        $("input[name='"+biname+"']").parent().find(".xinxi").html("");
+    //如果另一个值是重复密码
+    if(biname=="password2")
+    {
+        var objzhi=$(obj).val();
+        var objxinxi=$(obj).parent().find(".xinxi");
+        if(!objzhi)
+        {
+            objxinxi.html("密码不能为空"); return false;
+        }
+        if(objzhi.length<6||objzhi.length>16)
+        {
+            objxinxi.html("密码长度应在6-15位之间"); return false;
+        }
+    }
+    if(biname=="password")
+    {
+        var bizhi=$("input[name='"+biname+"']").val();
+        var objzhi=$(obj).val();
+        var objxinxi=$(obj).parent().find(".xinxi");
+        if(bizhi!=objzhi)
+        {
+            objxinxi.html("两次输入的密码不一致"); return false;
+        }
+    }
+    return true;
+}
+function daoshi()
+{
+    zongshi--;
+    $(".getyanzheng").html(zongshi+"秒后获取");
+    if(zongshi<=0)
+    {
+        $(".getyanzheng").html("获取验证码").css("color","#FA741B");
+        $(".getyanzheng").click(function(){dongyanzheng();});
+        clearInterval(jishi);
+    }
+}
+</script>
+</html>

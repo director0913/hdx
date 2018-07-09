@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <title>找回密码</title>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+		<link type="text/css" rel="stylesheet" href="css/login.css">
+	</head>
+	<body class="g-pwd">
+    	<div class="m-stepbar">
+    		<div class="item yanz1 z-active">身份验证<hr></div>
+    		&gt;
+    		<div class="item yanz2">重置密码<hr></div>
+    		&gt;
+    		<div class="item yanz3">完成<hr></div>
+    	</div>
+    	<div class="m-form" id="step1" >
+    		<div class="inputWrapper">
+	    		<div class="u-input number" id="acct">
+	    			<i class="typeIcon"></i><input id="mobile" type="text" placeholder="请输入手机号" maxlength="11">
+	    			<i class="clear" onclick="Step1.acct.value = '';" style="display: none;"></i>
+	    		</div>
+	    		<div class="u-input verifyCode" id="verifyCode">
+	    			<i class="typeIcon"></i><input id="verifyCodeVal" type="text" placeholder="请输入验证码" maxlength="4">
+	    			<input type="button"  class="button"id="getVerifyCodeBtn"value="获取验证码" style="border: 0;"/>
+	    		</div>
+	    	</div>
+    		<div class="u-error"></div>
+    		<a class="u-button z-block xiayibu">下一步</a>
+    	</div>
+    	
+    	<div class="m-form" id="step2" style="display: none;">
+    		<div class="inputWrapper">
+	    		<div class="u-input pwd" id="pwd1">
+	    			<i class="typeIcon"></i><input id="pwd1Val"type="password" placeholder="6-20位字符，区分大小写" maxlength="20">
+    				<!--<i class="vis"></i>-->
+	    			<i class="clear" onclick="Step2.pwd1.value = '';"></i>
+	    		</div>
+	    		<div class="u-input pwd" id="pwd2">
+	    			<i class="typeIcon"></i><input id="pwd2Val"type="password" placeholder="请再次确认密码" maxlength="20">
+    				<!--<i class="vis"></i>-->
+	    			<i class="clear" onclick="Step2.pwd2.value = '';"></i>
+	    		</div>
+	    		<div class="u-warn">
+	    			<i></i>为保障您的帐号安全，新密码必须与旧密码不同
+	    		</div>
+	    	</div>
+    		<div class="u-error"></div>
+    		<a class="u-button z-block wancheng">完成</a>
+    	</div>
+    	
+    	<div class="m-result" id="step3" style="display: none;">
+    		<i class="success"></i>您的密码已重置成功！<br>
+    		<a class="u-button z-primary" href="login.html" target="_blank">去登录</a>
+    	</div>
+    	<input type="hidden" name="" class='yanzhengma' id="" value="" />
+    	<input type="hidden" name="" class="dianhua" id="" value="" />
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+ 		<script type="text/javascript">
+ 			$("#getVerifyCodeBtn").click(function(){  
+		      var disabled = $("#getVerifyCodeBtn").attr("disabled");  
+		      if(disabled){  
+		        return false;  
+		      }  
+		      if($("#mobile").val() == "" || isNaN($("#mobile").val()) || $("#mobile").val().length != 11 ){  
+		        alert("请填写正确的手机号！");  
+		        return false;  
+		      }  
+		     settime();  
+		     var mobile = $("#mobile").val();
+		     	$.ajax({
+	                url:httpurl+"Add/back_password",
+	                type:"post",
+	                data:{
+	                	phone:mobile
+	                },
+	                success:function(data){
+	                	if(data==0){
+	                		alert('该手机号未注册，请先去注册！');
+	                	}else{
+	                		$('.yanzhengma').val(data);
+	                	}
+	                },
+	           	});
+		    });  
+		  	var countdown=60;
+		    var getVaildateCode = $("#getVerifyCodeBtn"); 
+		    function settime() {  
+		     	if (countdown == 0) {  
+			        getVaildateCode.attr("disabled",false);  
+			        getVaildateCode.val("获取验证码");  
+			        countdown = 60;  
+			        return false;  
+			    } else {  
+			        $(".getVerifyCodeBtn").attr("disabled", true);  
+			        getVaildateCode.val("重新发送(" + countdown + ")");  
+			        countdown--;  
+			    }  
+			    setTimeout(function() {  
+			        settime();  
+			    },1000);  
+		    }
+		    $('.xiayibu').click(function(){
+		    	var phone = $('#mobile').val();
+		    	var yanzhengma = $('.yanzhengma').val();
+		    	var verifyCodeVal = $('#verifyCodeVal').val();
+		    	if(phone == ''){
+		  			alert('请输入手机号！');
+		  			return false;
+		  		}
+		  		if(verifyCodeVal == ''){
+		  			alert('请输入验证码！');
+		  			return false;
+		  		}
+		  		if(yanzhengma!=verifyCodeVal){
+		  			alert('验证码输入错误！');
+		  			return false;
+		  		}
+		  		$('#step1').attr('style','display: none;');
+		  		$('#step2').attr('style','display: block;');
+		  		$('.dianhua').val(phone);
+		  		$('.yanz1').removeClass("z-active");
+		  		$('.yanz2').addClass("z-active");
+		    })
+		    $('.wancheng').click(function(){
+		    	var pwd1Val = $('#pwd1Val').val();
+		    	var pwd2Val = $('#pwd2Val').val();
+		    	var phone =  $('.dianhua').val();
+		    	if(pwd1Val.length<6){
+		    		alert('密码不能小于6位！');
+		    		return false;
+		    	}
+		    	if(pwd1Val!=pwd2Val){
+		    		alert('两次输入的密码不一致！');
+		    		return false;
+		    	}
+		    	$.ajax({
+	                url:httpurl+"Add/edit_password",
+	                type:"post",
+	                data:{
+	                	password:pwd2Val,
+	                	phone:phone
+	                },
+	                success:function(data){
+	                	if(data==1){
+	                		$('#step1').attr('style','display: none;');
+					  		$('#step2').attr('style','display: none;');
+					  		$('#step3').attr('style','display: block;');
+					  		$('.yanz1').removeClass("z-active");
+					  		$('.yanz2').removeClass("z-active");
+					  		$('.yanz3').addClass("z-active");
+	                	}
+	                },
+	           	});
+		    	
+		    })
+ 		</script>
+</body>
+</html>

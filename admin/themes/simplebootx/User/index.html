@@ -1,0 +1,131 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a>{:L('USER_INDEXADMIN_INDEX')}</a></li>
+			<li><a href="{:U('indexadmin/edit')}">添加用户</a></li>
+		</ul>
+		<form class="well form-search" method="post" id="cid-form">
+			<php>
+				$status1 = [
+					"1" => "免费会员",
+					"2" => "会员",
+					"3" => "黄金会员",
+					"4" => "私人定制会员",
+					"5" => "校营通会员"
+				];
+			</php>
+			<select class="select_2" name="level" style="width: 100px;" id="selected-cid">
+				<option value="">全部</option>
+				<foreach name="status1" item="vo">
+					<option value="{$key}" <if condition="$level eq $key">selected="selected"</if> >{$vo}</option>
+				</foreach>
+			</select>
+			时间：
+			<input type="text" name="start_time" class="js-date" value="{$formget.start_time|default=''}" style="width: 80px;" autocomplete="off">-
+			<input type="text" class="js-date" name="end_time" value="{$formget.end_time}" style="width: 80px;" autocomplete="off"> &nbsp; &nbsp;
+			关键字： 
+			<input type="text" name="keyword" style="width: 200px;" value="{$formget.keyword}" placeholder="请输入关键字...">
+			<input type=hidden id="is_export" name="is_export" value=0 />
+			<input type="submit" class="btn btn-primary" value="搜索" />
+			<input type="button"  class="btn btn-primary export" value="导出" />
+		</form>
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<!--<th align="center">ID</th>-->
+						<th>{:L('USERNAME')}</th>
+						<th>{:L('NICENAME')}</th>
+						<th>备注</th>
+						<!--<th>{:L('AVATAR')}</th>-->
+						<th>用户级别</th>
+						<!--<th>{:L('EMAIL')}</th>-->
+						<th>{:L('REGISTRATION_TIME')}</th>
+						<th>账号有效期</th>
+						<th>已处理</th>
+						<th>推荐人</th>
+						<th>表单|营销活动</th>
+						<!--<th>项目</th>-->
+						<!--<th>{:L('LAST_LOGIN_TIME')}</th>
+						<th>{:L('LAST_LOGIN_IP')}</th>
+						-->
+						<th>{:L('STATUS')}</th>
+						<th align="center">{:L('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<php>
+						$level = [
+							"1" => "免费会员",
+							"2" => "会员",
+							"3" => "黄金会员",
+							"4" => "私人定制会员",
+							"5" => "校营通会员"
+						];
+					</php>
+					<foreach name="lists" item="vo">
+					<tr>
+						<!--<td align="center">{$vo.id}</td>-->
+						<td>{$vo['user_login']?$vo['user_login']:L('THIRD_PARTY_USER')}</td>
+						<td>{$vo['user_nicename']?$vo['user_nicename']:L('NOT_FILLED')}</td>
+						<td><a href="{:U('indexadmin/remark',array('id'=>$vo['id']))}"><if condition="empty($vo['remark1']) and empty($vo['remark2'])">添加备注<else/>{$vo['remark1']}|{$vo.remark2}</if></a></td>
+						<!--<td><img width="25" height="25" src="{:U('user/public/avatar',array('id'=>$vo['id']))}" /></td>-->
+						<!--<td>{$vo.user_email}</td>-->
+						<td style="font-weight:bold;color:blue;">{$level[$vo['level']]}</td>
+						<td>{$vo.create_time}</td>
+						<td><if condition="empty($vo['valid_time'])">待确定<else/>{$vo.valid_time|date="Y-m-d",###}</if></td>
+						<td style="color:red;font-weight:bold;"><if condition="$vo['is_deal'] eq 1">已处理<else/>未处理</if></td>
+						<td>{$vo.recommend}</td>
+						<td>{$vo.is_form}|{$vo['is_activity']}</td>
+						<!--<td>{$vo.amount}</td>
+						<td>{$vo.item}</td>
+						-->
+						<!--
+						<td>{$vo.last_login_time}</td>
+						<td>{$vo.last_login_ip}</td>
+						-->
+						<td>{$user_statuses[$vo['user_status']]}</td>
+						<td align="center">
+							<a href="{:U('indexadmin/remark',array('id'=>$vo['id']))}">备注</a>|
+							<a href="{:U('indexadmin/edit',array('id'=>$vo['id']))}" >编辑</a>|
+							<a href="{:U('indexadmin/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="{:L('BLOCK_USER_CONFIRM_MESSAGE')}">禁用</a>|
+							<a href="{:U('indexadmin/cancelban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="{:L('ACTIVATE_USER_CONFIRM_MESSAGE')}">{:L('ACTIVATE_USER')}</a>|
+							<a href="{:U('indexadmin/delete',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="您确定要删除此用户么?">删除</a>|
+
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		function refersh_window() {
+			var refersh_time = getCookie('refersh_time');
+			if (refersh_time == 1) {
+				window.location = "{:U('Indexadmin/index',$formget)}";
+			}
+		}
+		setInterval(function() {
+			refersh_window();
+		}, 2000);
+		$(function() {
+			$("#is_export").val(0);
+			$("#selected-cid").change(function() {
+				$("#cid-form").submit();
+			});
+			$("#selected-cid1").change(function() {
+				$("#cid-form").submit();
+			});
+			$(".export").click(function(){
+				$("#is_export").val(1);
+				$("#cid-form").submit();
+			});
+		});
+	</script>
+</body>
+</html>

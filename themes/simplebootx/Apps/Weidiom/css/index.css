@@ -1,0 +1,107 @@
+@charset "UTF-8";
+/*公共样式开始111*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+body{width:750px;background:#a0c054;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+#fullbg{background-color:rgba(0,0,0,0.8); left:0; opacity:0.8;top:0; bottom:0; right:0; position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fullbg2{z-index:20;}
+.bgc{position:relative;width:750px;}
+.nav{width:750px; height:76px; background-color:#fff;color:#000;font-size:30px;line-height: 76px;}
+.nav ul li{float:left;width:33%; text-align: center;}
+.nav ul li strong{margin:0px auto;background:no-repeat;padding-left:68px;font-weight: normal;padding-top:10px;padding-bottom:10px;}
+.nav ul li span{color:#f00;}
+.nav ul li .fangwen span{color:#000;}
+.nav ul .fangwen{background-image:url(../images/visitor.png);background-position:20px center;}
+.nav ul .ming{background-image:url(../images/enrol.png);background-position:20px center;}
+.nav ul .canyu{background-image:url(../images/number.png);background-position:10px center;}
+#yinyue{position:absolute; z-index:2; top:20px; right:38px; width:70px; height:70px;background:url(../images/music.png) center center no-repeat; animation: bgRotate 6s linear infinite; background-size:auto 100%; -webkit-animation: bgRotate 6s linear infinite; -moz-animation: bgRotate 6s linear infinite; -o-animation: bgRotate 6s linear infinite;}
+@keyframes bgRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@-webkit-keyframes bgRotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes bgRotate{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}}@-o-keyframes bgRotate{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(360deg)}}
+.ting{animation-play-state: paused !important; -webkit-animation-play-state: paused !important; animation:inherit !important; -webkit-animation:inherit !important; -moz-animation:inherit !important; -o-animation:inherit !important;}
+/*登录开始*/
+.kaishi,.jieshu{padding-bottom:40px;font-size:42px;text-align:center;color:#fff;}
+.bgc1{width:568px;background-color:#c8e0bc;margin:0 auto;padding:28px 24px;}
+.bgc2{background-color:#e3f5ff;text-align:center;position: relative;}
+.close1{right:10px;top:10px;width:52px;position: absolute;}
+.biaoti{font-size:26px;color:#5c371a;background:url(../images/title.png) no-repeat;background-size:100% 100%;width:420px;height:74px;line-height:72px;top:-40px;position:absolute;left:50%;margin-left:-210px;}
+.biaoti_l{line-height:1.3em;text-align:left;padding-left:50px;padding-top:6px;box-sizing:border-box;}
+.login{padding-top:60px;padding-bottom:36px;}
+.login .user{width:124px;height:124px;border:6px solid #e4ae4b;border-radius:50%;overflow: hidden;margin:0 auto;}
+.login .user img{width:100%;height:auto;}
+input{outline:none;}
+.login p.text{text-align:center;margin-top:30px;margin-bottom:6px;}
+#name,#tel{font-size:30px;color:#fff;border-radius:20px;width:492px;height:94px; text-align:center;margin:0 auto;margin-bottom:30px;padding:0 20px;box-sizing:border-box;background-color:#5c371a;border:none;}
+.submit img{height:80px;}
+/*登录结束*/
+/*接力开始*/
+.jieli{padding:100px 25px;display:none;}
+.jieli p{font-size:28px;}
+.jieli p span{color:#5b2e0d;}
+.btn{margin:40px 86px;display:none;}
+.btn .btn_jilu{float:left;width:248px;height:80px;}
+.btn .btn_ask{float:right;width:248px;height:80px;}
+.btn .btn_jilu img,.btn .btn_ask img{width:100%;}
+/*接力结束*/
+/*接力成功开始*/
+#result{width:568px;background-color:#95a3a3;margin:0 auto;padding:28px 24px;position:fixed;top:50%;left:50%;margin-left:-308px;margin-top:-280px;z-index:12;display:none;}
+.re_bg2{background-color:#e3f5ff;text-align:center;position:relative;padding:40px 26px 40px;position:relative;}
+.close1{position: absolute;}
+.result_btn{width:208px;height:74px;background-color:#96c8ed;color:#fff;text-align:center;margin:0 auto;border-radius:37px;line-height:74px;border:3px solid #6c8ed8;margin-top:40px;font-size:36px;}
+.re_bg2 .re_title{font-size:36px;color:#2b2a2f;}
+.re_bg2 .re_title img{width:410px;height:110px;}
+.re_bg2 .jieshi{font-size:32px;color:#46280c;line-height:46px;text-align:left;margin-top:40px;}
+/*接力成功结束*/
+/*猜成语开始*/
+.cai{padding:60px 25px 40px;display:none;}
+.cai ul{padding:34px 14px;text-align:center;}
+.cai ul li{width:100px;height:100px;border-radius:8px;background-color: #46280c;float:left;margin-right:30px;line-height:100px;color:#fff;font-size: 60px;text-align: center;}
+.cai ul li:last-child{margin-right:0;}
+.cai input{width:100%;height: 100%;outline: none;border:none;background-color:transparent;}
+input[type="text" i]{padding-top:0!important;}
+.word{color:#fff;font-size: 60px;text-align: center;}
+.cai p.cai_btn{padding-top:10px;width:180px;height:72px;margin:0 auto;}
+.cai p.cai_btn img{width:100%;}
+/*guize开始*/
+.guize{background-color:#fff;width:704px;margin:0 auto;margin-bottom:30px; margin-top:37px; position:relative;padding:26px 0;border-radius: 10px;}
+.guize .title{text-align:center;border-bottom:2px solid #406dc9;width:92%; margin:0 auto;padding-bottom: 16px;}
+.guize .text{font-size:26px;padding:10px 30px;}
+/*guize结束*/
+/*列表开始*/
+.liebiao table{margin:0 auto;font-size:30px;width:710px;}
+table tr{border:1px solid #b2c4d3;color:#5c371a;border-bottom: none;}
+.tt{background-color: #fe8500!important;color:#fff!important;line-height:60px;height:60px;}
+.wd120{width:120px;text-align:center;}
+.wd180{width:180px;text-align:center;}
+.wd250{width:250px;text-align:center;}
+.wd160{width:160px;text-align:center;}
+.tt .wd170{text-align:center ;}
+.liebiao td{line-height:50px;height:50px;}
+.liebiao tr{display:block;}
+tr:nth-child(2n){background-color: #bcf2fe;}
+tr:nth-child(2n+1){background-color: #fff;}
+.more{width:704px;text-align: center;background-color:#fff;margin:0 auto;height:85px;line-height:85px;font-size: 32px;border:1px solid #b2c4d3;color:#848486;margin-top:-2px;}
+.more img{margin-right:10px;}
+/*列表结束*/
+/*接力记录开始*/
+#jilu{width:568px;background-color:#95a3a3;margin:0 auto;padding:28px 24px;position:fixed;top:50%;left:50%;margin-left:-308px;margin-top:-486px;z-index:12;display:none;}
+.jilu_bg{background-color:#e3f5ff;text-align:center;position:relative;height:846px;padding-top:70px;}
+#jilu .biaoti{font-size:34px;}
+#jilu .close{position:absolute;right:10px;top:10px;width:52px;}
+#jilu ul{padding:0 10px;overflow:auto;height:100%;}
+#jilu ul li{border-bottom:2px solid #8c8a7c;padding:26px 12px;}
+#jilu ul li:after{content: "";display: block;clear: both;}
+#jilu ul li .user{width:92px;height:92px;border:2px solid #e3a72f;border-radius:50%;overflow: hidden;float: left;margin-right: 14px;padding:2px;}
+#jilu ul li .user img{width:100%;border-radius:50%;}
+#jilu ul li .wenzi{font-size:28px;overflow: hidden;}
+#jilu ul li .wenzi .xinxi{margin-top:12px;margin-bottom:12px;}
+#jilu ul li .wenzi .name{float:left; }
+#jilu ul li .wenzi .time{float:right;}
+#jilu ul li .wenzi .detail{text-align: left;}
+/*接力记录结束*/
+#fenxiang{ position:fixed;width:260px;height:170px;top:50%; left:50%; margin-top:-85px; margin-left:-130px; z-index:9; display:none;}
+.banquan{text-align:center;font-size:13px; color:#fff;margin-top:40px;margin-bottom:12px;}

@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    font-size: 100px;
+    /* rem是根据元素的大小来的 */
+}
+
+body {
+    width: 640px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.activity {
+    width: 69%;
+    height: 51px;
+    font-size: 23px;
+    background: url("../img/unpub.png") no-repeat;
+    background-position: 93%;
+    line-height: 51px;
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.guanb {
+    position: fixed;
+    right: 0;
+    top: -40px;
+}
+
+.box {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background: #FF8EA3;
+    overflow: hidden;
+}
+
+.rotate {
+    -webkit-animation: rotating 1.2s linear infinite;
+    animation: rotating 1.2s linear infinite;
+}
+
+.bgm-btn {
+    margin-left: 15px;
+    top: 50px;
+    background-image: url(../img/yin.png);
+    background-size: 50px;
+    background-repeat: no-repeat;
+}
+
+.bgm-btn {
+    position: absolute;
+    z-index: 200;
+    width: 54px;
+    height: 54px;
+}
+
+audio {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.r_timp {
+    float: left;
+    line-height: 50px;
+    color: #fff;
+    font-size: 23px;
+    margin-left: 30px;
+}
+
+.r_time {
+    width: 95%;
+    height: 50px;
+    background: rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    margin: 40px auto 0;
+}
+
+.center {
+    width: 95%;
+    height: auto;
+    margin: 0 auto;
+    background: #ffffff;
+}
+
+.center-head {
+    width: 100%;
+    height: 90px;
+}
+
+.toux {
+    float: left;
+    width: 15%;
+    height: 90px;
+}
+
+.toux img {
+    width: 100%;
+    border-radius: 100%;
+    display: block;
+}
+.center-div{
+    width: 85%;
+    float: left;
+    height: 50%;
+    font-size: 30px;
+    color: #585858;
+}
+.center-div1{
+    width: 85%;
+    float: left;
+    height: 50%;
+}
+.center-div1 div{
+    float: left;
+    width: 50%;
+    text-align: left;
+    color: #585858;
+    font-size: 30px;
+}
+.center-div1 div:nth-child(2){
+    text-align: right;
+    color: #f00;
+}
+.center-cen{
+    margin-top: 5px;
+    width: 100%;
+    height: auto;
+    font-size: 25px;
+    color: #585858;
+}
+.center-ge{
+    width: 100%;
+    height: auto;
+}
+.center-ge-di{
+    width: 90%;
+    height: 550px;
+    margin: 20px auto;
+    background: #8E62FF;
+}
+
+.center-ge img{
+    display: block;
+    width: 100%;
+}
+.head-bott{
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+    text-align: center;
+    color: #333;
+    text-shadow: -1px -1px 0 #fff, 0px -1px 0 #fff, 1px -1px 0 #fff, 1px 0 0 #fff, 1px 1px 0 #fff, 0px 1px 0 #fff, -1px 1px 0 #fff, -1px 0 0 #fff;
+}
+.kong{
+    width: 100%;
+    height: 70px;
+
+}
+.cent-botton{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    background: #fff;
+}
+.cent-botton div{
+    width: 20%;
+    height: 70px;
+    float: left;
+    text-align: center;
+    color: #15a1f1;
+    font-size: 25px;
+    line-height: 70px;
+}
+.cent-botton div:nth-child(2){
+    float: right;
+}

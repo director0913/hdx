@@ -1,0 +1,174 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ background-color:#EDEDED;}
+.formdiv .zuodiv::-webkit-scrollbar-track,.formdiv .zuodiv .shoujike div.muban::-webkit-scrollbar-track,.formdiv .youdiv .neidiv::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.9); border-radius: 0; background: rgba(0,0,0,0.1);}
+.formdiv .zuodiv::-webkit-scrollbar-thumb,.formdiv .zuodiv .shoujike div.muban::-webkit-scrollbar-thumb,.formdiv .youdiv .neidiv::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.9); background: rgba(0,0,0,0.9);}
+.formdiv .zuodiv::-webkit-scrollbar,.formdiv .zuodiv .shoujike div.muban::-webkit-scrollbar,.formdiv .youdiv .neidiv::-webkit-scrollbar{width: 4px; height: 4px;}
+.pagediv{ width:1060px;}
+.fabuqu{ background-color:#FFF; border:1px solid #CECECE; border-top:none; padding:5px 0;}
+.fabuqu .zuodiv,.fabuqu .youdiv{ height:31px; line-height:31px; font-size:14px;}
+.fabuqu a{ color:#797268;}
+.fabuqu .zuodiv{ padding-left:40px;}
+.fabuqu .youdiv{ padding-right:68px;}
+.fabuqu .youdiv a{ margin-left:5px; padding:0 15px;}
+.fabuqu .youdiv .fa{ font-size:20px;}
+.fabuqu .youdiv a.lanbtn{ padding:0 28px; background-color:#FA741B; color:#FFF; border-radius:5px; display:inline-block; height:31px;}
+.fabuqu .youdiv a.lanbtn img{ margin-right:5px;}
+.fabuqu .youdiv a.huibtn{ background-color:#F5F6FA; display:inline-block; height:29px; border:1px solid #D3D3D3; border-radius:5px;}
+
+.formdiv{ width:1060px; margin:20px auto 0; background-color:#FFF;}
+.formdiv .zuodiv{ position:absolute; top:0; left:0; bottom:0; width:394px; border-right:1px solid #DBDBDB;}
+.formdiv .zuodiv .shoujike{ position:absolute; top:0px; left:0px; width:320px; bottom:0; padding:45px 15px 0 15px; background:url(../../images/shoujike2.png) 0 0 no-repeat; margin:25px; margin-bottom:0;}
+.formdiv .zuodiv .shoujike div.muban{ height:100%; max-height:566px; overflow:auto;}
+.formdiv .youdiv{ position:absolute; top:0; right:0; bottom:0; width:666px;}
+.formdiv .youdiv .daohangdiv{ border-bottom:1px solid #ededf3; background-color:#FFF; margin-left:1px; position:relative; z-index:1;}
+.formdiv .youdiv .daohangdiv li{ position:relative; float:left;    margin: 0 25px;
+    line-height: 40px;
+    height: 40px;
+    color: #8c8c8c;
+    padding: 0 7px;
+    position: relative; cursor:pointer;}
+.formdiv .youdiv .daohangdiv li.active{border-bottom: 3px solid #14cc76;
+    color: #404040;}
+.formdiv .youdiv .daohangdiv li em{    width: 7px;
+    height: 11px;
+    display: block;
+    background-position: -59px -229px;
+    position: absolute;
+    top: 14px;
+    right: -29px;
+	color:#a8abb3; font-size:12px;
+}
+.formdiv .youdiv .neidiv{ padding:20px; overflow:auto; position:absolute; top:43px; left:0; right:0; bottom:0;}
+.formdiv .youdiv .neidiv .title{ font-size:14px; margin-bottom:11px;}
+.formdiv .youdiv .neidiv .title span{ color:#F00; margin-left:10px;}
+.formdiv .youdiv .tishi{background-color:#f3f5f9; height:53px; line-height:53px; font-size:13px; color:#333; padding:0 23px;}
+.formdiv .youdiv .tishi span{ margin-right:10px;}
+.formdiv .youdiv .neidiv .title span.fa-info,.formdiv .youdiv .neidiv .xiaotitle span.fa-info,.formdiv .youdiv .neidiv .title span.fa-question,.formdiv .youdiv .neidiv .xiaotitle span.fa-question,.formdiv .youdiv .tishi span.fa-info{ background-color:#0bb6fd; color:#FFF; border-radius:50%; padding:2px 7px; cursor:pointer;}
+.formdiv .youdiv .neidiv .bangzhu{ position:absolute; width:438px; left:-10px; border:1px solid #ededf1; background-color:#FFF; font-size:14px; color:#3e3e3e; line-height:28px; padding:13px; top:-100px; box-shadow: 0px 2px 4px 0px rgba(64,64,64,0.1); display:none;}
+.formdiv .youdiv .neidiv .bangzhu img{ position:absolute; bottom:-8px; left:95px; height:8px;}
+.formdiv .youdiv .neidiv .input,.formdiv .youdiv .neidiv .textarea{ width:100%; height:32px; border:1px solid #D9D9D9; padding:0 10px; -webkit-box-sizing: border-box; box-sizing: border-box;}
+.formdiv .youdiv .neidiv .textarea{ height:100px;}
+.formdiv .youdiv .neidiv .itemdiv{ margin-bottom:24px; font-size:14px; color:#010101;}
+.formdiv .youdiv .neidiv .baoming .baomingdiv{ background-color:#fcfcfc;}
+.formdiv .youdiv .neidiv .help{ color:#999; line-height:20px;}
+.formdiv .youdiv .neidiv .huodongdiv{ padding:20px 24px; border:1px solid #D8D8D8;}
+.formdiv .youdiv .neidiv .huodongdiv ul{ width:302px;}
+.formdiv .youdiv .neidiv .huodongdiv li{ width:138px; height:76px; margin:0 13px 13px 0; float:left; overflow:hidden; position:relative;}
+.formdiv .youdiv .neidiv .huodongdiv li .fa,.formdiv .youdiv .neidiv .huodongdiv .ziji .zidingtu .fa{ padding:5px; background-color:#F4741D; color:#FFF; border-radius:50%; position:absolute; bottom:5px; right:5px; display:none;}
+.formdiv .youdiv .neidiv .huodongdiv li.active .fa,.formdiv .youdiv .neidiv .huodongdiv .ziji .zidingtu.active .fa{ display:block;}
+.formdiv .youdiv .neidiv .huodongdiv li img{ width:100%;}
+.formdiv .youdiv .neidiv .huodongdiv .ziji{ width:257px; text-align:center;}
+.formdiv .youdiv .neidiv .huodongdiv .ziji .zidingtu{width:156px; height:91px; overflow:hidden; margin:0 auto 16px; position:relative;}
+.formdiv .youdiv .neidiv .huodongdiv .ziji .zidingtu img{width:156px; height:91px;}
+.formdiv .youdiv .neidiv .huodongdiv .ziji .chuanbtn{ width:102px; height:32px; line-height:32px; border:1px solid #EEEEF0; text-align:center; color:#463D36; margin:0 auto 12px; cursor:pointer;}
+.formdiv .youdiv .neidiv .baomingdiv{ border:1px solid #D8D8D8;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem{ margin-top:23px; color:#797977; min-height:36px; line-height:36px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .xiaotitle,.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv{ width:75px; min-height:36px; padding-left:10px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changinput{ width:437px; height:34px; border:1px solid #C6C6C6; -webkit-box-sizing: border-box; box-sizing: border-box; padding:0 10px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changdiv{ width:435px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changdiv .addxiaoitem{ width:101px; height:34px; line-height:34px; border:1px solid #C6C6C6; text-align:center; margin-top:19px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changdiv ul{ width:470px}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changdiv ul li{ width:50%; float:left; margin-top:19px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changdiv ul li input{ width:200px; height:34px; border:1px solid #C6C6C6; -webkit-box-sizing: border-box; box-sizing: border-box; padding:0 10px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changdiv ul li .fa-close{ position:absolute; top:-10px; right:25px; height:19px; line-height:19px; background-color:#C0C2CE; color:#FFF; text-align:center; border-radius:50%;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changdiv ul li .fa-close:hover{ background:#666;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv p{ float:left; width:20px; height:20px; margin:8px 6px; background-repeat:no-repeat; background-position:0 0;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv p.weixuan{ background-image:url(../../images/pop_no2_3.png); background-size:18px auto;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv p.xuanze{ background-image:url(../../images/subinfo_pic_check.png); background-size:18px 18px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv p.shanchu{ background-image:url(../../images/del.png); background-size:18px auto;background-position:center center;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv p.shanchu:hover{ background-image:url(../../images/del1.png); }
+
+.shouqidiv{ width:144px; height:30px; line-height:30px; border:1px solid #D9D9D9; border-bottom:none; margin:23px auto 0; text-align:center; color:#808080; cursor:pointer;}
+.xianbaoming{ border:1px solid #D8D8D8; height:49px; line-height:49px; color:#B3B3B1; text-align:center; margin-bottom:23px; font-size:14px; cursor:pointer;}
+.xianbaoming span{ color:#239EE2;}
+#fenxiaoxiang textarea{ width:100%; height:70px; padding:10px; -webkit-box-sizing: border-box; box-sizing: border-box;}
+
+.formdiv .youdiv .neidiv .itemdiv .zidingyi div{ margin-bottom:30px;}
+.formdiv .youdiv .neidiv .itemdiv .zidingyi div input[type="text"],.formdiv .youdiv .neidiv .itemdiv .zidingyi div textarea{ width:460px;}
+.formdiv .youdiv .neidiv .itemdiv .zidingyi div textarea{ height:50px;}
+.formdiv .youdiv .neidiv .itemdiv .huakuang{ border:1px solid #DFE4E7; background-color:#F7FBFE; width:397px; padding:0 32px 10px;}
+.formdiv .youdiv .neidiv .itemdiv .huakuang p{ float:left; margin-right:15px; margin-bottom:11px; width:106px; height:40px; line-height:40px; border:1px dashed #969698; padding:0 3px 0 6px; cursor:pointer;}
+.formdiv .youdiv .neidiv .itemdiv .zidingyi div.tishi{ margin:15px 0;}
+.zidingyi .fa{ cursor:pointer;}
+.m_t11{ margin-top:11px;}
+.shaoduaninput{ width:130px; height:32px; line-height:32px; padding-left:38px; margin-right:14px; border:1px solid #D9D9D9; vertical-align:middle; background:15px center no-repeat;}
+.timeselect{ width:100px; height:34px; line-height:34px; border:1px solid #D9D9D9; padding-left:33px; vertical-align:middle; background:url(../../images/naozhong.png) 7px center no-repeat;}
+.lianjie{ margin:0 5px; vertical-align:middle;}
+.riqizuo{ background-image:url(../../images/riqizuo.png);}
+.riqiyou{ background-image:url(../../images/riqiyou.png);}
+.ui-datepicker {
+    width: 218px;
+	padding:0;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl{
+	border-radius:0;
+}
+.ui-widget-header{
+	background-color:#f4f5f9;
+	border:1px solid #f4f5f9;
+}
+.ui-widget{ font-size:14px;}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.ui-datepicker th { background-color:#f7f8fa;}
+.ui-datepicker td span, .ui-datepicker td a{
+	height:22px; line-height:22px; width:22px; text-align:center; border-radius:50%;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
+	border:none;
+	background-color:inherit;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus {
+    background: #ededed;
+    font-weight: normal;
+    color: #2b2b2b;
+	border-radius:50%;
+}
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #dad55e;
+    background: #fffa90;
+    color: #777620;
+}
+.ui-state-active, .ui-widget-content .ui-state-active{ color:#454545; background-color:#AEB1F9;}
+.addhuodong{ display:none;}
+.addhuodong.active{ display:block;}
+.jiantoudiv{width: 27px; height: 48px; background-color: rgba(0,0,0,.6); background-repeat: no-repeat; background-image: url(../../images/mubanjiantou.png); background-size: 60% auto; position: absolute; top: 50%; margin-top: -24px; cursor: pointer;}
+.leftjiantou {background-position: center -55px; left: -14px; border-radius: 10px 0 0 10px;}
+.youjiantou {background-position: center 12px; right: -15px; border-radius: 0 10px 10px 0;}
+.chuandiv{padding-right:70px;}
+.chuandiv .chuanbtn{position:absolute; top:0; right:0; width:69px; height:30px; line-height:30px; background-color:#FFF; border:1px solid #CCC; text-align:center; cursor:pointer;}
+.m_tb10{ margin:10px 0;}
+.jiangxiangul{ margin-bottom:-1px;}
+.jiangxiangul li{ float:left; width:80px; height:32px; line-height:32px; background-color:#FFF; color:#42413e; text-align:center; cursor:pointer; border:1px solid transparent; border-bottom-color:#d5d5d9;}
+.jiangxiangul li.active{ border-color:#d5d5d9; border-bottom-color:#fbfbfb; background-color:#fbfbfb;}
+.formdiv .youdiv .neidiv .jiangdiv{ background-color:#fbfbfb;}
+.formdiv .youdiv .neidiv .jiangdiv input,.formdiv .youdiv .neidiv .jiangdiv textarea{ background-color:#FFF;}
+.formdiv .youdiv .neidiv .jiangdiv .xiaoitem .xiaotitle{ width:92px; text-align:center;}
+.formdiv .youdiv .neidiv .jiangdiv .xiaoitem .icodiv{ width:36px;}
+.formdiv .youdiv .neidiv .xiaotitle span.fa-info,.formdiv .youdiv .neidiv .xiaotitle span.fa-question{ background-color:#0bb6fd; position:absolute; right:0; top:10px; font-size:12px; padding:0 4px;}
+.formdiv .youdiv .neidiv .xiaotitle span.fa-question{ right:-5px; top:5px; padding:2px 4px;}
+.jiangxiang{ display:none;}
+.jiangxiang.active{ display:block;}
+.formdiv .youdiv .neidiv::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* 滚动槽 */
+.formdiv .youdiv .neidiv::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
+
+/* 滚动条滑块 */
+.formdiv .youdiv .neidiv::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: rgba(0,0,0,0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+.formdiv .youdiv .neidiv::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255,0,0,0.4);
+}

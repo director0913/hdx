@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>报名信息</title>
+<tc_include file="Public:head1" />
+<link href="__PUBLIC__/js/artDialog/skins/default.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/signup.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/addactivity.css" />
+<style type="text/css">
+.formdiv .youdiv,.formdiv .youdiv .neidiv{ position:static;}
+.pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+.pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+.pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+.pagelist a, .pagelist a:visited{color:#252525} 
+.pagelist a:hover, .pagelist a:active{color:#8D827E} 
+.pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+.pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+.pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+.prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+.prev{color:#e5e5e5} 
+.ep-pages-all{font-size:12px;vertical-align:top} 
+.submit_form {
+    height: 34px;
+    padding: 0 10px;
+    background-color: #F67519;
+    border: none;
+    color: #FFF;
+    border-radius: 3px;
+}
+.daohang,.daohang a {font-size: 22px;color: #333333;padding: 20px 0 27px;}
+</style>
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="toptu">
+	<div class="pagediv1">
+        <div class="f_l">
+            <if condition="empty($users_info['avatar'])">
+                <img src="__TMPL__Public/images/touxiang.jpg" class="touxiang f_l" />
+            <else />
+                <img src="{:sp_get_asset_upload_path($users_info['avatar'])}" class="touxiang f_l" />
+            </if>
+            <div class="f_l">
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">账号类型：<eq name="users_info['level']" value="0">普通会员</eq><eq name="users_info['level']" value="1">亲情会员</eq><eq name="users_info['level']" value="2">金牌会员</eq><a href="#">如何升级权限</a></p>
+                <p class="bianji"><a href="{:U('user/center/index')}"><span class="fa fa-pencil"></span>编辑资料</a></p>
+            </div>
+        </div>
+        <div class="f_r">
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/activity/index')}">
+            	<p class="number">{$activity_num}</p>
+                <p class="typename">我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+        	<div class="f_l fenxinxi active">
+                <a href="{:U('portal/app/index')}">
+            	<p class="number">{$app_num}</p>
+                <p class="typename">我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div>
+<div style="margin-left:150px;"><p class="daohang"><a href="/index.php/portal/app/index.shtml">我的应用</a><span>&gt;</span><a href="{:U('portal/app/app_show_join',array('id'=>$activity['id']))}">{$activity['title']}</a><span>&gt;</span>用户信息</p></div>
+<form action=""  class="weicircle_form" method="post">
+<div class="formdiv">
+	<div class="youdiv">
+		
+    	<div class="neidiv">
+        	<div class="itemdiv">
+            	<p class="title">姓名<span>*</span></p>
+                <input type="text" class="input mustinput" data-tip="姓名不能为空！" value="{$username}" name="username" placeholder="姓名">
+            </div>
+			<div class="itemdiv">
+            	<p class="title">手机号<span>*</span></p>
+                <input type="text" class="input mustinput" data-tip="请输入11位手机号！" value="{$mobile}" name="mobile" placeholder="请填写手机号">
+            </div>
+			<div class="itemdiv">
+            	<p class="title">总票数<span>*</span></p>
+                <input type="text" class="input"  value="{$per_num}" name="per_num" placeholder="总票数">
+            </div>
+            <div class="itemdiv">
+                <p class="title">照片<span>*</span></p>
+                <div class="p_r chuandiv">
+                    <input type="text" class="input mustinput" name="thumb" data-tip="请先上传照片！" id="thumb" value="{$thumb}" placeholder="照片" oninput="alert(1)" onpropertychange="alert(1)"/>
+                    <p class="chuanbtn" onclick="flashupload('thumb_images', '附件上传','thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                </div>
+                <div>
+					<if condition="empty($thumb)">
+					   <img src="__TMPL__Apps/Common/images/nopic.jpg" id="thumb_preview" class="m_tb10" width="120"/>
+					<else/>
+						<img src="{$thumb}" id="thumb_preview" class="m_tb10" width="120"/>
+					</if>
+                </div>
+                <p class="help">图片大小不能超过2M</p>
+            </div>
+			<div class="itemdiv">
+            	<p class="title">宣言(20字以内)<span>*</span></p>
+                <textarea  class="textarea mustinput" rows="5" cols="57" data-tip="宣言内容不能为空！" name="remark" placeholder="一句话描述下自己">{$remark}</textarea>
+            </div>
+			<input type=hidden name="aid" value="{$aid}">
+			<input type=hidden name="id" value="{$id}">
+            <input type="button" class="btn default  submit_form" value="确认提交" />
+        </div>
+    </div>
+</div>
+</form>
+<tc_include file="Public:footer"/>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">18638900740</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">机构项目</td>
+            <td>
+                <label><input type="checkbox" value="1" />幼少儿培训</label>
+                <label><input type="checkbox" value="1" />初高中培训</label>
+                <label><input type="checkbox" value="1" />幼儿园</label>
+                <label><input type="checkbox" value="1" />早教机构</label><br/>
+                <label><input type="checkbox" value="1" />文化课培训</label>
+                <label><input type="checkbox" value="1" />素质教育课程</label>
+                <label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">地区</td>
+            <td class="address">
+                <select>
+                    <option>请选择省份</option>
+                </select>
+                <select style="margin-right:0;">
+                    <option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">规模</td>
+            <td>
+                <label><input type="radio" value="1" />300人以下</label>
+                <label><input type="radio" value="1" />300-800人</label>
+                <label><input type="radio" value="1" />800-3000人</label>
+                <label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd"></td>
+            <td align="center">
+                <input type="submit" class="" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+$(function(){
+     $(".submit_form").click(function(){
+		var flag = true;
+		$(".mustinput").each(function(){
+			var value = $(this).val();
+			if(!value){
+				flag = false;
+				var tip=$(this).attr("data-tip");
+				alert(tip);
+				return false;
+			}
+		});
+        if(flag==false){return false;}
+        var url = window.location.href;
+        $.post(url,$(".weicircle_form").serializeArray(),function(res){
+            alert(res.info);
+            if(res.status){
+				window.location.href = res.url;
+            }
+        });
+		
+    });
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$(".tab li").click(function(){
+		if($(this).attr("data-url")!="")
+		{
+			window.location.href=$(this).attr("data-url");return;
+		}
+		$(".tab li.active").removeClass("active");
+		//隐藏所有标记
+		$(".xiadiv").hide();
+		//获取标记
+		var idzhi=$(this).attr("data-tab");
+		//显示标记对应的div
+		$("#"+idzhi).show();
+		$(this).addClass("active");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+})
+$(".delete").click(function(){
+	if(!window.confirm('删除将不可恢复，确认吗？')) return;
+	var id=$(this).attr('data-id');
+	 $.post("{:U('portal/app/form_prize_delete')}",
+	{
+	   id:id
+	},
+	function(data,status){
+		if(data.status<0)
+		{
+			alert(data.msg);
+		}
+		if(data.status==1)
+		{
+			window.location.href=window.location.href;
+		}
+	});
+
+})
+$("#search1").click(function(){
+    var name=$("#searchname1").val();
+    var id="{$_GET['userid']}";
+    var url="/index.php/portal/app/app_show_prize/userid/"+id+"/aid/{$aid}/keyword/"+name+".shtml";
+    window.location.href = url;
+})
+$(".tijiao").click(function(){
+    var school=$("input[name='school']").val();
+    var contact=$("input[name='contact']").val();
+    var mobile=$("input[name='mobile']").val();
+    //alert(school+contact+mobile);
+    $.post("{:U('user/profile/full_post')}",
+        {
+           school:school,
+           contact:contact,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //$('.fuxinxi').hide();
+                window.location.reload();
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+ 
+   
+})
+</script>
+</html>

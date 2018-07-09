@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/regist.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+</head>
+<body>
+<div class="p_r topdiv">
+    <img src="__TMPL__Public/images/login_banner.jpg" class="wt100" />
+    <div class="topindex">
+        <div class="pagediv">
+            <a href="__ROOT__/" class="logo"><img src="__TMPL__Public/images/logo.png" /></a>
+            <ul class="caozuo f_r">
+                <li class="f_l"><a href="{:U('user/register/index')}">注册</a></li>
+            </ul>
+            <div class="c_b"></div>
+        </div>
+    </div>
+</div>
+<form action="{:U('user/login/dologin')}" class="js-ajax-forms" method="post">
+<div class="zhongxiaodiv">
+	<p class="topzi">登录<br/><span>LOGIN IN</span></p>
+	<div class="waidiv">
+	<table border="0" cellpadding="0" cellspacing="0">
+    	<tr>
+        	<td align="right" >手机号</td>
+            <td class="p_r">
+            	<input type="text" id="mobile" name="mobile" placeholder="请输入您的手机号" value="{$_COOKIE['username']}" /><p class="getyanzheng d_n">获取验证码</p>
+                <p class="xinxi" id="umobile"></p>
+            </td>
+        </tr>
+    	<tr class="mimatr">
+        	<td align="right" >密码</td>
+            <td>
+            	<input type="password" id="input_password" name="password" placeholder="请输入您的密码" value="{$_COOKIE['password']}"/>
+                <p class="xinxi" id="upassword"></p>
+            </td>
+        </tr>
+        <tr class="yanzhengtr d_n">
+            <td align="right">验证码</td>
+            <td>
+            	<input type="text" name="vertify" id="input_vertify" placeholder="请输入手机验证码" />
+                <p class="xinxi" id="uvertify"></p>
+            </td>
+        </tr>
+    	<tr class="mimaguanlian">
+        	<td align="right">&nbsp;</td>
+            <td><label class="f_l"><input type="checkbox"  name="remember" <php>if(!empty($_COOKIE['username'])) echo "checked='checked'"; </php> />记住密码</label><a href="{:U('user/login/forgot_password')}" class="f_r">忘记密码</a></td>
+        </tr>
+    	<tr>
+        	<td>&nbsp;</td>
+            <td><input type="button" class="btn" value="登录" /></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td class="tishi">
+                <p><a href="javascript:void(0);" class="yzhmdenglu">验证码登录</a></p>
+                <p>我还没有账号，<a href="{:U('user/register/index')}">我要注册</a></p>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <p class="c_b"></p>
+</div>
+</form>
+ <script>
+  var jishi=null;
+  var zongshi=60;
+  var yanzheng=0;
+  $(".btn").click(function(){
+    $("#umobile").text("");
+    $("#upassword").text("");
+	var username = $("#mobile").val();
+	var password = $("#input_password").val();
+	var vertify = $("#input_vertify").val();
+    var remember = $("input[type='checkbox']").is(':checked');
+    if(remember)
+    {
+        remember=1;
+    }
+    else
+    {
+        remember=0;
+    }
+	var url = "{:U('user/login/dologin')}";
+	if(yanzheng){
+		if(!vertify){
+			//alert("验证码不能为空！");
+			$("#uvertify").text("验证码不能为空");
+		}
+	}
+	$.post(url,{username:username,password:password,vertify:vertify,login_type:yanzheng,remember:remember},function(res){
+		if(res.status){
+			//alert(res.info);
+			window.location.href=res.url;
+		}else{
+			if(res.info=="手机号/邮箱/用户名不能为空！")
+			{
+				$("#umobile").text("手机号不能为空！");
+			}
+            if(res.info=="用户名不存在！")
+            {
+                $("#umobile").text("手机号不存在！");
+            }
+			if(res.info=="密码不能为空！")
+			{
+				$("#upassword").text("密码不能为空！");
+			}
+            if(res.info=="密码错误！")
+            {
+                $("#upassword").text("密码错误！");
+            }
+			if(res.info=="验证码错误,请重新输入！"){
+				$("#uvertify").text("验证码错误！");
+			}
+		}
+	});
+  });
+
+$(function(){
+    dongyanzheng();
+	$("#input_password").focus(function(){
+		$("#upassword").text("");
+	});
+	$("#mobile").focus(function(){
+		$("#umobile").text("");
+	});
+	$("#input_vertify").focus(function(){
+		$("#uvertify").text("");
+	});
+    $(".yzhmdenglu").click(function(){
+        if(yanzheng)
+        {
+            $(".getyanzheng,.yanzhengtr").addClass("d_n");
+            $(".mimatr").removeClass("d_n");
+            $(".yanzhengtr input,.mimatr input").val("");
+            $(".mimaguanlian").show();
+            $(this).html("验证码登录");
+            yanzheng=0;
+        }
+        else
+        {
+            $(".getyanzheng,.yanzhengtr").removeClass("d_n");
+            $(".mimatr").addClass("d_n");
+            $(".yanzhengtr input,.mimatr input").val("");
+            $(".mimaguanlian").hide();
+            $(this).html("密码登录");
+            yanzheng=1;
+        }
+    });
+})
+function dongyanzheng()
+{
+    $(".getyanzheng").click(function(){
+        zongshi=60;
+		var mobile =$("#mobile").val();
+		if(!mobile&&mobile.length!=11){
+			alert("请填写11位手机号！");return false;
+		}
+		//调用发送验证码接口
+		var url = "{:U('api/checkcode/sendMobbile_msg')}";
+		$.post(url,{mobile:mobile,type:'login'},function(res){
+			if(!res.status){
+				$("#umobile").text(res.info);
+			}else{
+				$(".getyanzheng").html(zongshi+"秒后获取").unbind().css("color","#ddd");
+				jishi=setInterval("daoshi()",1000);
+			}
+		});
+    })
+}
+function daoshi()
+{
+    zongshi--;
+    $(".getyanzheng").html(zongshi+"秒后获取");
+    if(zongshi<=0)
+    {
+        $(".getyanzheng").html("获取验证码").css("color","#FA741B");
+        dongyanzheng();
+        clearInterval(jishi);
+    }
+}
+ </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<title>{$title}</title>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weimeet/css/public.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weimeet/css/index.css" />
+<script type="text/javascript" src="__TMPL__Apps/Weimeet/js/jquery.min.js"></script>
+<style type="text/css">
+	.skill_support{width: 100%;background: #fff;text-align: center;}
+	.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+	.skill_support a{ display: block;}
+</style>
+</head>
+
+<body>
+<div class="topdiv">
+	<img src="{:sp_get_asset_upload_path($thumb)}" class="wd100" onclick="return test_preview();"/>
+    <p class="title">{$title}</p>
+   <!-- <p class="tishi">已报名{$total}<span>{if $share['price']==0}免费{else}{$share[price]}元{/if}</span></p>-->
+</div>
+<div class="xiadiv">
+	<ul>
+    	<li><input type="text" name="name" id="name" placeholder="请输入姓名" /><p>姓名</p></li>
+    	<li><input type="tel" name="phone" id="phone" placeholder="请输入手机号码" /><p>手机号</p></li>
+    	<li><input type="text" name="weixin" id="wx_number"placeholder="请输入微信号码" /><p>微信号</p></li>
+		<li class="erweimali" onclick="return upload_qrcode();" style="display:none;"><p>上传我的二维码</p><img id="qrcode" src="__TMPL__Apps/Weimeet/images/xiaoerweima.png" style="display:none;"/></li>
+		<input type=hidden id="resource_id" value="">
+    </ul>
+</div>
+<div id="dikongdiv"></div>
+<div id="didiv">
+	<p><a href="javascript:;" onclick="return invite();">我要邀约</a></p>
+</div>
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+<script type="text/javascript" src="__TMPL__Apps/Weimeet/scripts/zepto.min.js"></script>
+<script type="text/javascript">
+    //报名接口和成为邀请人接口
+	var invite_url = '{:U("apps/Weimeet/register",array("id"=>$id))}';
+	//评论接口
+	var toptu="{:sp_get_asset_upload_path($thumb);}";
+</script>
+<tc_include file="Public:mobile" />
+<script>
+// JavaScript Document
+//邀约端口函数
+var images = {
+    localId: [],
+    serverId: []
+};
+function invite(){
+	var name=$('#name').val();
+	var tel=$('#phone').val();
+	var wx_number=$('#wx_number').val();
+	var resource_id = ""+$('#resource_id').val()+"";
+	if(!name){alert("请输入姓名");return false;}
+	if(!tel){alert("请输入11位手机号");return false;}
+	if(tel.length!=11){alert("请输入11位手机号");return false;}
+	//alert(resource_id);
+	if(!wx_number){alert("请输入微信号");return false;}
+	$.post(invite_url,{name:name,tel:tel,remark:wx_number,resource_id:resource_id},function(res){
+		res =JSON.parse(res);
+		//alert(res.status);
+		if(res.status==1)
+		{
+			//var redirect = shareurl+"&uid="+res.uid;
+			window.location.href=res.url;
+		}else{
+			alert(res.msg);return false;
+		}
+	});
+}
+function test_preview(){
+	wx.previewImage({
+		current: toptu,
+		urls :  [toptu]
+	 });
+}
+//上传二维码
+function upload_qrcode(){
+  wx.chooseImage({
+		count: 2, // 默认9
+		sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+		sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+		success: function (res) {
+			var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+			images.localId = res.localIds;
+			upload_img(localIds);
+		}
+   });
+}
+function upload_img(localId){
+  wx.uploadImage({
+    localId: images.localId[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+    //isShowProgressTips: 1, // 默认为1，显示进度提示
+    success: function (res) {
+		$('#resource_id').val(res.serverId);  
+		$('#qrcode').show();
+    },
+	fail: function (res) {
+	  alert(JSON.stringify(res));
+	}
+  });
+}
+</script>
+</body>
+</html>

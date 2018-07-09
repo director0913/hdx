@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>排行榜</title>
+<script type="text/javascript" src="__TMPL__Apps/Scratch/scripts/zepto.min.js"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<style type="text/css">
+*{ margin:0; padding:0;}
+ul{ list-style-type:none;}
+.clear{ clear:both;}
+
+body{width:750px; background:#6111b0 url(__TMPL__Apps/Scratch/images/dkrAi74Am7zRNF5mDniaRk5R4IdRRM.jpg) 0 0 no-repeat; font-family:'微软雅黑';}
+.toptu{ width:750px; position:relative;}
+.btnp{width:652px; height:90px; line-height:90px; font-size:33px; color:#771cc1; text-align:center; margin:45px auto 21px auto; background-color:rgba(255,255,255,0.4); border-radius:9px;  position:absolute; top:386px; left:35px; letter-spacing:0.1em; padding: 8px 14px; }
+.btnp .btnpaa{ background:#ebd3f7;border-radius:9px;background-color:rgba(255,255,255,0.2);}
+
+.paihangbang ul{width:680px;margin:0 auto; margin:560px 35px 20px 35px;}
+.paihangbang li{height:146px;background:#ebb9d2;border-radius:9px;line-height:146px;margin:20px auto;}
+.paihangbang div{float:left;}
+.paihangbang p{float:left;}
+.paiming{padding-left:15px;width:120px; height:146px;}
+.paiming p{ width:73px !important; text-align:center; margin-top:-15px;}
+.touxiang{height:126px;width:300px;padding-top:20px;}
+.touxiang img{border-radius:100%;display:block;float:left;width:100px; height:100px;}
+.touxiang span{display:block;float:left;color:#8d0f10;font-size:28px;margin-left:12px;margin-top:-20px;letter-spacing:0.1em;}
+.paihangbang p{color:#843ebb;font-size:26px;width:240px;}
+/*底部css*/
+.didiv{height:90px; width:750px; position:fixed; bottom:0; border-top:1px solid #97888D; background-color:#FFF; text-align:center; font-size:23px; line-height:28px;}
+.difen{width:25%; height:90px; float:left; color:#4F4F4F;}
+.difen div{height:54px; background-position:center center; background-repeat:no-repeat;}
+.shouye div{background-image:url(__TMPL__Apps/Scratch/images/shouye.png);}
+.shouye1 div{background-image:url(__TMPL__Apps/Scratch/images/shouye01.png);}
+.baoxiang div{background-image:url(__TMPL__Apps/Scratch/images/baoxiang.png);}
+.baoxiang1 div{background-image:url(__TMPL__Apps/Scratch/images/baoxiang1.png);}
+.guize div{background-image:url(__TMPL__Apps/Scratch/images/guize.png);}
+.guize1 div{background-image:url(__TMPL__Apps/Scratch/images/guize1.png);}
+.paihang div{background-image:url(__TMPL__Apps/Scratch/images/paihang.png);}
+.paihang1 div{background-image:url(__TMPL__Apps/Scratch/images/paihang1.png);}
+.shouye1 p,.baoxiang1 p,.guize1 p,.paihang1 p{color:#6013b1;}
+/*底部css*/
+</style>
+</head>
+
+<body>
+	
+	<div class="btnp">
+    	<div class="btnpaa">排行榜</div>
+    </div>
+    <div style=" text-align:center; margin-top:560px; display:<php> if(count($list)>0) echo 'none'; else echo 'block';</php>">
+    	<img src="__TMPL__Apps/Scratch/images/kong.png" style="margin-top:100px;" />
+        <p style="font-size:30px; line-height:50px; color:#FFF;">还没有人中奖哦，赶紧参与占个沙发吧。</p>
+    </div>
+   	<div class="paihangbang">
+    	<ul>
+        	<php> $i=1;</php>
+        	<foreach name="list" item="user">
+				<li>
+					<div class="paiming" style="background:url(__TMPL__Apps/Scratch/images/01.png) 15px center no-repeat;"><p>{$i}</p></div>
+					<div class="touxiang"><img src="{$user['avatar']}"><span>{$user['username']}</span></div>
+					<p>得奖 {$user['award_num']} 次</p>
+				</li>
+				<php> $i++;</php>
+            </foreach>
+        </ul>
+    </div>
+    <div style="padding-top:91px;"></div>
+    <div class="didiv">
+    	<div class="difen shouye">
+        	<div></div>
+            <p>刮奖</p>
+        </div>
+    	<div class="difen baoxiang">
+        	<div></div>
+            <p>宝箱</p>
+        </div>
+    	<div class="difen guize">
+        	<div></div>
+            <p>规则</p>
+        </div>
+    	<div class="difen paihang1">
+        	<div></div>
+            <p>排行</p>
+        </div>
+    </div>
+<tc_include file="Public:mobile" />
+<script>
+$(function() {
+	$(".shouye,shouye1").click(function(){
+		var url="{:U('apps/Scratch/index',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".baoxiang,baoxiang1").click(function(){
+		var url="{:U('apps/Scratch/myprize',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".guize,guize1").click(function(){
+		var url="{:U('apps/Scratch/rule',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".paihang,paihang1").click(function(){
+		var url="{:U('apps/Scratch/rank',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+})
+</script>
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>奖品信息</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/signup.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top} 
+</style>
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="toptu">
+	<div class="pagediv1">
+        <div class="f_l">
+            <div class="f_l" >
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">
+                    账号类型：
+                    <eq name="users_info['level']" value="1">
+                        免费会员
+                        <a href="{:U('portal/index/show_shengji',array('menu'=>2))}">升级会员</a>
+                    </eq>
+                    <eq name="users_info['level']" value="2">
+                        会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                    <eq name="users_info['level']" value="3">
+                        黄金会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                    <eq name="users_info['level']" value="4">
+                        私人订制会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                    <eq name="users_info['level']" value="5">
+                        校营通会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                </p>
+            </div>
+        </div>
+        <div class="f_r">
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/activity/index')}">
+            	<p class="number">{$activity_num}</p>
+                <p class="typename">我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+        	<div class="f_l fenxinxi active">
+                <a href="{:U('portal/app/index')}">
+            	<p class="number">{$app_num}</p>
+                <p class="typename">我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div>
+<div class="zhongzhaidiv">
+	<p class="daohang"><a href="{:U('portal/app/index')}">我的应用</a><span>></span>{$activity['title']}</p>
+    <ul class="tab p_r">
+		<li data-url="{:U('app/app_show_join',array('id'=>$aid))}">报名信息</li>
+		<li data-tab="baoming" class="active"><if condition="in_array($activity['type'],array('weiprices'))">商品信息<else/>奖品信息</if>（{$user_all_num}）</li>
+        <p class="c_b"></p>
+    </ul>
+    <div class="xiadiv" id="baoming">
+    	<div class="caozuodiv">
+        	<p class="f_l ziduan">搜索</p><input type="text" class="souinput f_l" placeholder="输入要查找的内容" value="{$keyword}" id="searchname1" /><input type="button" value="搜索" class="soubtn f_l" id="search1" />
+            <p class="c_b"></p>
+        </div>
+    	<table border="0" cellpadding="0" cellspacing="0" class="formtb wt100">
+        	<tr>
+            	<th width="40"></th>
+                <if condition="!in_array($activity['type'],array('weiprices','nationday','giftbox'))">
+            		<th width="110">奖品</th>
+                </if>
+				<if condition="in_array($activity['type'],array('weiprices'))">
+            		<th width="110">商品</th>
+                </if>
+				<if condition="in_array($activity['type'],array('weiprices','anniversary'))">
+					<th width="110">获奖者</th>
+					<th width="110">联系方式</th>
+                </if>
+            	<th width="110">类别</th>
+                <th>名称</th>
+                <th width="125">操作</th>
+            </tr>
+            <foreach name="list" item="vo" >
+            <tr>
+                <td></td>
+                <if condition="!in_array($activity['type'],array('nationday','giftbox'))">
+                <td><div style="height:80px; width:110px; overflow:hidden;*font-family:Arial;*font-size: 72px;*display: block;vertical-align:middle;display: table-cell;"><img src="{$vo.thumb}" width="50" style="vertical-align:middle;"/></div></td>
+                </if>
+				<if condition="in_array($activity['type'],array('weiprices','anniversary'))">
+	                <td>
+	                    {$vo['username']}
+	                </td>
+					<td>
+	                    {$vo['mobile']}
+	                </td> 
+                </if>
+                <td>
+                    {$vo['type']}
+                </td>                
+                <td><php>if($vo['name']=='下次没准就能中哦'){echo "空奖";}else{echo $vo['name'];}</php></td>
+                <td class="p_r">
+					<if condition="in_array($activity['type'],array('weiprices'))"><a href="{:U('portal/app/app_show_help',array('userid'=>$vo['uid'],'aid'=>$vo['aid'],'xuanze'=>$vo['remark']))}" class="jilu" >砍价记录</a>&nbsp;|&nbsp;</if>
+                    <a href="javascript:void(0)" class="delete" data-id="{$vo.id}" >删除</a>
+                </td>
+            </tr>
+            </foreach>
+        </table>
+		<div class="pagelist">{$page}</div>
+    </div>
+</div>
+<tc_include file="Public:footer"/>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">13001265153</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">机构项目</td>
+            <td>
+                <label><input type="checkbox" value="1" />幼少儿培训</label>
+                <label><input type="checkbox" value="1" />初高中培训</label>
+                <label><input type="checkbox" value="1" />幼儿园</label>
+                <label><input type="checkbox" value="1" />早教机构</label><br/>
+                <label><input type="checkbox" value="1" />文化课培训</label>
+                <label><input type="checkbox" value="1" />素质教育课程</label>
+                <label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">地区</td>
+            <td class="address">
+                <select>
+                    <option>请选择省份</option>
+                </select>
+                <select style="margin-right:0;">
+                    <option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">规模</td>
+            <td>
+                <label><input type="radio" value="1" />300人以下</label>
+                <label><input type="radio" value="1" />300-800人</label>
+                <label><input type="radio" value="1" />800-3000人</label>
+                <label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd"></td>
+            <td align="center">
+                <input type="submit" class="tijiao" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$(".tab li").click(function(){
+		if($(this).attr("data-url")!="")
+		{
+			window.location.href=$(this).attr("data-url");return;
+		}
+		$(".tab li.active").removeClass("active");
+		//隐藏所有标记
+		$(".xiadiv").hide();
+		//获取标记
+		var idzhi=$(this).attr("data-tab");
+		//显示标记对应的div
+		$("#"+idzhi).show();
+		$(this).addClass("active");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+})
+$(".delete").click(function(){
+	if(!window.confirm('删除将不可恢复，确认吗？')) return;
+	var id=$(this).attr('data-id');
+	 $.post("{:U('portal/app/form_prize_delete')}",
+	{
+	   id:id
+	},
+	function(data,status){
+		if(data.status<0)
+		{
+			alert(data.msg);
+		}
+		if(data.status==1)
+		{
+			window.location.href=window.location.href;
+		}
+	});
+
+})
+$("#search1").click(function(){
+    var name=$("#searchname1").val();
+    var id="{$_GET['userid']}";
+    var url="/index.php/portal/app/app_show_prize/userid/"+id+"/aid/{$aid}/keyword/"+name+".shtml";
+    window.location.href = url;
+})
+$(".tijiao").click(function(){
+    var school=$("input[name='school']").val();
+    var contact=$("input[name='contact']").val();
+    var mobile=$("input[name='mobile']").val();
+    //alert(school+contact+mobile);
+    $.post("{:U('user/profile/full_post')}",
+        {
+           school:school,
+           contact:contact,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //$('.fuxinxi').hide();
+                window.location.reload();
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+})
+</script>
+</html>

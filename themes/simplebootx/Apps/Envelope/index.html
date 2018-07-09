@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$item['title']}</title>
+<script type="text/javascript">
+//var url='{php echo $this->createMobileUrl("run",array("id"=>$id))}';
+// var sharetitle="{$activity['sharetitle']}";
+// var sharedesc="{$activity['sharedesc']}";
+// var shareurl="{php echo murl_n('entry/envelop/envelop',array('id'=>$id),true,true);}";
+// //var shareurl="{$_W[siteroot]}{php echo $this->createMobileUrl('envelop',array('id'=>$id))}";
+// var getpaihangurl = "{php echo $this->createMobileUrl('getsort',array('sid'=>$activity['id'],'xiantiao'=>$xiantiao,'zongpage'=>$zongpage))}";
+// var shareimg="{php echo tomedia($activity['shareimg']);}";
+// //总的显示条数
+// var xiantiao="{$xiantiao}";
+// //总显示页数。
+// var zongpage="{$zongpage}";
+// //定义当前页码。
+// var page=1;
+// //初始排名值。
+// var index=1;
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/Envelope/css/envelop.css?i=1" />
+<script type="text/javascript" src="__TMPL__Apps/Common/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Envelope/js/envelop.js?i=1q"></script>
+<script type="text/javascript" src="__TMPL__Apps/Voteprize/js/zhezhao.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+	Pace.on('hide', function(){
+      document.getElementById("pagediv").style.display="block";
+	  music.play();
+    });
+</script>
+<style type="text/css">
+.tandiv{width:337px; position:fixed; top:35%; left:50%; margin-top:-224px; margin-left:-163px; display:none; z-index:4; text-align:center;line-height:65px; font-size:35px; color:#FFF; font-family:'微软雅黑';}    
+.tandiv .shangtu{margin-bottom:108px;}
+#tianxx{ width:678px;border-radius:8px; margin:-319px 0 0 -339px; background:#F2F2F2 url(__TMPL__Apps/Envelope/images/citie.png) center 10px no-repeat; font-size:31px; z-index:9;}
+.closeimg2{float:right; margin:28px;}
+.tishi{ margin-top:209px; text-align:center; color:#505050;}
+.inputdiv{height:72px; margin-top:25px;}
+.inputdiv span{ color:#000;}
+.inputdiv p{color:#414141; margin-right:25px;}
+.inputdiv input,select{height:72px; width:435px; border:none; border-radius:8px; font-size:31px; padding-left:20px;}
+.submitip{width:632px; height:94px; line-height:94px; font-size:37px; color:#FFF; background-color:#C42C2B; text-align:center; border-radius:8px; margin:45px auto 0 auto;}
+.mytitle{margin-top:-200px;font-size:16px;text-align:center;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body style="background-color:#d91523;">
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Envelope/images/index_music.mp3" style="display: none;"></audio>
+<div id="fullbg"></div>
+<div id="guize">
+	<p class="title">活动说明<img src="__TMPL__Apps/Envelope/images/close.png" onclick="closeBg('fullbg','guize')"/></p>
+    <div>{$item['rule']|html_entity_decode}</div>
+</div>
+<div id="baoxiang">
+	<p class="title">我的宝箱<img src="__TMPL__Apps/Envelope/images/close.png" onclick="closeBg('fullbg','baoxiang')"/></p>
+    <p class="defen">我的最高游戏得分<span>200</span>分</p>
+    	<!-- <p class="wujilu">很遗憾暂时未中奖，继续加油哦！！</p> -->
+    	<div class="tanzhongdiv">
+			<div class="fendiv">
+				<div class="tudiv"><img src="__TMPL__Apps/Envelope/images/jiangpin1.png"/></div>
+				<div class="youdiv">
+					<p class="jiangji">一等奖</p>
+					<p class="jiangname">苹果手机</p>
+				</div>
+				<div class="c_b"></div>
+			</div>
+    	</div>
+</div>
+<div id="paihang">
+	<p class="title">排行榜<img src="__TMPL__Apps/Envelope/images/close.png" onclick="closeBg('fullbg','paihang')"/></p>
+    <if condition="$join_count eq 0">
+    	<p class="wujilu">暂无排名记录</p>
+    <else/>
+		<div class="tanzhongdiv">
+	    	<table border="0" width="100%" class="paiming moreu" id="sort">
+	        	<tr class="toutable">
+	            	<td width="20%">排行</td>
+	            	<td width="20%">头像</td>
+	            	<td width="20%">昵称</td>
+	            	<td width="20%">成绩</td>
+	            	<td width="20%">日期</td>
+	            </tr>
+	        </table>
+	    </div>
+    </if>
+    <!-- <p class="wujilu">暂无排名记录</p> -->
+</div>
+<div class="tishidiv" id="tishidiv">
+	<img src="__TMPL__Apps/Envelope/images/cishuwan.png" onclick="closeBg('tishidiv')" />
+    <p id="tixing">你的次数已用完</p>
+</div>
+<div id="pagediv">
+<div id="top">
+	<div id="yinyue"></div>
+    <img src="__TMPL__Apps/Envelope/images/guize.png" id="guizetu" onclick="showBg('fullbg','guize')"/>
+    <div class="shangxia" style=" background-image: url({php echo tomedia($activity['topimg']);});"></div>
+</div>
+<div id="alldiv" style="margin-top:-180px;overflow:hidden;">
+	<div class="mytitle" style="font-size:40px;text-align:center;width:520px;height:50px;overflow:hidden;margin:-200px auto 0;">{$item['title']}</div>
+    <img src="__TMPL__Apps/Envelope/images/paihang.png" id="paihangtu" onclick="showBg('fullbg','paihang')" />
+    <!-- <img src="__TMPL__Apps/envelope/images/baoxiang.png" id="baoxiangtu" onclick="showBg('fullbg','baoxiang')"/> -->
+    <img src="__TMPL__Apps/Envelope/images/kaishi.png" id="kaishi" onclick="begin_game();"/>
+    <p class="t_c" style="margin-top:180px;font-size:34px;">已有{$join_count}人参加活动</p>
+    <!-- <p class="heidi">
+    	<marquee scrollamount="3" hspace="6" scrolldelay="3">某某某获得了xxx</marquee>
+    </p> -->
+</div>
+</div>
+<div id="fullbg"></div>
+<div id="tianxx" class="tandiv">
+	<img src="__TMPL__Apps/Envelope/images/close1.png" class="closeimg2" onclick="closeBg('fullbg','tianxx')" />
+    <p class="tishi">请认真填写以下信息，以便奖品准确的送达</p>
+    <div class="inputdiv" style="margin-top:45px;">
+    	<span>姓名</span>
+        <input type="text" id="name" name="username" placeholder="请输入姓名" />
+    </div>
+    <div class="inputdiv">
+    	<span>手机</span>
+        <input type="tel" id="phone" name="mobile" placeholder="请输入手机号码" />
+    </div>
+	<div class="inputdiv" <if condition="empty($params['age'])">style="display:none" </if>>
+		<span>年龄：<input type="tel" id="age" name="age" placeholder="请输入年龄"/></span>
+	</div>
+	<div class="inputdiv" <if condition="empty($params['cless'])">style="display:none" </if>>
+		<span>班级：<input type="text" id="cless" name="cless" placeholder="请输入班级"/></span>
+	</div>
+	<php>
+	    if(!$params['other_remark']){
+	    	$params['other_remark']="备注";
+	    }
+		if($params['other_school']){
+	    	$other=explode(',',$params['other_school']);
+	    }
+	</php>
+	<if condition="!empty($params['school'])">
+		<div class="inputdiv">
+		<span>学校：
+			<if condition="empty($params['other_school'])">
+				<input type="text" class="sign-up-name" id="school" name="school" placeholder="请输入学校"/>
+			<else/>
+				<select name="school">
+					<volist name="other" id="vo">
+						<option  id="school"  value ="{$vo}">{$vo}</option>
+					</volist>
+				</select>
+			</if>
+		</span>
+		</div>
+	</if>
+	<div class="inputdiv" <if condition="empty($params['qita'])">style="display:none" </if>>
+		<span>{$params['other_remark']}：<input type="text" class="sign-up-name" id="remark" name="remark" placeholder="请输入{$params['other_remark']}"/></span>
+	</div>
+    <p class="submitip">提交</p>
+</div>
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+var music=document.getElementById("bgMusic");
+var qiangbao_url="{:U('apps/envelope/qiangbao',array('id'=>$_GET['id']))}";
+var is_regist="{$is_regist}";
+var regist_url="{:U('apps/envelope/regist',array('id'=>$_GET['id']))}";
+$(function(){
+	//注册
+	var kaiguan_r=false;
+	$('.submitip').click(function(){
+		var username=$('[name="username"]').val();
+		var mobile=$('[name="mobile"]').val();
+		var remark=$('[name="remark"]').val(); 
+		var age=$('[name="age"]').val();
+		var cless=$('[name="cless"]').val();
+		var school=$('[name="school"]').val();
+		if(username==''){
+			alert("姓名不能为空");
+			return;
+		}
+		if(mobile.length!=11){
+			alert("请输入11位手机号码");
+			return;
+		}
+		var url=regist_url;
+		if(kaiguan_r) return;
+    	kaiguan_r=true;
+		$.post(url,{username:username,mobile:mobile,age:age,cless:cless,school:school,remark:remark},function(res){
+			kaiguan_r=false;
+			if(res.status>0){
+				<php>
+					session('is_open',1);
+				</php>
+				window.location.href=res.url;
+			}else{
+				alert(res.info);
+			}
+		});
+	});
+	//滑动加载排行榜
+	$(window).scroll(function(){
+		//alert('huadong');
+		var scrollTop = $(this).scrollTop();
+		var scrollHeight = $(document).height();
+		var windowHeight = $(this).height();
+		//alert(scrollTop+'>'+scrollHeight+'>'+windowHeight);
+		if(scrollTop + windowHeight+10 >= scrollHeight){
+			//alert('user');
+			moreuser();
+		}
+	});
+	moreuser();
+});
+//开始游戏
+function begin_game(){
+	//如果活动还没有开始或已经结束就提示。
+	var status="{$status}";
+	if(status==-1){
+		alert("活动未开始");
+		return;
+	}
+	if(status==-2){
+		alert("活动已结束");
+		return;
+	}
+	if(is_regist){
+		//总次数、每天次数
+		var my_status="{$my_status}";
+		if(my_status==-1){
+			alert("你的总次数已用完");
+			return;
+		}
+		if(my_status==-2){
+			alert("你今天的次数已用完");
+			return;
+		}
+		<php>
+			session('is_open',1);
+		</php>
+		window.location.href=qiangbao_url;
+	}else{
+		showBg("tianxx","fullbg");
+	}	
+	// var astatus=1;
+	// if(parseInt(astatus)==-1)
+	// {
+	// 	$("#tixing").html("活动未开始");
+	// 	showBg("tishidiv",true);
+	// }
+	// else
+	// {
+	// 	window.location.href=qiangbao_url;
+	// }
+}
+//排行榜
+var page_u=1;
+var pagecount=0;
+var size=20;
+var kaiguan_u=false;
+var mingci=1;
+function moreuser()
+{
+    if(kaiguan_u) return;
+    if(pagecount!=0&&page_u>pagecount) return;
+    kaiguan_u=true;
+    var url ="{:U('apps/envelope/moreuser',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_u:page_u,size:size
+        },
+        function(data,status){
+            //alert(data.testsql);
+            kaiguan_u=false;
+            if(page_u==1)
+                pagecount=data.pagecount;
+            if(data.status>0)
+            {
+                var list=data.list;
+                
+                for(var i=0;i<list.length;i++)
+                {
+                    var str='<tr>'+
+				                '<td>'+mingci+'</td>'+
+				                '<td><img src="'+list[i]['avatar']+'"></td>'+
+				                '<td>'+list[i]['username'].substr(0,5)+'</td>'+
+				                '<td>'+list[i]['per_num']+'</td>'+
+				                '<td>'+list[i]['update_time']+'</td>'+
+				            '</tr>';
+                            mingci++;
+                    $('.wujilu').hide();
+                    $('.moreu').append(str);
+                }
+                
+                page_u++;
+            }
+            //alert(page_u+";"+pagecount)
+            if(page_u>pagecount)
+            {
+                //alert(1);
+                $(".moreuu").text("没有更多");
+            }
+        });
+}
+</script>
+</html>

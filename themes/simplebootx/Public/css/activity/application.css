@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ background-color:#FFF; min-width:1200px;}
+/*.topindex{ height:66px; background-color:#474747; color:#FFF;}*/
+.topindex{ position:absolute; left:0; right:0; top:0; height:76px; z-index:20;background-color:#131418;}
+/*.caozuo a{ border:none; color:#d8d8d8; padding:0 15px; margin:0; width:auto;}
+.caozuo em{ display:block; float:left; height:20px; width:1px; background-color:#d8d8d8;}*/
+.soudiv{ padding:26px 0 38px 0;}
+.soudiv .suoinput{ width:160px; height:25px; border:1px solid #D6D6D6; font-size:13px; padding:0 10px;}
+.soudiv .soubtn{ width:62px; height:25px; line-height:25px; border:1px solid #D6D6D6; font-size:13px; text-align:center; margin-left:10px;}
+.soudiv .soubtn img{ vertical-align:middle; margin-right:5px;}
+.yingyonglist{ margin-left:-34px;}
+.yingyonglist li{ width:237px; height:265px; margin-left:34px; margin-bottom:41px; float:left; background-color:#FFF; border-radius:5px; overflow:hidden; -webkit-box-shadow: #CCC 0px 0px 10px; -moz-box-shadow: #CCC 0px 0px 10px; box-shadow: #CCC 0px 0px 10px;}
+.yingyonglist li .tudiv{ height:149px; overflow:hidden; position:relative; text-align:center;}
+.yingyonglist li .tudiv .tupian{ width:100%; height:100%;}
+.yingyonglist li .zheceng{ position:absolute; top:0; bottom:0; left:0; right:0; background-color:#000; background-color:rgba(0,0,0,.8); opacity: 0.8; filter:Alpha(opacity=80); text-align:center; display:none;}
+.yingyonglist li .tudiv .erweima{ margin-top:24px; width:98px; height:98px;}
+.yingyonglist li .title{ font-size:17px; line-height:33px; color:#4F4F4F; padding:0 8px;}
+.yingyonglist li .jianjie{ height:32px; overflow:hidden; font-size:12px; line-height:16px; color:#8F9092; padding:0 8px;}
+.yingyonglist li .gongneng{ margin-top:10px; font-size:12px; color:#8F9092; padding:0 8px; line-height:22px;}
+.yingyonglist li .gongneng a{ color:#3893FC;}
+.yingyonglist li .gongneng .goumai,.yingyonglist li .gongneng .create{ display:block; float:right; width:65px; height:22px; color:#FFF; text-align:center; background-color:#EF761D; border-radius:5px;}
+
+.tangoumai{ position:fixed; width:718px; min-height:450px; background-color:#FFF; border-radius:5px; left:50%; top:50%; margin-left:-359px; margin-top:-225px; overflow:hidden; z-index:1001; display:none;}
+.tangoumai .close{ position:absolute; top:10px; right:10px; cursor:pointer;}
+.tangoumai .zuodiv{ float:left; height:450px; width:357px; background:url(../../images/think.jpg) center center no-repeat; background-size:100% auto;}
+.tangoumai .youdiv{ width:324px; padding:16px; position:relative; text-align:center;}
+.tangoumai .youdiv h3{ font-size:24px; color:#FF8833; margin:32px 0 27px; font-family:"微软雅黑"; font-weight:300;}
+.tangoumai .youdiv .shuoming,.tangoumai .youdiv .dianhua,.tangoumai .youdiv .saoma{ font-size:18px; color:#707070; line-height:30px;}
+.tangoumai .youdiv .dianhua{color:#393939; border-bottom:1px solid #FDBD51; padding-bottom:14px;}
+.tangoumai .youdiv .saoma{ margin:22px 0;}
+.tangoumai .youdiv .erweima{ width:137px; height:137px; padding:9px; border:2px solid #EEEEEE;}
+
+.fujieshao{ width:779px; height:494px; position:fixed; top:50%; left:50%; margin-top:-247px; margin-left:-389px; background-color:#FFF; z-index:1001; display:none;}
+.fujieshao .close{ position:absolute; top:-20px; right:-20px;}
+.fujieshao .xiangxi{ float:left; width:302px; height:474px; padding:10px; border-right:1px solid #ccd5dc; overflow:hidden; overflow-y:auto;}
+.fujieshao .xiangxi img{ max-width:100%; word-break:break-all;}
+.fujieshao .youxinxi{ float:right; width:396px; padding:27px;}
+.fujieshao .youxinxi h3{ font-size:23px; color:#4e4e4e; line-height:44px;}
+.fujieshao .youxinxi .miaoshu{ font-size:12px; color:#77838f; line-height:17px; padding:15px 0; border-bottom:1px solid #ccd5dc; overflow:hidden;}
+.fujieshao .youxinxi .jieshaoerweima{ width:210px; height:210px; margin:61px auto 21px;}
+.fujieshao .youxinxi .jieshaoerweima img{ width:100%;}
+.fujieshao .youxinxi .saoma{ width:86px; padding-left:48px; background:url(../images/saoma.png) 0 center no-repeat; font-size:12px; color:#666465; line-height:18px; margin:0 auto;}

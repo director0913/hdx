@@ -1,0 +1,38 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('slide/index')}">轮播图管理</a></li>
+			<li><a href="{:U('banner/add')}">添加轮播图</a></li>
+		</ul>
+		<table class="table table-hover table-bordered table-list">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>位置</th>
+					<th>图片</th>
+					<th>排序</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<foreach name="list" item="vo">
+			<tr>
+				<td>{$vo.id}</td>
+				<td>
+					<if condition="$vo.name eq 'activity'">活动中心</if>
+					<if condition="$vo.name eq 'application'">应用中心</if>
+					<if condition="$vo.name eq 'member'">会员特权</if>
+				</td>
+				<td><img src="{$vo.url}" width="300" /></td>
+				<td>{$vo.order}</td>
+				<td>
+					<a href="/index.php/Admin/banner/edit/id/{$vo.id}">编辑</a> |
+					<a href="/index.php/Admin/banner/del/id/{$vo.id}">删除</a>
+				</td>
+			</tr>
+			</foreach>
+		</table>
+	</div>
+</body>
+</html>

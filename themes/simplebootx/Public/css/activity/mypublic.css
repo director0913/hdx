@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ min-width:1200px;}
+.topindex{ position:absolute; left:0; right:0; top:0; height:76px; z-index:20;background: #131418;min-width:1200px;}
+/*.topindex{ height:66px; background-color:#474747; color:#FFF; position:relative; z-index:100;}*/
+/*.caozuo a{ border:none; color:#d8d8d8; padding:0 15px; margin:0; width:auto;}
+.caozuo .dropitem{ background-color:#FFF; background-color:rgba(255,255,255,1);opacity:1;filter:"Alpha(opacity=100)";}
+.caozuo .dropitem li a{color:#666;}*/
+.toptu{ height:138px; background:url(../../images/hometop.jpg) center center no-repeat; background-size:100% 100%;}
+.toptu .touxiang{ width:90px; height:90px; border-radius:50%; margin:28px 10px 0 0;}
+.toptu .name{ margin-top:30px; font-size:24px; color:#FFF;}
+.toptu .leixing{ font-size:12px; line-height:20px; color:#FFF; margin-top:5px;}
+.toptu .leixing a{ color:#daebf3; text-decoration:underline; margin-left:27px;}
+.toptu .bianji{ margin-top:5px;}
+.toptu .bianji a{ color:#FA741B; font-size:13px;}
+.toptu .bianji a .fa{ font-size:16px; padding-left:0; padding-right:2px;}
+.toptu .fenxinxi{ text-align:center; padding:0 23px; font-size:16px; margin-top:63px;}
+.toptu .fenxinxi:hover .typename{ border-bottom:1px solid #FFF;}
+.toptu .fenxinxi .number{ font-size:22px;}
+.toptu .fenxinxi a{ color:#FFF;}
+.toptu .fenxinxi.active a{ color:#FA741B;}
+.toptu .fenxinxi:hover.active .typename{ border-bottom:none;}
+.toptu .fenge{ width:1px; height:28px; background-color:#FFF; margin-top:73px;}

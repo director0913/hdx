@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$item['title']}</title>
+<script type="text/javascript">
+//游戏时间。
+var shitime=parseInt("{$item['total_num']}");
+//("{$item['total_num']}")
+var haomiao=00;
+// //挑战成功需要的分数。
+var chenggongfen=0;
+ var fangbx=0;
+// //获取定义的红包几率
+ var baojl=parseInt("{$activity['envelop_rate']}");
+// //积分范围原始值。
+<php>
+    if($params['steptype']==0){
+        $jinefanwei=$params['steprandom'];
+    }else{
+        $jinefanwei=$params['step'];
+    }
+    //echo $params['steptype'].">>>".$params['steprandom'].">>>".$params['step'];
+</php>
+var jinefanwei="{$jinefanwei}";
+// //炸弹扣除的时间。
+var zhatime=5;
+ var pjgurl='{php echo $this->createMobileUrl("Editmax",array("id"=>$id))}';
+ var getzcurl='{php echo $this->createMobileUrl("getregist",array("id"=>$id))}';
+ var fbxurl='{php echo $this->createMobileUrl("insertjiang",array("id"=>$id))}';
+ var zhuceurl='{php echo $this->createMobileUrl("regist",array("id"=>$id))}';
+ var huojiangurl='{php echo $this->createMobileUrl("getjiang",array("id"=>$id))}';
+ var sharetitle="{$activity['sharetitle']}";
+ var sharedesc="{$activity['sharedesc']}";
+// var shareurl="{$_W[siteroot]}{php echo $this->createMobileUrl('envelop',array('id'=>$id))}";
+ var shareurl="{php echo murl_n('entry/envelop/envelop',array('id'=>$id),true,true);}";
+
+ var getpaihangurl = "{php echo $this->createMobileUrl('getsort',array('sid'=>$activity['id'],'xiantiao'=>$xiantiao,'zongpage'=>$zongpage))}";
+ var shareimg="{php echo tomedia($activity['shareimg']);}";
+ //总的显示条数
+ var xiantiao="{$xiantiao}";
+ //总显示页数。
+ var zongpage="{$zongpage}";
+ //定义当前页码。
+ var page=1;
+ //初始排名值。
+ var index=1;
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/Envelope/css/qiangbao.css?i=11" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Envelope/js/qiangbao.js?i=2"></script>
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/dongzy.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+	Pace.on('hide', function(){
+      showBg("fullbg","jiaocheng");
+	  music.play();
+    });
+</script>
+<style type="text/css">
+    #alldiv div{margin-top:50px;height: 70px;width:240px;line-height: 70px;font-size: 44px;color:#EA1C1B;}
+    #alldiv .myhead{float:left;margin-left:30px;background: url(__TMPL__Apps/Envelope/images/touxiang.jpg) no-repeat;}
+    #alldiv .myhead img{width:70px;height:70px;border-radius:70px}
+    #alldiv .myhead #fenshu{position:relative;top:-70px;left:120px;}
+    #alldiv .mytime{float:right;margin-right:30px;background: url(__TMPL__Apps/Envelope/images/miaozhong.png) no-repeat;}
+    #alldiv .mytime p{margin-left: 100px;}
+</style>
+</head>
+<body>
+<audio id="shakemusic" src="__TMPL__Apps/Envelope/scripts/red-01.mp3" style="display: none;"></audio>
+<audio id="openmusic" src="__TMPL__Apps/Envelope/scripts/red-02.mp3" style="display: none;"></audio>
+<audio id="jinbimusic" src="__TMPL__Apps/Envelope/audio/jinbi.mp3" style="display: none;"></audio>
+<audio id="dianzhadanmusic" src="__TMPL__Apps/Envelope/audio/dianzhadan.wav" style="display: none;"></audio>
+<!--背景音乐-->
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Envelope/images/index_music.mp3" style="display: none;"></audio>
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<img src="__TMPL__Apps/Envelope/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg2','fenxiang')"/>
+<div id="guize">
+	<p class="title">活动说明<img src="__TMPL__Apps/Envelope/images/close.png" onclick="closeBg('fullbg2','guize')"/></p>
+    <div>活动说明活动说明活动说明活动说明</div>
+</div>
+<div id="baoxiang">
+	<p class="title">我的宝箱<img src="__TMPL__Apps/Envelope/images/close.png" onclick="closeBg('fullbg2','baoxiang')"/></p>
+    <p class="defen">我的最高游戏得分<span>200</span>分</p>
+    <!-- <p class="wujilu">很遗憾暂时未中奖，继续加油哦！！</p> -->
+    <div class="tanzhongdiv">
+    	<div class="fendiv">
+        	<div class="tudiv"><img src="__TMPL__Apps/Envelope/images/jiangpin1.png"/></div>
+            <div class="youdiv">
+            	<p class="jiangji">一等奖</p>
+            	<p class="jiangname">苹果手机</p>
+            </div>
+            <div class="c_b"></div>
+        </div>
+    </div>
+</div>
+<div id="paihang">
+	<p class="title">排行榜<img src="__TMPL__Apps/Envelope/images/close.png" onclick="closeBg('fullbg2','paihang')"/></p>
+    <!-- <p class="wujilu">暂无排名记录</p> -->
+    <div class="tanzhongdiv">
+    	<table border="0" width="100%" class="paiming moreu" id="sort">
+            <tr class="toutable">
+                <td width="20%">排行</td>
+                <td width="20%">头像</td>
+                <td width="20%">昵称</td>
+                <td width="20%">成绩</td>
+                <td width="20%">日期</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="tianxx" class="tandiv">
+	<img src="__TMPL__Apps/Envelope/images/close1.png" class="closeimg2" onclick="closeBg('fullbg2','tianxx')" />
+    <p class="tishi">请认真填写以下信息，以便奖品准确的送达</p>
+    <div class="inputdiv" style="margin-top:45px;">
+    	<span>姓名</span>
+        <input type="text" id="name" placeholder="请输入姓名" />
+    </div>
+    <div class="inputdiv">
+    	<span>手机</span>
+        <input type="tel" id="phone" placeholder="请输入手机号码" />
+    </div>
+    <p class="submitip" onclick="zhuce()">提交</p>
+</div>
+<img src="__TMPL__Apps/Envelope/images/youxitishi.png" id="jiaocheng" onclick="closejiaocheng()" />
+<div id="daoshi" class="tandiv">
+    <img class="shangtu" src="__TMPL__Apps/Envelope/images/shijiandao.png"/>
+	<img src="__TMPL__Apps/Envelope/images/biao.png" />
+</div>
+<div id="yaojiang" class="tandiv">
+	<p><marquee scrollamount="3" hspace="6" scrolldelay="3">一等奖 手机 二等奖 充电宝 三等奖 优惠券100</marquee></p>
+    <img class="shangtu" src="__TMPL__Apps/Envelope/images/chouqian.png"/>
+	<img src="__TMPL__Apps/Envelope/images/yaoyiyao.png" />
+</div>
+<div id="meizhong" class="tandiv">
+	<img src="__TMPL__Apps/Envelope/images/meizhongjiang.png" />
+    <p class="anniu" onclick="tiaourl('{php echo $this->createMobileUrl('envelop',array('id'=>$id))}')">返回首页</p>
+</div>
+<div id="huojiang" class="tandiv">
+	<div class="jiangdiv">
+    	<div class="faguang"></div>
+        <p>恭喜你获得了</p>
+        <div class="waidiv">
+        	<div>
+            	<img src="__TMPL__Apps/Envelope/images/jiangpin1.png" id="jiangtu"/>
+            </div>
+        </div>
+        <p id="jiangbie">一等奖</p>
+        <p id="jiangming">电脑一台</p>
+    </div>
+    <p class="anniu" onclick="fangbaoxiang()">放入宝箱</p>
+    <p class="anniu anniuduan f_l" onclick="showBg('fullbg2','paihang')">排行榜</p>
+    <p class="anniu anniuduan f_r" onclick="window.location.href=window.location.href">再玩一次</p>
+</div>
+<div id="shibai" class="tandiv">
+	<img src="__TMPL__Apps/Envelope/images/shibai.png" />
+    <p>您的成绩为：<span class="myfen">0</span>分</p>
+    <p>成绩必须达到20分才能抽奖</p>
+    <p>最佳成绩为：10分</p>
+    <p>今天还有<span id="myjihui">2</span>次挑战机会</p>
+    <p class="anniu" onclick="window.location.href=window.location.href">再玩一次</p>
+    <p class="anniu anniuduan f_l" onclick="showBg('fullbg2','paihang')">排行榜</p>
+    <p class="anniu anniuduan f_r" onclick="showBg('fullbg2','guize')">活动规则</p>
+</div>
+<div id="chenggong" class="tandiv">
+	<img src="__TMPL__Apps/Envelope/images/chenggong.png" />
+    <p>您的成绩为：<span class="myfen">0</span>分</p>
+    <!-- <p>成功打败全国<span id="jibai">30</span>%的玩家</p> -->
+    <p>最佳成绩为：<span id="zuigao">{$user['per_num']}</span>分</p>
+    <p>今天还有<span id="myjihui">{$item['day_num']-$user['day_num']-1}</span>次挑战机会</p>
+    <!-- <p class="anniu" onclick="yaojiang();">赶紧去抽奖</p> -->
+    <p class="anniu anniuduan f_l" onclick="showBg('fullbg2','paihang')">排行榜</p>
+    <p class="anniu anniuduan f_r play_again" >再玩一次</p>
+</div>
+<!-- 
+<div id="alldiv">
+<div class="touxiangdiv">
+	<img src="./images/boyhead.png"/>
+    <p id="fenshu">0</p>
+</div>
+<p class="timetitle">时间</p>
+<p class="timep"><span id="miao">00</span>:<span id="haomiao">00</span></p>
+<div id="yinyue"></div>
+</div>
+ -->
+
+<div id="alldiv">
+	<div class="myhead"><img src="{$user['avatar']}"><p id="fenshu">0</p></div>
+	<div class="mytime"><p><span id="miao">00</span>:<span id="haomiao">00</span></p></div>		
+	<!-- <div class="touxiangdiv">
+		<img src="./images/boyhead.png"/>
+	    <p id="fenshu">0</p>
+	</div>
+	<p class="timetitle">时间</p>
+	<p class="timep"><span id="miao">00</span>:<span id="haomiao">00</span></p>
+	<div id="yinyue"></div> -->
+</div>
+
+<div class="qiangdiv">
+	<div class="bjkuangdiv">
+	<div class="didiv">
+    	<div class="kuangdiv" id="kuangdiv">
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+var update_fenshu_url="{:U('apps/envelope/update_fenshu',array('id'=>$_GET['id']))}";
+$(function(){
+    //再玩一次
+    $('.play_again').click(function(){
+        window.location.href="{:U('apps/envelope/index',array('id'=>$_GET['id']))}";
+    });
+    //滑动加载排行榜
+    $(window).scroll(function(){
+        //alert('huadong');
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        //alert(scrollTop+'>'+scrollHeight+'>'+windowHeight);
+        if(scrollTop + windowHeight+10 >= scrollHeight){
+            //alert('user');
+            moreuser();
+        }
+    });
+    moreuser();
+});
+//判断抢红包结果，是否挑战成功。
+function panjieguo()
+{
+    clearTimeout(daoshistime)    //销毁定时器。
+    $("#daoshi").hide();
+    var url=update_fenshu_url;
+    var fenshu=$("#fenshu").html();
+    $.post(url,{fenshu:fenshu},function(res){
+        //alert(res.info);
+    });
+    if(parseInt($("#fenshu").html())>parseInt($("#zuigao").html()))
+    {
+        //更新个人最高分数
+        $('#zuigao').text(parseInt($("#fenshu").html()));
+        
+        $("#chenggong").show();
+    }
+    else
+    {
+        if(parseInt($("#fenshu").html())>=chenggongfen)
+        {
+            $("#chenggong").show();
+        }
+        else
+        {
+            $("#shibai").show();
+        }
+    }
+}
+//排行榜
+var page_u=1;
+var pagecount=0;
+var size=20;
+var kaiguan_u=false;
+var mingci=1;
+function moreuser()
+{
+    if(kaiguan_u) return;
+    if(pagecount!=0&&page_u>pagecount) return;
+    kaiguan_u=true;
+    var url ="{:U('apps/envelope/moreuser',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_u:page_u,size:size
+        },
+        function(data,status){
+            //alert(data.testsql);
+            kaiguan_u=false;
+            if(page_u==1)
+                pagecount=data.pagecount;
+            if(data.status>0)
+            {
+                var list=data.list;
+                
+                for(var i=0;i<list.length;i++)
+                {
+                    var str='<tr>'+
+                                '<td>'+mingci+'</td>'+
+                                '<td><img src="'+list[i]['avatar']+'"></td>'+
+                                '<td>'+list[i]['username'].substr(0,5)+'</td>'+
+                                '<td>'+list[i]['per_num']+'</td>'+
+                                '<td>'+list[i]['update_time']+'</td>'+
+                            '</tr>';
+                            mingci++;
+                    $('.moreu').append(str);
+                }
+                
+                page_u++;
+            }
+            //alert(page_u+";"+pagecount)
+            if(page_u>pagecount)
+            {
+                //alert(1);
+                $(".moreuu").text("没有更多");
+            }
+        });
+}
+</script>
+</html>

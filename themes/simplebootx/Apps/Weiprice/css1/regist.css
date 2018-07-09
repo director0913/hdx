@@ -1,0 +1,54 @@
+﻿@charset "UTF-8";
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+body{width:750px;background:#8abe32;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+#fullbg,#fullbg2{background-color:rgba(0,0,0,0.9); left:0; opacity:0.8;top:0; bottom:0; right:0; position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fullbg2{z-index:20;}
+.bgc{position:relative;}
+.biaoti{position:absolute;top:300px;width:520px;margin-left:-260px;left:50%;color:#1c012c;font-size:32px;text-align:center;height:130px;display:table;}
+.biaoti>div{vertical-align:middle;display:table-cell;}
+.biaoti>div .biaoti_cont{margin-top:10px;font-size:28px;line-height:38px;}
+.act_time{position:absolute;top:490px;width:520px;margin-left:-260px;left:50%;color:#fff;font-size:32px;text-align:center;}
+/*登录开始*/
+.login{padding-top:12px;padding-bottom:60px;}
+.login .user{width:140px;height:140px;border:2px solid #f8d201;border-radius:50%;overflow: hidden;margin:0 auto 50px;}
+.login .user img{width:100%;height:auto;}
+input{outline:none;}
+.login .text{text-align:center;margin-bottom:6px;}
+.login .text p{margin-bottom:30px;}
+.login .text p img{vertical-align:sub;margin-right:20px;}
+#name,#tel,#age,#cless,#school,#remark,#schools{font-size:28px;width:480px;height:70px;padding:0 30px;box-sizing:border-box;border:none;background:url(../images1/input.png) no-repeat center center;background-size:100% 100%;text-align:center;color:#5c4403;}
+:-moz-placeholder{color:#5c4403;}
+::-moz-placeholder{color:#5c4403;}
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {color: #5c4403;}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {color: #5c4403;}
+.shuoming{margin:0 152px;color:#5c4403;font-size:26px;line-height:35px;}
+.submit {height:98px;width:344px;margin:50px auto 0;background:url(../images1/btn.png) no-repeat center center;background-size: 100% 100%;text-align:center;line-height:104px;font-size: 32px;color:#fff;}
+/*登录结束*/
+/*活动规则开始*/
+.guize{background:url(../images1/bg.png?v=2) repeat-y center top;padding-top:40px;margin:0 18px 40px;background-size:100% auto;}
+.guize .title{color:#f00;font-size:32px;text-align:center;}
+.guize .text{font-size:30px;padding:30px;color:#5c4403;word-break:break-all;}
+.guize .text img{max-width:100%;}
+/*活动规则结束*/
+/*列表开始*/
+.liebiao{margin-bottom:26px;}
+.liebiao table{margin:36px auto 0;font-size:30px;width:680px;}
+table tr{color:#29292b;background-color: #fff;}
+.tt{background-color: #c12809!important;color:#fff!important;line-height:60px;height:60px;}
+.wd120{width:120px;text-align:center;}
+.wd180{width:180px;text-align:center;}
+.wd230{width:230px;text-align:center;}
+.liebiao td{line-height:50px;height:50px;}
+.liebiao tr{display:block;}
+.more{width:676px;text-align: center;background-color:#fff;margin:0 auto;height:76px;line-height:76px;font-size:30px;border-top:1px solid #b2c4d3;color:#8e8e8e;margin-top:-2px;}
+.more img{margin-right:4px;height:32px;width:auto;vertical-align:text-top;}
+/*列表结束*/
+.banquan{text-align:center;font-size:13px; color:#bbb;margin-top:40px;margin-bottom:12px;}

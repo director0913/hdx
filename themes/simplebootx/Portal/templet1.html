@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>{$name}</title>
+<script src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<style>
+*{margin:0; padding:0;}
+.alldiv{ position:absolute; top:0; left:0; bottom:0; right:0; overflow:auto;}
+body{background-color:#f0eff4; font-family:"微软雅黑";width:320px;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+a{text-decoration:none; color:#333;}
+.banner{position:relative;}
+.banner img{width:100%;height:auto;margin-bottom:-4px;}
+
+.yinying{background:url(__TMPL__Public/templetimages/yinying.png) 0 bottom repeat-x;height:35px;position:absolute;bottom:0;left:0;right:0;}
+.read{position:absolute;left:16px;bottom:12px;color:#FFF;font-size: 14px;}
+.read img{width:22px;height:16px;margin-right:7px;}
+.baoming img{width:16px;height:16px;margin-right:7px;}
+.baoming{position: absolute;right:16px;bottom:12px;color:#FFF;font-size: 14px;}
+
+.content{margin-left:14px;margin-right:14px;}
+.title{font-size:18px;padding-top:15px;padding-bottom:15px;background-color: #fff;}
+.data{background-color: #fff;margin-top:10px;font-size: 14px;}
+.data p{padding-top:16px;padding-bottom: 16px;border-bottom:1px solid #ddd;background: url(__TMPL__Public/templetimages/time.png) no-repeat 0 18px;padding-left:22px;background-size:16px 16px;word-break:break-all;}
+.data p.area{background: url(__TMPL__Public/templetimages/map.png) no-repeat 0 18px;background-size:16px 20px;}
+.data p.tel{border:none;background: url(__TMPL__Public/templetimages/phone.png) no-repeat 0 18px;background-size:16px 16px;}
+.data p.tel a{display:block;height:20px;line-height:20px;}
+.data p.tel img{float:right;width:auto;height:15px;margin-top:2px;}
+/*活动时间.地点结束*/
+.jieshao{background-color: #fff;margin-top: 10px;font-size:15px;color:#686868;padding-bottom:20px;}
+.jieshao_title{padding-top:15px;padding-bottom: 15px;border-bottom:1px solid #ddd;font-weight:bold;}
+.jieshao .text{line-height:24px;margin-top:20px;margin-bottom:20px;word-break: break-all;}
+.jieshao img{max-width:100%;}
+/*介绍结束*/
+.baomingdiv{margin-top:10px;background-color: #fff;padding-left:14px;padding-right:14px;color:#686868;}
+.baomingdiv .baoming_title{ font-size:15px;padding:14px 0;border-bottom:1px solid #ddd;font-weight: bold;}
+.baomingls{white-space:nowrap;overflow-x:scroll;}
+.baomingls div{ text-align:center;display:inline-block;margin-right:10px;}
+.baomingls div img{width:46px;height:46px;border-radius:50%; margin:15px 0 5px; }
+.baomingls div p.name1{ font-size:12px;margin-bottom:2px; color:#686868;}
+.baomingls div p.shijian{font-size:10px;margin-bottom:15px; color:#aaa;}
+#kongdiv{height:47px;}
+.footer{width:320px;border-top:1px solid #ddd;position:fixed;left:0;bottom:0;}
+.footer li{width:50%;float:left;height:47px;text-align:center;}
+.footer li:last-child{background-color:#6f93eb;color:#fff;font-size:18px;line-height:47px;}
+.footer li:first-child{font-size:13px;color:#909090;background-color: #f0f0f0;}
+.footer li:first-child img{width:21px;height:18px;padding-top:6px;}
+.footer li:first-child p{line-height:16px;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+</style>
+</head>
+<body>
+<div class="alldiv">
+    <div class="banner">
+        <div class="jichu">
+            <if condition="$thumb"><img src="{:sp_get_asset_upload_path($thumb)}" class="wd100 thumb" /></if>
+            <span class="czspan" onclick="dianji('thumb',null,'img')" style="top:0;">编辑</span>
+        </div> 
+        <div class="yinying clear">
+            <p class="read fl"><img src="__TMPL__Public/templetimages/book.png" alt="">阅读 526</p>
+            <p class="baoming fr"><img src="__TMPL__Public/templetimages/user.png" alt="">报名 <span>8</span></p>
+	    </div>
+    </div>
+    <div class="title">
+        <div class="jichu">
+            <div class="content name">{$name}</div>
+            <span class="czspan" onclick="dianji('name',null)">编辑</span>
+        </div>
+    </div>
+    <div class="data">
+        <div class="content">
+            <div class="jichu">
+               <p class="time"><php>echo date("Y-m-d H:i",$begintime)." 至 ".date("Y-m-d H:i",$endtime)</php></p>
+                <span class="czspan" onclick="dianji('timediv',null,'img')">编辑</span>
+            </div>
+            <div class="jichu">
+               <p class="area address">{$address}</p>
+                <span class="czspan" onclick="dianji('address',null)">编辑</span>
+            </div>
+            <div class="jichu">
+               <p class="tel"><a href="tel:15286834500" class="phone">{$phone}<img src="__TMPL__Public/templetimages/jiantou.png" alt=""></a></p>
+               <span class="czspan" onclick="dianji('phone',null)">编辑</span>
+            </div>
+        </div>
+    </div> 
+    <div class="jieshao">
+        <div class="content">
+            <div class="jieshao_title">活动介绍</div>
+            <div class="jichu">
+                <div class="text description">{$description}</div>
+                <span class="czspan" onclick="dianji('description',null,'guize')">编辑</span>
+            </div>            
+        </div>
+    </div> 
+    <div class="baomingdiv">
+        <p class="baoming_title">已报名&nbsp;56</p>
+        <div class="baomingls">
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">一天前</p>   
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">两天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">两天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">一天前</p>   
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">三天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">三天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">四天前</p>   
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">五天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Public/templetimages/touxiang.jpg" />
+                <p class="name1">张三</p>
+                <p class="shijian">五天前</p>
+            </div>
+        </div>
+    </div>
+    <div id="kongdiv"></div>
+    <ul class="footer">
+        <li class="fenxiao">
+            <div><img src="__TMPL__Public/templetimages/shop.png" alt=""></div>
+            <p>我要邀请</p>
+        </li>
+        <li>我要报名</li>
+    </ul>
+</div>
+</body>
+<script>
+	genggai("name");
+	genggai("phone");
+	genggai("address");
+</script>
+</html>

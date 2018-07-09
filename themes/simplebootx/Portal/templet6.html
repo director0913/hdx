@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$name}</title>
+<script src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<style>
+*{margin:0; padding:0;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:right;}
+.wd100{ width:100%;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+.c_b{ clear:both;}
+.p_r{ position:relative;}
+a{text-decoration:none; color:#333;}
+
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+ /*基础样式结束*/
+ 
+body{width:320px;background-color:#49dce3; font-family:"微软雅黑";}
+.titlediv{ position:absolute; top:47px; left:41px; right:53px;}
+.titlediv .content{font-size:17px; line-height:23px; height:50px; color:#403a3a; font-weight:300; text-align:center;}
+.jibendiv{ position:absolute; top:112px; left:0; right:0;}
+.jibendiv ul{ margin:0 39px;}
+.jibendiv li{ line-height:20px; min-height:20px; font-size:13px; color:#423431; padding:10px 0; padding-left:23px; background:url(__TMPL__Public/templetimages/map.png) 0 12px no-repeat; background-size:16px auto;}
+.jibendiv li.time{ background-image:url(__TMPL__Public/templetimages/time.png);}
+.jibendiv li.dianhua{ background-image:url(__TMPL__Public/templetimages//phone.png);}
+.jibendiv li.dianhua .dianhuakuang{ float:left; min-width:117px; height:30px;}
+.jibendiv li.dianhua .laoshi{ float:left; min-width:50px; height:30px;}
+
+
+.rulediv{ margin:0 8px 8px; padding:8px; background-color:#aee7ee; border-radius:0 0 4px 4px;}
+.rulediv .rule{ min-height:100px; word-break:break-all;}
+.rulediv .rule img{ max-width:100%;}
+
+
+#kongdiv{height:35px;}
+.fudi{position:fixed;left:0;right:0;bottom:0;z-index:26;}
+</style>
+</head>
+<body>
+<!--通用上部开始-->
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/bigwheel/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title name">{$name}</p>
+        <span class="czspan" onclick="dianji('name',null)">编辑</span>
+    </div>
+</div>
+<!--通用上部结束-->
+<div class="caozuoqu">
+	<div class="jichu">
+    	<img src="{:sp_get_asset_upload_path($thumb)}" alt="" class="wd100 thumb"/>
+        <span class="czspan" onclick="dianji('thumb',null,'img')" style="top:0;">编辑</span>
+    </div>
+    <div class="p_r">
+    	<img src="__TMPL__Public/templetimages/7zhong.jpg" class="wd100" />
+        <div class="jichu titlediv">
+            <h3 class="content name">{$name}</h3>
+            <span class="czspan" onclick="dianji('name',null)">编辑</span>
+        </div>
+        <div class="jibendiv">
+            <ul>
+            	<div class="jichu">
+                    <li class="time"><php>echo date("Y-m-d H:i",$begintime)." 至 ".date("Y-m-d H:i",$endtime)</php></li>
+                    <span class="czspan" onclick="dianji('timediv',null,'img')">编辑</span>
+                </div>
+            	<div class="jichu">
+                	<li class="dizhi address">{$address}</li>
+                    <span class="czspan" onclick="dianji('address',null)">编辑</span>
+                </div>
+                <li class="dianhua">
+                    <div class="jichu dianhuakuang">
+                        <p class="phone">{$phone}</p>
+                        <span class="czspan" onclick="dianji('phone',null)">编辑</span>
+                    </div>
+                    <div class="jichu laoshi">
+                        <p class="contact">{$contact}</p>
+                        <span class="czspan" onclick="dianji('contact',null)">编辑</span>
+                    </div>
+                    <p class="c_b"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="rulediv">
+        <div class="jichu">
+            <div class="rule description">{$description}</div>
+            <span class="czspan" onclick="dianji('description',null,'guize')">编辑</span>
+        </div>
+    </div>
+    <img src="__TMPL__Public/templetimages/diliebiao.jpg" class="wt100" />
+    <div id="kongdiv"></div>
+    <img src="__TMPL__Public/templetimages/yaoqingdi.png" class="fudi" />
+</div>
+</body>
+</html>

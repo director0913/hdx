@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人中心</title>
+<tc_include file="Public:head1" />
+<!-- HTML5 shim for IE8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+
+<![endif]-->
+
+<link href="__PUBLIC__/js/artDialog/skins/default.css" rel="stylesheet" />
+<link href="__PUBLIC__/simpleboot/font-awesome/4.4.0/css/font-awesome.min.css"  rel="stylesheet" type="text/css">
+<style>
+	.length_3{width: 180px;}
+	form .input-order{margin-bottom: 0px;padding:3px;width:40px;}
+	.table-actions{margin-top: 5px; margin-bottom: 5px;padding:0px;}
+	.table-list{margin-bottom: 0px;}
+</style>
+<!--[if IE 7]>
+<link rel="stylesheet" href="__PUBLIC__/simpleboot/font-awesome/4.4.0/css/font-awesome-ie7.min.css">
+<![endif]-->
+<link href="__TMPL__Public/css/activity/home.css"  rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+</head>
+
+<body onLoad="setup();preselect('{$users_info.province}',1);preselect('{$users_info.city}',2);preselect('{$users_info.area}',3);promptinfo();">
+<tc_include file="Public:nav" />
+
+<div class="toptu">
+	<div class="pagediv">
+        <div class="f_l">
+			<if condition="empty($users_info['avatar'])">
+				<img src="__TMPL__Public/images/touxiang.jpg" class="touxiang f_l" />
+			<else />
+				<img src="{:sp_get_asset_upload_path($users_info['avatar'])}" class="touxiang f_l" />
+			</if>
+            <div class="f_l">
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">账号类型：<eq name="users_info['level']" value="0">普通会员<span style="color:#FA741B;margin-left:10px;">(您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)</span><a href="{:U('portal/index/show_shengji',array('menu'=>3))}">升级会员</a></eq><eq name="users_info['level']" value="1">亲情会员<a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq><eq name="users_info['level']" value="2">金牌会员<a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq></p>
+                <p class="bianji"><a href="{:U('user/center/index')}"><span class="fa fa-pencil"></span>编辑资料</a></p>
+            </div>
+        </div>
+        <div class="f_r" >
+        	<div class="f_l fenxinxi">
+            	<a href="{:U('portal/activity/index')}" style="color: white">
+                <p class="number">{$activity_num}</p>
+                <p>我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/app/index')}" style="color: white">
+            	<p class="number">{$app_num}</p>
+                <p>我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div>
+<div></div>
+<form action="{:U('user/profile/edit_post')}" class="profile_form" method="post">
+<div class="zhaizhong">
+	<p class="title" style="color:#444444">请填写个人资料</p>
+    <table border="0" cellpadding="0" cellspacing="0" class="ziliaobiao">
+    	<tr>
+        	<td align="right">LOGO/头像</td>
+            <td>
+				<input type="hidden" name="avatar" id="thumb" value="{$users_info['avatar']}">
+				<if condition="empty($users_info['avatar'])">
+					<img src="__TMPL__/Public/images/headicon_128.png" id="thumb_preview" class="f_l touxiang" width="100" height="100" style="cursor: hand"/>
+				<else />
+					<img src="{:sp_get_asset_upload_path($users_info['avatar'])}" id="thumb_preview" class="f_l touxiang" width="100" height="100" style="cursor: hand; height: 100px;"/>
+				</if>
+            	<!--<img src="__TMPL__Public/images/touxiang.jpg" class="f_l touxiang" width="100" height="100" style="cursor: hand"/>-->
+                <div class="f_l">
+                	<p class="tishi" style="color:red;">图片大小不能超过2M</p>
+                    <p class="chuanbtn" style="cursor: pointer;" onclick="flashupload('thumb_images', '附件上传','thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td align="right">昵称</td>
+            <td><input type="text" name="user_nicename" value="{$users_info.user_nicename}" placeholder="请输入您的昵称" /></td>
+        </tr>
+		<tr>
+        	<td align="right">手机号</td>
+            <td><input type="text" name="mobile" value="{$users_info.mobile}" readonly/></td>
+        </tr>
+        <tr>
+        	<td align="right">机构名称</td>
+            <td><input name="school" type="text" value="{$users_info.school}" placeholder="请输入机构名称"/></td>
+        </tr>
+        <tr>
+        	<td align="right">校长/负责人</td>
+            <td><input name="contact" type="text" value="{$users_info.contact}" placeholder="请输入校长/负责人姓名"/></td>
+        </tr>
+        <tr>
+        	<td align="right">校长/负责人电话</td>
+            <td><input type="text" name="contact_mobile" value="{$users_info.contact_mobile}" placeholder="请输入校长/负责人手机号"/></td>
+        </tr>
+        <tr>
+        	<td align="right">地区</td>
+            <td class="address">
+            	<select name="province" id="s1">
+                	<option>请选择省份</option>
+                </select>
+            	<select name="city" id="s2">
+                	<option>请选择城市</option>
+                </select>
+            	<select name="area" id="s3">
+                	<option>请选择地区</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td align="right" valign="top" style=" padding-top:15px;">学校项目</td>
+            <td>
+				<php>$item = explode(",",$users_info['item']);</php>
+            	<label><input type="checkbox" name="item[]" <php> if(in_array(1,$item)) echo 'checked="checked"';</php>  value="1" />幼少儿培训</label>
+            	<label><input type="checkbox" name="item[]" <php> if(in_array(2,$item)) echo 'checked="checked"';</php>  value="2" />初高中培训</label>
+            	<label><input type="checkbox" name="item[]" <php> if(in_array(3,$item)) echo 'checked="checked"';</php>  value="3" />幼儿园</label>
+            	<label><input type="checkbox" name="item[]" <php> if(in_array(4,$item)) echo 'checked="checked"';</php>  value="4" />早教机构</label><br/>
+            	<label><input type="checkbox" name="item[]" <php> if(in_array(5,$item)) echo 'checked="checked"';</php> value="5" />文化课培训</label>
+            	<label><input type="checkbox" name="item[]" <php> if(in_array(6,$item)) echo 'checked="checked"';</php>  value="6" />素质教育课程</label>
+            	<label><input type="checkbox" name="item[]" <php> if(in_array(7,$item)) echo 'checked="checked"';</php>  value="7" />其他</label>
+            </td>
+        </tr>
+        <tr>
+        	<td align="right">规模</td>
+            <td>
+            	<label><input type="radio" name="amount" <php>if($users_info['amount']==1) echo 'checked="checked"';</php> value="1" />300人以下</label>
+                <label><input type="radio" name="amount" <php>if($users_info['amount']==2) echo 'checked="checked"';</php>  value="2" />300-800人</label>
+                <label><input type="radio" name="amount" <php>if($users_info['amount']==3) echo 'checked="checked"';</php>  value="3" />800-3000人</label>
+                <label><input type="radio" name="amount" <php>if($users_info['amount']==4) echo 'checked="checked"';</php>  value="4" />3000人以上</label>
+            </td>
+            <!--<td><input type="text" name="amount" value="{$users_info.amount}"/></td>-->
+        </tr>
+    </table>
+    <center>
+    <input type="button" class="tijiao" onclick="submit_form();" value="确认提交" />
+    </center>
+</div>
+<input type=hidden name="address" id="address">
+</form>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">18638900740</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+	<form action="{:U('user/profile/edit_post')}" method="post">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td class="lefttd">机构名称</td>
+				<td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+			</tr>
+			<tr>
+				<td class="lefttd">校长/负责人</td>
+				<td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+			</tr>
+			<tr>
+				<td class="lefttd">校长/负责人电话</td>
+				<td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['contact_mobile']}"/></td>
+			</tr>
+			<tr>
+				<td class="lefttd">机构项目</td>
+				<td>
+					<label><input type="checkbox" value="1" />幼少儿培训</label>
+					<label><input type="checkbox" value="2" />初高中培训</label>
+					<label><input type="checkbox" value="3" />幼儿园</label>
+					<label><input type="checkbox" value="4" />早教机构</label><br/>
+					<label><input type="checkbox" value="5" />文化课培训</label>
+					<label><input type="checkbox" value="6" />素质教育课程</label>
+					<label><input type="checkbox" value="7" />其他</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="lefttd">地区</td>
+				<td class="address">
+					<select name="province" id="province">
+						<option>请选择省份</option>
+					</select name="city" id="city">
+					<select style="margin-right:0;">
+						<option>请选择城市</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="lefttd">规模</td>
+				<td>
+					<label><input type="radio" value="1" />300人以下</label>
+					<label><input type="radio" value="2" />300-800人</label>
+					<label><input type="radio" value="3" />800-3000人</label>
+					<label><input type="radio" value="4" />3000人以上</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="lefttd"></td>
+				<td align="center">
+					<input type="button" class="info_modify" value="确认提交" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script type="text/javascript">
+	var SHEAR = {
+		PATH_RES: '__PUBLIC__/js',
+		PATH_AVATAR: '__ROOT__/data/upload/avatar',
+		URL:"{:U('profile/do_avatar')}",
+	};
+	//这个函数是必须的，因为在geo.js里每次更改地址时会调用此函数
+	function promptinfo()
+	{
+		var address = document.getElementById('address');
+		var s1 = document.getElementById('s1');
+		var s2 = document.getElementById('s2');
+		var s3 = document.getElementById('s3');
+		address.value = s1.value + s2.value + s3.value;
+
+	}
+</script>
+
+<tc_include file="Public:footer"/>
+
+</body>
+<script type="text/javascript">
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+	$(".info_modify").click(function(){
+		alert("个人信息完善！！");
+	});
+	function submit_form(){
+		var url = "{:U('user/profile/edit_post')}";
+		$.post(url,$(".profile_form").serializeArray(),function(res){
+			if(res.status){
+				window.location.href = res.url;
+			}else{
+				alert(res.info);
+			}
+		});
+	}
+</script>
+</html>

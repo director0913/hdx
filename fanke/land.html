@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+ 
+<title>凡科互动</title> 
+<meta charset="utf-8">
+<meta name="keywords" content="微信互动营销,微信营销技巧,微营销,凡科互动">
+<meta name="description" content="凡科互动无需公众号,助你轻松玩转微营销,与朋友互动中培养粉丝,以奖励方式吸引粉丝消费,新式微信互动营销技巧让你增加曝光提升转化.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="css/land.css" rel="stylesheet" type="text/css">
+
+<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+(function(){
+    var remBase = Math.min($(window).width(),$(window).height() + window.screen.width - $(window).height())/16;
+    remBase = remBase > 30 ? 30 : remBase;
+    $('html').css('font-size',remBase === 0 ? '20px' : remBase);
+})();
+</script>
+	</head>
+	<body>
+		<div id="pageNav">注册</div>
+		<div id="registerBox">
+		    <div id="expBox">
+		        <p>免费注册凡科网帐号，开启游戏营销之旅</p>
+		    </div>
+		
+		    <div class="inputBox baseline">
+		        <span class="icon userIcon"></span>
+		        <input type="text" name="mobile" autocorrect="on" maxlength="11" autocapitalize="off" id="mobile" placeholder="请输入手机号码"> 
+		        <span class="clear_bt hide"></span>
+		    </div>
+			<div class="inputBox baseline"> 
+		        <span class="icon pwdIcon"></span>                  
+		        <input type="password" id="password" maxlength="20" placeholder="请输入密码"> 
+		    </div>
+		    <div class="inputBox baseline ">    
+		        <span class="icon verifIcon"></span>                    
+		        <input type="text" id="comfirm" class="yanzma" maxlength="4" placeholder="请输入验证码"> 
+		        <div id="getVaildateCode" class="getVaildateCode" style="border: 0;">
+		        	<input type="button"  class="getVaildateCode " style="width:100%;height:100%;position: absolute;top:0;left:0;" value="获取验证码" />
+		        </div>
+		        
+		        <div class="comeDownTime"></div>
+		    </div>
+
+		    
+		    <!--<div class="declaration"><span class="checkIcon checked"></span>我同意<a href="./reg_svr.jsp">“服务条款”</a>及<a href="./reg_legal.jsp">“法律声明”</a></div>-->
+		    <div class="registerBbn baseline" id="mianfzc">免费注册</div>
+		    <div class="loginTipLine">已有帐号？ <a href="login.html" style="text-decoration: underline;">登录</a></div>
+		    
+		</div>
+		<div id="zhezc">
+			<div class="zhucchengg">
+				<h1>注册成功！</h1>
+				<p><span class="daoshuz"></span>秒后<a href="login.html">跳转</a>到登陆！</p>
+			</div>
+		</div>
+		<input type="hidden" name=""class="yanzhengma" id="" value="" />
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">  
+	  $(function(){  
+	    $(".getVaildateCode").click(function(){  
+	      var disabled = $(".getVaildateCode").attr("disabled");  
+	      if(disabled){  
+	        return false;  
+	      }  
+	      if($("#mobile").val() == "" || isNaN($("#mobile").val()) || $("#mobile").val().length != 11 ){  
+	        alert("请填写正确的手机号！");  
+	        return false;  
+	      }  
+	     settime();  
+	     var mobile = $("#mobile").val();
+	     	$.ajax({
+                url:httpurl+"Add/register",
+                type:"post",
+                data:{
+                	phone:mobile
+                },
+                success:function(data){
+                	if(data==0){
+                		alert('账号已被注册');
+                		return false;
+                	}else{
+                		$('.yanzhengma').val(data);
+                	}
+                	
+                },
+           	});
+	    });  
+	  	var countdown=60;
+	    var getVaildateCode = $(".getVaildateCode"); 
+	    function settime() {  
+	     	if (countdown == 0) {  
+		        getVaildateCode.attr("disabled",false);  
+		        getVaildateCode.val("获取验证码");  
+		        countdown = 60;  
+		        return false;  
+		    } else {  
+		        $(".getVaildateCode").attr("disabled", true);  
+		        getVaildateCode.val("重新发送(" + countdown + ")");  
+		        countdown--;  
+		    }  
+		    setTimeout(function() {  
+		        settime();  
+		    },1000);  
+	    }
+	    $('#mianfzc').click(function(){
+	    	if (countdown == 0) { 
+	    		settime();  
+		     	var mobile = $("#mobile").val();
+		     	$.ajax({
+	                url:httpurl+"Add/register",
+	                type:"post",
+	                data:{
+	                	phone:mobile
+	                },
+	                success:function(data){
+	                	
+	                },
+	           	});
+	    	}else{
+	    		var mobile = $("#mobile").val();
+		  		var password = $('#password').val();
+		  		var code = $('.yanzma').val();
+		  		var yanzm = $('.yanzhengma').val();
+		  		if(mobile == ''){
+		  			alert('请输入手机号！');
+		  			return false;
+		  		}
+		  		if(password == ''){
+		  			alert('请输入密码！');
+		  			return false;
+		  		}
+		  		if(password.length<6){
+		  			alert('密码不能小于6位！');
+		  			return false;
+		  		}
+		  		if(code == ''){
+		  			alert('请输入验证码！');
+		  			return false;
+		  		}
+		  		if(yanzm!=code){
+		  			alert('验证码输入错误！');
+		  			return false;
+		  		}
+		  		$.ajax({
+	                url:httpurl+"Add/add_user",
+	                type:"post",
+	                data:{
+	                	phone:mobile,
+	                	password:password,
+	                	code:code
+	                },
+	                success:function(e){
+	                	if(e==1){
+	                		$('#zhezc').attr('style','display: block;');
+	                		daojis();
+	                	}
+	                },
+	           	});
+	    	}
+	  	})
+	    var tiaoz = 3;
+	    function daojis(){
+	    	if(tiaoz==0){
+	    		window.location.href='login.html'; 
+	    	}else{
+	    		$('.daoshuz').html(tiaoz);
+	        	tiaoz--;
+	    	}
+	    	setTimeout(function() { 
+    			daojis();
+		    },1000);
+	    }
+	  })  
+  	
+</script>  
+		</body>
+</html>

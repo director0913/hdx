@@ -1,0 +1,440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<title>微活动发布平台-首页</title>
+<tc_include file="Public:head1" />
+<link href="__TMPL__Public/css/activity/index.css"  rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<script type="text/javascript" src="__TMPL__Public/js/jquery.qrcode.min.js"></script>
+<style type="text/css">
+.list{ height:161px; overflow:hidden;}
+.list li{width:237px; margin-right:34px;}
+.list li .tudiv{ height:115px;}
+.list .yulanceng{ width:53px; margin-left:-26px;}
+.list .yulanceng li{ width:53px; margin:0;}
+.xinjiandiv{ width:978px; height:528px; position:fixed; top:50%; left:50%; margin-top:-264px; margin-left:-489px; background-color:#FFF; z-index:1100; display:none;}
+.xinjiandiv .title{ font-size:18px; height:53px; line-height:53px; text-align:center; border:none; padding:0;}
+.xinjiandiv .close{ position:absolute; top:15px; right:20px;font-family: arial, 'Hiragino Sans GB', 'Microsoft Yahei', 微软雅黑, 宋体, Tahoma, Arial, Helvetica, STHeiti; font-size:18px; cursor:pointer;}
+.xinjiandiv .zhongdiv{ background-color:#f0f0f0; padding:13px 12px 9px 15px;}
+.xinjiandiv .zhongdiv .zuodiv{ float:left; width:695px; margin-left:-12px;}
+.xinjiandiv .zhongdiv .zuodiv ul{ height:400px; overflow:auto; overflow-x:hidden;}
+.xinjiandiv .zhongdiv .zuodiv li{ width:206px; height:118px; float:left; margin:0 0 12px 12px; border:3px solid transparent; border-radius:3px; position:relative;}
+.xinjiandiv .zhongdiv .zuodiv li.active{ border-color:#5e9ded;}
+.xinjiandiv .zhongdiv .zuodiv li img{ width:100%; height:100%;}
+.xinjiandiv .zhongdiv .zuodiv li .namep{ position:absolute; bottom:0; left:0; right:0; height:24px; background-color:#000; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; opacity: 0.5;}
+.xinjiandiv .zhongdiv .zuodiv li .name{ position:absolute; bottom:0; left:8px; right:8px; color:#FFF; font-size:14px; height:24px; line-height:24px;}
+.xinjiandiv .zhongdiv .youdiv{ width:245px; height:391px; overflow:auto; overflow-x:hidden; float:right;}
+.xinjiandiv .page{ padding:0;}
+.xinjiandiv .chuangjianbtn{ text-align:center; margin-top:9px;}
+.xinjiandiv .chuangjianbtn a{ margin:0 auto; display:inline-block; padding:7px 25px; width:auto; font-size:13px; color:#FFF; background-color:#fa741b; border-radius:3px;}
+<literal>
+.xinjiandiv .zhongdiv .zuodiv ul::-webkit-scrollbar-track,.xinjiandiv .zhongdiv .youdiv::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.xinjiandiv .zhongdiv .zuodiv ul::-webkit-scrollbar-thumb,.xinjiandiv .zhongdiv .youdiv::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.xinjiandiv .zhongdiv .zuodiv ul::-webkit-scrollbar,.xinjiandiv .zhongdiv .youdiv::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+
+/*会员标识*/
+.member{position:absolute;top:-2px;left:-2px;width:60px;height:60px;}
+.member img{width:100%;}
+
+.fix{*zoom:1;}
+.fix:after{display:block; content:"clear"; height:0; clear:both; overflow:hidden; visibility:hidden;}
+
+</style>
+</head>
+<body>
+<tc_include file="Public:index_nav" />
+<div class="pagediv fix">
+    <div class="title">当季TOP10<p class="f_r" style="font-size:16px; cursor:pointer;" onclick="showduo(this)">查看全部></p></div>
+    <ul class="list youzheceng" data-show="0">
+		<php>$forms = sp_getslide("top5_activity");</php>
+		<foreach name="forms" item="vo">
+			<li class="p_r">
+                <div class="member" style="z-index:100;"><img src="__TMPL__Public/images/member1.png" alt=""></div>
+				<div class="tudiv">
+					<img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" />
+					<div class="zheceng">
+						<ul class="yulanceng">
+							<li class="f_l">
+                                <a href="javascript:void(0);">
+                                    <div class="yuanpian yulan"
+                                    	data-type="img"
+                                        data-yurl ="{:sp_get_asset_upload_path($vo['slide_index'])}"   
+                                        data-href="{:U('apps/index/edit',array('id'=>$vo['template_id'],'module'=>$vo['module']))}"
+                                        data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['template_id']))}" data-name="{$vo['cat_name']|mb_substr=###,0,16,'utf-8'}" data-time="{$vo['createtime']|date="Y-m-d",###}">
+                                        <p></p><img src="__TMPL__Public/images/yulan.png" />
+                                    </div>
+                                    <p class="gongneng">预览</p>
+                                </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--<p class="name">{$vo.name|mb_substr=###,0,15,'utf-8'}</p>-->
+				<!--{$vo.name|msubstr=0,15}-->
+				<!--  -->
+			</li>
+		</foreach>
+		<php>$forms = sp_getslide("top5_form");</php>
+		<foreach name="forms" item="vo">
+			 <li class="p_r">
+                <div class="member" style="z-index:100;"><img src="__TMPL__Public/images/member2.png" alt=""></div>
+				<div class="tudiv">
+					<img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" />
+					<div class="zheceng">
+						<ul class="yulanceng">
+							<li class="f_l">
+                                <a href="javascript:void(0);">
+                                    <div class="yuanpian yulan"
+                                    	data-type="img"
+                                        data-yurl ="{:sp_get_asset_upload_path($vo['slide_index'])}"
+                                        data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['template_id']))}"
+                                        data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['template_id']))}" data-name="{$vo['cat_name']|mb_substr=###,0,16,'utf-8'}" data-time="{$vo['createtime']|date="Y-m-d",###}">
+                                        <p></p><img src="__TMPL__Public/images/yulan.png" />
+                                    </div>
+                                    <p class="gongneng">预览</p>
+                                </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--<p class="name">{$vo.name|mb_substr=###,0,15,'utf-8'}</p>-->
+				<!--{$vo.name|msubstr=0,15}-->
+				<!--  -->
+			</li>
+		</foreach>
+        <div class="c_b"></div>
+    </ul>
+    <div class="title">活动报名中心<p class="f_r"><a href="javascript:void(0);" data-ul="moren"  class="active">当季推荐</a><a href="javascript:void(0);" data-ul="zuixin">最新发布</a></p></div>
+	<!-- 获取精选活动默认排序和最新发布   -->
+	<php>$default = sp_getRecforms(); $new = sp_getNewforms();</php>
+    <ul class="jingxuan moren">
+            <li class="listli" style=" cursor:pointer;" onclick="showBg('#fullbg','.xinjiandiv')">
+                <div class="adddiv" style="margin-top:110px;"><img src="__TMPL__Public/images/add.png"/><p>创建一个新报名活动</p></div>
+            </li>
+		<foreach name="default" item="vo">
+			<li class="listli" style="overflow:initial; position:relative;">
+                <div class="member" style="z-index:100;"><img src="__TMPL__Public/images/member2.png" alt=""></div>
+                <div style="width: 249px; height: 275px; overflow:hidden;">
+                    <div class="tudiv">
+                        <img src="{:sp_get_asset_upload_path($vo['thumb'])}-centerthumb" />
+                        <!--<img src="http://resacc.tongyishidai.com/ertong750.jpg-centerthumb" />-->
+                        <div class="zheceng">
+                            <ul class="yulanceng">
+                                <li class="f_l">
+                                    <a href="javascript:void(0);">
+                                        <div class="yuanpian yulan"
+                                            data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                             data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                             data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}" data-name="{$vo['name']|mb_substr=###,0,16,'utf-8'}" data-time="{$vo['createtime']|date="Y-m-d",###}">
+                                            <p></p><img src="__TMPL__Public/images/yulan.png" />
+                                        </div>
+                                        <p class="gongneng">预览</p>
+                                    </a>
+                                </li>
+                                <li class="f_r">
+                                    <a href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}">
+                                        <div class="yuanpian bianji" 
+                                            data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                             data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                             data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}" >
+                                            <p></p><img src="__TMPL__Public/images/bianji.png" />
+                                        </div>
+                                        <p class="gongneng">选用</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="erweimaqu">
+                            <div class="erweimaqudiv" data-link="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}"></div>
+                        </div>
+                    </div>
+                    <p class="name">{$vo.name|msubstr=0,15}</p>
+                    <div class="dibup">
+                        <span class="fa fa-qrcode f_l xiaoerweima"></span>
+                        <p class="f_r">
+                            <span class="f_l">{$vo.user_nicename}</span>
+                            <if condition="empty($vo['avatar'])">
+                                <img src="__TMPL__Public/images/touxiang.png" class="f_l" />
+                            <else/>
+                                <img src="{:sp_get_asset_upload_path($vo['avatar'])}" class="f_l" />
+                            </if>
+                        </p>
+                        <div class="c_b"></div>
+                    </div>
+                </div>
+			</li>
+		</foreach>
+    </ul>
+	<ul class="jingxuan zuixin d_n">
+		<foreach name="new" item="vo">
+			<li class="listli">
+				<div class="tudiv">
+					<img src="{:sp_get_asset_upload_path($vo['thumb'])}-centerthumb" />
+					<div class="zheceng">
+						<ul class="yulanceng">
+							<li class="f_l">
+                                <a href="javascript:void(0);">
+                                    <div class="yuanpian yulan"
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                         data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                         data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}" data-name="{$vo['name']|mb_substr=###,0,16,'utf-8'}" data-time="{$vo['createtime']|date="Y-m-d",###}">
+                                        <p></p><img src="__TMPL__Public/images/yulan.png" />
+                                    </div>
+                                    <p class="gongneng">预览</p>
+                                </a>
+							</li>
+							<li class="f_r">
+                                <a href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}">
+                                    <div class="yuanpian bianji" 
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                         data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                         data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}">
+                                        <p></p><img src="__TMPL__Public/images/bianji.png" />
+                                    </div>
+                                    <p class="gongneng">选用</p>
+                                </a>
+							</li>
+						</ul>
+					</div>
+					<div class="erweimaqu">
+						<div class="erweimaqudiv" data-link="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}"></div>
+					</div>
+				</div>
+				<p class="name">{$vo.name|msubstr=0,15}</p>
+				<div class="dibup">
+					<span class="fa fa-qrcode f_l xiaoerweima"></span>
+					<p class="f_r">
+						<span class="f_l">{$vo.user_nicename}</span>
+						<if condition="empty($vo['avatar'])">
+							<img src="__TMPL__Public/images/touxiang.png" class="f_l" />
+						<else/>
+							<img src="{:sp_get_asset_upload_path($vo['avatar'])}" class="f_l" />
+						</if>
+					</p>
+					<div class="c_b"></div>
+				</div>
+			</li>
+		</foreach>
+    </ul>
+    <img src="__TMPL__Public/images/guanggao.jpg" class="wt100 guanggao" />
+</div>
+<tc_include file="Public:footer"/>
+<div id="fullbg"></div>
+<div class="yulanqu">
+    <div class="neidiv">
+        <div class="f_l waike">
+            <div class="neirong">
+            	<img src="" id="yulanimg" />
+            	<iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('option'=>'templet1'))}"></iframe>
+            </div>
+        </div>
+        <div class="youce">
+        	<span class="fa fa-close"></span>
+            <p class="name activity_name">招生秀<!--<span>免费</span>--></p>
+            <p class="time activity_time">发布时间：2016-7-5</p>
+            <div class="erweima">
+                <div id="matu"></div>
+                <p>扫描二维码查看预览效果</p>
+            </div>
+            <a href="#" class="subok">立即使用</a>
+        </div>
+        <div class="c_b"></div>
+    </div>
+</div>
+<div class="fufuwudiv p_r">
+	<div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+    	<p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">18638900740</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="xinjiandiv">
+    <php>$forms = sp_getforms();</php>
+	<p class="close" onclick="closeBg('#fullbg','.xinjiandiv')">×</p>
+	<p class="title">创建新活动</p>
+    <div class="zhongdiv">
+    	<div class="zuodiv">
+        	<ul>
+			<foreach name="forms" item="vo">
+            	<li <if condition="$key EQ 0"> class="active"</if> data-yuurl="{:sp_get_asset_upload_path($vo['preview_thumb'])}" data-jianurl="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}">
+                	<img src="{:sp_get_asset_upload_path($vo['index_thumb'])}" />
+                	<p class="namep"></p>
+                	<p class="name">{$vo['name']}</p>
+                </li>
+            </foreach>
+                <p class="c_b"></p>
+            </ul>
+        </div>
+        <div class="youdiv">
+        	<img src="{:sp_get_asset_upload_path($forms[0]['preview_thumb'])}" style="width:100%;" />
+        </div>
+        <p class="c_b"></p>
+    </div>
+    <p class="chuangjianbtn"><a href="{:U('portal/activity/addactivity',array('tpl_id'=>$forms[0]['id']))}">立即创建</a></p>
+</div>
+</body>
+
+<script type="text/javascript">
+$(function(){
+	//判断是否登录
+	$.post("{:U('user/index/is_login')}",{},function(data){
+		if(data.status){
+			$(".is_login").show();$(".isnot_login").hide();
+			$(".my_nickname").text(data.user.user_nicename);
+		}else{
+			$(".is_login").hide();$(".isnot_login").show();
+		}
+	});
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	})
+	$(".jingxuan li").hover(function(){
+		$(this).find(".tudiv").stop(true,false).animate({height:"145px"},300);
+		$(this).find(".xiaoerweima").stop(true,false).animate({marginTop:"0"},100);
+		$(this).find(".zheceng").stop(true,false).show();
+		},function(){
+		$(this).find(".tudiv").stop(true,false).animate({height:"165px"},300);
+		$(this).find(".xiaoerweima").stop(true,false).animate({marginTop:"33px"},100);
+		$(this).find(".zheceng").stop(true,false).hide();
+	});
+	$(".jingxuan li .xiaoerweima").hover(function(){
+		$(this).parent().parent().find(".erweimaqu").show(500);
+		$(this).css({backgroundColor:"#F37119",color:"#FFF"})
+	},
+	function(){
+		$(this).parent().parent().find(".erweimaqu").hide(500);
+		$(this).css({backgroundColor:"#f0f3f4",color:"#949494"})
+	});
+	$(".yulan").parent().click(function(){
+		if($(".is_login").is(":hidden")){
+			//alert("请先登录");
+			window.location.href = "{:U('user/login')}";
+			return false;
+		}
+		$(".subok").attr("src","#");
+		var type=$(this).find(".yulan").attr("data-type");
+		var url = $(this).find(".yulan").attr("data-href");
+		var yul = $(this).find(".yulan").attr("data-yurl");
+		var eul = $(this).find(".yulan").attr("data-eurl");
+		var name = $(this).find(".yulan").attr("data-name");
+		var time = $(this).find(".yulan").attr("data-time");
+		$(".activity_name").text(name);
+		$(".activity_time").text(time);
+		if(type=="img")
+		{
+			$("#yulanimg").show().attr("src",yul);
+			$("#yulaniframe").hide().attr("src","");
+		}
+		else
+		{
+			$("#yulanimg").hide().attr("src","");
+			$("#yulaniframe").show().attr("src",yul);
+		}
+		$(".subok").attr("href",url);
+		$('#matu').html("");
+		jQuery('#matu').qrcode({width: 158,height: 158,text: eul});
+		showBg("#fullbg",".yulanqu",true);
+		$("body").css("overflow","hidden");
+	});
+	$(".bianji").parent().click(function(){
+		if($(".is_login").is(":hidden")){
+			window.location.href = "{:U('user/login')}";
+			return false;
+		}
+		$(".subok").attr("src","#");
+		var url = $(this).find(".bianji").attr("data-href");
+		var yul = $(this).find(".bianji").attr("data-yurl");
+		var eul = $(this).find(".bianji").attr("data-eurl");
+		$("#yulaniframe").attr("src",yul);
+		$(".subok").attr("href",url);
+		$('#matu').html("");
+		jQuery('#matu').qrcode({width: 158,height: 158,text: eul});
+		showBg("#fullbg",".yulanqu",true);
+		$("body").css("overflow","hidden");
+		$(".yulanqu").click(function(){closeBg("#fullbg",".yulanqu");
+		$("body").css("overflow","auto");});
+		$(".yulanqu .waike,.yulanqu .youce").click(function(){});
+	});
+	$(".title p a").click(function(){
+		//所有隐藏
+		$(".jingxuan").hide();
+		//自己显示
+		$("."+$(this).attr("data-ul")).show();
+		$(".title p a").removeClass("active");
+		$(this).addClass("active");
+	});
+	$(".yulanqu .youce .fa-close").click(function(){
+		closeBg('#fullbg','.yulanqu');
+		$('body').css('overflow','auto');
+	});
+	/*//如果滚动的距离到底部时操作区域距离底部80像素，距离底部超过80像素时操作区域距离底部0像素。
+	$(window).scroll(function(){
+		var scrollTop = $(this).scrollTop();
+		if(scrollTop>0)
+		{
+			$(".topindex").css({backgroundColor:"#000",backgroundColor:"rgba(0,0,0,.8)",opacity:"0.8",filter:"Alpha(opacity=80)"});
+		}
+		else
+		{
+			$(".topindex").css({backgroundColor:"transparent",opacity:"1",filter:"Alpha(opacity=100)"});
+		}
+	});*/
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+	$(".erweimaqudiv").map(function(){jQuery(this).qrcode({width: 115,height: 115,text: $(this).attr("data-link")});});
+	$(".zhongdiv .zuodiv li").click(function(){
+		$(".zhongdiv .zuodiv li").removeClass("active");
+		$(this).addClass("active");
+		$(".xinjiandiv .youdiv img").attr("src",$(this).attr("data-yuurl"));
+		$(".xinjiandiv .chuangjianbtn a").attr("href",$(this).attr("data-jianurl"));
+	});
+})
+$(".tijiao").click(function(){
+    var school=$("input[name='school']").val();
+    var contact=$("input[name='contact']").val();
+    var mobile=$("input[name='mobile']").val();
+    //alert(school+contact+mobile);
+    $.post("{:U('user/profile/full_post')}",
+        {
+           school:school,
+           contact:contact,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //$('.fuxinxi').hide();
+                 window.location.reload();
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+})
+function showduo(that)
+{
+	var status=$(".list").attr("data-show");
+	if(status==0)
+	{
+		$(".list").css("height",'inherit');
+		$(".list").attr("data-show","1");
+		$(that).html("收起更多>");
+	}
+	else
+	{
+		$(".list").css("height",'161px');
+		$(".list").attr("data-show","0");
+		$(that).html("查看全部>");
+	}
+}
+</script>
+</html>

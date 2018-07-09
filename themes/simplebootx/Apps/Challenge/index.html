@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$title}</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/Challenge/styles/index1.css?i=0" />
+<!-- <script type="text/javascript" src="__TMPL__Apps/app/resource/train/xscript/jquery-1.9.1.min.js"></script> -->
+<script type="text/javascript" src="__TMPL__Apps/Challenge/scripts/index1.js?v=9"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+	Pace.on('hide', function(){
+      document.getElementById("pagediv").style.display="block";
+	  music.play();
+    });
+</script>
+<style type="text/css">
+html,body{ height:100%;}
+body{ background-size:100% 100%;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/challenge/audio/beijing.mp3" style="display: none;"></audio>
+<div id="fullbg"></div>
+<div id="baoxiang">
+	<p class="title">我的宝箱<img src="__TMPL__Apps/Challenge/images/close.png" onclick="closeBg('baoxiang')"/></p>
+    <p class="defen">我的最高游戏得分<span>{$user['per_num']}</span>分</p>
+    	<if condition="count($prizels) eq 0"><p class="wujilu">很遗憾暂时未中奖，继续加油哦！！</p></if>
+    	<div class="tanzhongdiv">
+        	<foreach name="prizels" item="vo">
+        	<div class="fendiv">
+                <div class="tudiv"><img src="{$vo['thumb']}"/></div>
+                <div class="youdiv">
+                    <p class="jiangji">{$vo['type']}</p>
+                    <p class="jiangname">{$vo['name']}</p>
+                </div>
+                <div class="c_b"></div>
+            </div>
+            </foreach>
+    	</div>
+</div>
+<div id="paihang">
+	<p class="title">排行榜<img src="__TMPL__Apps/Challenge/images/close.png" onclick="closeBg('paihang')"/></p>
+    <p class="wujilu">暂无排名记录</p>
+    <div class="tanzhongdiv">
+    	<table border="0" width="100%" class="paiming" id="sort">
+        	<tr class="toutable">
+            	<td width="25%">排行</td>
+            	<td width="25%">头像</td>
+            	<td width="25%">昵称</td>
+            	<td width="25%">成绩</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="tishidiv" id="tishidiv">
+	<img src="__TMPL__Apps/Challenge/images/cishuwan.png" onclick="closeBg('tishidiv')" />
+    <p id="tixing">你的次数已用完</p>
+</div>
+<div id="pagediv">
+<div id="top">
+    <div class="logo"><img src="{$thumb}" alt="" /></div>
+	<div id="yinyue"></div>
+    <!-- <img src="images/guize.png" id="guizetu" onclick="showBg('guize')"/> -->
+    <div class="shangxia" style="background-image:url(__TMPL__Apps/Challenge/images/toptitle.png);"><p class="ggzi" style="width:485px; margin-left:auto; margin-right:auto;">{$title}</p></div>
+</div>
+<div id="alldiv">
+    <img src="__TMPL__Apps/Challenge/images/paihang.png" id="paihangtu" onclick="showBg('paihang')" />
+    <img src="__TMPL__Apps/Challenge/images/baoxiang.png" id="baoxiangtu" onclick="showBg('baoxiang')"/>
+    <div class="selecttidiv">
+    	<div class="titype" onclick="xuantilei()">
+        	<p class="zuop">选择答题类型</p>
+            <input type="hidden" id="titype" value="-1" />
+            <p class="youp"><img src="__TMPL__Apps/Challenge/images/xiala.png" /></p>
+        </div>
+        <ul class="d_n">
+        	<foreach name="typels" item="vo">
+        		<li onclick="xuanli(this,{$vo['id']})">{$vo['name']}</li>
+            </foreach>
+        </ul>
+    </div>
+    <img src="__TMPL__Apps/Challenge/images/kaishi.png" id="kaishi" onclick="begin_game();"/>
+</div>
+</div>
+<if condition="$rule neq ''">
+<div class="rule">
+    <p class="rule_title">活动说明</p>
+    <div class="text">{$rule|html_entity_decode}</div>
+</div>
+</if>
+<if condition="$school_desc neq ''">
+<div class="rule">
+    <p class="rule_title">关于我们</p>
+    <div class="text">{$school_desc|html_entity_decode}</div>
+</div>
+</if>
+<div class="skill_support">
+    <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+        <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+    </a>
+</div>
+<tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+var aid="{$aid}";
+//活动状态。
+var astatus="{$astatus}";
+var hdxx="{$axinxi}";
+//获取排行榜。
+var getpaihangurl = "{:U('apps/challenge/getsort',array('id'=>$aid))}";
+//定义当前页码。
+var page=1;
+//初始排名值。
+var index=1;
+var clickstatus=false;
+var pagecount=0;
+</script>
+</html>

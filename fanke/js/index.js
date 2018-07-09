@@ -1,0 +1,1 @@
+$("html").css("font-size",$(window).width()/12.8+"px");$(window).resize(function(){$("html").css("font-size",$(window).width()/12.8+"px")});

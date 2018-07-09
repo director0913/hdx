@@ -1,0 +1,81 @@
+<admintpl file="header" />
+</head>
+<body onLoad="setup();preselect('{$province}',1);preselect('{$city}',2);preselect('{$area}',3);promptinfo();">
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('indexadmin/index')}">本站用户</a></li>
+			<li class="active"><a href="#">编辑备注信息</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('indexadmin/remark_post')}">
+			<fieldset>
+				<!--机构名称 -->
+				<div class="control-group">
+					<label class="control-label">机构名称</label>
+					<div class="controls">
+						<input type="text" name="remark1" value="{$remark1}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">其他备注</label>
+					<div class="controls">
+						<input type="text" name="remark2" value="{$remark2}">
+					</div>
+				</div>
+				<!-- 其他备注-->
+				<div class="control-group">
+					<label class="control-label">用户级别</label>
+					<div class="controls">
+						<php>$levels = array("试用用户","399会员","3999会员","部分营销工具使用组");</php>
+						<select name="level">
+							<foreach name="levels" item="vo">
+								<option value="{$key}" <if condition="$key eq $level"> selected </if> >{$vo}</option>
+							</foreach>
+						</select>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">账号有效期{$valid_time}</label>
+					<div class="controls">
+						<php>
+							if(empty($valid_time)){
+								$valid_time = time();
+							}
+						</php>
+						<input type="text" class="js-datetime" name="valid_time" value="<php>echo date('Y-m-d H:i',$valid_time);</php>">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">已处理（是否指定账号有效期）</label>
+					<div class="controls">
+						<label class="checkbox inline">
+							<input value="1" type="radio" name="is_deal" <if condition="$is_deal eq 1">checked</if> />已处理
+							<input value="0" type="radio" name="is_deal" <if condition="$is_deal eq 0">checked</if> />未处理
+						</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">营销活动权限</label>
+					<div class="controls">
+						<foreach name="permissions" item="vo">
+						<label class="checkbox inline">
+							<php>$role_ids = explode(",",$permission);$role_id_checked=in_array($vo['module'],$role_ids)?"checked":"";</php>
+							<input value="{$vo['module']}" type="checkbox" name="permission[]" {$role_id_checked}>{$vo.slide_name}
+						</label>
+						</foreach>
+					</div>
+					<div style="margin-left:100px;margin-top:10px;color:red;">*如果都不选择，则默认为有全部使用权限。</div>
+				</div>
+			</fieldset>
+			<div class="form-actions">
+				<input type="hidden" name="id" value="{$id}" />
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+				<a class="btn" href="javascript:history.go(-1);">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/content_addtop.js?t={:time()}"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/geo.js"></script>
+</body>
+</html>

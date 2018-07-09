@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>报名管理</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color:#fafafa;}
+.aui-bar-nav,.aui-btn{background-color:#fff;}
+.aui-title,.aui-bar-nav,.aui-btn{color:#000;}
+header.aui-bar .aui-btn .aui-iconfont{color:#ff9900;}
+.search{margin:12px 12px 0;}
+input[type="text"]{width:200px;padding:10px 30px 10px 8px;margin-bottom:6px;font-size:13px;}
+.souinput{width:170px;height:26px;border:1px solid #D3D3D3;border-right:none;border-radius:2px 0 0 2px;font-size:13px;background:url(__TMPL__Public/mobile/images/find.png) 175px center no-repeat;background-size:auto 16px;float:left;}
+.soubtn{ padding:0 6px;width:36px; height:26px; line-height:26px; background-color:#F67519; color:#FFF; font-size:13px; border-radius:0 2px 2px 0; border:none;}
+.wd20{width:20%;}
+.wd30{width:30%;}
+.wd15{width:15%;}
+.wd100{width:100%;}
+tr{height:36px;background-color:#fff;font-size:13px;margin-top:6px;width:100%;display:table;}
+.tt{width:100%;}
+tr th{color:#3b3b3b;}
+tr td{color:#717171;display:table-cell;padding:4px;word-break:break-all;}
+tr .user{width:28px;height:28px;margin:0 auto;height:36px;padding-top:4px;}
+tr .user img{width:100%;height:28px;vertical-align: middle;}
+td{text-align: center;}
+.daochubtn{ width:45px;height:24px;line-height:24px;background-color:#F67519;color:#FFF; border-radius:4px;font-size:13px;text-align:center;float:right;}
+.page{padding:10px 12px;clear:both;text-align:center; font-size:0; font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top; text-align:center;} 
+.page a, .page span{display:inline-block;height:28px;line-height:28px; width:28px; margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+.page a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+.page a, .page a:visited{color:#252525} 
+.page a:hover, .page a:active{color:#8D827E} 
+.page .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+.page a.current, .page a.current:visited{color:#8D827E} 
+.page a.current:hover, .page a.current:active{color:#8D827E} 
+.ep-pages-ctrl{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+.ep-pages-e5e5e5{color:#e5e5e5} 
+.ep-pages-all{font-size:12px;vertical-align:top}
+</style>
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top} 
+</style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-border-b" id="aui-header">
+    <a class="aui-btn aui-pull-left aui-border-b" href="javascript:history.go(-1);">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title" id="header-title">报名管理</div>
+</header>
+<div class="search">
+    <input type="text" class="souinput aui-pull-left serchinput" value="{$keyword}"  placeholder="输入要查找的内容" />
+    <!--<div class="daochubtn">导出</div>-->
+</div>
+<div style="clear:both;"></div>
+<table border="0" cellpadding="0" cellspacing="0" class="wd100">
+    <tr class="tt">
+        <th class="wd20">姓名</th>
+        <th class="wd30">手机号</th>
+        <th class="wd30">推荐人</th>
+        <th class="wd15">操作</th>
+    </tr>
+    <foreach name="list" item="vo">
+        <tr>
+            <td class="wd20">{$vo['username']}</td>
+            <td class="wd30">{$vo['mobile']}</td>
+            <td class="wd30">{$vo['yq']}</td>
+            <td class="wd15 delete" data-id="{$vo.id}">删除</td>
+            <!--
+            <td class="wd15 showDetail" data-url="{:U('portal/mindex/user_listDetail',array('pid'=>$vo['id']))}" onclick='javascript:;'><span class="aui-iconfont aui-icon-more"></span></td>
+            -->
+        </tr>
+    </foreach>
+</table>
+<div class="pagelist">{$page}</div>
+<div class="page" style="display: none;">
+    <span class="ep-pages-ctrl ep-pages-e5e5e5">&lt;</span>
+    <a href="#" target="_self" class="current">1</a>
+    <a href="#" target="_self">2</a>
+    <a href="#" target="_self">3</a>
+    <span>...</span>
+    <a href="#" target="_self" class="ep-pages-ctrl">&gt;</a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+$(function(){
+    $('.showDetail').click(function(){
+        var url=$(this).attr('data-url');
+        //alert(url);
+        window.location.href=url;
+    });
+    $('.delete').click(function(){
+        var id=$(this).attr('data-id');
+        //alert(id);
+        if(!confirm("确定要删除这个用户吗？"))
+        {return;}
+        $.post("{:U('portal/activity/status_post')}",{id:id},function(res){
+            if(res.status==0){
+                alert(res.info);
+            }else{
+                window.location.href=window.location.href;
+            }
+        });
+    });
+    //导出
+    $(".daochubtn").click(function(){
+		//alert("测试导出数据！！！！");
+		var url="{:U('portal/activity/export_data',array('id'=>$_GET['id']))}";
+		window.location.href = url;
+	});
+    //搜索
+    $('.serchinput').bind('keypress',function(event){  
+        if(event.keyCode == "13"){  
+            var keyword = $('.serchinput').val();
+            if(!keyword){keyword="";}
+            window.location.href ="{:U('portal/mindex/user_list',array('id'=>$_GET['id']))}"+ "?keyword=" + keyword;
+            //alert('你输入的内容为：' +  $('.serchinput').val());  
+        }  
+    });
+});
+</script>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<tc_include file="Public:head1" />
+ <link href="__TMPL__Public/css/activity/regist.css"  rel="stylesheet" type="text/css">
+ <link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+ <style>
+ .zhaizhong{ width:950px; margin:50px auto; padding:30px 50px; border:1px solid #D5D5D5; background-color:#FFF;}
+.zhaizhong .title{ font-size:20px; color:#FA741B; border-bottom:1px solid #D2D2D2;}
+.zhaizhong .title .titlep{ line-height:50px;}
+.typelist{ line-height:15px; margin:20px 0;}
+.typelist li{float:left; font-size:14px; color:#787878; width:101px; cursor:pointer; text-align:center;}
+.typelist li.active{ color:#88c7fa;}
+.ziliaobiao td{ padding:10px; color:#444444; font-size:14px;}
+.touxiang{ width:100px; height:100px; margin-right:20px;}
+.tishi{ margin-top:11px;}
+.chuanbtn{ margin-top:45px; width:83px; height:29px; line-height:29px; text-align:center; color:#AEAEAE; background-color:#F7F7F7;}
+.ziliaobiao{ margin-top:20px;}
+.ziliaobiao td input,.ziliaobiao td select,.zhucebiao td select{ width:613px; height:41px; border:1px solid #E5E5E5; font-size:14px; padding:0 10px;}
+.ziliaobiao td select{ width:633px;}
+.ziliaobiao td.address select,.zhucebiao td select{ width:202px; margin-right:10px;}
+.ziliaobiao td label,.zhucebiao td label{ width:139px; height:15px; font-size:14px; line-height:15px; float:left; margin:10px; margin-left:0; color:#444;}
+.ziliaobiao td label input,.zhucebiao td label input{ width:15px; height:15px; float:left; margin-right:10px;}
+.tijiao{ width:166px; height:35px; line-height:35px; border-radius:5px; background-color:#F67519; color:#FFF; text-align:center; margin:48px auto; cursor:pointer; border:1px solid #F67519; font-size:16px;}
+.addbtn{display:block; float:right; width:123px; height:36px; line-height:36px; text-align:center; font-size:14px; color:#FFF; background-color:#6bb0fe; margin-left:28px; margin-top:-10px; border-radius:5px;}
+.addbtn:hover{ background-color:#3078cb;}
+
+ </style>
+</head>
+
+<body>
+<div class="p_r topdiv">
+	<img src="__TMPL__Public/images/login_banner.jpg" class="wt100" />
+    <div class="topindex">
+    	<div class="pagediv">
+        	<a href="__ROOT__/" class="logo"><img src="__TMPL__Public/images/logo.png" /></a>
+            <ul class="caozuo f_r">
+            	<li class="f_l">
+            	<a href="{:U('user/login/index')}">登录</a>
+            	</li>
+            </ul>
+            <div class="c_b"></div>
+        </div>
+    </div>
+</div>
+<form action="{:U('user/register/doregister')}" id="myForm" method="post">
+<div class="zhongxiaodiv">
+	<p class="topzi">注册<br/><span>REGIST</span></p>
+	<div class="waidiv">
+	<table border="0" cellpadding="0" cellspacing="0">
+    	<tr>
+        	<td align="right">姓名</td>
+            <td><input name="user_nicename" type="text"  placeholder="请输入您的姓名或昵称，注册后可修改" onblur="jiancha('user_nicename',['feikong'])"/><p class="xinxi" id="user_nicename"></p></td>
+        </tr>
+		<tr>
+        	<td align="right">机构名称</td>
+            <td><input name="school" type="text"  placeholder="请输入您的机构名称，注册后可修改" onblur="jiancha('school',['feikong'])"/><p class="xinxi" id="school"></p></td>
+        </tr>
+		<tr>
+        	<td align="right">校长负责人</td>
+            <td><input name="contact" type="text"  placeholder="请输入校长负责人，注册后可修改" onblur="jiancha('contact',['feikong'])"/><p class="xinxi" id="contact"></p></td>
+        </tr>
+		<tr>
+        	<td align="right">校长负责人电话</td>
+            <td><input name="contact_mobile" type="text"  placeholder="请输入校长负责人，注册后可修改" onblur="jiancha('contact_mobile',['feikong'])"/><p class="xinxi" id="contact_mobile"></p></td>
+        </tr>
+    	<tr>
+        	<td align="right">手机号</td>
+            <td style="position:relative;"><input type="text" name="mobile" placeholder="请输入您的手机号码" onblur="jiancha('mobile',['feikong','11wei'])"/><p class="getyanzheng">获取验证码</p><p class="xinxi" id="mobile"></p></td>
+        </tr>
+
+    	<tr>
+        	<td align="right">验证码</td>
+            <td><input type="text" name="vertify" placeholder="请输入您收到的短信验证码" onblur="jiancha('vertify',['feikong'])"/><p class="xinxi" id="vertify"></p></td>
+        </tr>
+    	<tr>
+        	<td align="right" >设置密码</td>
+            <td><input type="password" name="password" placeholder="请输入密码" onblur="jianchamima('password','password2')"/><p class="xinxi" id="password"></p></td>
+        </tr>
+    	<tr>
+        	<td align="right">确认密码</td>
+            <td><input type="password" name="password2" placeholder="请再次输入密码" onblur="jianchamima('password2','password')"/><p class="xinxi" id="password2"></p></td>
+        </tr>
+         <tr>
+            <td align="right">会员注册码</td>
+            <td><input type="text" name="level" placeholder="请输入注册码，试用可不填"/><p class="xinxi" id="level"></p></td>
+        </tr>
+    	<tr>
+        	<td>&nbsp;</td>
+            <td><input type="button" class="btn" value="提交" /></td>
+        </tr>
+    </table>
+    </div>
+    <p class="c_b"></p>
+</div>
+</form>
+<script type="text/javascript" src="__PUBLIC__/js/ajaxForm.js"></script>
+
+ <script>
+var jishi=null;
+var zongshi=60;
+var zhixing=false;
+$(function(){
+	$(".btn").click(function(){
+		if(zhixing) return;
+		$("#user_nicename").text("");
+		$("#mobile").text("");
+		$("#vertify").text("");
+		$("#password").text("");
+		$("#password2").text("");
+		var user_nicename = $('input[name=user_nicename]').val();
+		var mobile = $('input[name=mobile]').val();
+		var password = $('input[name=password]').val();
+		var password2 = $('input[name=password2]').val();
+		var vertify = $('input[name=vertify]').val();
+		var level = $('input[name=level]').val();
+		var yan=true;
+		if(!jiancha('user_nicename',['feikong'])) yan=false;
+		if(!jiancha('mobile',['feikong','11wei'])) yan=false;
+		if(!jiancha('vertify',['feikong'])) yan=false;
+		if(!jianchamima('password','password2')) yan=false;
+		if(!jianchamima('password2','password')) yan=false;
+		if(!yan)
+			return false;
+		zhixing=true;
+		var url = "{:U('user/register/doregister')}";
+		$.post(url,{user_nicename:user_nicename,mobile:mobile,password:password,password2:password2,vertify:vertify,level:level},function(res){
+			zhixing=false;
+			if(res.status){
+				window.location.href = res.url;
+			}else{
+				alert(res.info);
+			}
+		});
+	});
+	$(".getyanzheng").click(function(){dongyanzheng();});
+});
+function dongyanzheng()
+{
+	var mobile = $('input[name=mobile]').val();
+	if(!mobile||mobile.length!=11){
+		alert("请填写11位手机号！");return false;
+	}
+	//解除点击事件。
+	$(".getyanzheng").unbind();
+	//调用发送验证码接口
+	var url = "{:U('api/checkcode/sendMobbile_msg')}";
+	$.post(url,{mobile:mobile,type:'register'},function(res){
+		if(res.status){
+			$(".getyanzheng").html("发送中……");
+			zongshi=60;
+			$(".getyanzheng").html(zongshi+"秒后获取").unbind().css("color","#ddd");
+			jishi=setInterval("daoshi()",1000)
+		}else{
+			/*$(this).css("color","#f5f5f5");
+			$(this).html("发送中");*/
+			$(".getyanzheng").html("获取验证码");
+			alert(res.info);
+			$(".getyanzheng").click(function(){dongyanzheng();})
+			/*$(this).html("发送验证码");
+			$(this).css("color","#FA741B");*/
+		}
+	});
+}
+function daoshi()
+{
+	zongshi--;
+	$(".getyanzheng").html(zongshi+"秒后获取");
+	if(zongshi<=0)
+	{
+		$(".getyanzheng").html("获取验证码").css("color","#FA741B");
+		$(".getyanzheng").click(function(){dongyanzheng();});
+		clearInterval(jishi);
+	}
+}
+function jiancha(objname,lei)
+{
+	var obj=$("input[name='"+objname+"']").eq(0);
+	//获取obj的值。
+	var zhi=$(obj).val();
+	//获取提示信息的位置。
+	var tishiobj=$(obj).parent().find(".xinxi");
+	tishiobj.html("");
+	if($.inArray("feikong", lei)>-1)
+	{
+		if(!zhi)
+		{
+			tishiobj.html("不能为空"); return false;
+		}
+	}
+	if($.inArray("11wei", lei)>-1)
+	{
+		if(zhi.length!=11)
+		{
+			tishiobj.html("请输入正确的手机号"); return false;
+		}
+	}
+	return true;
+}
+function jianchamima(objname,biname)
+{
+	var obj=$("input[name='"+objname+"']").eq(0);
+	//两个提示信息都清空。
+	$(obj).parent().find(".xinxi").html("");
+	if(biname!="password")
+		$("input[name='"+biname+"']").parent().find(".xinxi").html("");
+	//如果另一个值是重复密码
+	if(biname=="password2")
+	{
+		var objzhi=$(obj).val();
+		var objxinxi=$(obj).parent().find(".xinxi");
+		if(!objzhi)
+		{
+			objxinxi.html("密码不能为空"); return false;
+		}
+		if(objzhi.length<6||objzhi.length>16)
+		{
+			objxinxi.html("密码长度应在6-15位之间"); return false;
+		}
+	}
+	if(biname=="password")
+	{
+		var bizhi=$("input[name='"+biname+"']").val();
+		var objzhi=$(obj).val();
+		var objxinxi=$(obj).parent().find(".xinxi");
+		if(bizhi!=objzhi)
+		{
+			objxinxi.html("两次输入的密码不一致"); return false;
+		}
+	}
+	return true;
+}
+//这个函数是必须的，因为在geo.js里每次更改地址时会调用此函数
+	function promptinfo()
+	{
+		var address = document.getElementById('address');
+		var s1 = document.getElementById('s1');
+		var s2 = document.getElementById('s2');
+		var s3 = document.getElementById('s3');
+		address.value = s1.value + s2.value + s3.value;
+
+	}
+
+ </script>
+</div>
+</body>
+</html>

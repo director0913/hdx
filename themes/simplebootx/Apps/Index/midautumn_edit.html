@@ -1,0 +1,600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发布营销活动</title>
+<tc_include file="Public:head1" />
+<link href="__PUBLIC__/js/artDialog/skins/default.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/addactivity.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+</head>
+<body>
+<tc_include file="Public:nav" />
+<form action="{:U('apps/indx/add_post')}" class="activity_form" method="post">
+<div class="pagediv fabuqu">
+	<div class="f_l zuodiv">
+    	<!--<a href="__ROOT__/"><span class="fa fa-cog"></span>重新选择模板</a>-->
+    </div>
+    <div class="f_r youdiv">
+    	<!--<a href="javascript:void(0);" onclick="yulan()"><span class="fa fa-mobile"></span>预览</a>-->
+    	<a href="javascript:void(0);"  class="lanbtn submit_form"><img src="__TMPL__Public/images/tijiao.png" />提交</a>
+    	<a href="javascript:history.back(-1)" class="huibtn">取消</a>
+    </div>
+    <p class="c_b"></p>
+</div>
+<div class="formdiv p_r">
+    <div class="zuodiv">
+        <div class="shoujike">
+        	<div class="leftjiantou jiantoudiv" onclick="qieiframe(-1)"></div>
+            <div class="youjiantou jiantoudiv" onclick="qieiframe(1)"></div>
+        	<div class="muban">
+            	<php>
+                	$urllist=array();
+                    $pagelist=array('yuindex','yujieshao','yujiangpin','yuerweima','yufenxiang');
+                    for($i=0;$i<count($pagelist);$i++)
+                    {
+                    	$str = U('apps/index/thimes',array('module'=>'midautumn','page'=>$pagelist[$i]));
+                        $urllist[]= "http://".$_SERVER['HTTP_HOST'].$str;
+                    }
+                 </php>
+            	<iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="{$urllist[0]}"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="youdiv">
+    	<div class="daohangdiv">
+        	<ul>
+            	<li class="tab active" data-id="#base" data-class="addhuodong">基本信息<em><span class="fa fa-chevron-right"></span></em></li>
+                <li class="tab" data-id="#gaoji" data-class="addhuodong">高级设置<em><span class="fa fa-chevron-right"></span></em></li>
+                <li class="tab" data-id="#guize" data-class="addhuodong">规则设置<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#fenxiang" data-class="addhuodong">分享管理</li>
+                <p class="c_b"></p>
+            </ul>
+        </div>
+        <div class="neidiv">
+        	<div class="addhuodong active" id="base">
+                <div class="itemdiv">
+                    <p class="title">活动名称<span>*</span></p>
+                    <input type="text" class="input feikong" name="title" placeholder="活动名称" maxlength="11"  value="{$activity['title']}" onkeyup="genggai(this)"/>
+                </div>
+                <div class="itemdiv timediv">
+                    <p class="title">活动时间<span>*</span></p>
+                    <input type="text" class="shaoduaninput riqizuo" placeholder="开始时间" name="begintime" id="begintime" value="{$activity['begintime']|date='Y-m-d',###}"/>
+                    <select class="timeselect" name="begintime_fen">
+                        <foreach name="time_array" item="tv">
+                                <option value="{$tv}" <if condition="$begin_fen eq $tv">selected="selected"</if>>{$tv}</option>
+                        </foreach>
+                    </select>
+                    <span class="lianjie">至</span>
+                    <input type="text" class="shaoduaninput riqiyou" placeholder="结束时间" name="endtime" id="endtime" value="{$activity['endtime']|date='Y-m-d',###}"/>
+                    <select class="timeselect" name="endtime_fen">
+                        <foreach name="time_array" item="tv">
+                        	<option value="{$tv}" <if condition="$end_fen eq $tv">selected="selected"</if>>{$tv}</option>
+                        </foreach>
+                    </select>
+                </div>
+				<div class="itemdiv"  onclick="xuaze()">
+						<p class="title">活动填写信息项</p>          
+				        <radio class="f_l">&nbsp;&nbsp;<input type="checkbox" name="username" value="username" checked="checked"  disabled="true" />&nbsp;&nbsp;真实姓名&nbsp;&nbsp;</radio>
+				        <radio class="f_l"><input type="checkbox" name="mobile" value="mobile" checked="checked"  disabled="true"/>&nbsp;&nbsp;手机号&nbsp;&nbsp;</radio>
+				        <radio class="f_l"><input type="checkbox" name="age" value="age" <if condition="$activity['params']['age'] neq null">checked="checked" </if>/>&nbsp;&nbsp;年龄&nbsp;&nbsp;</radio>
+						<radio class="f_l"><input type="checkbox" name="cless" value="cless" <if condition="$activity['params']['cless'] neq null">checked="checked" </if>/>&nbsp;&nbsp;班级&nbsp;&nbsp;</radio>
+						<radio class="f_l"><input type="checkbox" name="school" value="school" <if condition="$activity['params']['school'] neq null">checked="checked" </if>/>&nbsp;&nbsp;学校&nbsp;&nbsp;</radio>
+						<radio class="f_l"><input type="checkbox" name="qita" value="qita" <if condition="$activity['params']['qita'] neq null">checked="checked" </if>/>&nbsp;&nbsp;其他&nbsp;&nbsp;</radio>
+						</br>
+				</div>
+				<div class="itemdiv school"<if condition="$activity['params']['school'] eq null">style="display:none" </if>>
+				    <p class="title">校区</p>
+				    <input type="text" class="input" placeholder="填写校区" name="other_school" value="{$other_school}"/>
+					<p class="help">校区与校区之间以逗号隔开，例如“浦东校区,阳光校区” 为空时表示需要用户填写校区名称</p>
+				</div>
+				<div class="itemdiv qita"<if condition="$activity['params']['qita'] eq null">style="display:none" </if>>
+				    <p class="title">报名需填信息</p>
+				    <input type="text" class="input" placeholder="报名需填信息" name="other_remark" value="{$other_remark}"/>
+					<p class="help">除了以上选择的报名时默认必填项，您可以再增加一项报名需填信息，例如地址”，手机端备注后面就会显示“请输入你的地址”</p>
+				</div>
+                <div class="itemdiv">
+                    <p class="title">学校名称<span>*</span></p>
+                    <input type="text" class="input feikong" name="school_name" placeholder="学校名称" maxlength="15"  value="{$activity['params']['school_name']}" onkeyup="genggai(this)"/>
+                </div>
+                 <div class="itemdiv" style="display:none;">
+                    <p class="title">奖品名称</p>
+                    <input type="text" class="input feikong" placeholder="奖品名称" maxlength="16"  name="prize_name" value="奖品名称" readonly />
+                </div>
+                <div class="itemdiv"  style="display:none;">
+                    <p class="title">领奖二维码<span>*</span></p>
+                    <div class="p_r chuandiv">
+                    	<input type="text" class="input feikong" name="erweima" id="erweima" value="http://test-10057315.file.myqcloud.com/data/upload/20170821/599a3bd31d384.jpg" placeholder="领奖二维码" readonly />
+                        <p class="chuanbtn" onclick="flashupload('erweima_images', '附件上传','erweima',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                    </div>
+                    <div>
+                    	<img src="<if condition="$activity['params']['erweima'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['erweima'])}</if>" id="erweima_preview" class="m_tb10" width="100"/>
+                    </div>
+                    <p class="help">图片大小不能超过2M</p>
+                </div>
+                <div class="itemdiv">
+                	<p class="title">集齐月饼需要邀请的好友人数</p>
+                    <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="finish_within" value="0" <if condition="($activity['params']['finish_within'] eq 0) OR (!$activity['params']) ">checked="checked"</if>>&nbsp;&nbsp;20-30</label>
+                    <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="finish_within" value="1" <if condition="$activity['params']['finish_within'] eq 1">checked="checked"</if>>&nbsp;&nbsp;30-40</label>
+                    <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="finish_within" value="2" <if condition="$activity['params']['finish_within'] eq 2">checked="checked"</if>>&nbsp;&nbsp;40-50</label>
+                    <p class="c_b"></p>
+                    <p class="help">选择对应区间，邀请的好友人数在区间范围内会集齐所有月饼。例如选择30-40，邀请30-40个人来帮忙就能集齐所有月饼。</p>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">总参与次数<span>*</span></p>
+                    <input type="text" class="input" placeholder="总参与次数" name="total_num" value="{$activity['total_num']}" />
+                    <p class="help">活动期间一个好友可以帮别人找月饼的总次数。例如设置为1，表示一个好友在活动期间只能给别人帮忙找1次月饼。</p>
+                </div>
+                 <div class="itemdiv">
+                    <p class="title">每天参与次数</p>
+                    <input type="text" class="input" placeholder="每天参与次数" name="day_num" value="{$activity['day_num']}" />
+                    <p class="help">一个好友每天可以给别人找月饼的次数。例如设置为1，表示一个好友每天可以给别人找1次月饼，只能给同一个人帮忙1次。</p>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">报名者参与次数</p>
+                    <input type="text" class="input" placeholder="报名者总参与次数" name="per_num" value="{$activity['per_num']}" />
+                    <p class="help">报名参与者可以给别人找月饼的次数。例如设置为3，表示一个报名参与者，可以给3个好友分别找月饼1次。</p>
+                </div>
+            </div>
+            <div class="addhuodong" id="gaoji">
+                <ul class="jiangxiangul">
+                    <li class="tab active" data-id="#yideng" data-class="jiangxiang">奖项一</li>
+                    <li class="tab" data-id="#erdeng" data-class="jiangxiang">奖项二</li>
+                    <li class="tab" data-id="#sandeng" data-class="jiangxiang">奖项三</li>
+                    <li class="tab" data-id="#sideng" data-class="jiangxiang">奖项四</li>
+                    <li class="tab" data-id="#wudeng" data-class="jiangxiang">奖项五</li>
+                    <li class="tab" data-id="#liudeng" data-class="jiangxiang">奖项六</li>
+                    <p class="c_b"></p>
+                </ul>
+                <div class="baomingdiv jiangdiv">
+                    <div class="jiangxiang active" id="yideng">
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品图片</p>
+                            <div class="changdiv f_l">
+                                <div class="p_r chuandiv">
+                                    <input type="text" class="input" name="prize1_thumb" id="prize1_thumb" value="{$activity['params']['prize1_thumb']}" placeholder="奖品图片"/>
+                                    <p class="chuanbtn" onclick="flashupload('prize1_thumb_thumb', '附件上传','prize1_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                                </div>
+                                <div>
+                                    <img src="<if condition="$activity['params']['prize1_thumb'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['prize1_thumb'])}</if>" id="prize1_thumb_preview" class="m_tb10" width="100"/>
+                                </div>
+                                <p class="help">图片大小不能超过2M，建议尺寸：190*110。</p>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品类别</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="5" name="prize1_type" placeholder="奖品类别" value="{$activity['params']['prize1_type']}">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品名称</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="7" name="prize1_name" placeholder="奖品名称" value="{$activity['params']['prize1_name']}" onkeyup="genggai(this)">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品数量</p>
+                            <input type="text" class="changinput f_l wt100" name="prize1_total" placeholder="奖品数量" value="{$activity['params']['prize1_total']}">
+                            <div class="icodiv f_l">个</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">中奖概率</p>
+                            <input type="text" class="changinput f_l wt100" name="prize1_rate" placeholder="中奖概率" value="{$activity['params']['prize1_rate']}">
+                            <div class="icodiv f_l">%</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem p_r">
+                            <div class="bangzhu">
+                                <p>选择是，用户至少能抽中这个奖并且只会中一次；当该奖品数量为0时，该配置将不起作用。</p>
+                                <img src="__TMPL__Public/images/helpjiantou.png" />
+                            </div>
+                            <p class="xiaotitle f_l p_r">必中一次<span class="fa fa-question"></span></p>
+                            <div class="changdiv f_l">
+                                <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="prize1_only" value="1" checked="checked" <if condition="$activity['params']['prize1_only'] eq 1">checked="checked" </if> />&nbsp;&nbsp;是</label>
+                                <label class="f_l"><input type="radio" name="prize1_only" value="0" <if condition="$activity['params']['prize1_only'] eq 0">checked="checked" </if> />&nbsp;&nbsp;否</label>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jiangxiang" id="erdeng">
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品图片</p>
+                            <div class="changdiv f_l">
+                                <div class="p_r chuandiv">
+                                    <input type="text" class="input" name="prize2_thumb" id="prize2_thumb" value="{$activity['params']['prize2_thumb']}" placeholder="奖品图片"/>
+                                    <p class="chuanbtn" onclick="flashupload('prize2_thumb_thumb', '附件上传','prize2_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                                </div>
+                                <div>
+                                    <img src="<if condition="$activity['params']['prize2_thumb'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['prize2_thumb'])}</if>" id="prize2_thumb_preview" class="m_tb10" width="100"/>
+                                </div>
+                                <p class="help">图片大小不能超过2M，建议尺寸：190*110。</p>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品类别</p>
+                            <input type="text" class="changinput f_l wt100" name="prize2_type" placeholder="奖品类别" value="{$activity['params']['prize2_type']}">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品名称</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="5" name="prize2_name" placeholder="奖品名称" value="{$activity['params']['prize2_name']}" onkeyup="genggai(this)">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品数量</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="7" name="prize2_total" placeholder="奖品数量" value="{$activity['params']['prize2_total']}">
+                            <div class="icodiv f_l">个</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">中奖概率</p>
+                            <input type="text" class="changinput f_l wt100" name="prize2_rate" placeholder="中奖概率" value="{$activity['params']['prize2_rate']}">
+                            <div class="icodiv f_l">%</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem p_r">
+                            <div class="bangzhu">
+                                <p>选择是，用户至少能抽中这个奖并且只会中一次；当该奖品数量为0时，该配置将不起作用。</p>
+                                <img src="__TMPL__Public/images/helpjiantou.png" />
+                            </div>
+                            <p class="xiaotitle f_l p_r">必中一次<span class="fa fa-question"></span></p>
+                            <div class="changdiv f_l">
+                                <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="prize2_only" value="1" checked="checked" <if condition="$activity['params']['prize2_only'] eq 1">checked="checked" </if> />&nbsp;&nbsp;是</label>
+                                <label class="f_l"><input type="radio" name="prize2_only" value="0" <if condition="$activity['params']['prize2_only'] eq 0">checked="checked" </if> />&nbsp;&nbsp;否</label>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jiangxiang" id="sandeng">
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品图片</p>
+                            <div class="changdiv f_l">
+                                <div class="p_r chuandiv">
+                                    <input type="text" class="input" name="prize3_thumb" id="prize3_thumb" value="{$activity['params']['prize3_thumb']}" placeholder="奖品图片"/>
+                                    <p class="chuanbtn" onclick="flashupload('prize3_thumb_thumb', '附件上传','prize3_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                                </div>
+                                <div>
+                                    <img src="<if condition="$activity['params']['prize3_thumb'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['prize3_thumb'])}</if>" id="prize3_thumb_preview" class="m_tb10" width="100"/>
+                                </div>
+                                <p class="help">图片大小不能超过2M，建议尺寸：190*110。</p>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品类别</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="5" name="prize3_type" placeholder="奖品类别" value="{$activity['params']['prize3_type']}">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品名称</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="7" name="prize3_name" placeholder="奖品名称" value="{$activity['params']['prize3_name']}" onkeyup="genggai(this)">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品数量</p>
+                            <input type="text" class="changinput f_l wt100" name="prize3_total" placeholder="奖品数量" value="{$activity['params']['prize3_total']}">
+                            <div class="icodiv f_l">个</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">中奖概率</p>
+                            <input type="text" class="changinput f_l wt100" name="prize3_rate" placeholder="中奖概率" value="{$activity['params']['prize3_rate']}">
+                            <div class="icodiv f_l">%</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem p_r">
+                            <div class="bangzhu">
+                                <p>选择是，用户至少能抽中这个奖并且只会中一次；当该奖品数量为0时，该配置将不起作用。</p>
+                                <img src="__TMPL__Public/images/helpjiantou.png" />
+                            </div>
+                            <p class="xiaotitle f_l p_r">必中一次<span class="fa fa-question"></span></p>
+                            <div class="changdiv f_l">
+                                <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="prize3_only" value="1" checked="checked" <if condition="$activity['params']['prize3_only'] eq 1">checked="checked" </if> />&nbsp;&nbsp;是</label>
+                                <label class="f_l"><input type="radio" name="prize3_only" value="0" <if condition="$activity['params']['prize3_only'] eq 0">checked="checked" </if> />&nbsp;&nbsp;否</label>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jiangxiang" id="sideng">
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品图片</p>
+                            <div class="changdiv f_l">
+                                <div class="p_r chuandiv">
+                                    <input type="text" class="input" name="prize4_thumb" id="prize4_thumb" value="{$activity['params']['prize4_thumb']}" placeholder="奖品图片"/>
+                                    <p class="chuanbtn" onclick="flashupload('prize4_thumb_thumb', '附件上传','prize4_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                                </div>
+                                <div>
+                                    <img src="<if condition="$activity['params']['prize4_thumb'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['prize4_thumb'])}</if>" id="prize4_thumb_preview" class="m_tb10" width="100"/>
+                                </div>
+                                <p class="help">图片大小不能超过2M，建议尺寸：190*110。</p>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品类别</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="5" name="prize4_type" placeholder="奖品类别" value="{$activity['params']['prize4_type']}">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品名称</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="7" name="prize4_name" placeholder="奖品名称" value="{$activity['params']['prize4_name']}" onkeyup="genggai(this)">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品数量</p>
+                            <input type="text" class="changinput f_l wt100" name="prize4_total" placeholder="奖品数量" value="{$activity['params']['prize4_total']}">
+                            <div class="icodiv f_l">个</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">中奖概率</p>
+                            <input type="text" class="changinput f_l wt100" name="prize4_rate" placeholder="中奖概率" value="{$activity['params']['prize4_rate']}">
+                            <div class="icodiv f_l">%</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem p_r">
+                            <div class="bangzhu">
+                                <p>选择是，用户至少能抽中这个奖并且只会中一次；当该奖品数量为0时，该配置将不起作用。</p>
+                                <img src="__TMPL__Public/images/helpjiantou.png" />
+                            </div>
+                            <p class="xiaotitle f_l p_r">必中一次<span class="fa fa-question"></span></p>
+                            <div class="changdiv f_l">
+                                <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="prize4_only" value="1" checked="checked" <if condition="$activity['params']['prize4_only'] eq 1">checked="checked" </if> />&nbsp;&nbsp;是</label>
+                                <label class="f_l"><input type="radio" name="prize4_only" value="0" <if condition="$activity['params']['prize4_only'] eq 0">checked="checked" </if> />&nbsp;&nbsp;否</label>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jiangxiang" id="wudeng">
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品图片</p>
+                            <div class="changdiv f_l">
+                                <div class="p_r chuandiv">
+                                    <input type="text" class="input" name="prize5_thumb" id="prize5_thumb" value="{$activity['params']['prize5_thumb']}" placeholder="奖品图片"/>
+                                    <p class="chuanbtn" onclick="flashupload('prize5_thumb_thumb', '附件上传','prize5_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                                </div>
+                                <div>
+                                    <img src="<if condition="$activity['params']['prize5_thumb'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['prize5_thumb'])}</if>" id="prize5_thumb_preview" class="m_tb10" width="100"/>
+                                </div>
+                                <p class="help">图片大小不能超过2M，建议尺寸：190*110。</p>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品类别</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="5" name="prize5_type" placeholder="奖品类别" value="{$activity['params']['prize5_type']}">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品名称</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="7" name="prize5_name" placeholder="奖品名称" value="{$activity['params']['prize5_name']}" onkeyup="genggai(this)">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品数量</p>
+                            <input type="text" class="changinput f_l wt100" name="prize5_total" placeholder="奖品数量" value="{$activity['params']['prize5_total']}">
+                            <div class="icodiv f_l">个</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">中奖概率</p>
+                            <input type="text" class="changinput f_l wt100" name="prize5_rate" placeholder="中奖概率" value="{$activity['params']['prize5_rate']}">
+                            <div class="icodiv f_l">%</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem p_r">
+                            <div class="bangzhu">
+                                <p>选择是，用户至少能抽中这个奖并且只会中一次；当该奖品数量为0时，该配置将不起作用。</p>
+                                <img src="__TMPL__Public/images/helpjiantou.png" />
+                            </div>
+                            <p class="xiaotitle f_l p_r">必中一次<span class="fa fa-question"></span></p>
+                            <div class="changdiv f_l">
+                                <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="prize5_only" value="1" checked="checked" <if condition="$activity['params']['prize5_only'] eq 1">checked="checked" </if> />&nbsp;&nbsp;是</label>
+                                <label class="f_l"><input type="radio" name="prize5_only" value="0" <if condition="$activity['params']['prize5_only'] eq 0">checked="checked" </if> />&nbsp;&nbsp;否</label>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jiangxiang" id="liudeng">
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品图片</p>
+                            <div class="changdiv f_l">
+                                <div class="p_r chuandiv">
+                                    <input type="text" class="input" name="prize6_thumb" id="prize6_thumb" value="{$activity['params']['prize6_thumb']}" placeholder="奖品图片"/>
+                                    <p class="chuanbtn" onclick="flashupload('prize6_thumb_thumb', '附件上传','prize6_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                                </div>
+                                <div>
+                                    <img src="<if condition="$activity['params']['prize6_thumb'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['prize6_thumb'])}</if>" id="prize6_thumb_preview" class="m_tb10" width="100"/>
+                                </div>
+                                <p class="help">图片大小不能超过2M，建议尺寸：190*110。</p>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品类别</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="5" name="prize6_type" placeholder="奖品类别" value="{$activity['params']['prize6_type']}">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品名称</p>
+                            <input type="text" class="changinput f_l wt100" maxlength="7" name="prize6_name" placeholder="奖品名称" value="{$activity['params']['prize6_name']}" onkeyup="genggai(this)">
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">奖品数量</p>
+                            <input type="text" class="changinput f_l wt100" name="prize6_total" placeholder="奖品数量" value="{$activity['params']['prize6_total']}">
+                            <div class="icodiv f_l">个</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem">
+                            <p class="xiaotitle f_l">中奖概率</p>
+                            <input type="text" class="changinput f_l wt100" name="prize6_rate" placeholder="中奖概率" value="{$activity['params']['prize6_rate']}">
+                            <div class="icodiv f_l">%</div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoitem p_r">
+                            <div class="bangzhu">
+                                <p>选择是，用户至少能抽中这个奖并且只会中一次；当该奖品数量为0时，该配置将不起作用。</p>
+                                <img src="__TMPL__Public/images/helpjiantou.png" />
+                            </div>
+                            <p class="xiaotitle f_l p_r">必中一次<span class="fa fa-question"></span></p>
+                            <div class="changdiv f_l">
+                                <label class="f_l m_r15">&nbsp;&nbsp;<input type="radio" name="prize6_only" value="1" checked="checked" <if condition="$activity['params']['prize6_only'] eq 1">checked="checked" </if> />&nbsp;&nbsp;是</label>
+                                <label class="f_l"><input type="radio" name="prize6_only" value="0" <if condition="$activity['params']['prize6_only'] eq 0">checked="checked" </if> />&nbsp;&nbsp;否</label>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="addhuodong" id="guize">
+                <div class="itemdiv">
+                    <p class="title">活动规则<span>*</span></p>
+                    <textarea name="rule" id="rule" rows="5" cols="57">{$activity['rule']}</textarea>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">关于我们<span>*</span></p>
+                    <textarea name="school_desc" id="school_desc" rows="5" cols="57">{$activity['school_desc']}</textarea>
+                </div> 
+            </div>
+            <div class="addhuodong" id="fenxiang">
+                <div class="itemdiv">
+                    <p class="title">分享标题<span>*</span></p>
+                    <input type="text" name="share_title" class="input feikong" maxlength="20" placeholder="分享标题" value="{$activity['share_title']}" onkeyup="genggai(this)">
+                </div>
+                <div class="itemdiv">
+                    <p class="title">分享图片<span>*</span></p>
+                    <div class="p_r chuandiv">
+                    	<input type="text" class="input" name="share_img" id="share_img" value="{$activity['share_img']}" placeholder="分享图片"/>
+                        <p class="chuanbtn" onclick="flashupload('share_img_thumb', '附件上传','share_img',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                    </div>
+                    <div>
+                    	<img src="<if condition="$activity['share_img'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['share_img'])}</if>" id="share_img_preview" class="m_tb10" width="100"/>
+                    </div>
+                    <p class="help">图片大小不能超过2M</p>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">分享描述<span>*</span></p>
+                    <input type="text" name="share_des" id="share_des" class="input feikong"  maxlength="30" placeholder="分享描述" onkeyup="genggai(this)" value="{$activity['share_des']}" />
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<input type=hidden name="type" value="{$module}">
+<input type=hidden name="id" value="{$id}">
+</form>
+<tc_include file="Public:scripts" />
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/js/jquery-ui.js"></script>
+<!-- <script type="text/javascript" charset="utf-8" src="{$REMOTE_UPLOAT_PATH}/public/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$REMOTE_UPLOAT_PATH}/public/js/ueditor/ueditor.all.min.js"></script> -->
+<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js?v=20170216"></script>
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/js/zuoyouindex.js"></script>
+<script type="text/javascript">
+var caozuo=false;
+$(function(){
+	//编辑器路径定义
+	var editorURL = GV.DIMAUB;
+	//顶部个人信息操作下拉效果。
+	$(".dropdown").click(function(){
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	//顶部tab效果点击切换。
+	$(".tab").click(function(){
+		qietab($(this));
+	});
+	//实例化一个百度编辑器。
+	var editorcontent1 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','autotypeset','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight', 'simpleupload','link','removeformat']]});
+	//将指定标签改造成百度编辑器。
+	editorcontent1.render('rule');
+	//实例化一个百度编辑器。
+	var editorcontent2 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','autotypeset','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight', 'simpleupload','link','removeformat']]});
+	//将指定标签改造成百度编辑器。
+	editorcontent2.render('school_desc');
+	//获取窗口高度，并设置编辑区域的高度。
+	gaisize();
+	//当浏览器大小变化时，重新获取高度并设置编辑区域的高度。
+	$(window).resize(function () {
+		gaisize();
+	});
+	//开始时间和结束时间控件的参数设置。
+	$("#begintime").datepicker();
+	$("#endtime").datepicker();
+	$("#begintime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+	$("#begintime").datepicker("setDate", "{$activity['begintime']}");
+	$("#endtime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+	$("#endtime").datepicker("setDate", "{$activity['endtime']}");
+	
+	//帮助提示鼠标移动上去后显示内容。
+    $(".fa-question").hover(function(){
+        $(".bangzhu").show();
+    },function(){
+        $(".bangzhu").hide();
+    });
+	//点击提交按钮后
+	$(".submit_form").click(function(){
+		if(caozuo) return;
+		var feikongls=$(".feikong");
+		for(var i=0;i<feikongls.length;i++)
+		{
+			if($(feikongls[i]).val()=="")
+			{
+				alert($(feikongls[i]).attr("placeholder")+"不能为空"); return;
+			}
+		}
+		caozuo=true;
+		//将数据提交到指定页面。
+		var url = "{:U('apps/index/edit_post')}";
+		$.post(url,$(".activity_form").serializeArray(),function(res){
+			caozuo=false;
+			if(res.status){
+				alert(res.info);
+				window.location.href=res.url;
+			}else{
+				alert(res.info);
+			}
+		});
+	});
+    editorlod("rule");
+})
+
+function qietab(obj)
+{
+	if($(obj).hasClass("active")) return;
+	var dataclass=$(obj).attr("data-class");
+	$(".tab[data-class='"+dataclass+"']").removeClass("active");
+	$(obj).addClass("active");
+	//获取关联div信息
+	$("."+$(obj).attr("data-class")+".active").removeClass("active");
+	$($(obj).attr("data-id")).addClass("active");
+}
+function gaisize()
+{
+	//获取浏览器高度。
+	var windowheight=$(window).height();
+	$(".formdiv").css("height",(windowheight-128)+"px");
+}
+var pagelist=eval('<?php echo json_encode($urllist);?>');
+var dqpage=0;
+function xuaze(){
+	if($('input[name="qita"]:checked').val()=="qita"){
+		$('.qita').show();
+	}else{
+		$('.qita').hide();	
+	}
+	if($('input[name="school"]:checked').val()=="school"){
+		$('.school').show();
+	}else{
+		$('.school').hide();	
+	}
+}
+</script>
+</body>
+</html>

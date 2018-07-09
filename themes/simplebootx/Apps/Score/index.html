@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>成绩查询</title>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<link rel="stylesheet" href="__TMPL__Apps/common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/common/scripts/pace.min.js"></script>
+<style type="text/css">
+ul{ list-style-type:none; background-color:#FFF;}
+ul li{ clear:both;}
+.aligncenter{ text-align:center}
+.clear{ clear:both;}
+a{text-decoration:none;}
+a,img{ border:none; outline-style:none;}
+body{  font-size:100%; font-family:"黑体"; background-color:#F8F8F8;}
+html,body,div,nav,span,h1,h2,h3,h4,h5,h6,p,a,address,img,dl,dt,dd,ol,ul,li,label,article,aside,footer,header,hgroup,menu,output,time,mark,audio,i, em, embed, table, tr, td, tbody, form, input, textarea, map, area,video{margin:0; padding:0;}
+.fl{float:left;}
+.fr{float:right;}
+
+/*遮罩*/
+#fullbg {background-color:rgba(0,0,0,0.8); left:0; opacity:0.8; position:absolute; top:0; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+.tandiv{ position:fixed !important; z-index:50; top:50%; left:50%; text-align:center; display:none;}
+/*遮罩*/
+
+#dengji{ width:641px; height:437px; margin-left:-320px; margin-top:-219px; background-color:#FFF; border-radius:4px; overflow:hidden;}
+#header{height:102px;border-bottom:2px solid #C4CEC9; position:relative; background:#f46902; text-align:center;font-size:34px; color:#fff; line-height:102px;}
+.kongbai{height:32px;}
+.inputtxt{ height:100px; border:none;  font-size:32px; width:100%;   font-family:"黑体"; color:#3d3d3d;border-bottom:1px solid #C4CEC9;line-height:100px;margin:0 auto;width:96%;background:#fff;}
+.inputtxt span{ color:#666;}
+.inputtxt input{border:none;font-size:32px;font-family:"黑体"; color:#3d3d3d;width:680px; height:92px; padding:0 10px;}
+.tijiao{height:100px;width:700px; background:#f46902;font-size: 38px;color: #fff;letter-spacing: .2em;font-weight: bold;margin-top: 0;  margin-top:50px; margin-left:23px; line-height:90px;text-align:center;
+border-radius:20px;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<script type="text/javascript">
+function chaxun()
+{
+	var kaoshi=$("#type").val();
+	var name=$("#name").val();
+	var mobile=$("#tel").val();
+	if(kaoshi==0)
+	{
+		alert("请选择考试");return;
+	}
+	if(name=="")
+	{
+		alert("请输入姓名");return;
+	}
+	if(mobile=="")
+	{
+		alert("请输入手机号或身份证号");return;
+	}
+	$('#c_form').submit();
+
+}
+
+//显示灰色 jQuery 遮罩层 
+function showBg(tanid) { 
+	var bh = $(document).height();
+	var bw = $("body").width();
+	$("#fullbg").css({ 
+		height:bh, 
+		width:bw, 
+		display:"block" 
+	});
+	if(tanid=="fenxiang")
+	{
+		$("#fullbg").click(function(){
+			closeBg(tanid)
+		})
+	}
+	else
+	{
+		$('#fullbg').unbind("click");
+	}
+	$("#"+tanid).show(); 
+} 
+//关闭灰色 jQuery 遮罩 
+function closeBg(tanid) {
+	$("#fullbg,#"+tanid).hide(); 
+}
+</script>
+</head>
+
+<body>
+<!--遮罩层html代码开始-->
+	<div id="fullbg"></div>
+	<!--遮罩层html代码结束-->
+<div class="w100">
+    <div id="header">成绩查询</div>
+    <img src="__TMPL__Apps/Score/images/02.jpg" style="width:100%;">
+    <div class="kongbai"></div>
+    <div id="conter" class="inputdiv">
+    	<form method="post" action="{:U('apps/score/result',array('id'=>$_GET['id']))}" id="c_form">
+			<div class="inputtxt"><span>输入信息进行成绩查询</span></div>
+    		<div  class="inputtxt">
+            	<select name="type" id="type" style="height:90px; font-size:32px; width:100%; margin-left:0;">
+                	<option value="0">--请选择考试--</option>
+                	<foreach name="activity_list" item="vo">
+                		<option value="{$vo['id']}">{$vo['title']}</option>
+                    </foreach>
+                </select>
+            </div>
+            <input type="hidden"  name="aid" id="aid" value="{$_GET['id']}" />
+    		<div  class="inputtxt"><input type="text" class="inputji" name="name" id="name" placeholder="请填写姓名" /></div>
+    		<div  class="inputtxt"><input type="text" class="inputji" name="tel" id="tel" placeholder="请填写手机号或身份证号" /></div>
+   		</form>
+    </div>
+    <div class="tijiao" onclick="chaxun()">开始查询</div>
+    
+</div>
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+</html>

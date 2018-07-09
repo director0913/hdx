@@ -1,0 +1,40 @@
+﻿@charset "UTF-8";
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+body{width:750px;background:#fff1c3;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+#fullbg,#fullbg2{background-color:rgba(0,0,0,0.9); left:0; opacity:0.8;top:0; bottom:0; right:0; position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fullbg2{z-index:20;}
+.bgc{position:relative;}
+.biaoti,.biaoti_cont{position:absolute;top:26px;width:300px;margin-left:-150px;left:50%;color:#990026;font-size:28px;text-align:center;}
+.biaoti_cont{top:240px;width:220px;margin-left:-90px;color:#fff;font-size:26px;}
+.dati{position:relative;}
+.dati .btn{position:absolute;top:0px;left:50%;background:url(../images/btn.png) no-repeat center 0;width:432px;height:100px;background-size:100% 100%;font-size:50px;line-height:90px;color:#fff;margin-left:-216px;text-align: center;}
+.baoxiang{background-size:100% 100%;width:115px;height:100px;right:40px;top:90px;position: absolute;}
+/*规则说明开始*/
+.guize_title{text-align:center;margin-top:30px;}
+.guize{margin:30px 60px;border-radius:12px;background-color: #fff;}
+.guize .text{font-size:30px;padding:30px;word-break:break-all;line-height:48px;color:#aa1f24;}
+.guize .text img{max-width:100%;}
+.banquan{text-align:center;font-size:18px; color:#666465;margin-top:10px;margin-bottom:12px;}
+/*活动规则结束*/
+/*我的宝箱开始*/
+#baoxiang{ position:fixed;top:0; left:0;right:0;z-index:20;padding:52px 0px; color:#FFF; display:none; }
+#baoxiang>.baoxiang_title{line-height:100px; border-bottom:4px solid #FFF; position:relative; font-size:41px; padding-left:16px;padding-bottom:10px;margin-left: 26px;margin-right:26px;}
+#baoxiang>.baoxiang_title img{position:absolute; right:32px; top:31px;}
+.baoxiang_cont{height:900px;overflow: auto;}
+.baoxiang_cont li{border-radius:10px;border:4px solid #fff;margin:42px 70px 0;padding:40px;}
+.baoxiang_cont li .tudiv{height:154px;width:154px;float: left;overflow: hidden;margin-right:20px;}
+.baoxiang_cont li .tudiv img{width:100%;}
+.baoxiang_cont li .text{font-size:30px;overflow: hidden;}
+.baoxiang_cont li .text .text_title{margin-top:10px;margin-bottom:10px;}
+.baoxiang_cont li .text .text_cont{line-height:52px;}
+.baoxiang_cont li span{margin-left:26px;float:left;font-size:30px;height:210px;line-height:210px;width:340px;}
+/*我的宝箱结束*/
+#fenxiang{ position:fixed;width:400px;height:210px;top:50%; left:50%; margin-top:-105px; margin-left:-200px; z-index:30; display:none;}

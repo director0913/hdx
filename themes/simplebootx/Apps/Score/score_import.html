@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>成绩导入</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/signup.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/addactivity.css" />
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top}
+
+    #baoming table input{ width:100%;}
+    .addtype{ width:100px; height:30px; line-height:30px; text-align:center; border:1px dashed #D8D8D8; cursor:pointer; margin-bottom:20px; margin-left:40px; color:#797268;}
+    .btn{ height:30px; line-height:30px; text-align:center; padding:0 10px; border:1px solid #D8D8D8; cursor:pointer; margin:0 5px; background-color:#F5F6FA; color:#797268; border-radius:5px;}
+    .default{ background-color:#FA741B; color:#FFF;}
+    .pd20{ padding:5px 20px !important;}
+    .t_a_l{ text-align:left !important;}
+    .m_r30{ margin-right:30px;}
+    .m_r60{ margin-right:60px;}
+    .formdiv{ margin-top:0;}
+    .formdiv .youdiv{ position:static; width:100%;}
+    .formdiv .youdiv .neidiv{position:static; width:initial}
+    .baomingdiv{ padding-bottom:20px; margin-bottom:20px; background-color:#fbfbfb;}
+    .formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changinput{ width:840px;}
+    .formdiv .youdiv .neidiv .baomingdiv .banitem{ width:450px;}
+    .formdiv .youdiv .neidiv .baomingdiv .banitem .changinput{width:305px;}
+    .formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv{ width:45px;} 
+</style>
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="toptu">
+	<div class="pagediv1">
+        <div class="f_l">
+            <if condition="empty($users_info['avatar'])">
+                <img src="__TMPL__Public/images/touxiang.jpg" class="touxiang f_l" />
+            <else />
+                <img src="{:sp_get_asset_upload_path($users_info['avatar'])}" class="touxiang f_l" />
+            </if>
+            <div class="f_l">
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">账号类型：<eq name="users_info['level']" value="0">普通会员<span style="color:#FA741B;margin-left:10px;">(您的账号<php>echo date("Y-m-d",$endtime);</php>后将无法使用！)</span><a href="{:U('portal/index/show_shengji',array('menu'=>3))}">升级会员</a></eq><eq name="users_info['level']" value="1">亲情会员<a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq><eq name="users_info['level']" value="2">金牌会员<a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq></p>
+                <p class="bianji"><a href="{:U('user/center/index')}"><span class="fa fa-pencil"></span>编辑资料</a></p>
+            </div>
+        </div>
+        <div class="f_r">
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/activity/index')}" style="color: white">
+            	<p class="number">{$activity_num}</p>
+                <p>我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/app/index')}" style="color: white">
+            	<p class="number">{$app_num}</p>
+                <p>我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div>
+<div class="zhongzhaidiv">
+    <p class="daohang"><a href="{:U('portal/app/index')}">我的应用</a><span>></span>{$activity['title']}</p>
+    <ul class="tab p_r">
+        <li data-tab="baoming" class="active">成绩管理</li>
+        <p class="c_b"></p>
+    </ul>
+<form action="{:U('apps/score/score_jieshou')}"  class="score_form" method="post" enctype="multipart/form-data">
+    <div class="xiadiv formdiv" id="baoming">
+        <div class="youdiv">
+            <div class="neidiv">
+                <div id="formdiv">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            成绩上传
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 选择文件(Office Excel)：</label>
+                                <div class="col-sm-9 col-xs-12">
+                                    <input type="hidden" name="jiluid" value="{$_GET['id']}">
+                                    <input type="file" id="file" class="form-control span7" placeholder="" name="file_stu">
+                                    <div>导入格式参考：<img src="__TMPL__Apps/Score/images/daorumuban.png"/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <p class="addtype f_l" style="border:0px;cursor: auto;"></p>
+        <p class="btn f_r m_r60" onclick="javascript:history.back(-1)">取消</p>
+        <p class="btn default f_r upload">提交</p>
+        <p class="c_b"></p>
+    </div>
+</div>
+</form>
+
+<tc_include file="Public:footer"/>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">18638900740</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">机构项目</td>
+            <td>
+                <label><input type="checkbox" value="1" />幼少儿培训</label>
+                <label><input type="checkbox" value="1" />初高中培训</label>
+                <label><input type="checkbox" value="1" />幼儿园</label>
+                <label><input type="checkbox" value="1" />早教机构</label><br/>
+                <label><input type="checkbox" value="1" />文化课培训</label>
+                <label><input type="checkbox" value="1" />素质教育课程</label>
+                <label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">地区</td>
+            <td class="address">
+                <select>
+                    <option>请选择省份</option>
+                </select>
+                <select style="margin-right:0;">
+                    <option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">规模</td>
+            <td>
+                <label><input type="radio" value="1" />300人以下</label>
+                <label><input type="radio" value="1" />300-800人</label>
+                <label><input type="radio" value="1" />800-3000人</label>
+                <label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd"></td>
+            <td align="center">
+                <input type="submit" class="" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+var clickstatus=false;
+$(function(){
+     //上传 
+     $('.upload').click(function(){
+        //alert("123");
+        var daoru=$('#file').val();
+        if(daoru=='')
+        {
+            alert("请选择office excel文件格式");
+            return;
+        }
+        $('.score_form').submit();
+     });
+
+
+
+
+     $(".submit_form").click(function(){
+        if(clickstatus) return;
+        var data={};
+        data.msg_id=getnameArray("msg_id[]");
+        data.nickname=getnameArray("nickname[]");
+        data.backnickname=getnameArray("backnickname[]");
+        data.content=getnameArray("content[]");
+        clickstatus=true;
+        //var list=data.nickname;
+        //alert(list[0]+">>>"+list[1]);
+        //将数据提交到指定页面。
+        var url = "{:U('apps/score/score_post',array('id'=>$_GET['id'],'cid'=>$_GET['cid']))}";
+        $.post(url,data,function(res){
+            clickstatus=false;
+            if(res.status){
+                window.location.href='{:U('apps/score/show_score',array('id'=>$_GET['id']))}';
+            }
+            else
+            {
+                alert(res.msg);
+            }
+        });
+        
+    });
+
+
+
+
+
+
+
+
+	$(".dropdown").click(function(){
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	
+    //点击删除按钮。
+    $("#baoming").on("click",".shanchu",function(){
+        //删除当前列。
+        $(this).parent().parent().parent().parent().remove();
+    });
+    $("#search1").click(function(){
+        var name=$("#searchname1").val();
+        var id="{$_GET['userid']}";
+        var url="/index.php/portal/app/app_show_prize/userid/"+id+"/aid/{$aid}/keyword/"+name+".shtml";
+        window.location.href = url;
+    });
+    $(".tijiao").click(function(){
+        var school=$("input[name='school']").val();
+        var contact=$("input[name='contact']").val();
+        var mobile=$("input[name='mobile']").val();
+        //alert(school+contact+mobile);
+        $.post("{:U('user/profile/full_post')}",
+            {
+               school:school,
+               contact:contact,
+               mobile:mobile
+            },
+            function(data,status){
+                if(data.status>0)
+                {
+                    //$('.fuxinxi').hide();
+                    window.location.reload();
+                }
+                else
+                {
+                    alert(data.msg);
+                }
+            });
+
+    });
+})
+function getnameArray(name)
+{
+    //获取所有指定名称
+    var namels=$("[name='"+name+"']");
+    var arr=[];
+    for(var i=0;i<namels.length;i++)
+    {
+        arr[i]=$(namels[i]).val();
+    }
+    return arr;
+}
+</script>
+</html>

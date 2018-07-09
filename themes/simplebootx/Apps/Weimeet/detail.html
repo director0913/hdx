@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<title>{$title}</title>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weimeet/css/public.css?v=4" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weimeet/css/details.css?v=9" />
+<script type="text/javascript" src="__TMPL__Apps/Weimeet/js/jquery.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Weimeet/js/zhezhao.js?v=1"></script>
+</head>
+<body>
+<div class="topdiv">
+	<img src="{:sp_get_asset_upload_path($thumb)}" class="wd100" onclick="return test_preview();" />
+    <p class="title">{$title}</p>
+    <p class="tishi">报名进行中<span><if condition="$price eq 0">免费<else/>{$price}元</if></span></p>
+</div>
+<div class="xiadiv">
+	<p class="time">{$timestr}</p>
+    <div class="wei_c_b">
+    	<div class="zuodiv">
+			<if condition="$is_me eq 1">
+				<img src="{$user['avatar']}"/>
+			<else/>
+				<img src="{$shareuser['avatar']}"/>
+			</if>
+    		
+        </div>
+		
+        <div class="o_h">
+			<if condition="$is_me eq 1">
+				<php>$remark1 = json_decode($user['remark'],true);</php>
+			    <p class="name"><a href="tel:{$user['mobile']}">联系人：{$user['username']}&nbsp;&nbsp;{$user['mobile']}</a></p>
+				<p class="weixin">微信号：{$remark1['remark']}</p>
+			<else/>
+				<php>$remark1 = json_decode($shareuser['remark'],true);</php>
+			    <p class="name"><a href="tel:{$shareuser['mobile']}">联系人：{$shareuser['username']}&nbsp;&nbsp;{$shareuser['mobile']}</a></p>
+				<p class="weixin">微信号：{$remark1['remark']}</p>
+			</if>
+        </div>
+    </div>
+</div>
+<div class="contentdiv">
+	<p class="zhuban">主办方</p>
+    <p class="gongsi"><img src="{:sp_get_asset_upload_path($logo)}" />{$school}</p>
+    <p class="zhuban">活动介绍</p>
+    <div class="content">
+		{$rule|htmlspecialchars_decode}
+	</div>
+</div>
+<div class="baomingdiv">
+	<p class="title">已报名&nbsp;<span class="join_total"><php> echo count($joins);</php></span></p>
+    <div class="baomingls">
+		<foreach name="joins" item="join">
+			<div onclick="return showJoin(this)" data-name="{$join['name']}" data-tel="{$join['tel']}" data-avatar="{$join['avatar']}">
+				<img src="{$join['avatar']}" />
+				<p >{$join['username']}</p>
+			</div>
+		</foreach>
+    </div>
+    </div>
+</div>
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Weimeet/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')"/>
+<div id="xinxi" class="tandiv">
+	<p class="title">报名者信息<img src="__TMPL__Apps/Weimeet/images/close.png" onclick="closeBg('fullbg','xinxi')" /></p>
+    <ul>
+    	<li class="touxiang"><img src="http://tongyishidai.com/addons/Weimeet/images/touxiang.jpg" class="touxiang" /></li>
+        <li><p class="biaoti">姓名：</p><p class="xinxi">张三</p></li>
+        <li><p class="biaoti">手机号：</p><a href="#" class="tel_href"><p class="xinxi haoma">12345678901</p></a></li>
+    </ul>
+</div>
+<div id="baoming" class="tandiv">
+	<p class="title">我要报名<img src="__TMPL__Apps/Weimeet/images/close.png" onclick="closeBg('fullbg','baoming')" /></p>
+    <div>
+		<if condition="$activity_type eq 1">
+			<p class="biaoti">地区</p>
+			<input type="text" name="area" id="area" placeholder="请输入您的地区" />
+			<p class="biaoti">学校</p>
+			<input type="text" name="school" id="school" placeholder="请输入您的学校" />
+		</if>
+    	<p class="biaoti">姓名</p>
+        <input type="text" name="name" id="name" placeholder="请输入您的姓名" />
+    	<p class="biaoti">手机</p>
+        <input type="tel" name="tel" id="tel" placeholder="请输入您的电话"/>
+    	<if condition="$activity_type eq 2">
+			<p class="biaoti">参会人数</p>
+			<input type="tel" name="join_total" id="join_total" placeholder="请输入参会人数" value="1" />
+		</if>
+       <if condition="$activity_type eq 2">
+			<p class="biaoti">年龄</p>
+			<input type="text" name="age" id="age" placeholder="年龄" />
+			<p class="biaoti">备注</p>
+			<input type="text" name="remark" id="remark" placeholder="备注" />
+        </if>
+        <p class="btnok" onclick="return join();">提交</p>
+    </div>
+</div>
+<div id="dikongdiv"></div>
+<div id="pinglunqu">
+	<input name="comment" id="comment" type="text" placeholder="您想说点什么呢？"/>
+    <p onclick="return comment();">发送</p>
+</div>
+<div id="didiv">
+	<p class="fenxiang"><a href="javascript:void(0);" onclick="showBg('fullbg','fenxiang',true);">我要分享</a></p>
+	<p class="baoming"><a href="javascript:void(0);" onclick="baoming()">我要报名</a></p>
+</div>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+    //报名接口和成为邀请人接口
+	var is_me = "{$is_me}";
+	var is_register = "{$is_register}";
+	var invite_url = '{:U("apps/Weimeet/register",array("id"=>$id,"shareid"=>$shareid))}';
+	//评论接口
+	var comment_url = '';	
+	var is_self = "{$is_me}";
+	var toptu="{:sp_get_asset_upload_path($thumb)}";
+	var imgarray=Array();
+	//0代表 会议 1代表活动
+	var submitType="{$type}";
+	$(function(){
+		var imgls=$(".content img");
+		imgarray[0]=toptu;
+		for(var i=0;i<imgls.length;i++)
+		{
+			imgarray[i+1]=$(imgls[i]).attr("src");
+		}
+		$(".content img").click(function(){
+			test_preview($(this).attr("src"),imgarray);
+		});
+		$(".topdiv img").click(function(){
+			test_preview($(this).attr("src"),imgarray);
+		});
+	});
+</script>
+<script>
+// JavaScript Document
+
+function baoming()
+{
+	//alert(is_me);alert(is_register);
+	if(is_register==1){
+		alert("您已报过名了！");return false;
+	}
+	showBg("fullbg","baoming",false);
+}
+//展示报名者信息接口
+function showJoin(that){
+	if(is_self==0) {
+		return false;
+	}else{
+		var tel = $(that).attr('data-tel');
+		var avatar = $(that).attr('data-avatar');
+		var name = $(that).attr('data-name');
+		$(".xinxi").text(name);
+		$(".haoma").text(tel);
+		$(".touxiang").attr('src',avatar);
+		$(".tel_href").attr('href',"tel:"+tel);
+		showBg('fullbg','xinxi',false);
+	}
+	
+}
+//测试报名端口
+function join(){
+	var name=$('#name').val();
+	var tel=$('#tel').val();
+	var join_total = $('#join_total').val();
+	var school = $("#school").val();
+	var area = $("#area").val();
+	var age=$("#age").val();
+	if(!name){alert("请输入姓名");return false;}
+	if(!tel){alert("请输入手机号");return false;}
+	if(tel.length!=11){alert("请输入11位手机号");return false;}
+	if(submitType==2)
+	{
+		if(!school){alert("请输入学校");return false;}
+		if(!area){alert("请输入地区");return false;}
+		if(join_total<=0){alert("报名人数至少为1个");return false;}
+	}
+	else
+	{
+		//if(!age){alert("请输入年龄");return false;}
+	}
+	var flag = 1;
+	if(flag){
+		flag =0;
+		$.post(invite_url,{school:school,area:area,name:name,tel:tel,join_total:join_total},function(res){
+			res =JSON.parse(res);
+			if(res.status==1)
+			{
+				//将评论信息添加到评论列表之中
+				is_register =1;
+				var bmls = '<div onclick="return showJoin(this)" data-name="'+name+'" data-tel="'+tel+'" data-avatar="'+res.avatar+'">'+
+							'	<img src="'+res.avatar+'" />'+
+							'	<p >'+name+'</p>'+
+							'</div>';
+				$(".baomingls").append(bmls);
+				closeBg('fullbg','baoming');
+				alert("报名成功！")
+				//将报名者信息添加到列表之中
+				return false;
+			}else{
+				alert(res.msg);return false;
+			}
+		});
+	}
+}
+
+function test_preview(dqimg,imgarray){
+	wx.previewImage({
+		current: dqimg,
+		urls :  imgarray
+	 });
+}
+</script>
+</body>
+</html>

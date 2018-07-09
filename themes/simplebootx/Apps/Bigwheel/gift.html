@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$title}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Bigwheel/styles/public.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Bigwheel/styles/myprize.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<style type="text/css">
+body{width:750px; background-color:#F03E3E; font-family:'微软雅黑';}
+</style>
+</head>
+
+<body>
+	<div style="position:relative; padding-bottom:45px;">
+    	<img class="toptu" src="{:sp_get_asset_upload_path($thumb)}" />
+        <p class="btnp" onclick="showBg('fenxiang')">我的奖品</p>
+    </div>
+	<if condition="empty($list)">
+		<div style=" text-align:center; display:none;">
+			<img src="__TMPL__Apps/Bigwheel/images/kong.png" style="margin-top:100px;" />
+			<p style="font-size:30px; line-height:50px; color:#FFF;">宝箱还是空的哦，先去抽奖吧。</p>
+		</div>
+	<else/>
+		<foreach name="list" item="vo">
+			<div class="choujiang">
+				<div class="choujiangaa">
+					<div style="float:left; margin-right:20px; width:150px; height:120px; overflow:hidden;"><img src="{:sp_get_asset_upload_path($vo['thumb'])}" style=" width:100%;"></div>
+					<div class="chouzhong">
+						<p class="text"><php>echo date('Y-m-d H:i:s',$vo['createtime']);</php>　　抽中</p>
+						<p class="text2">{$vo.type}：{$vo.name}</p>
+					</div>
+				</div>
+			</div>
+		</foreach>
+	</if>
+   <div style="padding-top:91px;"></div>
+   <div class="didiv">
+      <div class="difen shouye" data-href="{:U('apps/bigwheel/index',array('id'=>$id))}">
+        	<div></div>
+            <p>抽奖</p>
+        </div>
+    	<div class="difen baoxiang1" data-href="{:U('apps/bigwheel/gift',array('id'=>$id))}">
+        	<div></div>
+            <p>宝箱</p>
+        </div>
+    	<div class="difen guize" data-href="{:U('apps/bigwheel/rule',array('id'=>$id))}">
+        	<div></div>
+            <p>规则</p>
+        </div>
+    	<div class="difen paihang" data-href="{:U('apps/bigwheel/rank',array('id'=>$id))}">
+        	<div></div>
+            <p>排行</p>
+        </div>
+    </div>
+<tc_include file="Public:mobile" />
+</body>
+<script>
+	$(function(){
+		$(".difen").click(function(){
+			var url = $(this).attr("data-href");
+			window.location.href = url;
+		});
+	})
+</script>
+<tc_include file="Public:mobile" />
+</html>

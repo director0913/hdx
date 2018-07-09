@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$title}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Bigwheel/styles/public.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Bigwheel/styles/rank.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<style type="text/css">
+body{width:750px; background-color:#F03E3E; font-family:'微软雅黑';}
+</style>
+</head>
+
+<body>
+	<div style="position:relative; padding-bottom:45px;">
+		<div style="height:100px;"></div>
+        <p class="btnp" onclick="showBg('fenxiang')">排行榜</p>
+    </div>
+   	<div class="paihangbang">
+    	<ul>
+			<foreach name="list" item="vo">
+				<li>
+                	<php>if($key<=2) $zhi="0".($key+1);else $zhi="04"</php>
+					<div class="paiming" style="background:url(__TMPL__Apps/bigwheel/images/{$zhi}.png) 15px center no-repeat;"><p>{$key+1}</p></div>
+					<div class="touxiang"><img src="{:sp_get_asset_upload_path($vo['avatar'])}"><span>{$vo.username|msubstr=0,6,'utf-8',false}</span></div>
+					<!--<p>中奖{$vo.per_num}次</p>-->
+				</li>
+			</foreach>
+        </ul>
+    </div>
+   
+    <div style="padding-top:91px;"></div>
+	<div class="didiv" style="height:130px;">
+		<div class="difen guize" data-href="{:U('apps/midautumn/index',array('id'=>$id))}">
+			<div></div>
+			<p>首页</p>
+		</div>
+		<div class="difen shouye" data-href="{:U('apps/midautumn/index1',array('id'=>$id))}">
+			<div></div>
+			<p>抽奖</p>
+		</div>
+		<div class="difen baoxiang" data-href="{:U('apps/midautumn/gift',array('id'=>$id))}">
+			<div></div>
+			<p>宝箱</p>
+		</div>
+		<div class="difen paihang1" data-href="{:U('apps/midautumn/rank',array('id'=>$id))}">
+			<div></div>
+			<p>排行</p>
+		</div>
+		<div class="skill_support">
+			<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+				<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+			</a>
+		</div>
+	</div>
+<tc_include file="Public:mobile" />
+</body>
+<script>
+	$(function(){
+		$(".difen").click(function(){
+			var url = $(this).attr("data-href");
+			window.location.href = url;
+		});
+	})
+</script>
+<tc_include file="Public:mobile" />
+</html>

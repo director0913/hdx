@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>应用中心</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/application.css?i=0" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<style type="text/css">
+.clear{clear: both;}
+.anlidiv{display:none; position:fixed; top:50%; margin-top:-229px; left:50%; margin-left:-149px; z-index:1100;}
+.anlidiv li{ width:262px; height:458px; background-color:#FFF; float:left; margin-left:36px; border-radius:3px;}
+.adddiv{ margin:19px; height:417px; border:1px dashed #c7c7c7; text-align:center;}
+.adddiv img{margin-top:162px;}
+.adddiv p{font-size:16px; color:#9b9c9e; margin-top:28px;}
+.anlidiv li .imagediv{height:383px; overflow:auto; overflow-x:hidden;}
+.anlidiv li .imagediv .tu{ width:100%;}
+.anlidiv li .biaoti{font-size:14px; color:#353535; text-align:center; margin:12px 0;}
+.anlidiv li .btnp{font-size:12px;}
+.anlidiv li .btnp a{display:block; width:63px; height:21px; line-height:21px; text-align:center; background-color:#f6751a; color:#FFF; float:left; margin-left:48px; border-radius:3px;}
+.anlidiv li .zheceng{position: absolute; top:0; bottom:0; left:0; right:0; background-color:#000; opacity:0.8; filter:Alpha(opacity=80); display:none;}
+.anlidiv li .maqu{width: 158px; height:158px; padding:8px; background-color:#FFF; position:absolute; top:50%; left:50%; margin-top:-87px; margin-left:-87px; display:none;}
+.anlidiv li .close{position:absolute; right:-10px; top:-10px;}
+.typelist{ line-height:15px; margin:60px 0 30px;}
+.typelist li{float:left; font-size:14px; color:#787878; width:101px; cursor:pointer; text-align:center;}
+.typelist li.active{ color:#88c7fa;}
+.search{padding-top:15px;margin:40px 0 10px;}
+.search input{outline:none; padding:0 10px; border:none; border-left:1px solid #ddd; font-family:'微软雅黑';}
+.search .fa{font-size:18px; cursor:pointer;color:#FA741B;}
+.addbtn{display:block; float:right; width:123px; height:36px; line-height:36px; text-align:center; font-size:14px; color:#FFF; background-color:#6bb0fe; margin-left:28px; margin-top:-10px; border-radius:5px;}
+.addbtn:hover{ background-color:#3078cb;}
+/*会员标识*/
+.member{position:absolute;top:-2px;left:-2px;width:60px;height:60px;}
+.member img{width:100%;}
+/*谈框*/
+.tangoumai{ position:fixed; width:818px; min-height:600px; background-color:#eee9e9; border-radius:5px; left:50%; top:50%; margin-left:-409px; margin-top:-300px; overflow:hidden; z-index:1001; display:none;}
+.tangoumai .tan-content{padding: 30px;}
+.tangoumai .tan-content .title-img img{width: 358px;}
+.tangoumai .tan-content .goods{width: 100%;background: #fff;padding: 30px 0;margin-top: 30px;border-radius: 4px; overflow: hidden;}
+.tangoumai .tan-content .goods .goods-img{width: 40px;height: 40px;float: left;border-radius: 40px;margin-left: 20px;}
+.tangoumai .tan-content .goods .goods-img img{width: 100%;height: 100%;border-radius: 50%;}
+.tangoumai .tan-content .goods .goods-name{float:left;margin-left: 20px;width: 658px;line-height: 38px;}
+.tangoumai .tan-content .goods .goods-name span{display: block;font-size: 16px;color:#000;}
+.tangoumai .tan-content .pay{margin-top: 30px;background: #fff;padding: 30px 20px;}
+.tangoumai .tan-content .pay .pay-title{font-size: 18px;color: 18px;}
+.tangoumai .tan-content .pay .pay-title span{margin-left: 10px;font-size: 12px;color: #ccc;}
+.tangoumai .tan-content .pay .pay-way div{float:left;margin-top: 20px;height:35px;width:105px;border: 1px solid #ccc;text-align: center;padding-top: 10px;border-radius: 4px;}
+.tangoumai .tan-content .pay .pay-way .pay-zfb{margin-right: 30px;}
+.tangoumai .tan-content .paper{text-align: right;font-size: 16px;margin-top: 30px;}
+.tangoumai .tan-content .paper span{font-size: 24px;color: red;}
+.tangoumai .tan-content .rise-vip{float: right;line-height: 35px;border-radius: 4px;display: block;margin-top: 15px;width: 160px;height: 35px;color: #fff;background: red;text-align: center;}
+.tangoumai .tan-content .pay .pay-way .selected{border: 1px solid #37b7a0;}
+
+.tangoumai .tan-content .order{color: #000;margin-top: 40px;font-size: 18px;}
+.tangoumai .close{ position:absolute; top:10px; right:10px; cursor:pointer;}
+.tangoumai .zuodiv{ position:absolute; left:0; top:0; bottom:0; width:357px; background:url(../../images/think.jpg) center center no-repeat; background-size:100% auto;}
+.tangoumai .youdiv{ width:324px; padding:16px; position:relative; text-align:center;}
+.tangoumai .youdiv h3{ font-size:24px; color:#FF8833; margin:32px 0 27px; font-family:"微软雅黑"; font-weight:300;}
+.tangoumai .youdiv .shuoming,.tangoumai .youdiv .dianhua,.tangoumai .youdiv .saoma{ font-size:18px; color:#707070; line-height:30px;}
+.tangoumai .youdiv .dianhua{color:#393939; border-bottom:1px solid #FDBD51; padding-bottom:14px;}
+.tangoumai .youdiv .saoma{ margin:22px 0;}
+.tangoumai .youdiv .erweima{ width:137px; height:137px; padding:9px; border:2px solid #EEEEEE;}
+
+</style>
+<style type="text/css">
+.carousel {
+  position: relative;
+}
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.carousel-inner > .item {
+  position: relative;
+  display: none;
+  -webkit-transition: .6s ease-in-out left;
+       -o-transition: .6s ease-in-out left;
+          transition: .6s ease-in-out left;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  line-height: 1;
+}
+@media all and (transform-3d), (-webkit-transform-3d) {
+  .carousel-inner > .item {
+    -webkit-transition: -webkit-transform .6s ease-in-out;
+         -o-transition:      -o-transform .6s ease-in-out;
+            transition:         transform .6s ease-in-out;
+
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+            perspective: 1000px;
+  }
+  .carousel-inner > .item.next,
+  .carousel-inner > .item.active.right {
+    left: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+  }
+  .carousel-inner > .item.prev,
+  .carousel-inner > .item.active.left {
+    left: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+  }
+  .carousel-inner > .item.next.left,
+  .carousel-inner > .item.prev.right,
+  .carousel-inner > .item.active {
+    left: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  display: block;
+}
+.carousel-inner > .active {
+  left: 0;
+}
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.carousel-inner > .next {
+  left: 100%;
+}
+.carousel-inner > .prev {
+  left: -100%;
+}
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+  left: 0;
+}
+.carousel-inner > .active.left {
+  left: -100%;
+}
+.carousel-inner > .active.right {
+  left: 100%;
+}
+.carousel-control {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 15%;
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0);
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+.carousel-control.left {
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+  background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .5)), to(rgba(0, 0, 0, .0001)));
+  background-image:         linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+  background-repeat: repeat-x;
+}
+.carousel-control.right {
+  right: 0;
+  left: auto;
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+  background-image:      -o-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .0001)), to(rgba(0, 0, 0, .5)));
+  background-image:         linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+  background-repeat: repeat-x;
+}
+.carousel-control:hover,
+.carousel-control:focus {
+  color: #fff;
+  text-decoration: none;
+  filter: alpha(opacity=90);
+  outline: 0;
+  opacity: .9;
+}
+.carousel-control .icon-prev,
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: inline-block;
+  margin-top: -10px;
+}
+.carousel-control .icon-prev,
+.carousel-control .glyphicon-chevron-left {
+  left: 50%;
+  margin-left: -10px;
+}
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-right {
+  right: 50%;
+  margin-right: -10px;
+}
+.carousel-control .icon-prev,
+.carousel-control .icon-next {
+  width: 20px;
+  height: 20px;
+  font-family: serif;
+  line-height: 1;
+}
+.carousel-control .icon-prev:before {
+  content: '\2039';
+}
+.carousel-control .icon-next:before {
+  content: '\203a';
+}
+.carousel-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 15;
+  width: 60%;
+  padding-left: 0;
+  margin-left: -30%;
+  text-align: center;
+  list-style: none;
+}
+.carousel-indicators li {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 1px;
+  text-indent: -999px;
+  cursor: pointer;
+  background-color: #000 \9;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #fff;
+  border-radius: 10px;
+}
+.carousel-indicators .active {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  background-color: #fff;
+}
+.carousel-caption {
+  position: absolute;
+  right: 15%;
+  bottom: 20px;
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+}
+.carousel-caption .btn {
+  text-shadow: none;
+}
+@media screen and (min-width: 768px) {
+  .carousel-control .glyphicon-chevron-left,
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .icon-prev,
+  .carousel-control .icon-next {
+    width: 30px;
+    height: 30px;
+    margin-top: -10px;
+    font-size: 30px;
+  }
+  .carousel-control .glyphicon-chevron-left,
+  .carousel-control .icon-prev {
+    margin-left: -10px;
+  }
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .icon-next {
+    margin-right: -10px;
+  }
+  .carousel-caption {
+    right: 20%;
+    left: 20%;
+    padding-bottom: 30px;
+  }
+  .carousel-indicators {
+    bottom: 20px;
+  }
+}
+.vip-icon{position: absolute;top:-2px;left:8px;width: 33px;height: 42px;background-image:url(__TMPL__Public/images/vip_icon.png);background-size: 100% 100%;}
+</style>
+</head>
+
+<body>
+	<tc_include file="Public:nav" />
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li class="active" data-target="#carousel-example-generic" data-slide-to="0"></li>
+            <li class="" data-target="#carousel-example-generic" data-slide-to="1"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner banner" role="listbox">
+            <foreach name="banner" item="vo" key="k">
+                <div class="item <if condition='$k eq 0'>active</if>">
+                    <a target="_blank" href="javaScript:;">
+                        <img src="{$vo.url}" class="wt100" alt="...">
+                    </a>
+                    <div class="carousel-caption"></div>
+                </div>
+            </foreach>
+        </div>
+	</div>
+	<div class="pagediv">
+		<div style="height:30px;"></div>
+		<ul class="yingyonglist">
+			<foreach name="app_center" item="vo">
+				<li style="overflow:inherit; position:relative;">
+					<div style="width: 237px; height: 265px; overflow:hidden; border-radius:5px;">
+						<div class="tudiv">
+							<img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" class="tupian" />
+						</div>
+						<p class="title">{$vo.slide_name}</p>
+						<p class="jianjie">{$vo.slide_des}</p>
+						<p class="gongneng">
+                            <a href="javascript:void(0);" class="anli" data-id="{$vo.slide_id}" onclick="show_desc(this);">查看活动说明</a>
+							<if condition="$vo.is_free eq 0 AND $Think.session.user.level lt 2">
+								<a href="javascript:create_app();" class="goumai">创建</a>
+							<else />
+								<a href="{:U('apps/index/edit',array('module'=>$vo['module'],'id'=>$vo['template_id'],'menu'=>1))}" class="create">创建</a>
+							</if>
+							<!--<a href="javascript:;" class="goumai">会员可用</a>-->
+						</p>
+            <if condition="$vo.is_free eq 0 AND $Think.session.user.level lt 2">
+            <p class="vip-icon"></p>
+            </if>
+						<p class="c_b"></p>
+					</div>
+				</li>
+			</foreach>
+			<p class="c_b"></p>
+		</ul>
+	</div>
+	<tc_include file="Public:footer"/>
+    <input type="hidden" id="domain_name" value="{$domain_name}" />
+    <div class="fujieshao">
+        <img src="__TMPL__Public/images/close.png" class="close" onclick="closeBg('#fullbg','.fujieshao')"/>
+        <div class="xiangxi"></div>
+        <div class="youxinxi">
+            <h3 class="ac_title"></h3>
+            <p class="miaoshu ac_desc"></p>
+            <div class="jieshaoerweima" id="jieshaoerweima"></div>
+            <p class="saoma"></p>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/qrcode.min.js"></script>
+<script type="text/javascript">
+    function show_desc(that){
+        var url = "{:U('portal/index/getSlide')}";
+        var  id = $(that).attr("data-id");
+        $.post(url,{id:id},function(res){
+            $(".xiangxi").html(res.slide_description);
+            $(".ac_title").text(res.slide_name);
+            $(".ac_desc").text(res.slide_des);
+            $("#jieshaoerweima").html("");
+            var qrcode = new QRCode(document.getElementById("jieshaoerweima"), {
+                width : 100,
+                height : 100
+            });
+            function makeCode () {
+                qrcode.makeCode(res.slide_url);
+            }
+            makeCode();
+            showBg('#fullbg','.fujieshao');
+        });
+    }
+    function create_app()
+    {
+        var domain_name = document.getElementById('domain_name').value;
+        alert('加入会员才可以使用该应用！');
+        window.location.href = domain_name + '/index.php/portal/index/show_vip/menu/2.shtml';
+    }
+</script>
+</html>

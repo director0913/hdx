@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+.woyao{height:140px;margin-top:-1px; padding-top:30px;}
+.woyaoaa{ width:538px; height:100px;margin:0 auto; background:#fd6d62; box-shadow:0px 10px 1px 1px #c23f35; border-radius:15px; font-size:40px; color:#fff; text-align:center; line-height:96px; letter-spacing:.1em;}
+/*baoming开始*/
+.baoming{height:136px; margin-top:-1px;}
+.yibao{ height:136px; padding-top:20px;}
+.yibao li{float:left;width:238px;  border-right:3px #ff746b solid;}
+.yibao .text{ font-size:36px; color:#ff746b; text-align:center;}
+/*baoming结束*/
+.bianhao{ width:510px; height:83px; background:#73c8cb; border-radius:15px;margin:40px auto;}
+/*报名处开始*/
+.baomingchu{text-align:center;}
+table{margin:0 auto;}
+.baomingpp{font-size:56px;color:#fe5f5b; margin-top:30px; margin-bottom:30px;}
+.zuoce{font-size:38px;color:#fe5f5b;}
+table td{line-height:117px;}
+.baomingchu input{height:77px;width:441px; padding:0 32px; border-radius:40px;border:2px solid #fe5f5b;font-size:20px; }
+textarea{height:139px;width:505px;border-radius:20px;border:0px;border:2px solid #fe5f5b;font-size:20px;padding:10px 10px;}
+.shibai{width:95%;margin:0 auto;font-size:34px;color:#fe5f5b;letter-spacing:5.5px;margin-top:50px;}
+td input,td textarea{ font-size:33px !important;}
+
+/*放置图片的div样式*/
+.imgdiv{width:142px; height:142px; overflow:hidden; position:relative; border-radius:5px; float:left; margin:5px; background:url(http://oss.tongyishidai.com/addons/yyvote/images/addimg.png) 0 0 no-repeat;}
+/*上传中图片样式*/
+.lodingimg{ position:absolute; top:52px; left:52px;}
+/*删除图片样式*/
+.deleimg{ position:absolute; right:0;}
+/*输入框的样式*/
+.fileinput{ filter:alpha(opacity=0); opacity:0; cursor:pointer; width:136px; height:136px;}

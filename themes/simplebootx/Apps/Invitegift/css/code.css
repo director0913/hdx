@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+.topdiv .title { font-size: .35rem; color: #363636;margin-bottom: .2rem;margin-top: .14rem;
+}
+.xiadiv{ color:#454545; padding:.12rem 0;}
+.xiadiv .time,.xiadiv .tel,.xiadiv .weixin{ font-size:.3rem; padding:.34rem .17rem .34rem .53rem; background:url(../images/time.png) .15rem center no-repeat; background-size:.29rem auto; border-bottom:1px solid #D3D3D3;}
+.xiadiv .zuodiv{ float:left; text-align:center; width:1.18rem; font-size:.28rem; line-height:.4rem; color:#3497DB;}
+.xiadiv .zuodiv img{width:.79rem; height:.79rem; border-radius:50%; margin:.27rem 0 .1rem 0;}
+.xiadiv .name,.xiadiv .weixin{ border-bottom:none; font-size:.26rem; padding-top:0; padding-bottom:0; line-height:.53rem; background-image:none; padding-left:0;}
+.xiadiv .tel{ background-image:url(../images/phone.png);border-bottom: none;}
+.xiadiv .tel a{ display:block;background:url(../images/jiantou.png) right center no-repeat; background-size:auto 60%;}
+.contentdiv,.baomingdiv,.pingdiv{ background-color:#FFF;  margin:.19rem .24rem 0 .24rem;}
+.contentdiv .zhuban{ font-size:.33rem; line-height:.81rem; color:#2D2D2D; padding-left:.15rem;}
+.contentdiv .gongsi{ font-size:.3rem; color:#76788F; line-height:.79rem; border-bottom:1px solid #D3D3D3;}
+.contentdiv .gongsi:after{ content:""; display:block; clear:both;}
+.contentdiv .gongsi img{ float:left; margin:0 .25rem .23rem .15rem; width:.79rem; height:.79rem; border-radius:50%;}
+.contentdiv .content{ padding:.22rem .15rem; font-size:.32rem; color:#6F6F6F;}
+.contentdiv .content img{ max-width:100%;}
+
+.baomingdiv .title,.pingdiv .title{ font-size:.26rem; line-height:.89rem; padding:0 .15rem; color:#323232; border-bottom:1px solid #CACACA; font-family:"黑体";}
+
+.baomingls{ line-height:.74rem; font-size:.2rem; white-space: nowrap; overflow-x: scroll; margin-bottom:.27rem; padding:0 .15rem;}
+.baomingls a{ padding:0 .06rem; color:#838383; border-bottom:3px solid #FFF;}
+.baomingls a.xuan{ color:#E2465E; border-bottom-color:#E2465E;}
+.baomingls div{ text-align:center; display:inline-block;}
+.baomingls div img{ width:.9rem; height:.9rem; border-radius:50%; margin:.27rem 0; }
+.baomingls div p{ font-size:.24rem; line-height:.24rem; margin-bottom:.2rem; color:#0095F3; width:1.15rem;}
+
+#didiv p{ float:left; width:50%;}
+#didiv p.fenxiang{ background-color:#DDD; color:#4B4B4B;}
+#didiv p.fenxiang a{ color:#4B4B4B; background-image:url(../images/turn.png);}
+
+.tandiv{ width:5.51rem; background-color:#FFF; border-radius:6px; overflow:hidden; position:fixed; top:50%; left:50%; margin-left:-2.76rem; margin-top:-3.37rem; font-size:.3rem; z-index:9; display:none;}
+#xinxi .title,#baoming .title{ font-size:.34rem; line-height:.79rem; height:.79rem; color:#FFF; background-color:#0099E9; position:relative; text-align:center;}
+#xinxi .title img,#baoming .title img{ position:absolute; top:.11rem; right:.14rem; width:.34rem; height:.34rem;}
+#xinxi li{ height:.77rem; line-height:.77rem; border-bottom:1px solid #D7D7D7; padding:0 .21rem;}
+#xinxi .touxiang{ text-align:center; height:auto;}
+#xinxi .touxiang img{ width:.88rem; height:.88rem; border-radius:50%; margin:.27rem 0;}
+#xinxi li p.biaoti{ float:left; width:1.46rem; color:#B9B9B9;}
+#xinxi li p.xinxi{ overflow:hidden; color:#353535;}
+#xinxi li p.haoma{ background:url(../images/phone2.png) right center no-repeat; background-size:.26rem auto;}
+#xinxi ul{ margin-bottom:.94rem;}
+#baoming{ margin-top:-2.6rem;}
+#baoming div{ padding:.25rem;}
+#baoming div .biaoti{ font-size:.32rem; line-height:.47rem; color:#272727; margin-left:.07rem;}
+#baoming div input{ width:100%; border:1px solid #C7C7C7; height:.72rem; font-size:.32rem; padding:0 .07rem; border-radius:6px; -webkit-box-sizing: border-box; box-sizing: border-box; margin-bottom:.14rem; box-shadow: 0 0px 3px rgba(0, 0, 0, 0.24);}
+#baoming div .btnok{ height:.81rem; line-height:.81rem; text-align:center; background-color:#0099E9; color:#FFF; font-size:.34rem; margin:.44rem 0 .35rem 0; border-radius:.04rem;}
+#dikongdiv{ height:1.2rem;}
+
+.xiadiv .time{ font-family:"黑体";}
+.banquan{ font-size:.22rem; color:#999; text-align:center;}
+.onebq{ margin-top:.3rem;}
+

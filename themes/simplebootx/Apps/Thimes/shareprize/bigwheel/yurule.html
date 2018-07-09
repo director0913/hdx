@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+*{ margin:0; padding:0;}
+.wt100{ width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+ </literal>
+ /*基础样式结束*/
+ 
+body{width:320px; background-color:#F03E3E; font-family:'微软雅黑';}
+
+.guize{background-size:100% 15px;width:302px;margin:0 auto;margin-bottom:56px; margin-top:19px; position:relative;}
+.guize .titlerule{text-align:center;border-bottom:3px solid #4db9e0;width:92%; margin:0 auto;padding-bottom: 16px;}
+.guize .text{font-size:12px;padding:15px 15px; word-break:break-all; min-height:100px;}
+.guize .text img{ max-width:100%;}
+.ditu{ position:fixed; bottom:0; left:0; right:0;}
+</style>
+</head>
+
+<body >
+<!--通用上部开始-->
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/bigwheel/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title"></p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+<!--通用上部结束-->
+<div class="caozuoqu">
+    <img src="__TMPL__Apps/Thimes/bigwheel/images/yurule.jpg"/>
+    <div class="guize">
+        <div class="jichu" style=" position:relative;left:5px">
+            <span class="czspan"  onclick="dianji('rule','guize','guize')">编辑</span>
+            <div class="text rule" style="background-color: #F36C69;color:white">1、进入公众号输入喝彩，弹出活动活动页面左下角我要参团进入公众号输入喝彩弹出活动，活动页面左下角，我要参团2、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;
+                3、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;<br/>4、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;</div>
+        </div>
+    </div>
+    <div style=" height:39px;"></div>
+    <img src="__TMPL__Apps/Thimes/bigwheel/images/yuwei.jpg" class="ditu" />
+</div>
+<!--通用下部结束-->
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script type="text/javascript">
+var ossurl="{$_W['attachurl_remote']}";
+$(function(){
+    genggai("title");
+    genggai("rule","fwb");
+})
+</script>
+</html>

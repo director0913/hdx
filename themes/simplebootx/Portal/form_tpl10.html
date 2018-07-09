@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$form_info.name}</title>
+<style>
+*{margin:0;padding: 0;}
+a{color:#fff;}
+body{background:url(__TMPL__Apps/Common/form_tpl10/bodybg.jpg) 0 0 repeat-y;background-size:100% 100%;width:100%;height:1px;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+ul{list-style:none;}
+/*顶部*/
+.top{position:relative;z-index:10;}
+.top img{width:100%;height:auto;}
+.top .act_title{position:absolute;top:305px;font-size:20px;color:#FFA302;width:300px;left:50%;margin-left: -150px;text-align: center;}
+.top .xiala{position:absolute;bottom:15px;left:108px;color:white;}
+.top .xiala .img{width:10px;height:10px;}
+.top .xiala .img img{width:100%;}
+/*活动规则*/
+.act_rule{background:url(__TMPL__Apps/Common/form_tpl10/rulebg.jpg) 0 0 no-repeat;background-size:100% auto;height:auto;width:100%;}
+.act_info,.rule_title{font-size:16px;color:white;}
+.rule_title{font-size:20px;text-align:center;margin-bottom:30px;}
+.act_wrap{padding-top:130px;margin-left:30px;margin-right:30px;}
+.act_wrap .rule{margin-top:30px;}
+.act_info p{margin:5px;color:white;}
+.act_info a{color:white;} 
+/*报名list*/
+.baoming_list{overflow:hidden;font-size:20px;color:white;}
+.baoming_list .yibaoming{margin-left:15px;margin-right:20px;padding-top:20px;padding-bottom:20px;}
+.baoming_list .user_list{font-size:15px;margin-left:20px;margin-right:20px;padding-top:5px;padding-bottom:5px;white-space:nowrap;overflow-x:scroll;}
+.baoming_list .user_list li{display:inline-block;margin:10px;font-size:12px;}
+.baoming_list .user_list img{width:50px; height:50px; border-radius:50%;}
+.baoming_list .user_list .username{text-align:center;}
+.baoming_list .user_list .usertime{text-align:center;}
+.kongbai{height:50px;}
+/*底部*/
+a{text-decoration:none;}
+.footer{position:fixed;left:0;bottom:0;width:100%;z-index:2;}
+.footer li{float:left;width:50%;background:#f0eff4;text-align:center;height:50px;line-height:50px;}
+.footer li.yaoqingyouli{background:#F3F3F3;}
+.footer li.woyaobaoming{background:#FF8B21;color:white;}
+.footer li.woyaobaoming2{background:#FF8B21;color:white;width:100%;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+    <div class="top">
+        <img src="{:sp_get_asset_upload_path($form_info['thumb'])}" >
+        <p class="act_title">{$form_info.name}</p>
+        <!-- <div class="xiala">
+            <div class="img">
+                <img src="images/jiantou.png">
+            </div>
+            <p>下拉查看活动规则</p>
+        </div> -->
+    </div>
+    <div class="act_rule">
+        <div class="act_wrap">
+            <p class="rule_title">活动规则</p>
+            <div class="act_info">
+                <p class="rule_time">活动时间：{$form_info['begintime']|date='m月d日',###}—{$form_info['endtime']|date='m月d日',###}</p>
+                <p class="rule_address">活动地点：{$form_info['address']}</p>
+                <if condition="$form_info['coupon_price'] neq 0">
+                    <a href="{:U('mjoin/form_pay',array('id'=>$form_info['id']))}"><p class="money">报名费用：￥{$form_info['coupon_price']}</p></a>
+               <else/>
+                    <!--<p class="money">报名费用：免费</p> -->
+               </if>
+                <p class="number">报名人数：已报名{$count}人/<if condition="$form_info['total_limit'] neq 0">限{$form_info['total_limit']}人报名<else/>不限制名额</if></p>
+                <p class="rule_mobile">联系电话：{$form_info['phone']}</p>
+                <div class="rule">{$form_info['description']|html_entity_decode}</div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+        <div class="baoming_list">
+        <div class="yibaoming">已报名{$count}</div>
+        <ul class="user_list">
+            <foreach name="user_infos" item="vo" >
+                <li>
+                    <img src="{$vo.avatar}">
+                    <p class="username">{$vo.username|msubstr=0,5,'utf-8',false}</p>
+                    <p class="usertime">{$vo.createtime|sp_formate_time}</p> 
+                </li>
+            </foreach>  
+        </ul>
+    </div>
+    <div class="skill_support">
+        <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+            <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+        </a>
+    </div>
+    <div class="kongbai"></div>
+    <!-- <ul class="footer">
+        <li class="yaoqingyouli">邀请有礼</li>
+        <li class="woyaobaoming">我要报名</li>
+    </ul> -->
+    <!-- <ul class="footer">
+        <li class="woyaobaoming2">我要报名</li>
+    </ul> -->
+    <ul class="footer">
+        <eq name="form_info.is_distri" value="1">
+            <ul class="footer">
+                <if condition="$is_regist eq 1">
+                     <li class="fenxiao yaoqingyouli">
+                        <a href="{:U('portal/mjoin/myInvite',array('id'=>$_GET['id'],'uid'=>$uid))}" style="color: grey">我的邀请</a>
+                     </li>
+                     <li class="woyaobaoming"><a href="javascript:void(0)" style="color: white">已报名</a></li>
+                <else/>
+                    <if condition="$form_info['total_limit'] elt $count">
+                        <li class="fenxiao yaoqingyouli">
+                            <a href="javascript:void(0)" onclick='alert("报名人数已满");'  data-status="" style="color: grey">邀请有礼</a>
+                        </li>
+                        <li class="woyaobaoming"><a href="javascript:void(0)" onclick='alert("报名人数已满");' style="color: white">我要报名</a></li>
+                    <else/>
+                        <eq name="valid_form" value="1">
+                            <li class="fenxiao yaoqingyouli">
+                                <a href="{:U('portal/mjoin/invite',array('id'=>$_GET['id'],'uid'=>$uid))}" style="color: grey">邀请有礼</a>
+                            </li>
+                            <li class="woyaobaoming"><a href="{:U('portal/mjoin/join_in',array('id'=>$_GET['id'],'uid'=>$uid))}" style="color: white">我要报名</a></li>
+                        </eq>
+                        <eq name="valid_form" value="-1">
+                            <li class="enroll woyaobaoming2"><a href="javascript:void(0)" style="color: white">报名未开始</a></li>
+                        </eq>
+                        <eq name="valid_form" value="-2">
+                            <li class="enroll woyaobaoming2"><a href="javascript:void(0)" style="color: white">报名已结束</a></li>
+                        </eq>
+                    </if>               
+                </if>
+            </ul>
+        <else/>
+            <ul class="footer">
+                <if condition="$is_regist eq 1">
+                    <li class="enroll woyaobaoming2"><a href="javascript:void(0)" style="color: white">已报名</a></li>
+                <else/>
+                    <if condition="$form_info['total_limit'] elt $count">
+                        <li class="enroll woyaobaoming2"><a href="javascript:void(0)" onclick='alert("报名人数已满");' style="color: white">我要报名</a></li>
+                    <else/>
+                        <eq name="valid_form" value="1">
+                            <li class="enroll woyaobaoming2"><a href="{:U('portal/mjoin/join_in',array('id'=>$_GET['id']))}" style="color: white">我要报名</a></li>
+                        </eq>
+                        <eq name="valid_form" value="-1">
+                            <li class="enroll woyaobaoming2"><a href="javascript:void(0)" style="color: white">报名未开始</a></li>
+                        </eq>
+                        <eq name="valid_form" value="-2">
+                            <li class="enroll woyaobaoming2"><a href="javascript:void(0)" style="color: white">报名已结束</a></li>
+                        </eq>
+                    </if>
+                </if>
+            </ul>
+        </eq>
+    </ul>
+</body>
+ <tc_include file="Public:mobile" />
+</html>

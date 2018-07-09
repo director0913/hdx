@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['title']}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/olympicrefuel/css/index.css?i=5.4"/>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low &&_ww<720){
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<script type="text/javascript" src="__TMPL__Apps/common/zhezhao.js"></script>
+<link rel="stylesheet" href="__TMPL__Apps/common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/common/scripts/pace.min.js"></script>
+<style type="text/css">
+	.d_n{ display: none; }
+	.guize .text{display:-webkit-inline-box;}
+</style>
+</head>
+<body>
+<audio id="shakemusic" src="__TMPL__Apps/common/scripts/red-01.mp3" style="display: none;"></audio>
+<audio id="openmusic" src="__TMPL__Apps/common/scripts/red-02.mp3" style="display: none;"></audio>
+<div class="bgc">
+    <img src="__TMPL__Apps/olympicrefuel/images/bgc.jpg" width="750"/>
+    <p class="biaoti">{$item['title']}</p>
+</div>
+<div class="jiayou"> 
+    <div class="zhuwei">
+        <p class="zhuwei_title">当前加油助威人数11</p>
+        <input type="hidden" value="{$total_num}" id="total_num"/>
+        <ul class="num">
+            <li class="num1">{$total_num|substr=0,1}</li>
+            <li class="num2">{$total_num|substr=1,1}</li>
+            <li class="num3">{$total_num|substr=2,1}</li>
+            <li class="num4">{$total_num|substr=3,1}</li>
+            <li class="num5">{$total_num|substr=4,1}</li>
+        </ul>
+        <p class="canyu"><if condition="$is_jiayou eq 0 ">成功加油后即可参加摇一摇抽奖哦<else/>你今天已经加油啦!查看<span onclick="baoxiang()">我的奖品</span></if></p>
+    </div>
+    <div class="btn caozuo_btn <if condition="$is_jiayou eq 1 ">yaoqing_btn<else/>jiayou_btn</if>" ><if condition="$is_jiayou eq 1 ">邀请好友<else/>加油</if></div>
+    <!--<div class="btn caozuo_btn jiayou_btn" >加油</div>-->
+</div>
+<!-- 活动规则开始 -->
+<div class="beijing"  <if condition=" $item['activityprize'] eq '' "> style='display:none' </if>>
+    <p class="tophua"></p>
+    <div class="guize">
+        <p class="title">活动奖励</p>
+        <div class="text">{$item['activityprize']|html_entity_decode}</div>
+    </div>
+</div>
+<div class="beijing"  <if condition=" $item['activityprize'] eq '' "> style='display:none' </if>>
+    <p class="tophua"></p>
+    <div class="guize">
+        <p class="title tu2">活动规则</p>
+        <div class="text">{$item['rule']|html_entity_decode}</div>
+    </div>
+</div>
+<div class="beijing"  <if condition=" $item['activityprize'] eq '' "> style='display:none' </if>>
+    <p class="tophua"></p>
+    <div class="guize">
+        <p class="title tu3">活动介绍</p>
+        <div class="text">{$item['activityremark']|html_entity_decode}</div>
+    </div>
+</div>
+<!-- 活动规则结束 -->
+<!-- onclick="closeBg('fullbg','cheer')" -->
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<img src="__TMPL__Apps/olympicrefuel/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" />
+<!-- 去抽奖开始 -->
+<div id="cheer">
+    <img src="__TMPL__Apps/olympicrefuel/images/jiayou.png" class="fight"/>  
+    <p class="wenzi">恭喜你，获得一次摇奖机会！</p> 
+    <div class="cheer_btn" onclick="yaojiang()">去抽奖</div>
+</div>
+<!-- 去抽奖结束 -->
+<!-- 摇奖开始 -->
+<div id="yaojiang">
+    <img src="__TMPL__Apps/olympicrefuel/images/yaojiang.jpg" alt="" />
+    <p class="text" onclick="zhuce()">{$item['title']}</p> 
+    <p class="fanhui" onclick="closeBg('fullbg','yaojiang')">返回加油首页></p>   
+</div>
+<!-- 摇奖结束 -->
+<!--填写手机姓名html弹窗开始-->
+    <div id="tianxx" class="tandiv">
+        <img src="__TMPL__Apps/olympicrefuel/images/close1.png" class="closeimg2" onclick="closeBg('fullbg2','tianxx');closeBg('fullbg','yaojiang');" />
+        <div class="gift"><img src="" alt="" id="jiangtu" /></div>
+        <p class="tishi">恭喜你抽中了<span id="jiangming"></span>！</p>
+        <div class="inputdiv" style="margin-top:45px;">
+            <span>姓名</span>
+            <input type="text" placeholder="请输入姓名" id="name" value="{$user[username]}" />
+        </div>
+        <div class="inputdiv">
+            <span>手机</span>
+            <input type="text" placeholder="请输入手机号码" id="mobile" value="{$user[mobile]}" />
+        </div>
+        <p class="submitip">提交</p>
+    </div>
+<!--填写手机姓名html弹窗结束-->
+<div id="nowin" class="tandiv">
+    <img src="__TMPL__Apps/olympicrefuel/images/close1.png" class="closeimg2" onclick="closeBg('fullbg2','nowin');closeBg('fullbg','yaojiang');" />
+    <div class="gift"><img src="__TMPL__Apps/olympicrefuel/images/nowin.png" alt=""/></div>
+    <div class="tishi">很遗憾,什么都没中!下次再来吧</div>
+</div>
+<!-- 我的宝箱开始 -->
+<div id="baoxiang">
+    <p class="title">我的宝箱<img src="__TMPL__Apps/olympicrefuel/images/close.png" onclick="closeBg('fullbg','baoxiang')"/></p>
+    <ul class="baoxiang_cont">
+	    <foreach name="prize_list" item="vv">
+	        <li class="wei_c_b">
+	            <div class="tudiv"><img src="{$vv.prize_thumb}" alt=""></div>
+	            <div class="text">
+	                <p class="text_title">{$vv.prize_type}</p>
+	                <p class="text_cont">{$vv.prize_name}</p>
+	            </div>
+	        </li>
+	    </foreach>
+    </ul>
+</div>
+<!-- 我的宝箱结束 -->
+<p class="xixun">
+    <marquee scrollamount="6" hspace="6" scrolldelay="1"><foreach name="user_list" item="vv"><img src="{$vv.avatar}" alt="" />{$vv.nickname}为中国健儿加油助威&nbsp;&nbsp;</foreach></marquee>
+</p>
+
+<tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+var huojiangurl="{:U('apps/olympicrefuel/getjiang',array('id'=>$_GET['id']))}";
+$(function(){
+	$('.jiayou').on("click",".jiayou_btn",function(){
+		var id="{$_GET['id']}";
+		var total_num=$('#total_num').val();
+		 $.post("{:U('apps/olympicrefuel/jiayou')}",
+		{
+		   id:id,
+		   total_num:total_num
+		},
+		function(data,status){
+			if(data.status>0)
+			{
+				showBg('fullbg','cheer');
+				$('.num1').text(data.total_num[0]);
+				$('.num2').text(data.total_num[1]);
+				$('.num3').text(data.total_num[2]);
+				$('.num4').text(data.total_num[3]);
+				$('.num5').text(data.total_num[4]);
+				$(".canyu").html('你今天已经加油啦!查看<span onclick="baoxiang()">我的奖品</span>');
+				$(".caozuo_btn").html("邀请好友").removeClass("jiayou_btn").addClass("yaoqing_btn");
+			}
+		});
+	});
+	$('.jiayou').on("click",".yaoqing_btn",function(){
+		showBg("fullbg","fenxiang",true);
+	});
+	$('.submitip').click(function(){
+		var id="{$_GET['id']}";
+		var name=$('#name').val();
+		var mobile=$('#mobile').val();
+		var jiangpin="xiyiji";
+		if(name.length==0)
+		{
+			alert("请填写姓名");
+			return;
+		}
+		if(mobile.length!=11)
+		{
+			alert("请填写11位手机号");
+			return;
+		}
+		$.post("{:U('apps/olympicrefuel/getPrize',array('id'=>$_GET['id']))}",
+		{
+		   name:name,
+		   mobile:mobile
+		},
+		function(data,status){
+			if(data.status>0)
+			{
+				$("#name").val(name);
+				$("#mobile").val(mobile);
+				alert("领奖成功！");
+				//关闭填信息层。
+				closeBg('fullbg2','tianxx');
+				//关闭摇奖层。
+				$("#yaojiang").hide();
+				//为宝箱中添加数据。
+				var jiangstr='<li class="wei_c_b">'+
+								'<div class="tudiv"><img src="'+data["jiang"]["thumb"]+'" alt=""></div>'+
+								'<div class="text">'+
+									'<p class="text_title">'+data["jiang"]["type"]+'</p>'+
+									'<p class="text_cont">'+data["jiang"]["name"]+'</p>'+
+								'</div>'+
+							'</li>';
+				$(".baoxiang_cont").append(jiangstr);
+				//显示宝箱。
+				$("#baoxiang").show();
+			}
+			else
+			{
+				alert(data.msg);
+			}
+		});
+	});
+});
+function baoxiang()
+{
+    showBg('fullbg','baoxiang',false);
+}
+var yaoci=0;
+//打开摇一摇界面效果。
+function yaojiang()
+{
+	showBg('fullbg','yaojiang');
+	$("#cheer").hide();
+	if (window.DeviceMotionEvent){
+		var speed = 20;
+		var audio = document.getElementById("shakemusic");
+		var openAudio = document.getElementById("openmusic");
+		var x = t = z = lastX = lastY = lastZ = 0;
+		window.addEventListener('devicemotion',function () {
+			var acceleration = event.accelerationIncludingGravity;
+			x = acceleration.x;
+			y = acceleration.y;
+			if (Math.abs(x - lastX) > speed || Math.abs(y - lastY) > speed) {
+				yaoci++;
+				audio.play();
+				if(yaoci==1)
+				{
+					$('.red-ss').addClass('wobble')
+					setTimeout(function(){
+						audio.pause();
+						openAudio.play();
+						/*对中奖的判断和处理在这里进行*/
+						var url=huojiangurl;
+						$.post(huojiangurl,
+						{},
+						function(data,status){
+							if(data.status>0)
+							{
+								$("#jiangtu").attr("src",data.jiang.thumb);
+								$("#jiangming").html(data.jiang.name);
+								showBg('fullbg2','tianxx',false);
+							}
+							else
+							{
+								showBg('fullbg2','nowin',false);
+							}
+						});
+						/*处理结束*/
+					}, 1500);
+				}
+			};
+			lastX = x;
+			lastY = y;
+		},false);
+	};
+}
+</script>
+</html>

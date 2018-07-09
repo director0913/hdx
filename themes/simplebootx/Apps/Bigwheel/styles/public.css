@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{ margin:0; padding:0;}
+ul{ list-style-type:none;}
+.clear{ clear:both;}
+body{width:750px; font-family:'微软雅黑';}
+
+.didiv{height:90px; width:750px; position:fixed; bottom:0; border-top:1px solid #97888D; background-color:#FFF; text-align:center; font-size:23px; line-height:28px;}
+.difen{width:25%; height:90px; float:left; color:#4F4F4F;}
+.difen div{height:54px; background-position:center center; background-repeat:no-repeat;}
+.shouye div{background-image:url(../images/shouye.png);}
+.shouye1 div{background-image:url(../images/shouye1.png);}
+.baoxiang div{background-image:url(../images/baoxiang.png);}
+.baoxiang1 div{background-image:url(../images/baoxiang1.png);}
+.guize div{background-image:url(../images/guize.png);}
+.guize1 div{background-image:url(../images/guize1.png);}
+.paihang div{background-image:url(../images/paihang.png);}
+.paihang1 div{background-image:url(../images/paihang1.png);}
+.shouye1 p,.baoxiang1 p,.guize1 p,.paihang1 p{color:#EF3E3E;}

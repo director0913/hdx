@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>活动简介</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color:#fff;}
+.aui-bar-nav,.aui-btn{background-color:#fff;}
+.aui-title,.aui-bar-nav,.aui-btn{color:#000;}
+header.aui-bar .aui-btn .aui-iconfont{color:#ff9900;}
+.content{margin:16px 12px;}
+.title{font-size:16px;color:#fc7219;border-bottom:2px solid #fc7219;padding-bottom:6px;margin-bottom:12px;}
+.biaoti{font-size:14px;color:#fc7219;}
+.cont{font-size:14px;margin-bottom:8px;}
+.yulan{position:fixed;height:44px;bottom:0;left:0;right:0;background-color:#ececec;padding-top:10px;}
+#kongdiv{height:44px;}
+.kefu_btn{ width:74px;height:24px;line-height:24px;background-color:#F67519;color:#FFF; border-radius:4px;margin:0 auto 16px;font-size:13px;text-align:center;}
+.point{position:fixed;top:0;left:0;right:0;height:46px;background-color: #000;opacity: 0.7;z-index:20;padding:5px 16px;}
+.yulan_tishi{color:#fff;font-size:12px;float:left;width:93%;}
+.close{float:right;color:#fff;font-size:16px;background-color: #f00;width:18px;height:18px;border-radius:50%;line-height:18px;text-align: center;margin-top:9px;}
+</style>
+</head>
+<body>
+<php>
+    $userInfo=session('user');
+</php>
+ <header class="aui-bar aui-bar-nav aui-border-b" id="aui-header">
+        <a class="aui-btn aui-pull-left aui-border-b" href="javascript:history.go(-1);">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" id="header-title">活动简介</div>
+    </header>
+<div class="content">
+    {$slide['slide_description']}
+</div>
+<div id="kongdiv"></div>
+<div class="yulan">
+    <?php  $str='http://'.$_SERVER['HTTP_HOST']."/index.php/apps/".$app['type']."/index/id/".$app['id'].".shtml"; ?>
+    <div class="kefu_btn" data-url="{$str}">预览</div>
+</div>
+<div class="point">
+  <div class="yulan_tishi">手机端提供活动预览和报名管理，创建活动请用电脑登录www.huodong.tongyishidai.com</div>
+  <div class="close">×</div>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+$(function(){
+    $('.close').click(function(){
+            $('.point').hide();
+        })
+    $('.kefu_btn').click(function(){
+        var tt = Math.random();
+        var url=$(this).attr('data-url')+"&refresh="+tt;
+        var login_url = "{:U('portal/mindex/login')}"+"?refresh="+tt;
+        <php>
+           if($userInfo['id']){
+                $uid=$userInfo['id'];
+            }
+            if($uid!=0){
+                echo "uid=$uid;";
+            }
+        </php>
+        if(uid==0){
+             $.post("{:U('user/index/is_login')}",{},function(data){
+                if(data.status){
+                    window.location.href=url;
+                }else{
+                    window.location.href=login_url;
+                }
+            });
+        }else{
+            window.location.href=url;
+        }
+    });
+});
+</script>
+</html>

@@ -1,0 +1,106 @@
+ <php>$is_login = sp_is_user_login();$m=intval($_GET['menu']);$user=sp_get_current_user();$user['level']= intval($user['level']);</php>
+ <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<style type="text/css">
+	.w1200{
+		width: 1200px;
+		margin: 0 auto;
+	}
+	.my_nickname{
+		display:inline-block;
+		max-width: 120px;
+		height: 30px;
+		line-height: 34px;
+		overflow: hidden;
+	}
+</style>
+<div style="height:76px;"></div>
+
+<div class="topindex">
+    <div class="pagediv w1200">
+        <a href="__ROOT__/" class="logo">
+        	<img src="__TMPL__Public/images/logo_xyt.png"  alt="活动秀" />
+        </a>
+        <ul class="index f_l">
+        	<li><a href="http://www.xiaoyingtong.net/" class="">校营通</a></li>
+        	<!--<li><a href="http://www.xiaoyingtong.net/live" class="">直播</a></li>-->
+        	<!--<li><a href="http://www.xiaoyingtong.net/info" class="">阅读</a></li>-->
+            <li><a href="__ROOT__/" <if condition="$m eq 0"> class="active" </if> >活动中心</a> </li>
+			<li><a href="{:U('portal/index/application',array('menu'=>1))}" <if condition="$m eq 1"> class="active" </if> >应用中心</a></li>
+			<!--<li><a href="{:U('portal/index/show_vip',array('menu'=>2))}" <if condition="$m eq 2"> class="active" </if> >会员特权2</a></li>-->
+		</ul>
+		<if condition="$is_login eq true">
+			<ul class="caozuo f_r">
+				<!--<li style="position: relative;;margin-right: 80px;padding: 19px 0;" class="f_l">-->
+					<!--<img id="search-img" style="-->
+						<!--position: absolute;-->
+						<!--top: 32px;-->
+						<!--left: 15px;-->
+					<!--" src="__TMPL__Public/images/search-btn.png">-->
+					<!--<input id="search-input" value="" style="color: rgb(180, 180, 180);-->
+							    <!--background: rgb(255, 255, 255) ;-->
+							    <!--border: 1px solid rgb(60, 60, 60);-->
+								<!--width: 176px;-->
+							    <!--text-indent: 35px;-->
+							    <!--outline: 0;-->
+							    <!--color: #9f9fb1;-->
+							    <!--border-radius: 8px;-->
+							    <!--height: 36px;-->
+							    <!--font-size: 12px;-->
+							    <!--" -->
+							    <!--type="text" name="" placeholder="搜索">-->
+				<!--</li>-->
+				<li id="user-name" class="f_l p_r dropdown">
+					<a href="javascript:void(0);" class="my"><img style="width: 26px;height: 26px;border-radius: 50%;" src="<php> echo session('user')['avatar'] </php>">
+					<span class="my_nickname">
+					<php>$user=sp_get_current_user(); echo mb_substr($user['user_nicename'],0,10,'utf-8');</php>
+					</span>
+					</a>
+					<ul id="user-operating" class="dropitem d_n">
+						<li><a href="{:U('portal/activity/index',array('menu'=>3))}" class='my <if condition="$m eq 3">active </if>'>个人中心</a></li>
+						<!--<li><a href="http://www.xiaoyingtong.net/user/data" class="my">我的</a></li>-->
+						<li><a href="{:U('user/base/logout')}" class="my">退出</a></li>
+					</ul>
+				</li>
+			</ul>
+		<else />
+			 <ul class="caozuo f_r">
+				<li class="f_l"><a href="{:leuu('user/base/login')}">登录</a></li>
+				<li class="f_l"><a href="{:leuu('user/base/login')}">注册</a></li>
+			</ul>
+		</if>
+        <div class="c_b"></div>
+    </div>
+</div>
+<script type="text/javascript">
+	window.onload = function() {
+		var user_name =document.getElementById('user-name');
+		var search_img =document.getElementById('search-img');
+		var search_input =document.getElementById('search-input');
+		user_name.onmouseover = over;
+		user_name.onmouseout = out;
+		search_img.onclick= search;
+		search_input.onkeydown=function(event){
+            var e = event || window.event || arguments.callee.caller.arguments[0];          
+            if(e && e.keyCode==13){ // enter 键
+                search();
+            }
+        }; 
+
+	}
+	function over(){
+		var user_operating = document.getElementById('user-operating')
+		user_operating.style.display="block"
+	};
+	function out(){
+		var user_operating = document.getElementById('user-operating')
+		user_operating.style.display="none"
+	}
+	function search(){
+		var search_input =document.getElementById('search-input');
+		if (!search_input.value=="") {
+			window.location.href="http://www.xiaoyingtong.net/info/search?keywords="+search_input.value
+		}else{
+			return false;
+		}
+	}
+</script>

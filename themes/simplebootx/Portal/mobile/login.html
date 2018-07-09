@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>登录</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color: #fff;}
+.nav{margin:60px 30px 0;height:30px;}
+.nav li{width:100%;border-bottom:1px solid #bdbdbd;padding-bottom:10px;float:left;color:#bdbdbd;text-align:center;font-size:16px;}
+.nav li.active{color:#fc7219;border-bottom:1px solid #fc7219;}
+.content{margin:50px 35px;}
+.denglu2{display:none;}
+.list li{position: relative;}
+.list li i{ position:absolute; bottom:20px; left:6px;font-size:20px; color:#bdbdbd;}
+.list li .yanzheng{ position:absolute;bottom:26px; right:8px; font-size:13px; color:#fc7219;}
+input[type="text"],input[type="tel"],input[type="password"]{padding:10px 10px 10px 30px;}
+.btn{height:38px;}
+.btn_l,.btn_r{width:48%;height:38px;background-color: #fc7219;color:#fff;border-radius:2px;text-align: center;line-height:38px;font-size:16px;margin-left:10px;}
+.btn_l{background-color: #fff;color:#fc7219;border:1px solid #fc7219;margin-left:0;}
+.forget{color:#6390e3;text-align:right;margin-top:12px;font-size:13px;display:block;}
+</style>
+</head>
+<body>
+<div class="denglu1">
+    <ul class="nav">
+        <li class="active">验证码登录</li>
+    </ul>
+    <div class="content">
+        <div class="login">
+            <ul class="list">
+                <li>
+                    <i class="aui-iconfont aui-icon-people"></i>
+                    <div class="yanzheng getyanzheng">获取验证码</div>
+                    <input type="tel" id="yan_mobile" placeholder="手机号"/>
+                </li>
+                <li>
+                    <i class="aui-iconfont aui-icon-loading"></i>
+                    <input type="text" id="yan_vertify" placeholder="手机验证码"/>
+                </li>
+            </ul>
+            <div class="btn">
+                <a class="btn_l aui-pull-left" href="{:U('portal/mindex/regist')}">注册</a>
+                <a class="btn_r aui-pull-right yan_btn_r">登录</a>
+            </div>
+            <div style="display:both;"></div>
+            <div class="forget" onclick="denglu()">使用密码登录</div>
+        </div>
+    </div>
+</div>
+<div class="denglu2">
+    <ul class="nav">
+        <li class="active">密码登录</li>
+    </ul>
+    <div class="content">
+        <div class="login">
+            <ul class="list">
+                <li>
+                    <i class="aui-iconfont aui-icon-people"></i>
+                    <input type="tel" id="mi_mobile" name="mobile" placeholder="手机号"/>
+                </li>
+                <li>
+                    <i class="aui-iconfont aui-icon-unlock"></i>
+                    <input type="password" id="mi_password" name="password" placeholder="密码"/>
+                </li>
+            </ul>
+            <div class="btn">
+               <a class="btn_l aui-pull-left"  href="{:U('portal/mindex/regist')}">注册</a>
+               <a class="btn_r aui-pull-right mi_btn_r"  href="javascript:;">登录</a>
+            </div>
+            <div style="display:both;"></div>
+            <div class="forget" onclick="mima()">使用验证码登录</div>
+        </div>
+    </div>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+ function denglu()
+    {
+        $('.denglu2').show();
+        $('.denglu1').hide();
+    } 
+    function mima()
+    {
+        $('.denglu1').show();
+        $('.denglu2').hide();
+    } 
+$(function(){
+    $('.mi_btn_r').click(function(){
+        var username=$('#mi_mobile').val();
+        var password=$('#mi_password').val();
+		if(!username){
+			alert("手机号不能为空！");return false;
+		}
+        if(username.length!=11)
+        {
+            alert("请输入11位手机号");return false;   
+        }
+		if(!password){
+			alert("密码不能为空！");return false;
+		}
+        var url = "{:U('user/login/dologin')}";
+        $.post(url,{username:username,password:password},function(res){
+            if(res.status){
+				var time =Math.random();
+				var redirect = "http://huodong.tongyishidai.com/"+"{:U('portal/Mindex/user_center',array('menu'=>3))}"+"?tt="+time;
+                window.location.href=redirect;
+            }
+            else{
+                alert(res.info);
+            }
+        });
+    });
+    //获取验证码
+    $(".getyanzheng").click(function(){dongyanzheng();});
+    //验证码登录
+    $('.yan_btn_r').click(function(){
+        var username=$('#yan_mobile').val();
+        var vertify=$('#yan_vertify').val();
+        var yanzheng=1;
+		if(!username){
+			alert("手机号不能为空！");return false;
+		}
+        if(username.length!=11)
+        {
+            alert("请输入11位手机号!");return false;   
+        }
+		if(!vertify){
+			alert("验证码不能为空!");return false;   
+		}
+        var url = "{:U('user/login/dologin')}";
+        $.post(url,{username:username,vertify:vertify,login_type:yanzheng},function(res){
+             if(res.status){
+                window.location.href="{:U('portal/Mindex/user_center',array('menu'=>3))}";
+            }
+            else{
+                alert(res.info);
+            }
+            
+        });
+    });
+
+
+
+});
+var jishi=null;
+var zongshi=60;
+function dongyanzheng()
+{
+    var mobile = $('#yan_mobile').val();
+    if(!mobile||mobile.length!=11){
+        alert("请填写11位手机号！");return false;
+    }
+    //解除点击事件。
+    $(".getyanzheng").unbind();
+    //调用发送验证码接口
+    var url = "{:U('api/checkcode/sendMobbile_msg')}";
+    $.post(url,{mobile:mobile,type:'login'},function(res){
+        if(res.status){
+			 $(".getyanzheng").html("发送中……")
+            zongshi=60;
+            $(".getyanzheng").html(zongshi+"秒后获取").css("color","#ddd");
+            jishi=setInterval("daoshi()",1000)
+        }else{
+            /*$(this).css("color","#f5f5f5");
+            $(this).html("发送中");*/
+            $(".getyanzheng").html("获取验证码")
+            alert(res.info);
+            $(".getyanzheng").click(function(){dongyanzheng();})
+            /*$(this).html("发送验证码");
+            $(this).css("color","#FA741B");*/
+        }
+    });
+}
+function daoshi()
+{
+    zongshi--;
+    $(".getyanzheng").html(zongshi+"秒后获取");
+    if(zongshi<=0)
+    {
+        $(".getyanzheng").html("获取验证码").css("color","#FA741B");
+        $(".getyanzheng").click(function(){dongyanzheng();});
+        clearInterval(jishi);
+    }
+}       
+</script>
+</html>

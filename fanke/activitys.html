@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<title>凡科互动</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="viewport" content="user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta id="_TOKEN" value="632e043c6d8d2e5093eee6ef190eb82d" type="hidden">
+<link href="css/index.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/detailss.css"/>
+
+</head>
+	<body>
+	<div class="jiazaik" style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.2);z-index:999;display: block;">
+		<div id="loading" class="loading">加载中...</div>
+	</div>
+
+	<div id="myActContainer" class="container" style="-webkit-overflow-scrolling: touch; height: 100%;overflow-y: scroll">
+		<div id="actListBox" style="">
+			<div class="actList list_item" v-for="v in recoms">
+        		<div class="gameImgLeft">
+					<img :src='v.ac_thumb'>
+					<span class="gameId">{{v.title}}</span>
+				</div>
+				<div class="gameInfoRight">
+					<span class="gameTitle">参与活动赢大奖</span>
+					<span class="gameStatus" v-if="v.if_send==0" style="color:#f54b0f">未发布</span>
+					<span class="gameStatus" v-if="v.if_send==1" style="color:#f54b0f">进行中</span>
+					<span class="gameStatus" v-if="v.if_send==2" style="color:#f54b0f">已结束</span>
+					<a @click='zhongjian(v.ac_id)' target="_top"><div  class="gamePreviewBtn bg_blue">预览</div></a>
+					<a @click='fabu(v.ac_id)' v-if="v.if_send==0"><div  class="gamePreviewBtn bg_blue" style="position: absolute;right: 4.75rem;top: 3.4rem;">发布</div></a>
+				</div>
+			</div>
+		</div>
+		<div id="bottomTips">
+			手机版仅支持体验部分功能<br>更多功能请登录电脑版
+		</div>
+	</div>
+	
+
+</body>
+<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function(){
+    	var remBase = Math.min(window.innerWidth,window.innerHeight)/18;
+        remBase === 0 && (remBase = 20);
+        document.getElementsByTagName('html')[0].style.fontSize = remBase + 'px';
+        g_rem = parseFloat(remBase);
+        var user_id = localStorage.getItem('user_id');
+        $.ajax({
+            url:httpurl+"Cutdown/my_activity_list",
+            type:"get",
+            data:{
+            	user_id:user_id,
+            },
+            success:function(e){
+            	var items = e.res;
+            	reitems.recoms = reitems.recoms.concat(convert(items));
+            	$('.jiazaik').attr('style','display: none;');
+            },
+       	});
+        var reitems = new Vue({
+            el: '#actListBox',
+            data: {
+                recoms: [] //列表信息流数据
+            },
+            methods:{
+                zhongjian:function(ac_id){
+                    top.location.href = "/fankes/index.html?ac_id="+ac_id+'&user_id='+user_id;
+                },
+                fabu:function(ac_id){
+                    $.ajax({
+                        url:httpurl+"Cutdown/fb",
+                        type:"post",
+                        data:{
+                            ac_id:ac_id,
+                            if_send:1
+                        },
+                        success:function(e){
+                            if(e==1){
+                                alert('发布成功！');
+                                window.location.reload();
+							}else{
+                                alert('发布失败！');
+							}
+                        },
+                    });
+                }
+            }
+        });
+
+        function convert(items) {
+            var newItems = [];
+            items.forEach(function(item) {
+                newItems.push({
+                    ac_id: item.ac_id,
+                    title: item.title,
+                    ac_thumb: item.ac_thumb,
+                    if_send:item.if_send
+                });
+            });
+            return newItems;
+        }
+    });
+</script>
+
+</html>

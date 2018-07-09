@@ -1,0 +1,420 @@
+html {
+	font-size: 20px
+}
+
+body {
+	text-align: center;
+	margin: auto;
+	font-size: .6rem;
+	font-family: 'å¾®è½¯é›…é»‘', Arial, Helvetica, sans-serif;
+	background-color: #efeff4
+}
+
+p {
+	margin: 0
+}
+
+input {
+	font-family: 'å¾®è½¯é›…é»‘', Arial, Helvetica, sans-serif;
+	font-size: 0.6rem;
+	color: #444;
+	-webkit-appearance: none;
+	outline: 0;
+	-webkit-tap-highlight-color: transparent
+}
+
+.hide {
+	display: none
+}
+
+a {
+	color: #3497db
+}
+
+.inputBox input:focus {
+	border: 0;
+	outline: 0;
+	background: 0
+}
+
+.inputBox {
+	position: relative;
+	overflow: hidden
+}
+
+.inputBox input {
+	width: 8.5rem;
+	height: 1.8rem;
+	border-radius: .1rem;
+	border: 0;
+	position: absolute;
+	left: 2.75rem;
+	top: .1rem;
+	bottom: .1rem;
+	-webkit-appearance: none
+}
+
+.inputBox .icon {
+	display: inline-block;
+	width: 1.05rem;
+	height: 1.325rem;
+	margin-left: .65rem;
+	margin-top: .36rem
+}
+
+.inputBox .icon.userIcon {
+	background: url(../image/user_img.jpg) no-repeat;
+	background-size: 100%
+}
+
+.inputBox .icon.verifIcon {
+	background: url(../image/verif_icon.png) no-repeat;
+	background-size: 100%
+}
+
+#pageNav {
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2rem;
+    background: url(../image/nav_bg.jpg) no-repeat;
+    background-size: 100%;
+    text-align: center;
+    font-size: .9rem;
+    color: #fff;
+    font-weight: bold;
+    line-height: 2rem;
+    z-index: 10;
+}
+
+#registerBox {
+	margin-top: 2rem
+}
+
+.baseline {
+	background-color: #fff;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	line-height: 1rem;
+	border-bottom: solid 1px #e0e0e0;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	box-sizing: border-box
+}
+
+#viod-codeImg {
+	width: 3rem;
+	height: 1rem;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	position: absolute;
+	right: 1.5rem;
+	top: 0;
+	bottom: 0;
+	margin: auto
+}
+
+.registerBbn {
+	width: 10rem;
+	margin: 2.2rem auto 2rem;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	border: 0;
+	color: #fff;
+	background-color: #3497db;
+	text-align: center
+}
+
+#expBox {
+	color: #666
+}
+
+#expBox p {
+	font-size: .6rem;
+	color: #444;
+	height: 2.2rem;
+	line-height: 2.2rem
+}
+
+#errMsg {
+	position: absolute;
+	width: 7.5rem;
+	height: 5.5rem;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: .25rem;
+	color: #fff;
+	font-size: .7rem;
+	text-align: center;
+	left: 0;
+	right: 0;
+	top: 8rem;
+	margin: auto;
+	z-index: 101;
+	display: table
+}
+
+#errMsg .errFont {
+	display: table-cell;
+	vertical-align: middle
+}
+
+#logo {
+	width: 8.5rem;
+	position: absolute;
+	bottom: 1.5rem;
+	left: 0;
+	right: 0;
+	margin: auto
+}
+
+.clear_bt {
+	background-size: 100%;
+	width: .75rem;
+	height: .75rem;
+	position: absolute;
+	right: .9rem;
+	top: 0;
+	bottom: 0;
+	margin: auto
+}
+
+.declaration {
+	text-align: left;
+	margin-left: .85rem;
+	font-size: .55rem;
+	color: #444;
+	line-height: 1.8rem
+}
+
+.declaration .checkIcon {
+	border: solid 1px #aaa;
+	width: .6rem;
+	height: .6rem;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -0.1rem;
+	margin-right: .25rem
+}
+
+.declaration .checkIcon.checked {
+	background-size: 100%
+}
+
+.declaration a {
+	text-decoration: none
+}
+
+.loginTipLine {
+	color: #9a9a9a;
+	font-size: .7rem;
+	text-align: center
+}
+
+@media only screen and (max-height :400px) and (orientation :landscape) {
+	#logo {
+		display: none
+	}
+}
+
+.usageReg {
+	width: 100%;
+	overflow: hidden
+}
+
+.usageReg .userageFor {
+	margin-top: .5rem
+}
+
+.inputBox .icon.userageFor {
+	background: url(../image/useageFor.png) no-repeat;
+	background-size: 100%
+}
+
+.triangle {
+	position: absolute;
+	right: 1.2rem;
+	top: .95rem;
+	width: .525rem;
+	height: .325rem;
+	z-index: 20;
+	background: url(../image/downPic.png) no-repeat;
+	background-size: 100%
+}
+
+.usageReg_inner {
+	display: inline-block;
+	width: 13.9rem;
+	height: 2.2rem;
+	line-height: 2.2rem;
+	position: absolute;
+	left: 2.75rem;
+	top: 0;
+	font-family: 'å¾®è½¯é›…é»‘', Arial, Helvetica, sans-serif;
+	font-size: .7rem;
+	-webkit-appearance: none;
+	outline: 0;
+	-webkit-tap-highlight-color: transparent
+}
+
+.no_selected {
+	color: rgba(68, 68, 68, 0.55)
+}
+
+.has_selected {
+	color: #444
+}
+
+#usage_For {
+	opacity: 0;
+	width: 90%;
+	height: 2rem;
+	position: absolute;
+	left: 0;
+	top: .1rem;
+	z-index: 99
+}
+
+.getVaildateCode {
+	border: 1px solid #ccc;
+	bottom: 0;
+	cursor: pointer;
+	font-size: .55rem;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	margin: auto;
+	position: absolute;
+	right: .6rem;
+	top: 0;
+	width: 4rem;
+	color: #333;
+	text-align: center
+}
+
+.comeDownTime {
+	bottom: 0;
+	cursor: pointer;
+	font-size: .55rem;
+	height: 1.2rem;
+	line-height: 1.2rem;
+	margin: auto;
+	position: absolute;
+	right: .6rem;
+	top: 0;
+	width: 4.5rem;
+	color: #f00;
+	text-align: center;
+	display: none
+}
+
+.pwdIcon {
+	background: url(../image/pwdIcon.png) no-repeat;
+	background-size: 100%;
+	margin-top: .5rem
+}
+
+#verificationContainer {
+	display: none;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.3)
+}
+
+#verificationContainer .verificationCode {
+	position: relative;
+	top: 3rem;
+	width: 12rem;
+	height: auto;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 5px
+}
+
+.headerVeri {
+	font-family: "å¾®è½¯é›…é»‘";
+	color: #000;
+	font-size: .8rem;
+	line-height: 2rem
+}
+
+.inputBoxVeri {
+	position: relative
+}
+
+.inputBoxVeri #verificationCode {
+	border: 1px #ccc solid;
+	width: 80%;
+	padding: 1rem .5rem;
+	height: 1rem;
+	border-radius: .1rem;
+	background-color: #fff;
+	font-size: .6rem;
+	box-sizing: border-box;
+	color: #333;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-appearance: none
+}
+
+.btnContainer {
+	margin-top: 1rem;
+	border-top: 1px solid #ddd
+}
+
+.btnVeri_cancel {
+	float: left;
+	width: 5.95rem;
+	height: 2rem;
+	line-height: 2rem
+}
+
+.btnVeri_submit {
+	float: right;
+	width: 5.95rem;
+	border-left: 1px solid #ddd;
+	height: 2rem;
+	line-height: 2rem
+}
+
+.clearFloat {
+	clear: both
+}
+
+#comImgBox {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 1.6rem;
+	margin: auto;
+	height: 1.2rem;
+	width: 4rem
+}
+
+#comImgBox img {
+	height: 100%;
+	width: 100%;
+	cursor: pointer
+}
+#zhezc{
+	width:100%;
+	height:100%;
+	background:#fff;
+	position: fixed;
+	left:0;
+	top:0;
+	display: none;
+	z-index: 100;
+}
+.zhucchengg{
+	width:100%;
+	height:50%;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 50%;
+	padding-bottom: 50%;
+}

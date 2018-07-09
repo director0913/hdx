@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>我要报名</title>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/common/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/yyvote/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/yyvote/js/zhezhao.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/yyvote/css/font-awesome.min.css"/>
+<script type="text/javascript">
+</script>
+<style type="text/css">
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{ clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+.d_n{ display:none;}
+.fl{float:left;}
+.fr{float:right;}
+body{width:750px;background:#eeeeee; font-family:"微软雅黑";}
+#fullbg{background-color:rgba(0,0,0,0.8); left:0; opacity:0.8; position:absolute; top:0; bottom:0; right:0; position:fixed; display:none; z-index:1; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+/*公共样式结束*/
+/*访问量开始*/
+.baoming{height:146px; background:#ff9b4b;margin-top:-1px;}
+.yibao{ height:146px; padding-top:24px;}
+.yibao li{float:left;width:238px;border-right:3px #fff solid;line-height:50px;}
+.yibao .text{ font-size:36px; color:#fff; text-align:center;}
+/*访问量结束*/
+/*倒计时、活动报名开始*/
+.bg{background-color: #fff;margin-top:24px;padding:46px 0;width:750px;}
+.jishi_bg{height:66px;border:2px solid #aaa;margin-left:36px;margin-right:36px;margin-bottom:65px;}
+.jishi_title{text-align:center;font-size:28px;color:#aaa;height:30px;width:270px;background-color:#fff;margin:-19px auto 0;}
+.jishi{text-align:center;height:50px;width:600px;margin:33px auto;background-color:#fff;}
+.jishi_cont{font-size:30px;height:50px;width:590px;text-align: center;margin-left:14px;}
+.jishi p{width:36px;background-color:#333333; color:#fff;line-height:50px;font-size:30px;float:left;border-radius:6px;margin-right:10px;}
+.jishi div span{float:left;line-height:50px;margin-right:13px;}
+.woyaoaa a{width:300px;height:70px;margin:0 auto;border-radius:6px;font-size:32px; color:#ff9b4b;text-align:center;line-height:70px;border:2px solid #ff9b4b;display:block;}
+/*倒计时、活动报名结束*/
+/*上传图片开始*/
+.upload{font-size:30px;background-color:#fff;margin-top:24px;padding:36px;}
+.chuan{border:4px dashed #ddd;height:200px;margin-top:30px;text-align: center;}
+.chuan .plus{width:70px;height:70px;margin-top:65px;}
+.chuan img{max-height:200px;max-width:678px;}
+.xing{color:#f00;margin-left:-16px;margin-right:6px;}
+.upload_title .tishi{color:#999;}
+/*上传图片结束*/
+/*报名开始*/
+.content{background-color:#fff;margin-top:24px;padding:0 36px 50px;}
+.name,.tel{border-bottom:1px solid #ddd;font-size:30px;padding:34px 0;}
+input{outline:none;}
+.inputdiv{overflow: hidden;}
+input[type="text"],input[type="number"],input[type="tel"]{font-size:30px;border:none;height:34px;width:100%;-webkit-box-sizing: border-box; box-sizing: border-box;}
+.wenzi{float:left;width:130px;line-height:34px;}
+.xuanyan{border-bottom:1px solid #ddd;}
+.xuanyan .inputdiv{padding:34px 0;}
+.xuanyan_title{font-size:30px;padding-top:36px;}
+.duohang{width:100%;height:34px;font-size:30px;}
+.shuoming{color:#ff4113;font-size:28px;margin:36px;}
+.uploaded_img{display:none;}
+.btn a{display:block;text-align: center;height:90px;line-height:90px;color:#fff;background-color:#ff9b4b;margin:0 36px;border-radius:6px;font-size:34px;}
+/*报名结束*/
+.banquan{text-align:center;font-size:20px;color:#8b8b8b;padding-top:40px;padding-bottom:12px;}
+</style>
+</head>
+<body>
+<img src="{:sp_get_asset_upload_path($thumb,true);}" width="750"/>
+<!--访问量开始-->
+<div class="baoming">
+	<ul class="yibao">
+    	<li>
+            <p class="text">参与选手</p>
+            <p class="text">{$join_count}</p>
+            
+        </li>
+       <li style="width:266px;">
+            <p class="text">累计投票</p>
+            <p class="text">{$vote_count}</p>
+            
+        </li>
+        <li style="border:none;">
+            <p class="text">访问量</p>
+            <p class="text">{$hits}</p>
+           
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--访问量结束-->
+<!-- 倒计时开始 -->
+<div class="bg">
+    <div class="jishi_bg">
+        <div class="jishi_title"><if condition="$cando eq -1">活动未开始<elseif condition="$cando eq 0"/>活动已结束<else/>距离活动结束还有</if></div>
+        <div class="jishi"> 
+            <div class="jishi_cont">
+                <p id="tian1">0</p><p id="tian2">0</p><p id="tian3">0</p><span>天</span>
+                <p id="shi1">0</p><p id="shi2">0</p><span>时</span>
+                <p id="fen1">0</p><p id="fen2">0</p><span>分</span>
+                <p id="miao1">0</p><p id="miao2">0</p><span>秒</span>
+            </div>
+        <div style="clear:both;"></div>
+        </div>
+    </div>
+    <div class="woyaoaa"><a href="javascript:history.go(-1);">回到首页</a></div>
+</div>
+<!-- 倒计时结束 -->
+<!-- 活动报名开始 -->
+<div class="upload">
+	<input id="fileupload" type="file" name="image" data-url="{:U('asset/asset/swfupload_mobile')}" style="display:none;">
+    <div class="upload_title"><span class="xing">*</span>上传照片<span class="tishi">（上传一张照片大小不超过1M）</span></div>
+    <div class="chuan">
+		<img src="__TMPL__Apps/yyvote/images/plus.png" class="uploaded_img" alt="" />
+		<img src="__TMPL__Apps/yyvote/images/plus.png" class="plus" alt="" />
+		<img src="http://tongyishidai.com/addons/yyvote/images/load.gif" class="lodingimg" style="display:none;margin-top:72px;">
+	</div>
+</div>
+<div class="content">
+    <div class="single_text">
+        <div class="name">
+            <p class="wenzi"><span class="xing">*</span>姓名：</p>
+            <div class="inputdiv"><input type="text" name="username" id="name" placeholder="请填写参赛者姓名" ></div>
+        </div>
+        <div class="tel">
+            <p class="wenzi"><span class="xing">*</span>手机号：</p>
+            <div class="inputdiv"><input type="tel" name="tel" id="tel" placeholder="请填写参赛者手机号" ></div>
+        </div>
+    </div>
+	<div class="paixu">
+         <div class="paixu_title">排序：</div>
+         <div class="inputdiv"><input type="text" class="listorder" name="listorder" id="listorder" placeholder="排序"></div>
+    </div>
+    <div class="xuanyan">
+         <div class="xuanyan_title">参赛宣言：</div>
+         <div class="inputdiv"><input type="text" class="duohang" name="remark" id="remark" placeholder="一句话介绍，20字以内"></div>
+    </div>
+</div>
+<div class="shuoming">*为保证比赛奖品顺利发放，请认真填写，我们不会以任何方式泄露您的信息。</div>
+<div class="btn"><a href="javascript:;" onclick="return submit_join();">提交</a></div>
+<!-- 活动报名结束 -->
+
+<tc_include file="Public:mobile" />
+<script src="__TMPL__Public/js/jqueryUpload/jquery.ui.widget.js"></script>
+<script src="__TMPL__Public/js/jqueryUpload/jquery.iframe-transport.js"></script>
+<script src="__TMPL__Public/js/jqueryUpload/jquery.fileupload.js"></script>
+</body>
+<script type="text/javascript">
+var tian1obj=$("#tian1");
+var tian2obj=$("#tian2");
+var tian3obj=$("#tian3");
+var shi1obj=$("#shi1");
+var shi2obj=$("#shi2");
+var fen1obj=$("#fen1");
+var fen2obj=$("#fen2");
+var miao1obj=$("#miao1");
+var miao2obj=$("#miao2");
+var qitime={$begintime};
+var zhitime={$endtime};
+var jitime=null;
+var is_can = "{$cando}";
+var addJoinurl = "{:U('apps/yyvote/register',array('id'=>$id))}";//注册报名地址
+$(function(){
+     if(is_can>0){
+	  daojishi();
+	  jitime=setInterval("daojishi()",1000);
+	}
+	//上传图片处理逻辑
+	$(".chuan").click(function(){
+		$("#fileupload").click();
+		that = this;
+	});
+	$("#fileupload").fileupload({
+		//dataType: 'json',
+		autoUpload: true,
+		add: function (e, data) {
+		   $(".lodingimg").show();
+		   $(".plus").hide();
+		  data.submit();
+		},
+		done: function (e, data) {
+		  var d = $.parseJSON(data.result);
+		  if(d.status==0){
+			alert(d.msg);
+		  }else{
+			  curr_img = d.msg;
+			  $(".uploaded_img").attr("src",curr_img);
+			  $(".uploaded_img").show();
+			  $(".lodingimg").hide();
+		  }
+		},
+		progressall: function (e, data) {
+		}
+    });
+});
+function daojishi()
+{
+    qitime=parseInt(qitime)+1;
+    var chatime=zhitime-qitime;
+    if(chatime<0)
+    {
+        clearInterval(jitime); return;
+    }
+    var tian=parseInt(chatime/86400);
+    if(tian<100&&tian>9)
+        tian="0"+tian;
+    else if(tian<=9)
+        tian="00"+tian;
+    tian=tian.toString();
+    tian1obj.html(tian[0]);
+    tian2obj.html(tian[1]);
+    tian3obj.html(tian[2]);
+    var shi=parseInt((chatime%86400)/3600);
+    shi=shi>9?shi:"0"+shi;  
+    shi=shi.toString(); 
+    shi1obj.html(shi[0]);
+    shi2obj.html(shi[1]);
+    var fen=parseInt((chatime%86400%3600)/60);
+    fen=fen>9?fen:"0"+fen;
+    fen=fen.toString();
+    fen1obj.html(fen[0]);
+    fen2obj.html(fen[1]);
+    var miao=chatime%60;
+    miao=miao>9?miao:"0"+miao;
+    miao=miao.toString();
+    miao1obj.html(miao[0]);
+    miao2obj.html(miao[1]);
+}
+//处理报名逻辑
+function submit_join(){
+	var name = $("#name").val();
+	var tel = $("#tel").val();
+	var remark = $("#remark").val();
+	var listorder = $("#listorder").val();
+	if(!name){alert("请输入姓名！");return false;}
+	if(!tel){alert("请输入手机号！");return false;}
+	if(tel.length!=11){alert("请输入11位手机号！");return false;}
+	if(!curr_img){alert("请上传照片！");return false;}
+	if(!remark){alert("请输入参赛宣言！");return false;}
+	$.post(addJoinurl,{name:name,tel:tel,remark:remark,thumb:curr_img,listorder:listorder},function(res){
+		if(res.status>0){
+			window.location.href = res.url;
+		}else{
+			alert(res.info);
+		}
+	});
+}
+</script>
+</html>

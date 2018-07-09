@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$activity['title']}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Midautumn/css/index.css?i=2.7"/>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low &&_ww<620){
+        document.writeln('<meta name="viewport" content="width=640px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=640px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<script type="text/javascript" src="__TMPL__Apps/Common/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/zhezhao.js?i=1"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<style type="text/css">
+	.skill_support{width: 100%;background: #fff;text-align: center;}
+	.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+	.skill_support a{ display: block;}
+</style>
+</head>
+
+<body>
+<php>
+function getbingname($num)
+{
+    $bing=array();
+    switch($num)
+    {
+        case 1: $bing["num"]=1;$bing["name"]="莲蓉";$bing["tuname"]="lianrong"; break;
+        case 2: $bing["num"]=2;$bing["name"]="冰皮";$bing["tuname"]="bingpi"; break;
+        case 3: $bing["num"]=3;$bing["name"]="五仁";$bing["tuname"]="wuren"; break;
+        case 4: $bing["num"]=4;$bing["name"]="绿豆沙";$bing["tuname"]="dousha"; break;
+        case 5: $bing["num"]=5;$bing["name"]="蛋黄";$bing["tuname"]="danhuang"; break;
+        case 6: $bing["num"]=6;$bing["name"]="空";$bing["tuname"]="kong"; break;
+    }
+    return $bing;
+}
+</php>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Midautumn/audios/bjmusic.mp3" style="display: none;"></audio>
+<div id="yinyue" ></div>
+<div class="topdiv">
+	<img src="__TMPL__Apps/Midautumn/images/toptu.png" />
+    <p class="xuexiao">{$activity['params']['school_name']}</p>
+    <p class="title">{$activity['title']}</p>
+</div>
+<div class="canyu">
+	<div class="wei <if condition="!$isme or ($isme and $is_regist)">d_n</if>">
+        <p class="putongp">已有<span>{$canyucount}</span>人参与活动</p>
+        <p class="putongp">赶紧点击下方按钮开始集月饼吧</p>
+    </div>
+	<div class="touxiang yi <if condition="$isme and !$is_regist">d_n</if>">
+    	<div class="tupian"><img src="{$share_info['avatar']}" /></div>
+        <div class="xinxi">
+        	<p>我是{$share_info['username']}</p>
+            <p>我已经有<span class="tongji">{$share_info['per_num']}</span>个月饼啦~</p>
+        </div>
+        <p class="c_b"></p>
+    </div>
+    <ul class="binglist">
+    	<foreach name="bing_list" item="vo">
+        <php>$bing=getbingname($vo['per_num']);</php>
+    	<li class="active">
+        	<div class="pengyou"><img src="{$vo['avatar']}" /></div>
+            <img src="__TMPL__Apps/Midautumn/images/kuang{$bing['tuname']}.jpg" />
+        </li>
+        </foreach>
+        <for start="0" end="(5-count($bing_list))">
+    	<li></li>
+        </for>
+        <p class="c_b"></p>
+    </ul>
+    <div class="btnp wei <if condition="!$isme or ($isme and $is_regist)">d_n</if>">
+    	<if condition="$status eq 0">
+        <p class="t_c"><img src="__TMPL__Apps/Midautumn/images/kaishi.png" onclick="getyuebing()"/></p>
+        <else/>
+        <p class="t_c putongp">{$xinximsg}</p>
+        </if>
+    </div>
+    <div class="btnp yi <if condition="$isme and !$is_regist">d_n</if>">
+    	<if condition="$status neq 0">
+        	<p class="t_c putongp">{$xinximsg}</p>
+    	<elseif condition="$isme"/>
+			<p class="w50 f_l t_c"><img src="__TMPL__Apps/Midautumn/images/zhuce.png" onclick="showBg('fullbg','fenxiang',true)"/></p>
+			<p class="w50 f_l t_c">
+				<if condition="count($bing_list) eq 5">
+					<a href='{:U("apps/midautumn/index1",array("id"=>$aid))}'>
+						<img src="__TMPL__Apps/Midautumn/images/jiangpin.png" />
+					</a>
+				</if>
+			</p>
+    	<else/>
+			<p class="w50 f_l t_c"><img src="__TMPL__Apps/Midautumn/images/bangmang.png" onclick="getyuebing()"/></p>
+			<p class="w50 f_l t_c">
+				<a href="{$domain_name}/index.php/apps/midautumn/index/id/{$aid}.shtml">
+					<img src="__TMPL__Apps/Midautumn/images/my.png" />
+				</a>
+			</p>
+    	</if>
+        <p class="c_b"></p>
+    </div>
+    <p class="putongp mt20 yi <if condition="$isme and !$is_regist">d_n</if>">已有<span>{$canyucount}</span>人参加</p>
+</div>
+<div class="xinxidiv">
+	<ul class="tab">
+    	<li class="active" data-class="qiehuan" data-id="guize">活动规则</li>
+    	<li data-class="qiehuan" data-id="women">关于我们</li>
+    	<li data-class="qiehuan" data-id="haoyou">给力好友</li>
+        <p class="c_b"></p>
+    </ul>
+    <div class="neirongdiv">
+    	<div class="guize qiehuan pd13">
+        	{$activity['rule']|html_entity_decode}
+        </div>
+        <div class="women qiehuan pd13 d_n">
+        	{$activity['school_desc']|html_entity_decode}
+        </div>
+        <div class="haoyou qiehuan d_n">
+        	<ul>
+            	<foreach name="friend_list" item="vo">
+        		<php>$vo['per_num']=$vo['per_num']==0?6:$vo['per_num'];$bing=getbingname($vo['per_num']);</php>
+            	<li>
+                	<img src="{$vo['avatar']}" class="touxiang"/>
+                    <div>
+                    	<p>{$vo.nickname|msubstr=0,7,'utf-8',false} 给了<if condition="$isme">我<else/>他</if> <span>{$bing['name']}</span></p>
+                        <p>{$vo.createtime|date='Y-m-d H:i:s',###}</p>
+                    </div>
+                    <img src="__TMPL__Apps/Midautumn/images/kuang{$bing['tuname']}.jpg" class="yuebing" />
+                    <p class="c_b"></p>
+                </li>
+                </foreach>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<img src="__TMPL__Apps/Midautumn/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" />
+<div id="tianxx">
+    <img src="__TMPL__Apps/Midautumn/images/close1.png" class="closeimg" onclick="guanzhuce()">
+    <div class="c_b"></div>
+    <div class="gift"><img src="__TMPL__Apps/Midautumn/images/adanhuang.png" alt=""></div>
+    <p class="tishi">找到一个<span>伍仁月饼</span>！</p>
+    <input type="hidden" id="bingnum" />
+    <div class="inputdiv" style="margin-top:45px;">
+        <span>姓名</span>
+        <input type="text" placeholder="请输入姓名" name="name"/>
+    </div>
+    <div class="inputdiv">
+        <span>手机</span>
+        <input type="tel" placeholder="请输入手机号码" name="mobile"/>
+    </div>
+	<div class="inputdiv" <if condition="empty($params['age'])">style="display:none" </if>>
+		<span>年龄</span><input type="tel" id="age" name="age" placeholder="请输入年龄"/>
+	</div>
+	<div class="inputdiv" <if condition="empty($params['cless'])">style="display:none" </if>>
+		<span>班级</span><input type="text" id="cless" name="cless" placeholder="请输入班级"/>
+	</div>
+	<php>
+	    if(!$params['other_remark']){
+	    	$params['other_remark']="备注";
+	    }
+		if($params['other_school']){
+	    	$other=explode(',',$params['other_school']);
+	    }
+	</php>
+	<if condition="!empty($params['school'])">
+		<div class="inputdiv">
+		<span>学校</span>
+		<if condition="empty($params['other_school'])">
+			<input type="text" class="sign-up-name" id="school" name="school" placeholder="请输入学校"/>
+		<else/>
+			<select>
+				<volist name="other" id="vo">
+					<option  id="school" name="school"  value ="{$vo}">{$vo}</option>
+				</volist>
+			</select>
+		</if>
+		
+		</div>
+	</if>
+	<div class="inputdiv" <if condition="empty($params['qita'])">style="display:none" </if>>
+		<span>{$params['other_remark']}</span><input type="text" class="sign-up-name" id="remark" name="remark" placeholder="请输入{$params['other_remark']}"/>
+	</div>
+    <p class="tishi" style="border:none; margin:30px 30px 0 30px; font-size:22px;">*我们不会以任何方式泄露您的信息，请放心填写。</p>
+    <img src="__TMPL__Apps/Midautumn/images/zhuce.png" class="zhucebtn" />
+</div>
+<div class="erweima" id="erweima">
+	<div><img src="{:sp_get_asset_upload_path($activity['params']['erweima'])}" /></div>
+    <p>长按识别二维码</p>
+</div>
+<div class="bangmang" id="bangmang" onclick="closeBg('fullbg','bangmang')">
+	<img src="__TMPL__Apps/Midautumn/images/kuanglianrong.jpg" />
+    <p class="title">找到一个<span>绿豆沙</span></p>
+</div>
+<tc_include file="Public:mobile" />
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+</body>
+<script type="text/javascript">
+var avatar="{$user['avatar']}";
+var nickname="{$user['nickname']}";
+var registclick=false;
+var isme=parseInt("{$isme}");
+var registurl='{:U("apps/midautumn/register",array("id"=>$aid))}';//注册
+var getbingurl='{:U("apps/midautumn/getbing",array("id"=>$aid,"finish_within"=>$activity["params"]["finish_within"],"uid"=>$chuanuid,"isme"=>$isme,"t"=>$_GET['t']))}';//获取指定的月饼。
+var music;
+$(function(){
+	music=document.getElementById("bgMusic");
+    music.play();
+    $("#yinyue").click(function()
+    {
+        if(music.paused)
+        {
+            music.play();
+            $("#yinyue").removeClass("ting");
+        }
+        else
+        {
+            music.pause();
+            $("#yinyue").addClass("ting");
+        }
+    });
+	$(".tab li").click(function(){
+		var class1=$(this).attr("data-class");
+		var id=$(this).attr("data-id");
+		$(this).parent().find("li.active").removeClass("active");
+		$(this).addClass("active");
+		$("."+class1).addClass("d_n");
+		$("."+id).removeClass("d_n");
+	});
+	$(".zhucebtn").click(function(){
+		if(registclick) return;
+		var data={};
+		data.name=$("input[name='name']").val();
+		data.mobile=$("input[name='mobile']").val();
+		data.remark=$('[name="remark"]').val(); 
+		data.age=$('[name="age"]').val();
+		data.cless=$('[name="cless"]').val();
+		data.school=$('[name="school"]').val();
+		data.num=$("#bingnum").val();
+		if(data.name=="")
+		{
+			alert("名称不能为空！");return;
+		}
+		if(data.mobile=="")
+		{
+			alert("手机号不能为空！");return;
+		}
+		if(data.mobile.length!=11)
+		{
+			alert("手机号不正确！");return;
+		}
+		registclick=true;
+		$.post(registurl,data,function(res){
+			registclick=false;
+			if(res.status==1)
+			{
+				alert("注册成功！");
+				zhuanshouye();
+				/*//显示该显示的信息。
+				$(".wei").hide();
+				$(".yi").show();
+				//关闭当前页面。
+				closeBg("fullbg","myyuebing");*/
+			}
+			else
+			{
+				alert(res.msg);
+			}
+		});
+	});
+});
+function guanzhuce()
+{
+	//清空添加的东西。
+	$(".binglist li").html("").removeClass("active");
+	closeBg('fullbg','tianxx');
+}
+function getyuebing()
+{
+	if(registclick) return;
+	registclick=true;
+	$.post(getbingurl,null,function(res){
+		registclick=false;
+		//alert(res.msg);
+		if(res.status>0)
+		{
+			$("#tianxx .gift img").attr("src","__TMPL__Apps/Midautumn/images/a"+res.bing['tuname']+".png");
+			$("#tianxx .tishi span").html(res.bing['name']);
+			$("#bingnum").val(res.bing['num']);
+			$("#bangmang img").attr("src","__TMPL__Apps/Midautumn/images/kuang"+res.bing['tuname']+".jpg");
+			$("#bangmang .title span").html(res.bing['name']);
+			//更改指定框中的值。
+			if(res.xin==1&&res.bing['num']!=6)
+			{
+				var allli=$(".binglist li");
+				for(var i=0;i<allli.length;i++)
+				{
+					if(!$(allli[i]).hasClass("active"))
+					{
+						var str='<div class="pengyou"><img src="'+avatar+'" /></div>'+
+								'<img src="__TMPL__Apps/Midautumn/images/kuang'+res.bing['tuname']+'.jpg" />';
+						$(allli[i]).html(str).addClass("active");
+						break;
+					}
+				}
+				$(".tongji").html(parseInt($(".tongji").html())+1);
+				$(".chatongji").html(parseInt($(".chatongji").html())-1);
+			}
+			var jienickname=nickname.substr(0,7);
+			var chengwei=isme==0?"他":"我";
+			//添加到记录中。
+			var jilu='<li>'+
+						'<img src="'+avatar+'" class="touxiang"/>'+
+                    	'<div>'+
+                    		'<p>'+jienickname+' 给了'+chengwei+' <span>'+res.bing['name']+'</span></p>'+
+                        	'<p>'+res.time+'</p>'+
+                    	'</div>'+
+                    	'<img src="__TMPL__Apps/Midautumn/images/kuang'+res.bing['tuname']+'.jpg" class="yuebing" />'+
+                    	'<p class="c_b"></p>'+
+                	'</li>';
+			$(".haoyou ul").prepend(jilu);
+			
+			if (isme==1) {
+				showBg("fullbg", "tianxx");
+			} else {
+				showBg("fullbg", "bangmang", true)
+			}
+		} else {
+			alert(res.msg);
+			if (isme == 1) {
+				zhuanshouye();
+			}
+		}
+	});
+}
+function zhuanshouye()
+{
+	window.location.href='{:U("apps/midautumn/index",array("id"=>$aid,"sui"=>time()))}';
+}
+</script>
+</html>

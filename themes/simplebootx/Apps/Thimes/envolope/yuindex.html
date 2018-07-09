@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+/*基础样式开始*/
+*{ margin:0; padding:0;}
+.wt100{ width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+ </literal>
+ 
+ 
+body{width:320px; font-family:'微软雅黑'; background-color:#f1f1d7;}
+.toptu{width:100%;}
+.titlediv{ position:absolute; top:168px; left:110px; right:80px;}
+.titlediv .title{font-size: 13px;color:#4f047d;text-align:center; height:36px; overflow:hidden;line-height:16px;}
+.guize{ overflow:hidden; margin-bottom:12px;margin:10px;}
+.guize .biaoti{ background-color:#ff554d; color:#FFF; height:32px; line-height:32px; padding:0 10px; font-size:15px; border-radius:6px 6px 0 0;}
+.guize .neirong{ padding:8px; border:1px solid #ff554d; border-top-style:none; border-radius:0 0 6px 6px;}
+.guize .neirong{ font-size:13px;color:#1e1e1e; word-break:break-all;}
+.guize .neirong img{ max-width:100%;}
+.rule,.activityremark{ min-height:100px; word-break:break-all;}
+</style>
+</head>
+
+<body>
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/envolope/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title"></p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+<!--通用上部结束-->
+<div class="caozuoqu">
+    <img class="toptu" src="__TMPL__Apps/Thimes/envolope/images/hongbaonew1.jpg"/>
+    <!-- <div class="jichu titlediv">
+        <p class="title"></p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div> -->
+</div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script type="text/javascript">
+$(function(){
+	genggai("title");
+    genggai("rule","fwb");
+    genggai("activityremark","fwb");
+})
+</script>
+</html>

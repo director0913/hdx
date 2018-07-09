@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$form_info.name}</title>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low &&_ww < 720){
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no"/>');
+    }
+</script>
+<style>
+*{margin:0; padding:0;}
+body{background-color:#fed942; font-family:"微软雅黑";-webkit-tap-highlight-color:rgba(0,0,0,0);}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:right;}
+.wd100{ width:100%;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+.c_b{ clear:both;}
+a{text-decoration:none; color:#333;}
+.titlediv{ padding:37px 75px 56px 60px; margin-top:21px; margin-bottom:15px; height:165px; background:url(__TMPL__Apps/Common/form_tpl4/title.png) 0 0 no-repeat; background-size:100%; text-align:center;}
+.titlediv .wrap{display:table; height:125px; *position:relative; width:100%; overflow:hidden;} 
+.titlediv .subwrap{vertical-align:middle; display:table-cell; *position:absolute; *top:50%;} 
+.titlediv .content{font-size:40px; line-height:55px; max-height:110px; margin:7px 0; color:#393333; overflow:hidden; font-weight:300; *position:relative; *top:-50%; text-align: center;}
+.titlediv .zhuangtai{ font-size:27px; color:#52483f;}
+.titlediv .zhuangtai .fl{ padding-left:48px; background:url(__TMPL__Apps/Common/form_tpl4/book1.png) 0 center no-repeat; background-size:32px auto; margin-left:42px;}
+.titlediv .zhuangtai .fr{ padding-left:48px; background:url(__TMPL__Apps/Common/form_tpl4/user1.png) 0 center no-repeat; background-size:24px auto; margin-right:42px;}
+
+.guizediv{}
+.guizediv .top{ height:52px; background:url(__TMPL__Apps/Common/form_tpl4/top.png) 0 0 no-repeat;}
+.guizediv .jibendiv,.guizediv .rulediv{ background:url(__TMPL__Apps/Common/form_tpl4/beijing.png) 0 0 repeat-y; position:relative;}
+.guizediv .zhong{ height:83px; background:url(__TMPL__Apps/Common/form_tpl4/zhong.png) 0 0 no-repeat;}
+.guizediv .di{ height:221px; background:url(__TMPL__Apps/Common/form_tpl4/di.png) 0 0 no-repeat;}
+.guizediv .jibendiv,.guizediv .rulediv{ padding-top:63px;}
+.guizediv .jibendiv .xinxi,.guizediv .rulediv .xiangqing{ position:absolute; top:-20px; left:64px; height:71px;}
+.guizediv .jibendiv ul{ margin:0 93px;}
+.guizediv .jibendiv li{ line-height:47px; font-size:29px; color:#423431; padding:13px 0; padding-left:48px; background:url(__TMPL__Apps/Common/form_tpl4/map.png) 0 20px no-repeat; background-size:30px auto;}
+.guizediv .jibendiv li.time{ background-image:url(__TMPL__Apps/Common/form_tpl4/time.png);}
+.guizediv .jibendiv li.number{ background-image:url(__TMPL__Public/mobile/images/user2.png);background-size:32px auto;}
+.guizediv .jibendiv li.money{ background-image:url(__TMPL__Public/mobile/images/money.png);background-size:30px auto;}
+.guizediv .jibendiv li.dianhua{ background-image:url(__TMPL__Apps/Common/form_tpl4/phone.png);}
+.guizediv .rulediv .rule{ min-height:100px; word-break:break-all;padding: 0 64px;}
+.guizediv .rulediv .rule img{ max-width:100%;}
+
+
+#kongdiv{height:94px;}
+.footer{width:750px;border-top:2px solid #ddd;position:fixed;left:0;right:0;bottom:0;z-index:26;}
+.footer li{width:50%;float:left;height:94px;text-align:center;}
+.footer li:last-child{background-color:#6f93eb;color:#fff;font-size:38px;line-height:94px;}
+.footer li:first-child{font-size:30px;color:#909090;background-color: #f0f0f0;}
+.footer li:first-child img{width:42px;height:36px;padding-top:12px;}
+.footer li:first-child p{line-height:46px;}
+.footer li.enroll{width:100%;background-color:#6f93eb;color:#fff;font-size:38px;line-height:94px;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 300px;height: 24px;padding: 28px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+<php>//print_r($form_info);</php>
+<img src="{:sp_get_asset_upload_path($form_info['thumb'])}" class="wd100" />
+<div class="titlediv">
+	<div class="wrap">
+        <div class="subwrap">
+            <h3 class="content">{$form_info['name']}</h3>
+        </div>
+	</div>
+    <div class="zhuangtai">
+        <p class="fl">阅读 {$form_info['hits']}</p>
+        <p class="fr">报名 <span>{$count}</span></p>
+        <p class="c_b"></p>
+    </div>
+</div>
+<div class="guizediv">
+	<p class="top"></p>
+    <div class="jibendiv">
+    	<img src="__TMPL__Apps/common/form_tpl4/xinxi.png" class="xinxi" />
+    	<ul>
+        	<li class="time">{$form_info['begintime']|date='Y年m月d日 H:i',###}至{$form_info['endtime']|date='Y年m月d日 H:i',###}</li>
+            <li class="dizhi">{$form_info['address']}</li>
+            <if condition="$form_info['coupon_price'] neq 0">
+                <a href="{:U('mjoin/form_pay',array('id'=>$form_info['id']))}"><li class="money">￥{$form_info['coupon_price']}</li></a>
+           <else/>
+                <!--<li class="money">免费</li>-->
+           </if>
+            <li class="number">已报名{$count}人/<if condition="$form_info['total_limit'] neq 0">限{$form_info['total_limit']}人报名<else/>不限制名额</if></li>
+            <li class="dianhua">{$form_info['phone']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$form_info['contact']}</li>
+        </ul>
+    </div>
+    <p class="zhong"></p>
+    <div class="rulediv">
+    	<img src="__TMPL__Apps/common/form_tpl4/detail.png" class="xiangqing" />
+    	<div class="rule">{$form_info['description']|html_entity_decode}</div>
+    </div>
+    <p class="di"></p>
+</div>
+<div class="skill_support">
+    <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+        <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+    </a>
+</div>
+<div id="kongdiv"></div>
+<ul class="footer">
+	<eq name="form_info.is_distri" value="1">
+		<ul class="footer">
+			<if condition="$is_regist eq 1">
+				 <li class="fenxiao">
+					<a href="{:U('portal/mjoin/myInvite',array('id'=>$_GET['id'],'uid'=>$uid))}" style="color: grey"><img src="__TMPL__Public/mobile/images/shop.png" alt=""><p>我的邀请</p></a>
+				 </li>
+				 <li><a href="javascript:void(0)" style="color: white">已报名</a></li>
+			<else/>
+				<if condition="$form_info['total_limit'] elt $count">
+					<li class="fenxiao">
+                        <a href="javascript:void(0)" onclick='alert("报名人数已满");'  data-status="" style="color: grey"><img src="__TMPL__Public/mobile/images/shop.png" alt=""><p>邀请有礼</p></a>
+                    </li>
+					<li><a href="javascript:void(0)" onclick='alert("报名人数已满");' style="color: white">我要报名</a></li>
+				<else/>
+					<eq name="valid_form" value="1">
+						<li class="fenxiao">
+							<a href="{:U('portal/mjoin/invite',array('id'=>$_GET['id'],'uid'=>$uid))}" style="color: grey"><img src="__TMPL__Public/mobile/images/shop.png" alt=""><p>邀请有礼</p></a>
+						</li>
+						<li><a href="{:U('portal/mjoin/join_in',array('id'=>$_GET['id'],'uid'=>$uid))}" style="color: white">我要报名</a></li>
+					</eq>
+					<eq name="valid_form" value="-1">
+						<li class="enroll"><a href="javascript:void(0)" style="color: white">报名未开始</a></li>
+					</eq>
+					<eq name="valid_form" value="-2">
+						<li class="enroll"><a href="javascript:void(0)" style="color: white">报名已结束</a></li>
+					</eq>
+				</if>				
+			</if>
+		</ul>
+	<else/>
+		<ul class="footer">
+			<if condition="$is_regist eq 1">
+				<li class="enroll"><a href="javascript:void(0)" style="color: white">已报名</a></li>
+			<else/>
+				<if condition="$form_info['total_limit'] elt $count">
+					<li class="enroll"><a href="javascript:void(0)" onclick='alert("报名人数已满");' style="color: white">我要报名</a></li>
+				<else/>
+					<eq name="valid_form" value="1">
+						<li class="enroll"><a href="{:U('portal/mjoin/join_in',array('id'=>$_GET['id']))}" style="color: white">我要报名</a></li>
+					</eq>
+					<eq name="valid_form" value="-1">
+						<li class="enroll"><a href="javascript:void(0)" style="color: white">报名未开始</a></li>
+					</eq>
+					<eq name="valid_form" value="-2">
+						<li class="enroll"><a href="javascript:void(0)" style="color: white">报名已结束</a></li>
+					</eq>
+				</if>
+			</if>
+		</ul>
+	</eq>
+	<!--
+    <li class="fenxiao" onclick="window.location.href='invite.html'">
+        <img src="__TMPL__Apps/common/form_tpl4/shop.png" alt="">
+        <p>邀请有礼</p>
+    </li>
+    <li onclick="window.location.href='enroll.html'">我要报名</li>
+	-->
+</ul>
+ <tc_include file="Public:mobile" />
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['titlehuan']}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Questionnaire/css/index.css?i=1"/>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low &&_ww<720){
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/zhezhao.js?i=1"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+    <style type="text/css">
+        .skill_support{width: 100%;background: #fff;text-align: center;}
+        .skill_support img{width: 150px;height: 12px;padding: 14px 0}
+        .skill_support a{ display: block;}
+    </style>
+</head>
+<body>
+<div class="bgc">
+    <img src="__TMPL__Apps/Questionnaire/images/banner1.jpg" width="750"/>
+    <div class="biaoti">{$item['params']['school']}</div>
+    <div class="biaoti_cont">{$item['titlezhuan']}</div>
+</div>
+<div class="dati">
+    <img src="__TMPL__Apps/Questionnaire/images/banner2.jpg" width="750"/>
+    <div class="btn" onclick="dati()">开始答题</div>
+    <div class="baoxiang" onclick="showBg('fullbg','baoxiang',false);">
+    	<img src="__TMPL__Apps/Questionnaire/images/baoxiang.png" alt="" />
+    </div>
+</div>
+<div class="guize_title"><img src="__TMPL__Apps/Questionnaire/images/rule.png" alt="" /></div>
+<div class="guize">
+    <div class="text">{$item['rule']|html_entity_decode}</div>
+</div>
+<div id="fullbg"></div>
+<!-- 分享好友 -->
+<img src="__TMPL__Apps/Questionnaire/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" />
+<!-- 我的宝箱开始 -->
+<div id="baoxiang">
+    <p class="baoxiang_title">我的宝箱<img src="__TMPL__Apps/Questionnaire/images/close.png" onclick="closeBg('fullbg','baoxiang')"/></p>
+    <ul class="baoxiang_cont">
+    	<foreach name="prize_list" item="vo">
+        <li class="wei_c_b">
+            <div class="tudiv"><img src="{$vo['thumb']}" alt=""></div>
+            <div class="text">
+                <p class="text_title">{$vo['type']}</p>
+                <p class="text_cont">{$vo['name']}</p>
+            </div>
+        </li>
+        </foreach>
+    </ul>
+</div>
+<!-- 我的宝箱结束 -->
+<div class="skill_support">
+    <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+        <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+    </a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+var cando=parseInt("{$cando}");
+var msg="{$msg}";
+function dati()
+{
+	if(cando==0)
+	{
+		alert(msg);return;
+	}
+	else window.location.href="{:U('apps/Questionnaire/answer',array('id'=>$item['id']))}";
+}
+</script>
+</html>

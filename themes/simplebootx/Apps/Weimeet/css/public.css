@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+@media only screen and (max-width: 384px){
+	html {font-size: 50px;}
+}
+@media only screen and (min-width: 385px) and (max-width: 414px){
+	html {font-size: 60px;}
+}
+@media only screen and (min-width: 415px) and (max-width: 599px){
+	html {font-size: 64px;}
+}
+@media only screen and (min-width: 600px) and (max-width: 749px){
+	html {font-size: 93px;}
+}
+@media only screen and (min-width: 750px){
+	html {font-size: 100px;}
+}
+
+
+/*公共样式开始*/
+*{margin:0; padding:0;}
+body{ background-color:#E9F1F3; font-family:"微软雅黑";}
+ul{list-style:none;}
+ul:after {content: ""; display: block; clear: both;}
+a{ text-decoration:none; color:#333;}
+.f_l{float:left;}
+.f_r{float:right;}
+.c_b{clear:both;}
+.wd100{ width:100%;}
+.o_h{ overflow:hidden;}
+.selectwjt{-webkit-appearance:initial;}
+.wei_c_b:after{ content:""; display:block; clear:both;}
+
+#fullbg{ position:fixed; top:0; bottom:0; left:0; right:0; background-color:rgba(0,0,0,0.7); z-index:8; display:none;}
+#fenxiang{ position:fixed; width:4.83rem; height:4.03rem; top:50%; left:50%; margin-top:-2.01rem; margin-left:-2.16rem; z-index:9; display:none;}
+.topdiv,.xiadiv{ margin:.19rem .24rem 0 .24rem; padding:.12rem .15rem; background-color:#FFF;}
+.topdiv img{ margin-bottom:.18rem;}
+.topdiv .title{ font-size:.35rem; line-height:.48rem; color:#363636; margin-bottom:.43rem;}
+.topdiv .tishi{ font-size:.26rem; color:#484848; font-family:"黑体";}
+.topdiv .tishi span{ float:right; color:#959595;}
+
+/*底部部开始*/
+#dikongdiv{ height:.98rem;}
+#didiv{ position:fixed; bottom:0; text-align: center; width:100%; height:.89rem; background-color:#0099E9; z-index:3; color:#FFF; font-size:.34rem; border-top:1px solid #D0D4D3;}
+#didiv p{ height:.89rem; line-height:.89rem;}
+#didiv a{ color:#FFF; padding-left:.54rem; background:url(../images/people.png) left center no-repeat; background-size:.35rem;}
+/*底部结束*/

@@ -1,0 +1,288 @@
+<admintpl file="header" />
+<style>
+	.form-horizontal .controls {
+		margin-left: 80px;
+	}
+	.form-horizontal .control-label {
+		float: left;
+		width: 80px;
+		padding-top: 5px;
+		text-align: right;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('form/index')}">活动模板管理</a></li>
+			<li class="active"><a href="{:U('form/add')}">添加活动模板</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('form/edit_post')}">
+		    <input type=hidden name="ishave_data" id="ishave_data" value="{$ishave_data}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">名称</label>
+					<div class="controls">
+						<input type="text" name="name" value="{$ad.name}"><span class="form-required">*</span>
+						<input type="hidden" name="id" value="{$ad.id}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">是否免费</label>
+					<div class="controls">
+						<select name="is_free">
+							<option value="1" <if condition="$ad.is_free eq 1">selected="selected"</if>>是</option>
+							<option value="0" <if condition="$ad.is_free eq 0">selected="selected"</if>>否</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">首页封面：</label>
+					<div class="controls">
+						<if condition="empty($ad['index_thumb'])">
+							<img id="index_thumb_preview" src="__ROOT__/data/upload/20160718/578c7920c97f8.jpg" width="200" height="200" />
+						<else/>
+							<img id="index_thumb_preview" src="{:sp_get_asset_upload_path($ad['index_thumb'])}" width="200" height="200" />
+						</if>
+                        <p class="btn btn-small" onclick="flashupload('index_thumb_images', '附件上传','index_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+						<input type=hidden name="index_thumb" id="index_thumb" value="{$ad.index_thumb}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">预览封面：</label>
+					<div class="controls">
+						<if condition="empty($ad['preview_thumb'])">
+							<img id="preview_thumb_preview" src="__ROOT__/data/upload/20160718/578c7920c97f8.jpg" width="200" height="200" />
+						<else/>
+							<img id="preview_thumb_preview" src="{:sp_get_asset_upload_path($ad['preview_thumb'])}" width="200" height="200" />
+						</if>
+                        <p class="btn btn-small" onclick="flashupload('preview_thumb_images', '附件上传','preview_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+						<input type=hidden name="preview_thumb" id="preview_thumb" value="{$ad.preview_thumb}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">开始时间</label>
+					<div class="controls">
+						<input type="text" name="begintime" class="js-date date" value="{$ad.begintime}"  autocomplete="off">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">结束时间</label>
+					<div class="controls">
+						<input type="text" name="endtime" class="js-date date" value="{$ad.endtime}"  autocomplete="off">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">活动地点：</label>
+					<div class="controls">
+						<input type="text" name="address" value="{$ad.address}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">联系人：</label>
+					<div class="controls">
+						<input type="text" name="contact" value="{$ad.contact}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">联系电话：</label>
+					<div class="controls">
+						<input type="text" name="phone" value="{$ad.phone}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">报名人数限制：</label>
+					<div class="controls">
+						<input type="text" name="total_limit" value="{$ad.total_limit}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">是否分销</label>
+					<div class="controls">
+						<select name="is_distri">
+							<option value="0" <if condition="$ad['is_distri'] eq 1"> selected=selected</if> >否</option>
+							<option value="1" <if condition="$ad['is_distri'] eq 0"> selected=selected</if> >是</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项1</label>
+					<div class="controls">
+						<input type="text" name="option1" value="{$ad.option1}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项2</label>
+					<div class="controls">
+						<input type="text" name="option2" value="{$ad.option2}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项3</label>
+					<div class="controls">
+						<input type="text" name="option3" value="{$ad.option3}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项4</label>
+					<div class="controls">
+						<input type="text" name="option4" value="{$ad.option4}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项5</label>
+					<div class="controls">
+						<input type="text" name="option5" value="{$ad.option5}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">简介</label>
+					<div class="controls">
+						<textarea name="remark" rows="5" cols="57">{$ad.remark}</textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">分销规则</label>
+					<div class="controls">
+						  <textarea name="rule" id="rule" rows="5" cols="57">{$ad.rule}</textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">描述</label>
+					<div class="controls">
+						  <textarea name="description" id="description" rows="5" cols="57">{$ad.description}</textarea>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<table class="table table-bordered">
+				   <caption><h4>报名表单设计</h4></caption>
+				   <thead>
+					  <tr>
+						 <th>名称</th>
+						 <th>类型</th>
+						 <th>默认值</th>
+						  <th>操作</th>
+					  </tr>
+				   </thead>
+				   <tbody id="tbody">
+					  <foreach name="formitem" item="vo">
+						 <tr>
+							 <td><input type=hidden name="fids[]" value="{$vo.id}"><input type="text" name="fname[]" placeholder="请输入控件名称" value="{$vo.name}"></td>
+							 <td>
+								<select name="type[]">
+									<option value="1" <if condition="$vo['type'] eq 1">selected</if>  >文本框</option>
+									<option value="2" <if condition="$vo['type'] eq 2">selected</if> >下拉框</option>
+									<option value="3" <if condition="$vo['type'] eq 3">selected</if> >日期</option>
+									<option value="4" <if condition="$vo['type'] eq 4">selected</if> >图片</option>
+									<option value="5" <if condition="$vo['type'] eq 5">selected</if> >多行文本</option>
+									<option value="6" <if condition="$vo['type'] eq 6">selected</if> >单选</option>
+									<option value="7" <if condition="$vo['type'] eq 7">selected</if> >多选</option>
+								</select>
+							</td>
+							 <td><input type="text" name="default[]" value="{$vo.default}" placeholder="请输入默认值，选择框用，隔开"></td>
+							 <td><a href="javascript:;" data-id="{$vo.id}" onclick="delete_row(this);">删除</a></td>
+						  </tr>
+					  </foreach>
+				   </tbody>
+				   <tr><td colspan="4"><button type="button" onclick="add_row(this);"class="btn btn-primary">新增</button></td></tr>
+				</table>
+			<fieldset>
+			<fieldset>
+				<table class="table table-bordered">
+					<tr>
+						<th>图集</th>
+						<td>
+							<fieldset>
+								<legend>图片列表</legend>
+								<ul id="photos" class="pic-list unstyled">
+									<foreach name="smeta" item="vo">
+										<php>$img_url=sp_get_asset_upload_path($vo['url']);</php>
+										<li id="savedimage{$key}">
+											<input type="text" name="photos_url[]" value="{$img_url}" title="双击查看" style="width: 310px;height:48px;" ondblclick="image_priview(this.value);" class="input image-url-input"> 
+											<input type="text" name="photos_alt[]" value="{$vo.alt}" style="width: 160px;height:48px;" class="input image-alt-input" onfocus="if(this.value == this.defaultValue) this.value = ''" onblur="if(this.value.replace(' ','') == '') this.value = this.defaultValue;">
+											<a class="img_a" href="javascript:onClick=image_priview('{$img_url}')"><img class="img_prew" src="{:sp_get_asset_upload_path($vo['url'])}" style="height:50px;"></img></a>
+											<a href="javascript:flashupload('replace_albums_images', '图片替换','savedimage{$key}',replace_image,'10,gif|jpg|jpeg|png|bmp,0','','','')">替换</a>
+											<a href="javascript:remove_div('savedimage{$key}')">移除</a>
+										</li>
+									</foreach>
+								</ul>
+							</fieldset>
+							<a href="javascript:;" onclick="javascript:flashupload('albums_images', '图片上传','photos',change_images,'10,gif|jpg|jpeg|png|bmp,0','','','')" class="btn btn-small">选择图片</a>
+						</td>
+					</tr>
+				<table>
+			</fieldset>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('SAVE')}</button>
+				<a class="btn" href="{:U('form/index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/content_addtop.js"></script>
+	<script type="text/javascript">
+		//编辑器路径定义
+		var editorURL = GV.DIMAUB;
+	</script>
+	<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript">
+		var editorcontent1 = new baidu.editor.ui.Editor();
+		editorcontent1.render('description');
+		try{editorcontent1.sync();}catch(err){};
+
+		//删除整行数据
+		function delete_row(that){
+			var id = $(that).attr("data-id");
+			var ishave_data = $("#ishave_data").val();
+			alert("data:"+ishave_data);
+			if(id){
+				if(ishave_data>0){
+					//调用删除
+					if(confirm("该表单下已有报名数据，删除后，报名数据也将被删除？")){
+						var url ="{:U('form/delete_item')}";
+						$.post(url,{'id':id},function(res){
+							//res = $.parseJSON(res);
+							if(res.status){
+								$(that).parent().parent().remove();		
+							}else{
+								alert(res.info);
+							}
+						});
+					}
+				}else{
+					//调用删除
+					var url ="{:U('form/delete_item')}";
+					$.post(url,{'id':id},function(res){
+						//res = $.parseJSON(res);
+						if(res.status){
+							$(that).parent().parent().remove();		
+						}else{
+							alert(res.info);
+						}
+					});
+				}
+			}else{
+				$(that).parent().parent().remove();
+			}
+		}
+		//新增
+		function add_row(that){
+			var str = ' <tr>'+
+					  '	 <td><input type="text" name="fname[]" placeholder="请输入控件名称"></td>'+
+					  '	 <td>'+
+					  '		<select name="type[]">'+
+								'<option value="1">文本框</option>'+
+								'<option value="2">下拉框</option>'+
+					'			<option value="3">日期</option>'+
+					  '		</select>'+
+					'	</td>'+
+					'	 <td><input type="text" name="default" placeholder="请输入默认值，选择框用，隔开"></td>'+
+					 '	  <td><a href="javascript:;" data-id="0" onclick="delete_row(this);">删除</a></td>'+
+					 ' </tr>';
+			$("#tbody").append(str);
+		}
+	</script>
+</body>
+</html>

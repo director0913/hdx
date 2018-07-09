@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<title>{$title}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Invitegift/css/public.css?i=3" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Invitegift/css/code.css?i=6" />
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/zhezhao.js"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+</head>
+<body>
+<div class="topdiv">
+    <img src="{:sp_get_asset_upload_path($thumb,true)}" class="wd100" />
+    <p class="title">{$title}</p>
+</div>
+<div class="xiadiv">
+    <div class="wei_c_b">
+        <div class="o_h">
+            <p class="time">{$timestr}</p>
+            <p class="tel"><a href="tel:{$tel}">{$tel}</a></p>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div class="contentdiv">
+    <p class="zhuban">主办方</p>
+    <p class="gongsi"><img src="{:sp_get_asset_upload_path($logo)}" />{$school}</p>
+    <p class="zhuban">活动介绍</p>
+    <div class="content">{$activityremark|htmlspecialchars_decode}</div>
+</div>
+<div class="baomingdiv">
+    <p class="title">已报名&nbsp;<span><php> echo count($jilu);</php></span></p>
+    <div class="baomingls">
+		<foreach name="jilu" item="u">
+			<div>
+				<img src="{$u['avatar']}" />
+				<p>{$u['username']}</p>
+			</div>
+		</foreach>
+    </div>
+</div>
+
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Invitegift/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" />
+<div id="baoming" class="tandiv">
+    <p class="title">我要报名<img src="__TMPL__Apps/Invitegift/images/close.png" onclick="closeBg('fullbg','baoming')" /></p>
+    <div>
+        <p class="biaoti">姓名</p>
+        <input type="text" id="name" />
+        <p class="biaoti">手机</p>
+        <input type="tel" id="tel"/>
+        <p class="btnok">提交</p>
+    </div>
+</div>
+<div id="dikongdiv"></div>
+<div id="didiv">
+
+	 <p class="fenxiang" <if condition="$is_me eq 1 or ($is_me eq 0 and $canyu eq 1)">style="width:100%;"</if>> 
+		<a href="javascript:void(0);" <if condition="$is_me eq 1 or ($is_me eq 0 and $canyu eq 1)"><else/>onclick="showBg('fullbg','fenxiang',true);"</if>>
+		<if condition=" $is_me eq 1 or ($is_me eq 0 and $canyu eq 1)">已报名<else/>我要分享</if>
+		</a>
+	 </p>
+    <if condition='$is_me eq 0 and $canyu eq 0'><p class="baoming"><a href="javascript:void(0);" onclick='showBg("fullbg","baoming",false);'>我要报名</a></p></if>
+	
+</div>
+</body>
+<script type="text/javascript">
+var sharetitle="{$share.title}";
+var sharedesc="{$share.desc}";
+var shareurl="{$share.url}";
+var shareimg="{$share.imgUrl}";
+//var shareurl="{$_W[siteroot]}{php echo $this->createMobileUrl('index',array('id'=>$activity['id'],'shareid'=>$uid))}";
+//var registurl ="http://{$_SERVER['HTTP_HOST']}{:U('apps/invitegift/register1',array('id'=>157,'pid'=>$shareid))}";
+var registurl ="http://{$_SERVER['HTTP_HOST']}{:U('apps/Invitegift/register1',array('id'=>$id,'pid'=>$shareid))}";
+var kaiguan=false;
+$(function(){
+	$(".btnok").click(function(){
+		var name=$("#name").val();
+		var tel=$("#tel").val();
+		if(!name)
+		{
+			kaiguan=false;alert("姓名不能为空！");return;
+		}
+		if(!tel)
+		{
+			kaiguan=false;alert("手机号不能为空！"); return;
+		}
+		if(tel.length!=11)
+		{
+			kaiguan=false;alert("手机号不正确，请重新填写！"); return;
+		}
+		$.post(registurl,{name:name,tel:tel},function(res){
+			kaiguan=false;
+			closeBg('fullbg','baoming');
+			res = $.parseJSON(res);
+			if(res.status==1)
+			{
+				alert("报名成功！");
+				$(".baomingdiv .title span").html(parseInt($(".baomingdiv .title span").html())+1);
+				var xinxistr='<div>'+
+								 '<img src="'+res.avatar+'" />'+
+								 '<p>'+res.name+'</p>'+
+							 '</div>';
+				$(".baomingls").append(xinxistr);
+				$(".baoming").hide();
+				$(".fenxiang").css("width","100%");
+				$(".fenxiang").html("已报名");
+				$(".fenxiang").unbind("click");
+			}
+			else alert(res.msg);
+		});
+	})
+})
+</script>
+<!--<script type="text/javascript" src="__TMPL__Apps/invitegift/js/code.js?i=2"></script>-->
+<tc_include file="Public:mobile" />
+</html>

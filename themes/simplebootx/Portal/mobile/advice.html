@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>意见反馈</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui-flex.css"/>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/font-awesome.min.css" />
+
+<style>
+body{background-color:#fff;}
+.aui-bar-nav,.aui-btn{background-color:#fff;}
+.aui-title,.aui-bar-nav,.aui-btn{color:#000;}
+header.aui-bar .aui-btn .aui-iconfont{color:#ff9900;}
+.advice{padding-bottom:15px;}
+.title{font-size:20px;margin-top:20px;margin-bottom:15px;color:#000;}
+.fankui {color:#444;font-size:14px;margin-bottom: 8px;}
+.hope{font-size:16px;margin-top: 15px;margin-bottom: 8px;}
+textarea {margin-bottom: 0;}
+input[type="text"]{padding:7px;}
+.content{padding-bottom:25px;}
+.btn{background-color: #ff9900;color:#fff;height:36px;margin:30px 15px;text-align:center;line-height:36px;border-radius:2px; }
+</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-border-b" id="aui-header">
+        <a class="aui-btn aui-pull-left aui-border-b" href="javascript:history.go(-1);">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" id="header-title">意见反馈</div>
+    </header>
+    <form action="{:U('portal/mindex/suggest_post')}" class="suggest_form" method="post">
+    <div class="advice aui-border-b aui-padded-0-15">
+        <h1 class="title">意见反馈</h1>
+        <p class="fankui">亲～，请留下您宝贵的意见，我们会认真对待您的任何反馈。</p>
+    </div>
+    <div class="content aui-padded-0-15 aui-border-b"> 
+        <div class="hope" for="">您希望给我们提出的建议是？</div>        
+        <textarea rows="3" class="suggest" name="suggest"></textarea>
+        <div class="hope" for="">希望获得联系</div>    
+        <p class="fankui">如果您希望我们联系您，可以留下您的邮箱、微信号、电话</p>   
+        <input type="text" class="lianxi" name="lianxi" value=""/>
+    </div>
+    <div class="btn">提交</div>
+    </form> 
+</body>
+<tc_include file="Public:mobile" />
+<script>
+$(function(){
+    $('.btn').click(function(){
+        var suggest=$('.suggest').val();
+        if(suggest.length==0){
+            alert("请填写意见");
+            return;
+        }
+        $('.suggest_form').submit();
+    });
+});
+</script>
+</html>

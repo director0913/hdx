@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>报名</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/Flower/css/index.css"/>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<style type="text/css">
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{ clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+body{width:750px; background:#ffdd48; font-family:"微软雅黑";}
+/*公共样式结束*/
+/*登录开始*/
+#login{width:704px;margin:60px auto 80px;border:4px solid #361202;border-radius:16px;}
+#login .close{position:absolute;right:40px;top:40px;width:48px;}
+#login .photo{text-align:center;}
+#login .photo img{width:230px;height:230px;margin:60px auto 30px;}
+p.denglu span{font-size:34px;display:block;border-bottom:3px solid #3e1a27;width:640px;margin:0 auto;color:#3e1a27;}
+p.denglu{text-align: center;}
+input{outline: none;background-color:transparent;}
+#name,#tel,#age,#cless,#school{font-size:30px;border:none;width:520px;height:82px; margin:0 auto;padding:0 30px;box-sizing:border-box;margin-bottom:16px;margin-top:20px;}
+:-moz-placeholder{color:#2c0f2b;}
+::-moz-placeholder{color:#2c0f2b;}
+input:-ms-input-placeholder{color: #2c0f2b;}
+input::-webkit-input-placeholder{color: #2c0f2b;}
+textarea::-webkit-input-placeholder{color: #554916;font-size:30px;}
+textarea:-ms-input-placeholder {color: #554916;font-size:30px;}
+.shuoming{font-size:30px;margin:20px 32px;color:#0c112f;}
+.xuanyan{font-size:34px;margin:20px 32px 0;}
+textarea{width:600px;background-color: #efc123;border:none;outline:none;margin:20px 37px 37px;height:130px;padding:20px;font-size:18px;line-height:42px;}
+.btn{width:234px;height:80px;line-height:80px;text-align:center;border-radius:44px;border:4px solid #361202;margin:0 auto -44px;background-color: #fd5001;font-size:40px;color:#fff}
+/*登录结束*/
+</style>
+</head>
+<body>
+<!-- 登录开始 -->
+<div id="login">
+	<input id="fileupload" type="file" name="image" data-url="{:U('asset/asset/swfupload_mobile')}" style="display:none;">
+
+    <div class="photo"> 
+		<img src="__TMPL__Apps/Yyvote/images/load.gif" class="lodingimg" style="display:none;">
+        <img src="__TMPL__Apps/Flower/images/photo.png"  class="uploaded" alt=""/>
+    </div>
+    <p class="denglu">
+        <span>姓名<input type="text" placeholder="请输入姓名" name="username"  id="name"></span>
+        <span>手机<input type="text" placeholder="请输入手机号" name="tel" id="tel"></span>
+		<if condition="!empty($params['age'])">
+			<span>年龄<input type="tel" id="age" name="age" placeholder="请输入年龄"/></span>
+		</if>
+		<if condition="!empty($params['cless'])">
+			<span>班级<input type="tel" id="cless" name="cless" placeholder="请输入班级"/></span>
+		</if>
+		<php>
+		    if(!$params['other_remark']){
+		    	$params['other_remark']="参赛宣言";
+		    }
+			if($params['other_school']){
+		    	$other=explode(',',$params['other_school']);
+		    }
+		</php>
+		<if condition="!empty($params['school'])">
+			<span>学校
+			<if condition="empty($params['other_school'])">
+				<input type="text" class="sign-up-name" id="school" name="school" placeholder="请输入学校"/>
+			<else/>
+				<select  id="school" name="school">
+					<volist name="other" id="vo">
+						<option  value ="{$vo}"  <if condition="$user['school'] eq $vo">selected="selected" </if>>{$vo}</option>
+					</volist>
+				</select>
+			</if>
+			</span>
+		</if>
+    </p>
+    <div class="shuoming">我们不会以任何方式泄露您的信息，请放心填写。</div>
+    <div class="xuanyan">{$params['other_remark']}</div>
+    <textarea placeholder='快点留下你的{$params['other_remark']}吧！(20字以内)' name="remark" id="remark"></textarea>
+    <div class="btn" onclick="submit_join();">提交</div>
+</div>
+<!-- 登录结束 -->
+<div style="padding-top:114px;"></div>
+<div class="didiv">
+    <ul>
+         <li class="difen shouye" data-href="{:U('Apps/flower/index',array('id'=>$id))}">
+            <div></div>
+            <p>首页</p>
+        </li>
+		<if condition="$is_front_join eq 1 ">
+			<li class="difen jilu1" data-href="{:U('Apps/flower/vote_join',array('id'=>$id))}">
+				<div></div>
+				<p>报名</p>
+			</li>
+		</if>
+        <li class="difen guize" data-href="{:U('Apps/flower/rule',array('id'=>$id))}">
+            <div></div>
+            <p>规则</p>
+        </li>
+        <li class="difen paihang" data-href="{:U('Apps/flower/rank',array('id'=>$id))}">
+            <div></div>
+            <p>排名</p>
+        </li>
+    </ul>
+</div>
+<tc_include file="Public:mobile" />
+<script src="__TMPL__Public/js/jqueryUpload/jquery.ui.widget.js"></script>
+<script src="__TMPL__Public/js/jqueryUpload/jquery.iframe-transport.js"></script>
+<script src="__TMPL__Public/js/jqueryUpload/jquery.fileupload.js"></script>
+<script>
+var addJoinurl = "{:U('apps/flower/register',array('id'=>$id))}";//注册报名地址
+$(function(){
+	$(".difen").click(function(){
+		var url = $(this).attr("data-href");
+		var time = Math.random();
+		window.location.href = url+"&time="+time;
+	});
+	$(".photo").click(function(){
+		$("#fileupload").click();
+		that = this;
+	});
+	$("#fileupload").fileupload({
+		//dataType: 'json',
+		autoUpload: true,
+		add: function (e, data) {
+		   $(".lodingimg").show();
+		   $(".uploaded").hide();
+		  data.submit();
+		},
+		done: function (e, data) {
+		  var d = $.parseJSON(data.result);
+		  if(d.status==0){
+			alert(d.msg);
+		  }else{
+			  curr_img = d.msg;
+			  $(".uploaded").attr("src",curr_img);
+			  $(".uploaded").show();
+			  $(".lodingimg").hide();
+		  }
+		},
+		progressall: function (e, data) {
+		}
+	});
+})
+//处理报名逻辑
+function submit_join(){
+	var name = $("#name").val();
+	var tel = $("#tel").val();
+	var remark = $("#remark").val();
+	var age=$('[name="age"]').val();
+	var cless=$('[name="cless"]').val();
+	var school=$('[name="school"]').val();
+	if(!name){alert("请输入姓名！");return false;}
+	if(!tel){alert("请输入手机号！");return false;}
+	if(!curr_img){alert("请上传照片！");return false;}
+	if(!remark){alert("请输入参赛宣言！");return false;}
+	$.post(addJoinurl,{name:name,tel:tel,age:age,cless:cless,school:school,remark:remark,thumb:curr_img},function(res){
+		if(res.status>0){
+			window.location.href = res.url;
+		}else{
+			alert(res.info);
+		}
+	});
+}
+</script>
+</body>
+</html>

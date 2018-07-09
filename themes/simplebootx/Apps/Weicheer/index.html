@@ -1,0 +1,593 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['title']}</title>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<!--<link rel="stylesheet" href="{$REMOTE_UPLOAT_PATH}/Public/layer_mobile/need/layer.css">-->
+<!--<script src="{$REMOTE_UPLOAT_PATH}/Public/layer_mobile/layer.js"></script>-->
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weicheer/css/index.css?v=9" />
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<script type="text/javascript" src="__TMPL__Apps/Weicheer/js/jquery-1.9.1.min.js"></script>
+<!--<script type="text/javascript" src="__TMPL__Apps/Common/jquery.form.min.js"></script>-->
+<script type="text/javascript" src="__TMPL__Apps/Weicheer/js/zhezhao.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/upload/lrz.all.bundle.js"></script>
+<style type="text/css">
+	.skill_support{width: 100%;background: #fff;text-align: center;}
+	.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+	.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+<div class="jishi">  
+        <div>
+            <div class="titletime">倒计时：</div>
+            <div class="shijian">
+                <p id="tian1">0</p><p id="tian2">0</p><p id="tian3">0</p><span>天</span>
+                <p id="shi1">0</p><p id="shi2">0</p><span>时</span>
+                <p id="fen1">0</p><p id="fen2">0</p><span>分</span>
+                <p id="miao1">0</p><p id="miao2">0</p><span>秒</span>
+            </div>
+        </div>
+    </div>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Weicheer/images/bjmusic.mp3" style="display: none;"></audio>
+<div class="bgc">
+    <img src="<if condition="$item['thumb']">{$item['thumb']}<else />__TMPL__Apps/Weicheer/images/bgc.jpg</if>" width="750"/>
+    <div id="yinyue"></div>
+	<p class="chi"></p>
+</div>
+<!--报名开始-->
+<div class="baoming" >
+    <ul class="yibao">
+        <li>
+            <p class="text">已报名</p>
+            <p class="text">{$user_num}</p>    
+        </li>
+       <li style="width:266px;">
+            <p class="text">参与人次</p>
+            <p class="text">{$friend_num}</p>
+            
+        </li>
+        <li style="border:none;">
+            <p class="text">访问量</p>
+            <p class="text">{$item['hits']}</p>
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--报名结束-->
+<!-- 喝彩开始 -->
+<div class="hecai" id="hecai" <if condition="($isme eq 1) AND ($is_regist)"> style="display:block;" </if> >
+     <p class="tophua"></p>
+    <div class="hecai_l">
+        <img src="{$user['thumb']}" alt=""/>
+        <p>{$user['username']}</p>
+        <div style="clear:both;"></div>
+    </div>
+<div class="hecai_r">
+    <ul>
+ 		<li>
+            <p class="zhi_t"><img src="__TMPL__Apps/Weicheer/images/hong.png" alt="" class="zhi"/>人气值</p>
+           <p class="yuan">{$user['total_num']}</p>
+         </li>
+        <li>
+            <p class="rank_t"><img src="__TMPL__Apps/Weicheer/images/huang.png" alt="" class="rank"/>排名</p>
+            <p class="ming">{$mypm}名</p>
+        </li>
+     <div style="clear:both;"></div>
+    </ul>
+			<p class="btn" onclick="showBg('fullbg','fenxiang',true)">立即喊人喝彩</p>
+			<!--
+			<p class="btn" onclick="hecai()">为他喝彩</p>
+			-->
+	</div>
+    <div style="clear:both;"></div>
+     <p class="bottomhua"></p>
+</div>
+<!-- 喝彩结束 -->
+<div class="hecai" id="hecai" <if condition="$isme eq 0"> style="display:block;" </if> >
+     <p class="tophua"></p>
+    <div class="hecai_l">
+        <img src="{$his_info['thumb']}" alt=""/>
+        <p>{$his_info['username']}</p>
+        <div style="clear:both;"></div>
+    </div>
+<div class="hecai_r">
+    <ul>
+ 		<li>
+            <p class="zhi_t"><img src="__TMPL__Apps/Weicheer/images/hong.png" alt="" class="zhi"/>人气值</p>
+           <p class="yuan hisscore">{$his_info['total_num']}</p>
+         </li>
+        <li>
+            <p class="rank_t"><img src="__TMPL__Apps/Weicheer/images/huang.png" alt="" class="rank"/>排名</p>
+            <p class="ming">{$hispm}名</p>
+        </li>
+     <div style="clear:both;"></div>
+    </ul>
+    		<p class="btn" onclick="hecai()">为他喝彩</p>
+	</div>
+    <div style="clear:both;"></div>
+     <p class="bottomhua"></p>
+</div>
+<!-- 活动规则开始 -->
+	<div class="guize gz_1" <if condition="!$item['rule']">style="display:none;" </if>>
+	<p class="tophua"></p>
+		<p class="title"><img src="__TMPL__Apps/Weicheer/images/gzt.png" alt=""/></p>
+		<div class="text">{$item['rule']|html_entity_decode}</div>
+		<p class="bottomhua"></p>
+	</div>
+	<div class="guize gz_2" <if condition="!$item['activityprize']">style="display:none;" </if> >
+		<p class="tophua"></p>
+		<p class="title"><img src="__TMPL__Apps/Weicheer/images/jlt.png" alt=""/></p>
+		<div class="text">{$item['activityprize']|html_entity_decode}</div>
+		<p class="bottomhua"></p>
+	 </div>
+ <div class="guize gz_3"  <if condition="!$item['activityremark']">style="display:none;" </if>>
+		<p class="tophua"></p>
+		<p class="title"><img src="__TMPL__Apps/Weicheer/images/aboutus.png" alt=""/></p>
+		<div class="text">{$item['activityremark']|html_entity_decode}</div>
+		<p class="bottomhua"></p>
+  </div>
+<!-- 活动规则结束 -->
+<!-- 列表开始 -->
+<div class="liebiao">
+    <table class="userList moreu">
+		 <tr class="tt">
+			<th class="shenhong wd120 ">名次</th>
+			<th class="shenhong wd180">姓名</th>
+			<th class="shenhong wd250">手机</th>
+			<th class="qianhong wd160">人气值</th>
+		</tr>
+    </table>
+		<div class="more" >
+			<img src="__TMPL__Apps/Weicheer/images/more.png" alt="" />
+			<span id="userMore1" onclick="moreuser()">查看更多排名</span>
+			<span id="userMore2" style="display: none;">没有更多</span>
+		</div>
+</div>
+<!-- 列表结束 -->
+<p class="ljbm">
+<if condition="$isme">
+		<if condition="$is_regist">
+			<img data-id="2" src="__TMPL__Apps/Weicheer/images/hecai.png"/>
+		<else />
+			<img data-id="1" src="__TMPL__Apps/Weicheer/images/baoming.png"/>
+		</if>
+<else />
+		<if condition="$is_regist">
+			<img data-id="3" src="__TMPL__Apps/Weicheer/images/myhuodong.png"/>
+		<else />
+			<img data-id="1" src="__TMPL__Apps/Weicheer/images/baoming.png"/>
+		</if>
+</if>
+</p>
+<!-- 立即报名按钮 -->
+
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Weicheer/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" />
+<!-- 提示分享给好友 -->
+<div class="cg" id="chenggong" onclick="closeBg('fullbg','chenggong')" >
+    <img src="__TMPL__Apps/Weicheer/images/hecai.gif" class="cg_hecai"/ >
+    <img src="__TMPL__Apps/Weicheer/images/chenggong.png" alt="" class="cg_chenggong"/>
+</div>
+<!-- 喝彩成功 -->
+<!-- 登录开始 -->
+<div id="login">
+    <img src="__TMPL__Apps/Weicheer/images/close1.png" class="close" onclick="closeBg('fullbg','login')"  />
+    <p class="photo"><img src="__TMPL__Apps/Weicheer/images/photo.png" alt="" id="photo" onclick="return chooseImage();"/></p>
+    <p class="denglu">
+        <span>姓名<input type="text" placeholder="请输入姓名" id="name"></span>
+        <span>手机<input type="tel" placeholder="请输入手机号" id="tel"></span>
+		<if condition="!empty($params['age'])">
+			<span>年龄<input type="tel" id="age" name="age" placeholder="请输入年龄"/></span>
+		</if>
+		<if condition="!empty($params['cless'])">
+			<span>班级<input type="text" id="cless" name="cless" placeholder="请输入班级"/></span>
+		</if>
+		<php>
+		    if(!$params['other_remark']){
+		    	$params['other_remark']="参赛宣言";
+		    }
+			if($params['other_school']){
+		    	$other=explode(',',$params['other_school']);
+		    }
+		</php>
+		<if condition="!empty($params['school'])">
+			<span>学校
+			<if condition="empty($params['other_school'])">
+				<input type="text" class="sign-up-name" id="school" name="school" placeholder="请输入学校"/>
+			<else/>
+				<select  id="school" name="school">
+					<volist name="other" id="vo">
+						<option  value ="{$vo}"  <if condition="$user['school'] eq $vo">selected="selected" </if>>{$vo}</option>
+					</volist>
+				</select>
+			</if>
+			</span>
+		</if>
+		<if condition="!empty($params['qita'])">
+			<span>{$params['other_remark']}<input type="text" id="remark" name="remark" placeholder="请输入{$params['other_remark']}"/></span>
+		</if>
+		<!--用于存储图片路径 -->
+		<form id="myform" method="post" enctype="multipart/form-data">
+		<input type="file" onchange="uploadHead(this);" name="file" id="file" style="display:none;">  
+		</form>
+		<input type="hidden" name="thumb" id="basicHeadUrl" >  
+    </p>
+    <p class="submit" onclick="baoming()"><img src="__TMPL__Apps/Weicheer/images/submit.png" alt="" /></p>
+</div>
+<!-- 登录结束 -->
+<!-- 喝彩记录开始 -->
+<div id="jilu">
+    <p class="title"><img src="__TMPL__Apps/Weicheer/images/het.png" alt=""/></p>
+    <img src="__TMPL__Apps/Weicheer/images/close.png" class="close" onclick="closeBg('fullbg','jilu')"  />
+    <ul class="hjilu moref">
+    </ul>
+</div>
+<!-- 喝彩记录结束 -->
+<div id="fullbg2"></div>
+<img src="__TMPL__Apps/Weicheer/images/load.gif" id="load"/>
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+var valid_activity="{$status}";
+var music;
+var tian1obj=$("#tian1");
+var tian2obj=$("#tian2");
+var tian3obj=$("#tian3");
+var shi1obj=$("#shi1");
+var shi2obj=$("#shi2");
+var fen1obj=$("#fen1");
+var fen2obj=$("#fen2");
+var miao1obj=$("#miao1");
+var miao2obj=$("#miao2");
+//var qitime= 0;
+//var zhitime=9999;
+<php>
+	if($status==-1||$status==-2)
+	{
+		echo "var qitime= 0;";
+		echo "var zhitime=0;";
+	}
+	else
+	{
+		echo "var qitime=".time().";";
+		echo "var zhitime=".$item['endtime'].';';
+	}
+</php>
+var jitime=null;
+$(function(){
+	daojishi();
+    jitime=setInterval("daojishi()",1000);
+    music=document.getElementById("bgMusic");
+    music.play();
+    //播放音乐
+    $("#yinyue").click(function()
+    {
+        if(music.paused)
+        {
+            music.play();
+            $("#yinyue").removeClass("ting");
+        }
+        else
+        {
+            music.pause();
+            $("#yinyue").addClass("ting");
+        }
+    });
+    var maxjoin="{$params['maxjoin']}";
+	$(".ljbm img").click(function(){
+		
+		if(valid_activity==-2){
+			alert("活动已结束！");return false;
+		}
+		if(valid_activity==-1){
+			alert("活动还未开始！");return false;
+		}
+		
+		var did = $(this).attr("data-id");
+		if(did==1){
+			if(maxjoin<="{$user_num}"){
+				alert("Sorry,报名人数已满,您不能报名啦！");
+				return false;
+			}else{
+				showBg('fullbg','login',false);
+			}
+		}
+		if(did==2){
+			showBg('fullbg','jilu',false);
+		}
+		if(did==3){
+			var url = "{:U('apps/weicheer/index',array('id'=>$_GET['id']))}";
+			window.location.href=url;
+		}
+	});
+	moreuser();
+	morefriend();
+});
+function daojishi()
+	{
+		qitime=parseInt(qitime)+1;
+		var chatime=zhitime-qitime;
+		if(chatime<0)
+	    {
+	        clearInterval(jitime); return;
+	    }
+		var tian=parseInt(chatime/86400);
+		if(tian<100&&tian>9)
+				tian="0"+tian;
+			else if(tian<=9)
+				tian="00"+tian;
+		tian=tian.toString();
+		tian1obj.html(tian[0]);
+		tian2obj.html(tian[1]);
+		tian3obj.html(tian[2]);
+		var shi=parseInt((chatime%86400)/3600);
+		shi=shi>9?shi:"0"+shi;  
+		shi=shi.toString(); 
+		shi1obj.html(shi[0]);
+		shi2obj.html(shi[1]);
+		var fen=parseInt((chatime%86400%3600)/60);
+		fen=fen>9?fen:"0"+fen;
+		fen=fen.toString();
+		fen1obj.html(fen[0]);
+		fen2obj.html(fen[1]);
+		var miao=chatime%60;
+		miao=miao>9?miao:"0"+miao;
+		miao=miao.toString();
+		miao1obj.html(miao[0]);
+		miao2obj.html(miao[1]);
+	}
+function baoming()
+{
+	var is_submit = 1;
+	
+
+    var name=$("#name").val();
+    var tel=$("#tel").val();
+	var age=$('[name="age"]').val();
+	var cless=$('[name="cless"]').val();
+	var school=$('[name="school"]').val();
+	var remark=$('[name="remark"]').val(); 
+	var thumb = $("#basicHeadUrl").val();
+	var aid = "{$_GET['id']}";
+	//alert('提交报名信息'+'aid'+aid+'name'+name+'tel'+tel+'thumb'+thumb);
+	if(!thumb){
+	    alert("请上传照片");return;
+	}
+    if(name=="")
+    {
+        alert("姓名不能为空");return;
+    }
+    if(tel=="")
+    {
+        alert("手机号不能为空");return;
+    }
+	if(tel.length!=11){
+	    alert("请输入11位手机号");return;
+	}
+    var url="{:U('apps/weicheer/check')}";
+	if(is_submit){
+		is_submit =0;
+		$.post(url,{name:name,tel:tel,age:age,cless:cless,school:school,remark:remark,thumb:thumb,aid:aid},function(res){
+			res =JSON.parse(res);        
+			if(parseInt(res.status)>0)
+			{
+				 window.location.href="{:U('apps/weicheer/index',array('id'=>$_GET['id'],'ss'=>0))}";
+			}else{
+				alert(res.msg);
+			}	        
+		});      
+	}
+}
+//上传照片
+function uploadHead(that){
+   showBg('fullbg2','load',true);
+   lrz(that.files[0])
+	.then(function (rst) {
+		// 处理成功会执行
+		upload_img = rst.base64;
+		$("#photo").attr("src",upload_img);
+		$("#basicHeadUrl").val(upload_img);
+		closeBg("fullbg2","load");
+	})
+	.catch(function (err) {
+		// 处理失败会执行
+		closeBg("fullbg2","load");
+	})
+	.always(function () {
+		// 不管是成功失败，都会执行
+		closeBg("fullbg2","load");
+	});
+
+   //var url = "{php echo url('utility/file/upload',array('type'=>'image'));}";
+   /**var url = "{:U('asset/asset/swfupload_mobile')}";
+   $("#myform").attr("action",url);
+   $("#myform").ajaxForm(
+	{
+		success:function(res){
+			
+			res = $.parseJSON(res);
+			console.log(res);
+			if(res.status){
+				$("#photo").attr("src",res.filename);
+				$("#basicHeadUrl").val(res.filename);
+			}else{
+				alert(res.msg);
+			}
+			
+			closeBg("fullbg2","load");
+		},
+		error:function(res)
+		{	
+			res = $.parseJSON(res);
+			console.log(res);
+			alert(res.msg);
+			closeBg("fullbg2","load");
+			alert(res.error.message);
+		}
+	}
+   ).submit();
+  **/
+   //return false;
+}
+//选择照片
+function chooseImage(){
+	$("#file").click();
+}
+function hecai()
+{
+	var steptype='{$params[steptype]}';
+	if(valid_activity==-2){
+			alert("活动已结束！");return false;
+	}
+	if(valid_activity==-1){
+			alert("活动还未开始！");return false;
+	}
+
+    var aid = "{$_GET['id']}";
+    var uid = "{$shareuid}";
+ 	var url="{:U('apps/weicheer/cheer',array('t'=>$_GET['t']))}";
+ 	var from_user='{$user[from_user]}';
+ 	var hisscore=$('.hisscore').text();
+    $.post(url,{uid:uid,aid:aid,from_user:from_user,hisscore:hisscore},function(res){
+        res =JSON.parse(res);
+		var status = parseInt(res.status);
+        if(parseInt(res.status)>0)
+        { 
+        	 $('.hisscore').text(res.newhisscore);
+			 if(steptype==2){
+			 	layer.open({
+					content: "喝彩成功，即将带你进入一个神奇的世界!",
+					skin: 'layui-m-layer layui-m-layer-msg',
+					time: 2		
+				  });
+				  var link='{$params[link]}';
+				  setTimeout(function(){window.location.href=link;},1900);
+			 }else{
+			 	showBg('fullbg','chenggong',true);
+				 if(steptype==0){
+				 	setTimeout("guaka()",1000);
+				 }
+			 }
+        }
+        else{
+			layer.open({
+				content: "喝彩失败！",
+				time: 2
+			});
+		}
+    }); 
+}
+function guaka()
+{
+     //alert('http://'+"{$_SERVER['HTTP_HOST']}"+"{:U('apps/weicheer/guajiang',array('id'=>$_GET['id'],'uid'=>$shareuid))}");
+     window.location.href='http://'+"{$_SERVER['HTTP_HOST']}"+"{:U('apps/weicheer/guajiang',array('id'=>$_GET['id'],'uid'=>$shareuid))}";
+}
+//排行榜
+var page_u=1;
+var mingci=1;
+var kaiguan_u=false;
+function moreuser()
+{
+	if(kaiguan_u) return;
+	kaiguan_u=true;
+    var url ="{:U('apps/weicheer/moreuser',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_u:page_u
+        },
+        function(data,status){
+        	kaiguan_u=false;
+            if(data.status>0)
+            {
+                var list=data.list;
+                for(var i=0;i<list.length;i++)
+                {
+                    var mobile=list[i]['mobile'];
+                    var str='<tr>'+
+								'<td class="wd120 padleft30">'+mingci+'</td>'+
+								'<td class="wd180">'+list[i]['username'].substr(0,5)+'</td>'+
+								'<td class="wd250">'+mobile.substr(0,3)+'xxxx'+mobile.substr(7,4)+'</td>'+
+								'<td class="qianhong wd160">'+list[i]['total_num']+'</td>'+
+							'</tr>';
+							mingci++;
+                    $('.moreu').append(str);
+                }
+                
+                page_u++;
+            }
+            else
+            {
+            	$('#userMore1').hide();
+            	$('#userMore2').show();
+            }
+  
+        });
+}
+//我的喝彩记录
+var page_f=1;
+var kaiguan_f=false;
+function morefriend()
+{
+    if(kaiguan_f) return;
+    kaiguan_f=true;
+    var url ="{:U('apps/weicheer/morefriend',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_f:page_f,
+        },
+        function(data,status){
+            kaiguan_f=false;
+            if(data.status>0)
+            {
+                var list=data.list;
+                for(var i=0;i<list.length;i++)
+                {
+                   var str='<li>'+
+								'<img src="'+list[i]['avatar']+'" alt="" />'+
+								'<p class="name">'+list[i]['nickname']+'</p>'+
+								'<p class="time">为我喝彩</p>'+
+								'<p class="time">+'+list[i]['total_num']+'人气值</p>'+
+							'</li>'
+                    $('.moref').append(str);
+                }
+                page_f++;
+            }
+            /*
+            else
+            {
+                $(".moreff").text("没有更多");
+            }
+            */
+        });
+}
+//滑动加载
+$(function(){
+	$(window).scroll(function(){
+		var scrollTop = $(this).scrollTop();
+		var scrollHeight = $(document).height();
+		var windowHeight = $(this).height();
+		if(scrollTop + windowHeight+10 >= scrollHeight){
+			morefriend();
+		}
+	});
+})
+</script>
+</html>

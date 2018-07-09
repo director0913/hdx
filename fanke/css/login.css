@@ -1,0 +1,469 @@
+@charset "utf-8";
+body {
+	margin: 0
+}
+
+a {
+	text-decoration: none;
+	color: #4a68ec
+}
+
+.header,
+.u-input .typeIcon,
+.u-input .clear,
+.u-input .vis,
+.u-checkLabel .checkIcon,
+.m-otherLogin .loginLink i,
+.m-result i,
+.u-remind i,
+.u-warn i {
+	background: url(../image/collections.png) no-repeat;
+	background-size: 12.8rem 21.52rem
+}
+
+.header {
+	height: 4rem
+}
+
+.m-form {
+	padding: .6rem 1.5rem;
+	font-size: .48rem
+}
+
+.m-form .u-checkLabel {
+	font-size: .4rem;
+	color: #797979
+}
+
+.u-checkLabel {
+	display: block;
+	margin: .3rem 0
+}
+
+.u-checkLabel>* {
+	vertical-align: middle
+}
+
+.u-checkLabel input[type="checkbox"] {
+	opacity: 0;
+	position: absolute
+}
+
+.u-checkLabel .checkIcon {
+	display: inline-block;
+	width: .6rem;
+	height: .6rem;
+	margin-right: .24rem;
+	background-position: 0 -16.12rem
+}
+
+.u-checkLabel.z-checked .checkIcon {
+	background-position: 0 -14.7rem
+}
+
+.u-input {
+	position: relative;
+	height: 1.5rem;
+	line-height: 1.5rem
+}
+
+.u-input>* {
+	vertical-align: middle
+}
+
+.u-input input[type="text"],
+.u-input input[type="password"] {
+	border: 0;
+	border-radius: 0;
+	outline: 0;
+	height: 90%;
+	line-height: 1.3rem;
+	width: 90%;
+	border-bottom: 1px solid #92a6ff;
+	position: absolute;
+	bottom: 0;
+	padding: 0 1.6rem 0 .6rem;
+	box-sizing: border-box;
+	font-size: .48rem
+}
+
+.u-input .typeIcon {
+	display: inline-block;
+	width: 10%;
+	height: .6rem;
+	background-position: 0 25%
+}
+
+.u-input .clear,
+.u-input .vis {
+	display: inline-block;
+	width: .8rem;
+	height: .8rem;
+	float: right;
+	position: relative;
+	right: 0;
+	top: 50%;
+	background-position: -3.7rem -5.02rem;
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%)
+}
+
+.u-input .clear {
+	display: none
+}
+
+.u-input .vis {
+	background-position: -3.7rem -6.3rem
+}
+
+.u-input .vis.z-on {
+	background-position: -3.7rem -7.65rem
+}
+
+.u-input .button {
+	float: right;
+	text-align: center;
+	width: 3.6rem;
+	height: .98rem;
+	line-height: .98rem;
+	position: relative;
+	top: 50%;
+	background-color: #4a68ec;
+	color: #fff;
+	border-radius: .1rem;
+	transform: translateY(-35%);
+	-webkit-transform: translateY(-35%)
+}
+
+.u-input .button.z-disable {
+	background-color: #cacaca
+}
+
+.u-input.cacct .typeIcon {
+	background-position: 0 -5.24rem
+}
+
+.u-input.sacct .typeIcon {
+	background-position: 0 -7.09rem
+}
+
+.u-input.pwd .typeIcon {
+	background-position: 0 -8.92rem
+}
+
+.u-input.verifyCode .typeIcon {
+	background-position: 0 -10.76rem
+}
+
+.u-input.verifyCode input[type="text"] {
+	width: 50%;
+	padding-right: .9rem
+}
+
+.u-input.verifyCode .codeImg {
+	width: 2.88rem;
+	height: .96rem;
+	float: right;
+	margin-right: .54rem;
+	position: relative;
+	top: 50%;
+	transform: translateY(-35%);
+	-webkit-transform: translateY(-35%)
+}
+
+.u-input.number .typeIcon {
+	background-position: 0 -12.59rem
+}
+
+.u-error {
+	color: #f45454;
+	font-size: .4rem;
+	display: none;
+	position: absolute
+}
+
+.u-button {
+	display: inline-block;
+	height: 1.46rem;
+	line-height: 1.46rem;
+	min-width: 6.18rem;
+	background-color: #4a68ec;
+	border-radius: .73rem;
+	border: 0;
+	font-size: .56rem;
+	color: #fff;
+	text-align: center;
+	box-sizing: border-box
+}
+
+.u-button.z-block {
+	display: block;
+	width: 11rem;
+	margin: 0 auto
+}
+
+.m-form .u-button.z-block {
+	margin-left: -.6rem
+}
+
+.u-button.z-primary {
+	background-color: #fff;
+	color: #4a68ec;
+	border: 1px solid #4a68ec
+}
+
+.u-button.login {
+	letter-spacing: 1.8rem;
+	text-indent: 1.8rem;
+	margin-top: .94rem
+}
+
+.u-button.z-loading {
+	letter-spacing: .4rem;
+	text-indent: .4rem
+}
+
+.m-form .links {
+	margin-top: .46rem
+}
+
+.m-form .links a {
+	font-size: .4rem
+}
+
+.m-form .links .regLink {
+	float: left
+}
+
+.m-form .links .forgetPwd {
+	color: #797979;
+	float: right
+}
+
+.m-otherLogin {
+	text-align: center;
+	margin-top: 1rem
+}
+
+.m-otherLogin a {
+	text-decoration: none
+}
+
+.m-otherLogin .title {
+	width: 7.84rem;
+	margin: 0 auto;
+	position: relative;
+	font-size: .4rem
+}
+
+.m-otherLogin .title font {
+	color: #a2a2a2;
+	position: relative;
+	z-index: 10;
+	padding: 0 .52rem;
+	background-color: #fff
+}
+
+.m-otherLogin .title hr {
+	margin: 0;
+	position: absolute;
+	box-sizing: border-box;
+	width: 100%;
+	top: 50%;
+	border: 0;
+	border-top: 1px solid #dadada
+}
+
+.m-otherLogin .content {
+	margin: .64rem
+}
+
+.m-otherLogin .loginLink {
+	color: #6a85fb;
+	font-size: .32rem;
+	display: inline-block;
+	width: 1.78rem;
+	margin: 0 1rem
+}
+
+.m-otherLogin .loginLink i {
+	width: 100%;
+	height: 1.85rem;
+	display: inline-block
+}
+
+.m-otherLogin .loginLink i.wechat {
+	background-position: 0 -19.34rem
+}
+
+.m-otherLogin .loginLink i.qq {
+	background-position: -4.42rem -19.34rem
+}
+
+.m-result {
+	font-size: .52rem;
+	color: #9a9a9a;
+	text-align: center;
+	margin-top: 3.65rem
+}
+
+.m-result i {
+	display: block;
+	width: 2.4rem;
+	height: 2.4rem;
+	margin: 0 auto;
+	margin-bottom: .4rem
+}
+
+.m-result i.success {
+	background-position: -3.88rem -14.44rem
+}
+
+.u-warmTips {
+	color: #a2a2a2;
+	text-align: center
+}
+
+.u-warmTips a {
+	text-decoration: underline
+}
+
+.u-warmTips .title {
+	font-size: .4rem;
+	margin-bottom: .64rem
+}
+
+.u-warmTips .content {
+	font-size: .36rem
+}
+
+.u-remind {
+	font-size: .4rem;
+	color: #686868;
+	text-align: center;
+	margin-top: 1.36rem
+}
+
+.u-remind i {
+	display: block;
+	margin: 0 auto;
+	width: 1.48rem;
+	height: 1.55rem;
+	background-position: -3.84rem -10.23rem;
+	margin-bottom: .7rem
+}
+
+.u-warn {
+	color: #f45454;
+	font-size: .36rem;
+	margin-top: .54rem
+}
+
+.u-warn i {
+	display: inline-block;
+	vertical-align: middle;
+	width: .5rem;
+	height: .5rem;
+	background-position: -8.4rem -5.22rem;
+	margin-right: .3rem
+}
+
+.m-stepbar {
+	font-size: .4rem;
+	text-align: center;
+	width: 76.6%;
+	margin: 0 auto
+}
+
+.m-stepbar>* {
+	vertical-align: top
+}
+
+.m-stepbar .item {
+	display: inline-block;
+	color: #686868;
+	width: 26%
+}
+
+.m-stepbar .item.z-active {
+	color: #4a68ec
+}
+
+.m-stepbar hr {
+	border: 0;
+	margin: .1rem auto 0;
+	width: 60%;
+	height: .1rem;
+	border-radius: .05rem;
+	background-color: #4a68ec;
+	display: none
+}
+
+.m-stepbar .item.z-active hr {
+	display: block
+}
+
+.g-login .m-result .message {
+	min-height: 50vh;
+	min-height: calc(100vh - 3.65rem - 5rem)
+}
+
+.g-bind .u-input {
+	margin-top: .6rem
+}
+
+.g-bind .u-checkLabel {
+	margin-top: 1.1rem
+}
+
+.g-bind .m-result .u-button {
+	position: absolute;
+	bottom: 3rem;
+	left: 50%;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%)
+}
+
+.g-bind .g-main {
+	padding-top: 1px;
+	min-height: 93vh;
+	min-height: calc(100vh - 1rem)
+}
+
+.g-bind .u-button.bind {
+	margin-top: 1.1rem
+}
+
+.g-pwd .u-input {
+	margin-top: .6rem
+}
+
+.g-pwd .m-result .u-button {
+	position: absolute;
+	bottom: 3rem;
+	left: 50%;
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%)
+}
+
+.g-pwd #step1 .u-button {
+	margin-top: 2.08rem
+}
+
+.g-pwd .inputWrapper {
+	margin-bottom: 1.56rem
+}
+
+.g-pwd #step2 .inputWrapper {
+	margin-bottom: .48rem
+}
+
+.g-pwd #step2 .u-button {
+	letter-spacing: 1.8rem;
+	text-indent: 1.8rem;
+	margin-top: 1rem
+}
+
+.g-pwd .m-stepbar {
+	margin: 1.6rem auto .48rem
+}

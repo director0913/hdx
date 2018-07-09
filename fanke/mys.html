@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<title>凡科互动</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="viewport" content="user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta id="_TOKEN" value="632e043c6d8d2e5093eee6ef190eb82d" type="hidden">
+<link href="css/index.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/detailss.css"/>
+
+</head>
+	<body>
+	<div id="myAccountContainer">
+		<div id="accountName" class="myAccountItem list_item">
+			<p class="myAccount_title">凡科帐号</p>
+			<p class="myAccount_cont"></p>
+		</div>
+		
+		
+		<div id="bottomTips" class="acc_bottomTips">
+			手机版仅支持体验部分功能<br>更多功能请登录电脑版
+			<a href="login.html" target="_top"><div id="exit_btn" class="exit_btn bg_blue">退出登录</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+    $(function(){
+    	var remBase = Math.min(window.innerWidth,window.innerHeight)/16;
+        remBase === 0 && (remBase = 20);
+        document.getElementsByTagName('html')[0].style.fontSize = remBase + 'px';
+        g_rem = parseFloat(remBase);
+        var phone = localStorage.getItem('phone');
+        $('.myAccount_cont').html(phone);
+        $('#exit_btn').click(function(){
+			 localStorage.removeItem('user_id');
+			 localStorage.removeItem('phone');
+        })
+    });
+</script>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>我要报名</title>
+
+<style>
+*{padding:0;margin:0;}
+body{background-color: #f0f0f2;font-family:"微软雅黑";}
+ul{list-style:none;}
+.padded-10{padding-top:10px;padding-bottom: 10px;}
+.fl{float:left;}
+.fr{float:left;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+a{text-decoration:none; color:#333;}
+.content{background-color:#fff;margin-top:10px;padding-left:16px;padding-right:16px;padding-bottom: 20px;}
+.xing{color:#f00;margin-left:-8px;margin-right:2px;}
+.name,.tel{border-bottom:1px solid #ddd;color:#696969;font-size: 16px;}
+input{outline:none;}
+input[type="text"],input[type="number"],input[type="tel"]{padding:10px 0;}
+#name,#tel,#num{font-size:15px;border:none;width:220px;height:28px;}
+/*登录结束*/
+.title{font-size:16px;color:#696969;}
+.zhi {border:1px solid #ddd;}
+.zhi input{width:18px;height:18px;border:1px solid #ddd;vertical-align:middle;margin-right:6px;background-color: #fff;}
+.zhi li{width:100%;float:left;font-size:15px;border-bottom:1px solid #ddd;padding:10px 0px;}
+.zhi li div{padding-left:10px;}
+.zhi li:last-child{border-bottom:none;}
+/*选择科目结束*/
+.duohang{width:100%;padding:10px;height:100px;font-size:15px;border-radius:0px;box-sizing:border-box;border:none;border:1px solid #ddd;outline:none;}
+.upload{font-size:16px;color:#696969;}
+.chuan{border:1px dashed #ddd;padding:10px;color:#21a4ea;font-size:13px;}
+.photo{border:1px solid #ddd;padding:5px;color:#21a4ea;margin-top:20px;}
+.photo .user{width:30px;height:30px;background-color:#fff;border-radius:2px;overflow: hidden;float:left;}
+.photo .mingcheng{float:left;margin-left:14px;height:30px;line-height:30px;color:#333;font-size: 13px;}
+.photo .delete{float:right;width:18px;height:18px;margin-right:8px;margin-top:6px;}
+.photo .user img{width:100%;}
+.btn a{display:block;text-align: center;height:44px;line-height:44px;color:#fff;background-color:#21a4ea;margin:17px 16px;}
+.shuoming{margin:16px 16px 40px;}
+.shuoming_title{font-size: 16px;}
+.shuoming .neirong{color:#949494;margin-top:8px;font-size:14px;line-height:20px;}
+/* 进度条样式 */
+.up_progress{width: 300px;height: 13px;font-size: 10px;line-height: 14px;overflow: hidden;background: #e6e6e6;margin: 5px 0;display:none;}
+.up_progress .progress-bar{height: 13px;background: #11ae6f;float: left;color: #fff;text-align: center;width:0%;}
+</style>
+</head>
+<body>
+<form action="{:U('portal/mjoin/add_post')}" class="form_post" method="post">
+<input type="hidden" name="form_id" value="{$_GET['id']}" >
+<input type="hidden" name="uid" value="{$uid}" >
+<input type="hidden" name="text_str" id="text_str" />
+<input type="hidden" name="number_str" id="number_str" />
+<input type="hidden" name="image_str" id="image_str" />
+<input type="hidden" name="textarea_str" id="textarea_str" />
+<input type="hidden" name="radio_str" id="radio_str" />
+<input type="hidden" name="chekbox_str" id="chekbox_str" />
+<input type="hidden" name="result_str" id="result_str" />
+
+<div class="content">
+	 <div class="single_text">   
+		<div class="name"><span class="xing">*</span><span class="wenzi">姓名：</span><input type="text" id="name" class="username" name="username" placeholder="请输入姓名" /></div>
+	 </div>
+	 <div class="single_text">   
+		<div class="name"><span class="xing">*</span><span class="wenzi">手机号：</span><input type="text" id="name" class="mobile" name="mobile" placeholder="请输入手机号" /></div>
+	 </div>
+    <foreach name="form_item_list" item="vo" > 
+		<if condition="$vo.type eq 1 ">
+            <div class="single_text n_text">   
+                    <div class="name"><span class="xing">*</span><span class="wenzi">{$vo.name}：</span><input type="text" id="name" class="text" data-id="{$vo.id}" placeholder="" name="text[]"></div>
+             </div>
+		</if>
+    </foreach>
+     <foreach name="form_item_list" item="vo" >       
+		 <if condition="$vo.type eq 2 ">
+			<div class="name" class="n_number"><span class="xing">*</span><span class="wenzi">{$vo.name}：</span><input type="number" class="number" data-id="{$vo.id}" placeholder="" id="num" name="number[]"></div>
+		 </if>
+    </foreach>
+	<!--多选框 -->
+    <foreach name="form_item_list" item="vo" > 
+		<if condition="$vo.type eq 7 ">
+			<div class="checkbox n_checkbox" data-id="{$vo.id}">
+				<div class="title padded-10">{$vo.name}</div>
+				<ul class="zhi" data-id="{$vo.id}">
+					<php>$tmp_vo= explode(",",$vo['default']);</php>
+					<foreach name="tmp_vo" item="vv">
+						<li><div><input type="checkbox" name="checkbox[]" value="{$vv}" />{$vv}</div></li>
+					</foreach>
+				</ul>
+			</div>
+		</if>
+	</foreach>
+	<!-- 单选框-->
+	<foreach name="form_item_list" item="vo" > 
+		<if condition="$vo.type eq 6 ">
+			<div class="radio n_radio">
+				<div class="title padded-10">{$vo.name}</div>
+				<ul class="zhi" data-id="{$vo.id}">
+					<php>$tmp_vo= explode(",",$vo['default']);</php>
+					<foreach name="tmp_vo" item="vv">
+						<li><div><input type="radio" name="radio[]" value="{$vv}" checked="checked"/>{$vv}</div></li>
+					</foreach>
+				</ul>
+			</div>
+		</if>
+	</foreach>
+	<!--图片-->
+    <foreach name="form_item_list" item="vo" >
+		<if condition="$vo.type eq 4 ">
+			<div class="upload" data-id="{$vo.id}">
+				<div class="title padded-10"><span class="xing">*</span>{$vo.name}</div>
+				<div class="chuan">+ &nbsp;点此上传图片（限制每个1MB以内）</div>
+					<div style="clear:both;"></div>
+					<div class="up_progress">
+					<div class="progress-bar"></div>
+					<div style="clear:both;"></div>
+				</div>
+			</div>
+		</if>
+    </foreach>
+    <foreach name="form_item_list" item="vo" >      
+         <if condition="$vo.type eq 5 ">
+            <div class="textbox n_textarea" data-id="{$vo.id}">
+                 <div class="title padded-10">{$vo.name}:</div>
+                 <textarea class="duohang" id="duohang" name="textarea[]" data-id="{$vo.id}" placeholder="添加备注信息"></textarea>
+            </div>
+         </if>
+    </foreach>
+</div>
+<div class="btn"><a href="javascript:;" class="submit_form">提交</a></div>
+</form>
+<input id="fileupload" type="file" name="image" data-url="{:U('asset/asset/swfupload_mobile')}" style="display:none;">
+<if condition=" $form_info.is_distri eq 1 ">
+	<div class="shuoming">
+	    <div class="shuoming_title">{$form_info.name}说明</div>
+	    <div class="neirong">{$form_info.rule}</div>
+	</div>
+</if>
+<script src="__TMPL__Public/mobile/js/jquery.js"></script>
+<script src="__TMPL__Public/js/jqueryUpload/jquery.ui.widget.js"></script>
+<script src="__TMPL__Public/js/jqueryUpload/jquery.iframe-transport.js"></script>
+<script src="__TMPL__Public/js/jqueryUpload/jquery.fileupload.js"></script>
+ <script>
+var images_array = new Array();
+var that = this;
+$(function(){
+	$(".upload").click(function(e){
+		var className = $(this).find(".chuan");
+		if(className.length>0){
+			$("#fileupload").click();
+			that = this;
+		}else{
+			$(this).find(".photo").remove();
+			$(this).find(".chuan").remove();
+			var html = '<div class="chuan">+ &nbsp;点此上传图片（限制每个1MB以内）</div>'+
+				'<div style="clear:both;"></div>'+
+				'<div class="up_progress">'+
+				'<div class="progress-bar"></div>'+
+				'<div style="clear:both;"></div>'+
+			'</div>';
+			//删除图片
+			var dataid = $(this).attr("data-id");
+			if(images_array.length>0){
+				 for(var i =0;i<images_array.length;i++) {
+					if(images_array[i].id==dataid){images_array.splice(i,1);}
+				 }   
+			}
+			$(that).append(html);
+		}
+	});
+	$(".delete").click(function(){
+		$(this).parent().find(".photo").remove();
+		$(this).parent().find(".chuan").remove();
+		var html = '<div class="chuan">+ &nbsp;点此上传图片（限制每个1MB以内）</div>'+
+			'<div style="clear:both;"></div>'+
+			'<div class="up_progress">'+
+			'<div class="progress-bar"></div>'+
+			'<div style="clear:both;"></div>'+
+		'</div>';
+		//删除图片
+		var dataid = $(this).attr("data-id");
+		if(images_array.length>0){
+			if(images_array.length>0){
+				 for(var i =0;i<images_array.length;i++) {
+					if(images_array[i].id==dataid){images_array.splice(i,1);}
+				 }   
+			}
+		}
+		$(this).parent().append(html);
+	});
+	
+	
+	$("#fileupload").fileupload({
+		//dataType: 'json',
+		autoUpload: true,
+		add: function (e, data) {
+		  $('.up_progress .progress-bar').css('width','0px');
+		  $('.up_progress').show();
+		  $('.up_progress .progress-bar').html('上传中...');
+		  data.submit();
+		},
+		done: function (e, data) {
+		
+		  $('.up_progress').hide();
+		  //$('.upl').remove();
+		  var d = $.parseJSON(data.result);
+		  if(d.status==0){
+			alert(d.msg);
+		  }else{
+			 var html='<div class="photo clear">'+
+                    '<div class="user"><img src="'+d.msg+'" alt=""></div>'+
+                    '<p class="mingcheng ">'+d.filename+'</p>'+
+                    '<img src="__TMPL__Public/mobile/images/delete.png" alt="" class="delete">'+
+                '</div>';
+			 $(that).find(".chuan").remove();
+			 $(that).append(html);
+			 var obj_image = {"id":0,"value":''};
+			 obj_image.id = $(that).attr("data-id");
+			 obj_image.value = d.msg
+			 images_array.push(obj_image);
+		  }
+		},
+		progressall: function (e, data) {
+		  console.log(data);
+		  var progress = parseInt(data.loaded / data.total * 100, 10);
+		  $('.up_progress .progress-bar').css('width',progress + '%');
+		}
+     });
+     $(".submit_form").click(function(){
+		 //alert("表单提交！！！");
+		 //获取单行文本框
+		 //获取数字
+		 //获取多行文本框
+		 //获取图片
+		 //获取单选
+		 //获取多选
+		 var text = new Array();
+		 var number = new Array();
+		 var textarea = new Array();
+		 var image = new Array();
+		 var radio = new Array();
+		 var chekbox = new Array();
+		 var result = new Array();
+		 var text_str = "";
+		 var number_str = "";
+		 var textarea_str="";
+		 var image_str = "";
+		 var radio_str = "";
+		 var chekbox_str = "";
+
+		 var obj1 = {'id':0,'value':0};
+		 var obj2 = {'id':0,'value':0};
+		 var obj3 = {'id':0,'value':0};
+		 var obj4 = {'id':0,'value':0};
+		 var obj5 = {'id':0,'value':0};
+		 var obj6 = {'id':0,'value':0};
+		 var username = $(".username").val();
+		 var mobile = $(".mobile").val();
+		 if(mobile.length!=11){
+		 	alert("请输入11位手机号");
+		 	return;
+		 }
+		 //单行文本框
+		 $(".n_text").each(function(){
+			var obj_t = {'id':0,'value':0};
+			obj_t.value=$(this).find(".text").val();
+			obj_t.id = $(this).find(".text").attr("data-id");
+			text.push(obj_t);
+			result.push(obj_t);
+		 });
+		 console.log(text);
+		 //数字
+		 $(".n_number").each(function(){
+			var obj_t = {'id':0,'value':0};
+			obj_t.value=$(this).find(".number").val();
+			obj_t.id = $(this).find(".number").attr("data-id");
+			number.push(obj_t);
+			result.push(obj_t);
+		 });
+		  //处理多行文本
+		$(".n_textarea").each(function(){
+			var obj_t = {'id':0,'value':0};
+			obj_t.value=$(this).find(".duohang").val();
+			obj_t.id = $(this).attr("data-id");
+			textarea.push(obj_t);
+			result.push(obj_t);
+		 });
+		//图片暂时不处理
+
+		//处理单选
+		 $(".n_radio").each(function(){
+			var obj_t = {'id':0,'value':0};
+			obj_t.value=$(this).find("input[type='radio']:checked").val();
+			obj_t.id = $(this).find(".zhi").attr("data-id");
+			radio.push(obj_t);
+			result.push(obj_t);
+		 });
+		//处理多选
+		$(".n_checkbox").each(function(){
+			var ckx = $(".checkbox").find("input[type='checkbox']:checked");
+			var obj_t = {'id':0,'value':0};
+			var tset = new Array();
+			$(ckx).each(function(){
+				tset.push($(this).val());
+			});
+			obj_t.value=tset.join(",");
+			obj_t.id = $(this).attr("data-id");
+			chekbox.push(obj_t);
+			result.push(obj_t);
+		 });
+		 //结果合并
+		 result = result.concat(images_array);
+		 text_str = JSON.stringify(text); 
+		 number_str = JSON.stringify(number); 
+		 textarea_str = JSON.stringify(textarea); 
+		 radio_str = JSON.stringify(radio); 
+		 chekbox_str = JSON.stringify(chekbox); 
+		 result_str = JSON.stringify(result); 
+		 $("#text_str").val(text_str);
+		 $("#number_str").val(number_str);
+		 $("#textarea_str").val(textarea_str);
+		 $("#radio_str").val(radio_str);
+		 $("#chekbox_str").val(chekbox_str);
+		  $("#result_str").val(result_str);
+		 //$(".form_post").submit();return false;
+		 var url = "{:U('portal/mjoin/add_post')}" ;
+		 $.post(url,$(".form_post").serializeArray(),function(res){
+			alert(res.info);
+			if(res.status){
+				window.location.href=res.url;
+			}
+		 });
+        //$(".form_post").submit();
+    });
+})
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	wx.config({
+		appId: '{$signPackage.appId}',
+		timestamp: {$signPackage.timestamp},
+		nonceStr: '{$signPackage.nonceStr}',
+		signature: '{$signPackage.signature}',
+		jsApiList: [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo'
+		  ]
+	});
+	wx.ready(function(){
+		// 在这里调用 API
+		wx.onMenuShareTimeline({
+			title: "{$share.title}", // 分享标题
+			desc: "{$share.desc}", // 分享描述
+			link: "{$share.url}", // 分享链接
+			imgUrl: "{$share.imgUrl}", // 分享图标
+			success: function () { 
+				//更新分享次数
+				var url="{$update_url}";
+				$.post(url,null,function(res){});
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		wx.onMenuShareAppMessage({
+			title: "{$share.title}", // 分享标题
+			desc: "{$share.desc}", // 分享描述
+			link: "{$share.url}", // 分享链接
+			imgUrl: "{$share.imgUrl}", // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				//更新分享次数
+				var url="{$update_url}";
+				$.post(url,null,function(res){});
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+
+	});
+
+</script>
+</body>
+</html>

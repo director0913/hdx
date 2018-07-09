@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>升级会员</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/vip.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css"/>
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="toptu">
+	<div class="pagediv1">
+        <div class="f_l">
+            <if condition="empty($users_info['avatar'])">
+                <img src="__TMPL__Public/images/touxiang.jpg" class="touxiang f_l" />
+            <else />
+                <img src="{:sp_get_asset_upload_path($users_info['avatar'])}" class="touxiang f_l" />
+            </if>
+			<php>$curr_user = sp_get_current_user();$endtime =strtotime($curr_user['create_time'])+3600*24*7; </php>
+            <div class="f_l" style="text-align:left;">
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">账号类型：<eq name="users_info['level']" value="0">普通会员<span style="color:#FA741B;margin-left:10px;">(您的账号<php>echo date("Y-m-d",$endtime);</php>后将无法使用！)</span><a href="{:U('portal/index/show_shengji',array('menu'=>3))}">升级会员</a></eq><eq name="users_info['level']" value="1">亲情会员<a href="{:U('portal/index/show_vip')}">如何升级权限</a></eq><eq name="users_info['level']" value="2">金牌会员<a href="{:U('portal/index/show_vip')}">如何升级权限</a></eq></p>
+                <p class="bianji"><a href="{:U('user/center/index')}"><span class="fa fa-pencil"></span>编辑资料</a></p>
+            </div>
+        </div>
+        <div class="f_r">
+        	<div class="f_l fenxinxi">
+            	<a href="{:U('portal/activity/index')}">
+                <p class="number">{$activity_num}</p>
+                <p class="typename">我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/app/index')}">
+            	<p class="number">{$app_num}</p>
+                <p class="typename">我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div>
+<p class="c_b"></p>
+<div class="pagediv xiazhong" style="text-align:center; padding:117px 0 32px;">
+	<p class="tishi">填写注册码升级会员</p>
+    <input type="text" name="jihuoma" placeholder="填写注册码" class="jihuomainput"/>
+    <p class="shengjibtn">升级</p>
+    <p class="bangzhu">没有注册码，请联系客服人员</p>
+</div>
+<div class="dibeijing"></div>
+<tc_include file="Public:footer"/>
+<div id="fullbg"></div>
+<div class="tangoumai">
+    <div class="zuodiv"></div>
+    <div class="youdiv f_r">
+        <h3>如何升级权限？</h3>
+        <p class="shuoming">请咨询招生秀客服</p>
+        <p class="dianhua">13001265153</p>
+        <p class="saoma">扫描添加客服微信</p>
+        <img src="__TMPL__Public/images/kefuqrcode.jpg" class="erweima" />
+    </div>
+    <img src="__TMPL__Public/images/close.png" class="close" onclick="closeBg('#fullbg','.tangoumai')" />
+</div>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">13001265153</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">机构项目</td>
+            <td>
+                <label><input type="checkbox" value="1" />幼少儿培训</label>
+                <label><input type="checkbox" value="1" />初高中培训</label>
+                <label><input type="checkbox" value="1" />幼儿园</label>
+                <label><input type="checkbox" value="1" />早教机构</label><br/>
+                <label><input type="checkbox" value="1" />文化课培训</label>
+                <label><input type="checkbox" value="1" />素质教育课程</label>
+                <label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">地区</td>
+            <td class="address">
+                <select>
+                    <option>请选择省份</option>
+                </select>
+                <select style="margin-right:0;">
+                    <option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">规模</td>
+            <td>
+                <label><input type="radio" value="1" />300人以下</label>
+                <label><input type="radio" value="1" />300-800人</label>
+                <label><input type="radio" value="1" />800-3000人</label>
+                <label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd"></td>
+            <td align="center">
+                <input type="submit" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$(".goumai").click(function(){
+		showBg("#fullbg",".tangoumai");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+	$(".shengjibtn").click(function(){
+		var regcode = $(".jihuomainput").val();
+		if(!regcode){alert("注册码不能为空！");return false;}
+		var url = "{:U('portal/index/update_user')}";
+		$.post(url,{regcode:regcode},function(res){
+			if(res.status>0){
+				alert(res.info);
+			}else{
+				alert(res.info);
+				return false;
+			}
+			if(res.url){
+				window.location.href=res.url;
+			}
+		});
+	});
+</script>
+</html>

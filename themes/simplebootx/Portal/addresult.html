@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人中心</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/home.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<script type="text/javascript" src="__TMPL__Public/js/ZeroClipboard.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery.qrcode.min.js"></script>
+</head>
+
+<body>
+<tc_include file="Public:nav" />
+<div class="zhaizhong">
+	<div class="result">
+    	<div class="f_l">
+        	<p class="chenggong"><span class="fa fa-check"></span>活动发布成功!<strong><a href="{:U('portal/activity/index')}" style="color: grey;">可在个人中心<span style="color:blue;">我的活动</span>查看/编辑</a></strong></p>
+            <p class="actitle">{$info.name}</p>
+        </div>
+        <a href="{:U('portal/activity/edit',array('id'=>$info['id']))}" class="f_r gaibtn"><span class="fa fa-pencil"></span>返回修改活动</a>
+        <p class="c_b"></p>
+        <hr class="fengexian"/>
+        <table border="0" cellpadding="0" cellspacing="0" class="resulttable">
+        <?php $str='http://'.$_SERVER['HTTP_HOST']."/index.php/portal/mjoin/index/id/".$info['id'].".shtml";?>
+        	<tr>
+            	<td>社交渠道分享</td>
+                <td>
+                	<div class="saotu"><div class="erweima" data-url="{$str}"></div><p>&nbsp;</p><p>扫一扫分享到微信</p></div>
+                </td>
+            </tr>
+            <tr>
+            	<td>复制链接分享</td>
+                <td><input type="text" class="fuzhiinput" id="fe_text" value="{$str}"/><a href="javascript:void(0);"  id="d_clip_button" data-clipboard-target="fe_text" class="gaibtn">复制活动链接</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<tc_include file="Public:footer"/>
+</body>
+<script type="text/javascript">
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+   // 定义一个新的复制对象
+var clip = new ZeroClipboard( document.getElementById("d_clip_button"), {
+  moviePath: "__TMPL__Public/js/ZeroClipboard.swf"
+} );
+
+// 复制内容到剪贴板成功后的操作
+clip.on( 'complete', function(client, args) {
+   alert("复制成功");
+} );
+
+
+$(".erweima").map(function(){jQuery(this).qrcode({width: 184,height: 184,text: $(".erweima").attr("data-url")});});         
+</script>
+</html>

@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+img{border:none;}
+a{text-decoration:none;}
+.clear{ clear:both;}
+ul{ list-style:none;}
+.left{float:left;} 
+.right{float:right;}
+.lin61{ line-height:61px !important;}
+body{width:750px; background:#ffe89a; font-family:"微软雅黑";}
+
+.didiv{height:90px; width:750px; position:fixed; bottom:0; border-top:1px solid #97888D; background-color:#FFF; text-align:center; font-size:23px; 			line-height:28px; padding-top:10px;}
+.difen{width:25%; height:90px; float:left; color:#4F4F4F;}
+.difen div{height:54px; background-position:center center; background-repeat:no-repeat;}
+.difen1{width:33.3%; height:90px; float:left; color:#4F4F4F;}
+.difen1 div{height:54px; background-position:center center; background-repeat:no-repeat;}
+.shouye div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/fangzi.png);}
+.shouye1 div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/fangzi1.png);}
+.jilu div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/bi.png);}
+.jilu1 div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/bi1.png);}
+.guize div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/ling.png);}
+.guize1 div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/ling1.png);}
+.paihang div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/xian.png);}
+.paihang1 div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/xian1.png);}
+.qthd div{background-image:url(http://oss.tongyishidai.com/addons/yyvote/images/qthd.png);}
+.shouye1 p,.jilu1 p,.guize1 p,.paihang1 p{color:#e96a5b;}

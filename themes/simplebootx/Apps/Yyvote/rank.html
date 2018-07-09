@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$title}-投票排名</title>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/common/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/yyvote/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/yyvote/js/zhezhao.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/yyvote/css/font-awesome.min.css"/>
+<script type="text/javascript">
+</script>
+<style type="text/css">
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{ clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+.d_n{ display:none;}
+.fl{float:left;}
+.fr{float:right;}
+body{width:750px;background:#eeeeee; font-family:"微软雅黑";}
+#fullbg{background-color:rgba(0,0,0,0.8); left:0; opacity:0.8; position:absolute; top:0; bottom:0; right:0; position:fixed; display:none; z-index:1; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+/*公共样式结束*/
+/*访问量开始*/
+.baoming{height:146px; background:#ff9b4b;margin-top:-1px;}
+.yibao{ height:146px; padding-top:24px;}
+.yibao li{float:left;width:238px;border-right:3px #fff solid;line-height:50px;}
+.yibao .text{ font-size:36px; color:#fff; text-align:center;}
+/*访问量结束*/
+/*倒计时、活动报名开始*/
+.bg{background-color: #fff;margin-top:24px;padding:46px 0;width:750px;}
+.jishi_bg{height:66px;border:2px solid #aaa;margin-left:36px;margin-right:36px;margin-bottom:65px;}
+.jishi_title{text-align:center;font-size:28px;color:#aaa;height:30px;width:270px;background-color:#fff;margin:-19px auto 0;}
+.jishi{text-align:center;height:50px;width:600px;margin:33px auto;background-color:#fff;}
+.jishi_cont{font-size:30px;height:50px;width:590px;text-align: center;margin-left:14px;}
+.jishi p{width:36px;background-color:#333333; color:#fff;line-height:50px;font-size:30px;float:left;border-radius:6px;margin-right:10px;}
+.jishi div span{float:left;line-height:50px;margin-right:13px;}
+.woyaoaa a{width:300px;height:70px;margin:0 auto;border-radius:6px;font-size:32px; color:#ff9b4b;text-align:center;line-height:70px;border:2px solid #ff9b4b;display:block;}
+/*倒计时、活动报名结束*/
+/*投票排名开始*/
+.content{background-color: #fff;margin-top:24px;}
+.title{font-size:38px; color:#ff9b4b;text-align:center;padding-top:30px;padding-bottom:18px;}
+.bianhao{ width:510px; height:83px; background:#73c8cb; border-radius:15px;margin:40px auto;}
+.inputdiv{width:330px; height:75px; background:#FFF;  border-top-left-radius:15px;border-bottom-left-radius:15px; outline:none; margin:4px; border:0; font-size:33px; text-indent:1.2em;}
+.bianhao .text{font-size:33px; color:#fff; width:150px;height:75px; background:#73c8cb; border:0;}
+.toupiao{ width:175px; height:78px; background:#ff756b; font-size:33px; color:#fff; text-align:center;line-height:78px; margin:0px 15px 45px 40px; float:left;}
+.to{ width:175px; height:78px; background:#f9493c; font-size:33px; color:#fff; text-align:center;line-height:78px; margin:0px 0px 45px 20px;float:left; }
+/*列表开始*/
+.qianhong{color:#ff9b4b;}
+.wd115{width:115px;text-align:center;}
+.wd190{width:175px;text-align:center;}
+.wd170{width:170px;text-align:center;}
+.liebiao table{margin:0 auto;font-size:30px;width:664px;}
+.liebiao td{line-height:50px;}
+.liebiao tr{border-bottom:2px solid #ff9b4b;display:block;}
+/*列表结束*/
+/*分页开始*/
+.fenye{margin:0 auto;width:670px;padding-top:30px;padding-bottom:20px;}
+.fenye .weixuanzhong{display:inline-block;width:56px;height:66px;line-height:66px;text-align:center;font-size:28px;color:#ff9b4b;border-top:1px solid #ff9b4b;border-bottom:3px solid #ff9b4b;border-left:2px solid #ff9b4b;border-right:2px solid #ff9b4b; margin-right:10px;}
+.fenye .xuanzhong{background:#ff9b4b;display:inline-block;width:59px;height:69px;line-height:66px;text-align:center;font-size:28px;color:#fff;margin-right:10px;}
+/*分页结束*/
+/*投票排名结束*/
+.banquan{text-align:center;font-size:20px;color:#8b8b8b;padding-top:30px;padding-bottom:12px;background-color: #fff;}
+.pager {margin: 0 auto;width: 670px;padding-top: 30px;padding-bottom: 20px;}
+.pager  a{display: inline-block;width: 56px;height: 66px;line-height: 66px;text-align: center;font-size: 28px;color: #ff9b4b;border-top: 1px solid #ff9b4b;border-bottom: 3px solid #ff9b4b;border-left: 2px solid #ff9b4b;border-right: 2px solid #ff9b4b;margin-right: 10px;
+}
+.pager .current {background: #ff9b4b;display: inline-block;width: 59px;height: 69px;line-height: 66px;text-align: center;font-size: 28px;color: #fff;margin-right: 10px;}
+</style>
+</head>
+<body>
+<img src="{:sp_get_asset_upload_path($thumb);}" width="750"/>
+<!--访问量开始-->
+<div class="baoming">
+	<ul class="yibao">
+    	<li>
+            <p class="text">参与选手</p>
+            <p class="text">{$join_count}</p>
+            
+        </li>
+       <li style="width:266px;">
+            <p class="text">累计投票</p>
+            <p class="text">{$vote_count}</p>
+            
+        </li>
+        <li style="border:none;">
+            <p class="text">访问量</p>
+            <p class="text">{$hits}</p>
+           
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<!--访问量结束-->
+<!-- 倒计时开始 -->
+<div class="bg">
+    <div class="jishi_bg">
+        <div class="jishi_title"><if condition="$cando eq -1">活动未开始<elseif condition="$cando eq 0"/>活动已结束<else/>距离活动结束还有</if></div>
+        <div class="jishi"> 
+            <div class="jishi_cont">
+                <p id="tian1">0</p><p id="tian2">0</p><p id="tian3">0</p><span>天</span>
+                <p id="shi1">0</p><p id="shi2">0</p><span>时</span>
+                <p id="fen1">0</p><p id="fen2">0</p><span>分</span>
+                <p id="miao1">0</p><p id="miao2">0</p><span>秒</span>
+            </div>
+        <div style="clear:both;"></div>
+        </div>
+    </div>
+    <div class="woyaoaa"><a href="javascript:history.go(-1);">回到首页</a></div>
+</div>
+<!-- 倒计时结束 -->
+<!-- 投票排名开始 -->
+<div class="content">
+    <div class="title">投票排名</div>
+<!--     <div class="toupiao">投票排行</div>
+    <div class="to">TOP200</div> -->
+    <div class="liebiao">
+        <table>
+            <tr class="tt">
+                <th class="wd115">排名</th>
+                <th class="wd190">编号</th>
+                <th class="wd170">姓名</th>
+                <th class="wd190">票数</th>
+            </tr>
+			<foreach name="ulist" item="u">
+				 <tr>
+				  <php>
+					if(empty($_GET['p'])){
+						$curr_p = 1;
+					}else{
+						$curr_p = intval($_GET['p']);
+					}
+				</php>
+				 <tr>
+					<td class="wd115 padleft30"><php>echo ($curr_p-1)*15+$key+1;</php></td>
+					<td class="wd190">{$u.id}</td>
+					<td class="wd170">{$u.username}</td>
+					<td class="qianhong wd190">{$u.per_num}</td>
+				</tr>
+			</foreach>
+        </table>
+    </div>
+	{$page}
+	<!--
+    <div class="fenye">
+        <a href="#" class="xuanzhong">1</a>
+        <a href="#" class="weixuanzhong">2</a>
+        <a href="#" class="weixuanzhong">3</a>
+        <a href="#" class="weixuanzhong">4</a>
+        <a href="#" class="weixuanzhong">5</a>
+        <a href="#" class="weixuanzhong">6</a>
+        <a href="#" class="weixuanzhong">7</a>
+        <a href="#" class="weixuanzhong">></a>
+        <a href="#" class="weixuanzhong">>></a>
+    </div>
+	-->
+</div>
+<!-- 投票排名结束 -->
+
+<tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+var tian1obj=$("#tian1");
+var tian2obj=$("#tian2");
+var tian3obj=$("#tian3");
+var shi1obj=$("#shi1");
+var shi2obj=$("#shi2");
+var fen1obj=$("#fen1");
+var fen2obj=$("#fen2");
+var miao1obj=$("#miao1");
+var miao2obj=$("#miao2");
+var qitime= "<php> echo time();</php>";
+var zhitime={$endtime};
+var jitime=null;
+var is_can = "{$cando}";
+$(function(){
+	if(is_can>0){
+	  daojishi();
+	  jitime=setInterval("daojishi()",1000);
+	}
+});
+function daojishi()
+{
+    qitime=parseInt(qitime)+1;
+    var chatime=zhitime-qitime;
+    if(chatime<0)
+    {
+        clearInterval(jitime); return;
+    }
+    var tian=parseInt(chatime/86400);
+    if(tian<100&&tian>9)
+        tian="0"+tian;
+    else if(tian<=9)
+        tian="00"+tian;
+    tian=tian.toString();
+    tian1obj.html(tian[0]);
+    tian2obj.html(tian[1]);
+    tian3obj.html(tian[2]);
+    var shi=parseInt((chatime%86400)/3600);
+    shi=shi>9?shi:"0"+shi;  
+    shi=shi.toString(); 
+    shi1obj.html(shi[0]);
+    shi2obj.html(shi[1]);
+    var fen=parseInt((chatime%86400%3600)/60);
+    fen=fen>9?fen:"0"+fen;
+    fen=fen.toString();
+    fen1obj.html(fen[0]);
+    fen2obj.html(fen[1]);
+    var miao=chatime%60;
+    miao=miao>9?miao:"0"+miao;
+    miao=miao.toString();
+    miao1obj.html(miao[0]);
+    miao2obj.html(miao[1]);
+}
+</script>
+</html>

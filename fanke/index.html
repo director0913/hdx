@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>凡科互动</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="viewport" content="user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link href="css/index.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/detailss.css"/>
+<script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+    	var remBase = Math.min(window.innerWidth,window.innerHeight)/16;
+        remBase === 0 && (remBase = 20);
+        document.getElementsByTagName('html')[0].style.fontSize = remBase + 'px';
+        g_rem = parseFloat(remBase);
+        window.onload(){
+            if(location.href.indexOf('#reloaded')==-1){
+                location.href=location.href+"#reloaded"; location.reload();
+            }
+        }
+    });
+
+</script>
+
+</head>
+	<body>
+
+<div id="hdContainer" class="container">
+	<div id="content" style="overflow: hidden;">
+		<div id="manageFrame" style="position:absolute;top:0;bottom:0px;left:0px;right:0px;height: auto;">
+			<iframe id="manageFramePage" class="manageFramePage" name="framePage" frameborder="0" scrolling="auto" src="indexs.html"></iframe>
+		</div>		
+	</div>
+</div>
+<div class="bottomFixedMenu">
+    <div class="menuItem checked" data-page="newActive" data-pagenav="创建活动"><div class="icon allActive" style=""></div><div class="itemName">所有活动</div></div>
+	<div class="menuItem" data-page="myActive" data-pagenav="我的活动"><a href="activity.html" target="_top" style="color:#999;"><div class="icon myActive"></div><div class="itemName">我的活动</div></a></div>	
+    <div class="menuItem" data-page="myAccount" data-pagenav="我的帐号"><a href="my.html" target="_top" style="color:#999;"><div class="icon myAccount"></div><div class="itemName">我的帐号</div></a></div>
+</div>
+
+
+
+
+</body>
+</html>

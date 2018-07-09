@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>题目管理</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/signup.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/addactivity.css" />
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top}
+	#baoming table input{ width:100%;}
+	.addtype{ width:100px; height:30px; line-height:30px; text-align:center; border:1px dashed #D8D8D8; cursor:pointer; margin-bottom:20px; margin-left:40px; color:#797268;}
+	.btn{ height:30px; line-height:30px; text-align:center; padding:0 10px; border:1px solid #D8D8D8; cursor:pointer; margin:0 5px; background-color:#F5F6FA; color:#797268; border-radius:5px;}
+	.default{ background-color:#FA741B; color:#FFF;}
+	.pd20{ padding:5px 20px !important;}
+	.t_a_l{ text-align:left !important;}
+	.m_r30{ margin-right:30px;}
+	.m_r60{ margin-right:60px;}
+	.formdiv{ margin-top:0;}
+	.formdiv .youdiv{ position:static; width:100%;}
+	.formdiv .youdiv .neidiv{position:static; width:initial}
+	.baomingdiv{ padding-bottom:20px; margin-bottom:20px; background-color:#fbfbfb;}
+	.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changinput{ width:840px;}
+	.formdiv .youdiv .neidiv .baomingdiv .banitem{ width:450px;}
+	.formdiv .youdiv .neidiv .baomingdiv .banitem .changinput{width:305px;}
+	.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .icodiv{ width:45px;}
+</style>
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="toptu">
+	<div class="pagediv1">
+        <div class="f_l">
+            <if condition="empty($users_info['avatar'])">
+                <img src="__TMPL__Public/images/touxiang.jpg" class="touxiang f_l" />
+            <else />
+                <img src="{:sp_get_asset_upload_path($users_info['avatar'])}" class="touxiang f_l" />
+            </if>
+            <php>$curr_user = sp_get_current_user(); </php>
+            <php>$lastmonth = strtotime("-1 month",$curr_user['valid_time']);$now = time();</php>
+            <div class="f_l" >
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">账号类型：<eq name="users_info['level']" value="0">普通会员<span style="color:#FA741B;margin-left:10px;">(您的账号
+                <php>$endtime =strtotime($curr_user['create_time'])+3600*24*30; </php>
+                <php>echo date("Y-m-d",$endtime);</php>后将无法使用！)</span><a href="{:U('portal/index/show_shengji',array('menu'=>3))}">升级会员</a></eq>
+                <eq name="users_info['level']" value="1">亲情会员
+                <if condition="$lastmonth elt $now">
+                    <span style="color:#FA741B;margin-left:10px;">(您的账号
+                    <php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)</span>
+                </if>
+                <a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq>
+                <eq name="users_info['level']" value="2">金牌会员
+                <if condition="$lastmonth elt $now">
+                    <span style="color:#FA741B;margin-left:10px;">(您的账号
+                    <php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)</span>
+                </if>
+                <a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq></p>
+                <p class="bianji"><a href="{:U('user/center/index')}"><span class="fa fa-pencil"></span>编辑资料</a></p>
+            </div>
+        </div>
+        <div class="f_r">
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/activity/index')}">
+            	<p class="number">{$activity_num}</p>
+                <p class="typename">我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+        	<div class="f_l fenxinxi active">
+                <a href="{:U('portal/app/index')}">
+            	<p class="number">{$app_num}</p>
+                <p class="typename">我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div>
+<div class="zhongzhaidiv">
+	<p class="daohang"><a href="{:U('portal/app/index')}">我的应用</a><span>></span>{$activity['title']}</p>
+    <ul class="tab p_r">
+		<li data-url="{:U('app/app_challenge_type',array('id'=>$aid,'new'=>$new))}">题目分类</li>
+		<li data-tab="baoming" class="active">题目管理</li>
+        <p class="c_b"></p>
+    </ul>
+    <div class="xiadiv formdiv" id="baoming">
+    	<div class="youdiv">
+        	<div class="neidiv">
+            	<div id="formdiv">
+                    <for start="0" end="count($list)">
+                    <div class="baomingdiv">
+                        <input type="hidden" name="id[]" value="{$list[$i]['id']}">
+                        <input type="hidden" name="right[]" value="{$list[$i]['right']}" >
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem">
+                                <p class="xiaotitle f_l">题目名称</p>
+                                <input type="text" class="changinput f_l" placeholder="题目名称" name="title[]" value="{$list[$i]['title']}">
+                                <div class="icodiv f_l"><p class="shanchu"></p></div>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem banitem f_l">
+                                <p class="xiaotitle f_l">选项1</p>
+                                <input type="text" class="changinput f_l" placeholder="选项1" name="item1[]" value="{$list[$i]['item1']}" >
+                                <if condition="$new neq 1"><div class="icodiv f_l"><p class='<if condition="$list[$i]['right'] eq 1">xuanze<else/>weixuan</if>' data-index="1"></p></div></if>
+                            </div>
+                            <div class="xiaoitem banitem f_r m_r30">
+                                <p class="xiaotitle f_l">选项2</p>
+                                <input type="text" class="changinput f_l" placeholder="选项2" name="item2[]" value="{$list[$i]['item2']}" >
+                                <if condition="$new neq 1"><div class="icodiv f_l"><p class='<if condition="$list[$i]['right'] eq 2">xuanze<else/>weixuan</if>' data-index="2"></p></div></if>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem banitem f_l">
+                                <p class="xiaotitle f_l">选项3</p>
+                                <input type="text" class="changinput f_l" placeholder="选项3" name="item3[]" value="{$list[$i]['item3']}" >
+                                <if condition="$new neq 1"><div class="icodiv f_l"><p class='<if condition="$list[$i]['right'] eq 3">xuanze<else/>weixuan</if>' data-index="3"></p></div></if>
+                            </div>
+                            <div class="xiaoitem banitem f_r m_r30">
+                                <p class="xiaotitle f_l">选项4</p>
+                                <input type="text" class="changinput f_l" placeholder="选项4" name="item4[]" value="{$list[$i]['item4']}" >
+                                <if condition="$new neq 1"><div class="icodiv f_l"><p class='<if condition="$list[$i]['right'] eq 4">xuanze<else/>weixuan</if>' data-index="4"></p></div></if>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <select name="type[]" style="margin:10px;height: 32px;">
+                            <option value="0" <if condition="$list[$i]['type'] eq 0">selected="selected"</if> >不设置成填空</option>
+                            <option value="1" <if condition="$list[$i]['type'] eq 1">selected="selected"</if> >设置成填空题</option>
+                        </select>
+                    </div>
+                    </for>
+                </div>
+            </div>
+        </div>
+        <p class="addtype f_l">添加题目</p>
+        <p class="btn f_r m_r60" onclick="javascript:history.back(-1)">取消</p>
+        <p class="btn default f_r subok">提交</p>
+        <p class="c_b"></p>
+    </div>
+</div>
+<tc_include file="Public:footer"/>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">13001265153</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">机构项目</td>
+            <td>
+                <label><input type="checkbox" value="1" />幼少儿培训</label>
+                <label><input type="checkbox" value="1" />初高中培训</label>
+                <label><input type="checkbox" value="1" />幼儿园</label>
+                <label><input type="checkbox" value="1" />早教机构</label><br/>
+                <label><input type="checkbox" value="1" />文化课培训</label>
+                <label><input type="checkbox" value="1" />素质教育课程</label>
+                <label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">地区</td>
+            <td class="address">
+                <select>
+                    <option>请选择省份</option>
+                </select>
+                <select style="margin-right:0;">
+                    <option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">规模</td>
+            <td>
+                <label><input type="radio" value="1" />300人以下</label>
+                <label><input type="radio" value="1" />300-800人</label>
+                <label><input type="radio" value="1" />800-3000人</label>
+                <label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd"></td>
+            <td align="center">
+                <input type="submit" class="tijiao" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+var clickstatus=false;
+var newstatus=parseInt("{$new}");
+$(function(){
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+	$(".tab li").click(function(){
+		if($(this).attr("data-url")!="")
+		{
+			window.location.href=$(this).attr("data-url");return;
+		}
+		$(".tab li.active").removeClass("active");
+		//隐藏所有标记
+		$(".xiadiv").hide();
+		//获取标记
+		var idzhi=$(this).attr("data-tab");
+		//显示标记对应的div
+		$("#"+idzhi).show();
+		$(this).addClass("active");
+	});
+	//添加题目
+	$(".addtype").click(function(){
+		var xuan1="",xuan2="",xuan3="",xuan4="";
+		if(newstatus==0)
+		{
+			xuan1='<div class="icodiv f_l"><p class="xuanze" data-index="1"></p></div>';
+			xuan2='<div class="icodiv f_l"><p class="weixuan" data-index="2"></p></div>';
+			xuan3='<div class="icodiv f_l"><p class="weixuan" data-index="3"></p></div>';
+			xuan4='<div class="icodiv f_l"><p class="weixuan" data-index="4"></p></div>';
+		}
+		var itemstr='<div class="baomingdiv">'+
+                        '<input type="hidden" name="id[]" value="0">'+
+                        '<input type="hidden" name="right[]" value="1" >'+
+                        '<div class="xiaoxiangdiv">'+
+                            '<div class="xiaoitem">'+
+                                '<p class="xiaotitle f_l">题目名称</p>'+
+                                '<input type="text" class="changinput f_l" placeholder="题目名称" name="title[]">'+
+                                '<div class="icodiv f_l"><p class="shanchu"></p></div>'+
+                                '<p class="c_b"></p>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="xiaoxiangdiv">'+
+                            '<div class="xiaoitem banitem f_l">'+
+                                '<p class="xiaotitle f_l">选项1</p>'+
+                                '<input type="text" class="changinput f_l" placeholder="选项1" name="item1[]">'+
+                                xuan1+
+                            '</div>'+
+                            '<div class="xiaoitem banitem f_r m_r30">'+
+                                '<p class="xiaotitle f_l">选项2</p>'+
+                                '<input type="text" class="changinput f_l" placeholder="选项2" name="item2[]">'+
+                                xuan2+
+                            '</div>'+
+                            '<p class="c_b"></p>'+
+                        '</div>'+
+                        '<div class="xiaoxiangdiv">'+
+                            '<div class="xiaoitem banitem f_l">'+
+                                '<p class="xiaotitle f_l">选项3</p>'+
+                                '<input type="text" class="changinput f_l" placeholder="选项3" name="item3[]">'+
+                                xuan3+
+                            '</div>'+
+                            '<div class="xiaoitem banitem f_r m_r30">'+
+                                '<p class="xiaotitle f_l">选项4</p>'+
+                                '<input type="text" class="changinput f_l" placeholder="选项4" name="item4[]">'+
+                                xuan4+
+                            '</div>'+
+                            '<p class="c_b"></p>'+
+                        '</div>'+
+                        '<select name="type[]" style="margin:10px;height: 32px;" >'+
+                            '<option value="0">不设置成填空</option>'+
+                            '<option value="1">设置成填空题</option>'+
+                        '</select>'+
+                    '</div>';
+		$("#formdiv").append(itemstr);
+	});
+	//点击删除按钮。
+	$("#baoming").on("click",".shanchu",function(){
+		//删除当前列。
+		$(this).parent().parent().parent().parent().remove();
+	});
+	//点击选择按钮。
+	$("#baoming").on("click",".weixuan",function(){
+		//当前节点的父节点的父节点的父节点的父节点下的所有xuanze变成未选。
+		$(this).parent().parent().parent().parent().find(".xuanze").removeClass("xuanze").addClass("weixuan");
+		//自己变成选择。
+		$(this).removeClass("weixuan").addClass("xuanze");
+		//修改隐藏域中的值。
+		$(this).parent().parent().parent().parent().find("input[name='right[]']").val($(this).attr("data-index"));
+	});
+	//点击提交按钮。
+	$(".subok").click(function(){
+		if(clickstatus) return;
+		var data={};
+		data.id=getnameArray("id[]");
+		data.right=getnameArray("right[]");
+		data.title=getnameArray("title[]");
+		data.item1=getnameArray("item1[]");
+		data.item2=getnameArray("item2[]");
+		data.item3=getnameArray("item3[]");
+		data.item4=getnameArray("item4[]");
+
+        data.type=getnameArray("type[]");
+        // debugger;
+
+		clickstatus=true;
+		$.post("{:U('portal/app/challenge_answer_post',array('aid'=>$aid,'typeid'=>$tid))}",data,
+		function(res){
+			clickstatus=false;
+			if(res.status>0)
+			{
+				alert("保存完成！"+res.msg);
+                return;
+                alert("保存完成！");
+				window.location.href="{:U('portal/app/app_challenge_type',array('id'=>$aid,'new'=>$new))}";
+			}
+			else
+			{
+				alert(res.msg);
+				window.location.href=window.location.href;
+			}
+		});
+	});
+})
+function getnameArray(name)
+{
+	//获取所有指定名称
+	var namels=$("[name='"+name+"']");
+	var arr=[];
+	for(var i=0;i<namels.length;i++)
+	{
+		arr[i]=$(namels[i]).val();
+	}
+	return arr;
+}
+
+//将值存为数组
+$(".tijiao").click(function(){
+    var school=$("input[name='school']").val();
+    var contact=$("input[name='contact']").val();
+    var mobile=$("input[name='mobile']").val();
+    //alert(school+contact+mobile);
+    $.post("{:U('user/profile/full_post')}",
+        {
+           school:school,
+           contact:contact,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //$('.fuxinxi').hide();
+                window.location.reload();
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+})
+</script>
+</html>

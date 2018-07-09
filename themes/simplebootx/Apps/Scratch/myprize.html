@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>宝箱</title>
+<script type="text/javascript" src="__TMPL__Apps/Scratch/scripts/zepto.min.js"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+
+<style type="text/css">
+*{ margin:0; padding:0;}
+body{width:750px; background:#6111b0 url(__TMPL__Apps/Scratch/images/dkrAi74Am7zRNF5mDniaRk5R4IdRRM.jpg) 0 0 no-repeat; font-family:'微软雅黑';}
+.toptu{ width:750px; position:relative;}
+.btnp{width:652px; height:90px; line-height:90px; font-size:33px; color:#FFF; text-align:center; margin:45px auto 21px auto; background-color:rgba(255,255,255,0.4); border-radius:9px;  position:absolute; top:386px; left:35px; letter-spacing:0.1em; padding: 8px 14px; }
+.btnp .btnpaa{ background:#ebd3f7;border-radius:9px;background-color:rgba(255,255,255,0.2);}
+.choujiang{width:680px;height:188px; border-radius:9px; background:#e5d4f4; margin: 560px 35px 20px 35px; }
+.chouzhong{width:480px; margin-left:150px; }
+.choujiangaa{ padding:38px 38px 33px;line-height:50px; }
+.choujiangaa .text{color:#3e3c41; font-size:22px;  }
+.choujiangaa .text2{color:#3e3c41; font-size:30px;}
+
+.didiv{height:90px; width:750px; position:fixed; bottom:0; border-top:1px solid #97888D; background-color:#FFF; text-align:center; font-size:23px; line-height:28px;}
+.difen{width:25%; height:90px; float:left; color:#4F4F4F;}
+.difen div{height:54px; background-position:center center; background-repeat:no-repeat;}
+.shouye div{background-image:url(__TMPL__Apps/Scratch/images/shouye.png);}
+.shouye1 div{background-image:url(__TMPL__Apps/Scratch/images/shouye01.png);}
+.baoxiang div{background-image:url(__TMPL__Apps/Scratch/images/baoxiang.png);}
+.baoxiang1 div{background-image:url(__TMPL__Apps/Scratch/images/baoxiang1.png);}
+.guize div{background-image:url(__TMPL__Apps/Scratch/images/guize.png);}
+.guize1 div{background-image:url(__TMPL__Apps/Scratch/images/guize1.png);}
+.paihang div{background-image:url(__TMPL__Apps/Scratch/images/paihang.png);}
+.paihang1 div{background-image:url(__TMPL__Apps/Scratch/images/paihang1.png);}
+.shouye1 p,.baoxiang1 p,.guize1 p,.paihang1 p{color:#6013b1;}
+</style>
+</head>
+
+<body>
+	<!--<img class="toptu" src="images/bg02.jpg" />-->
+	<div class="btnp" onclick="showBg('fenxiang')">
+    	<div class="btnpaa">我的奖品</div>
+    </div>
+    <div style=" text-align:center; margin-top:560px; display:<php> if(count($list)>0) echo 'none'; else echo 'block';</php>">
+    	<img src="__TMPL__Apps/Scratch/images/kong.png" style="margin-top:100px;" />
+        <p style="font-size:30px; line-height:50px; color:#FFF;">宝箱还是空的哦，先去抽奖吧。</p>
+    </div>
+    <foreach name="list"  item="re">
+		<div class="choujiang" <if condition="$key gt 0"> style="margin-top:20px;"</if></div>
+			<div class="choujiangaa" style="margin-bottom:20px;">
+				<img style="float:left;" src="{$re['thumb']}" width="100" height="110";>
+				<div class="chouzhong">
+					<p class="text"><php> echo date('Y-m-d H:i', $re['createtime']);</php>　　抽中</p>
+					<p class="text2">{$re['type']}：{$re['name']}</p>
+				</div>
+			</div>
+		</div>
+    </foreach>
+    <div style="padding-top:92px;"></div>
+    <div class="didiv">
+    	<div class="difen shouye">
+        	<div></div>
+            <p>刮奖</p>
+        </div>
+    	<div class="difen baoxiang1">
+        	<div></div>
+            <p>宝箱</p>
+        </div>
+    	<div class="difen guize">
+        	<div></div>
+            <p>规则</p>
+        </div>
+    	<div class="difen paihang">
+        	<div></div>
+            <p>排行</p>
+        </div>
+    </div>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+$(function() {
+	/**$("#scratchpad").wScratchPad({
+		size:30,
+		width: 593,
+		height: 249,
+		color: "#a9a9a7",
+		scratchMove: function(e,percent) {
+			if(percent > 50&&gua)
+			{
+                this.clear();
+				gua=false;
+				if(zhi!=7)
+					showBg('tanjiang');
+				else showBg('wujiang');
+			}
+		}
+	});**/
+	$(".shouye,shouye1").click(function(){
+		var url="{:U('apps/Scratch/index',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".baoxiang,baoxiang1").click(function(){
+		var url="{:U('apps/Scratch/myprize',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".guize,guize1").click(function(){
+		var url="{:U('apps/Scratch/rule',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".paihang,paihang1").click(function(){
+		var url="{:U('apps/Scratch/rank',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+});
+</script>
+</body>
+</html>

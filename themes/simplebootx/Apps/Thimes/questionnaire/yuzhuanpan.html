@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>大转盘</title>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/zhezhao.js"></script>
+<style>
+/*基础样式开始*/
+*{ margin:0; padding:0;}
+.wt100{ width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+.o_h{ overflow:hidden;}
+.hangzi1{ height:16px;}
+ </literal>
+ 
+ 
+body{width:320px;background:#fff1c3;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+#fullbg,#fullbg2{background-color:rgba(0,0,0,0.9); left:0; opacity:0.8;top:0; bottom:0;position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;width:320px;}
+#fullbg2{z-index:20;}
+.banquan{text-align:center;font-size:13px; color:#666465;padding-top:10px;padding-bottom:12px;}
+/*转盘开始*/
+.zhuanpan{width:320px;position:relative;}
+.toptu{height:186px;}
+.zhuanpan_title{position: absolute;top:122px;left:50%;width:200px;margin-left:-100px;color: #fde441;font-size:14px;text-align: center;}
+.zhuanpan_cont{position: absolute;top:146px;left:50%;width:250px;margin-left:-125px;color: #fff;font-size:14px;text-align: center;}
+.chakan{position: absolute;top:164px;right:10px;width:80px;color:#fde441;font-size:12px;text-align:right;}
+.zhuanpan_bg{height:278px;}
+.jiangdiv{ font-size:12px; color:#5f080b; text-align:center; width:93px; position:absolute;}
+.jiangdiv .jichu{margin-right:7px;}
+.jiangdiv.tu2 .jichu,.jiangdiv.tu3 .jichu,.jiangdiv.tu4 .jichu{margin-left:2px;margin-right:5px;}
+.jiangdiv .tujichu{ margin-top:10px;}
+.jiangdiv .tudiv{ height:44px; overflow:hidden;}
+.jiangdiv .tudiv img{ height:100%;width:auto;}
+.jiangdiv .jichu p{ overflow:hidden;margin-top:2px;}
+.tu1{ top:16px; left:20px;}
+.tu2{ top:16px; left:116px;}
+.tu3{ top:97px; left:213px;}
+.tu4{ top:180px; left:213px;}
+.tu5{ top:180px; left:20px;}
+.tu6{ top:97px; left:20px;}
+/*转盘结束*/
+/*如何抽奖开始*/
+#baoxiang{ position:fixed;top:0; left:0;width:320px;z-index:20;padding:20px 0px; color:#FFF; display:none; }
+#baoxiang>.baoxiang_title{line-height:25px; border-bottom:1px solid #FFF; position:relative; font-size:16px; padding-left:8px;padding-bottom:5px;margin-left:12px;margin-right:12px;padding-right:50px;}
+#baoxiang>.baoxiang_title img{position:absolute; right:10px; top:5px;width:18px;height:18px;}
+#baoxiang .shuoming{padding:8px 20px;word-break:break-all;font-size:14px;line-height:24px;overflow: auto;height:400px;}
+#baoxiang .shuoming_text img{max-width:100%;}
+/*如何抽奖结束*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+</style>
+</head>
+<body>
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/questionnaire/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title o_h hangzi1"></p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+<!--通用上部结束-->
+<div class="caozuoqu">
+    <div class="zhuanpan">
+        <img class="toptu" src="__TMPL__Apps/Thimes/questionnaire/images/toptu.jpg" width="320" />
+        <div class="zhuanpan_title">
+            <div class="jichu">
+                <p class="school o_h hangzi1">招生秀</p>
+                <span class="czspan" onclick="dianji('school','base')">编辑</span>
+            </div>
+        </div>
+        <div class="zhuanpan_cont">
+            <div class="jichu">
+                <p class="title o_h hangzi1">招生秀邀您一起抽大奖</p>
+                <span class="czspan" onclick="dianji('title','base')">编辑</span>
+            </div>
+        </div>
+        <div class="chakan">兑奖说明>></div>
+    </div>
+    <div class="p_r">
+    	<img src="__TMPL__Apps/Thimes/questionnaire/images/jiangpinls.png" width="320"/>
+        <div class="jiangdiv tu1">
+            <div class="jichu tujichu">
+            	<div class="tudiv"><img src="" class="prize1_thumb"/></div>
+                <span class="czspan" onclick="dianji('prize1_thumb',['gaoji','yideng'])">编辑</span>
+            </div>
+            <div class="jichu">
+            	<p class="prize1_name">谢谢参与</p>
+                <span class="czspan" onclick="dianji('prize1_name',['gaoji','yideng'])">编辑</span>
+            </div>
+        </div>
+        <div class="jiangdiv tu2">
+            <div class="jichu tujichu">
+            	<div class="tudiv"><img src="" class="prize2_thumb"/></div>
+                <span class="czspan" onclick="dianji('prize2_thumb',['gaoji','erdeng'])">编辑</span>
+            </div>
+            <div class="jichu">
+            	<p class="prize2_name">谢谢参与</p>
+                <span class="czspan" onclick="dianji('prize2_name',['gaoji','erdeng'])">编辑</span>
+            </div>
+        </div>
+        <div class="jiangdiv tu3">
+            <div class="jichu tujichu">
+            	<div class="tudiv"><img src="" class="prize3_thumb"/></div>
+                <span class="czspan" onclick="dianji('prize3_thumb',['gaoji','sandeng'])">编辑</span>
+            </div>
+            <div class="jichu">
+            	<p class="prize3_name">谢谢参与</p>
+                <span class="czspan" onclick="dianji('prize3_name',['gaoji','sandeng'])">编辑</span>
+            </div>
+        </div>
+        <div class="jiangdiv tu4">
+            <div class="jichu tujichu">
+            	<div class="tudiv"><img src="" class="prize4_thumb"/></div>
+                <span class="czspan" onclick="dianji('prize4_thumb',['gaoji','sideng'])">编辑</span>
+            </div>
+            <div class="jichu">
+            	<p class="prize4_name">谢谢参与</p>
+                <span class="czspan" onclick="dianji('prize4_name',['gaoji','sideng'])">编辑</span>
+            </div>
+        </div>
+        <div class="jiangdiv tu5">
+            <div class="jichu tujichu">
+            	<div class="tudiv"><img src="" class="prize5_thumb"/></div>
+                <span class="czspan" onclick="dianji('prize5_thumb',['gaoji','wudeng'])">编辑</span>
+            </div>
+            <div class="jichu">
+            	<p class="prize5_name">谢谢参与</p>
+                <span class="czspan" onclick="dianji('prize5_name',['gaoji','wudeng'])">编辑</span>
+            </div>
+        </div>
+        <div class="jiangdiv tu6">
+            <div class="jichu tujichu">
+            	<div class="tudiv"><img src="" class="prize6_thumb"/></div>
+                <span class="czspan" onclick="dianji('prize6_thumb',['gaoji','liudeng'])">编辑</span>
+            </div>
+            <div class="jichu">
+            	<p class="prize6_name">谢谢参与</p>
+                <span class="czspan" onclick="dianji('prize6_name',['gaoji','liudeng'])">编辑</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script type="text/javascript">
+$(function(){
+	genggai("title");
+	genggai("school");
+    genggai("prize1_name");
+    genggai("prize2_name");
+    genggai("prize3_name");
+    genggai("prize4_name");
+    genggai("prize5_name");
+    genggai("prize6_name");
+	genggai("prize1_thumb","img");
+    genggai("prize2_thumb","img");
+    genggai("prize3_thumb","img");
+    genggai("prize4_thumb","img");
+    genggai("prize5_thumb","img");
+    genggai("prize6_thumb","img");
+})
+</script>
+</html>

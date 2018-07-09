@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>活动报名</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/signup.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top} 
+</style>
+</head>
+<body>
+<tc_include file="Public:nav" />
+<!-- <div class="toptu">
+	<div class="pagediv1">
+        <div class="f_l">
+            <if condition="empty($users_info['avatar'])">
+                <img src="__TMPL__Public/images/touxiang.jpg" class="touxiang f_l" />
+            <else />
+                <img src="{:sp_get_asset_upload_path($users_info['avatar'])}" class="touxiang f_l" />
+            </if>
+            <php>$curr_user = sp_get_current_user(); </php>
+            <php>$lastmonth = strtotime("-1 month",$curr_user['valid_time']);$now = time();</php>
+            <div class="f_l" >
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">账号类型：<eq name="users_info['level']" value="0">普通会员<span style="color:#FA741B;margin-left:10px;">(您的账号
+                <php>$endtime =strtotime($curr_user['create_time'])+3600*24*30; </php>
+                <php>echo date("Y-m-d",$endtime);</php>后将无法使用！)</span><a href="{:U('portal/index/show_shengji',array('menu'=>3))}">升级会员</a></eq>
+                <eq name="users_info['level']" value="1">亲情会员
+                <if condition="$lastmonth elt $now">
+                    <span style="color:#FA741B;margin-left:10px;">(您的账号
+                    <php>$endtime =strtotime($user['valid_time']); </php>
+                    <php>echo date("Y-m-d",$endtime);</php>后将无法使用！)</span>
+                </if>
+                <a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq>
+                <eq name="users_info['level']" value="2">金牌会员
+                <if condition="$lastmonth elt $now">
+                    <span style="color:#FA741B;margin-left:10px;">(您的账号
+                    <php>$endtime =strtotime($user['valid_time']); </php>
+                    <php>echo date("Y-m-d",$endtime);</php>后将无法使用！)</span>
+                </if>
+                <a href="{:U('portal/index/show_vip',array('menu'=>2))}">如何升级权限</a></eq></p>
+                <p class="bianji"><a href="{:U('user/center/index')}"><span class="fa fa-pencil"></span>编辑资料</a></p>
+            </div>
+        </div>
+        <div class="f_r">
+        	<div class="f_l fenxinxi active">
+                <a href="{:U('portal/activity/index')}">
+            	<p class="number">{$activity_num}</p>
+                <p class="typename">我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+        	<div class="f_l fenxinxi">
+                <a href="{:U('portal/app/index')}">
+            	<p class="number">{$app_num}</p>
+                <p class="typename">我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div> -->
+<div class="zhongzhaidiv">
+
+	<p class="daohang"><a href="{:U('portal/activity/index')}">我的活动</a><span>></span>{$activity.name}</p>
+    <ul class="tab p_r">
+		<if condition="$type eq 0 or $type eq 1">
+			<li data-tab="baoming"  class="active"  >报名信息（{$total}）</li>
+			<if condition="$activity['is_distri'] eq 1">
+				<li data-tab="yaoqing">邀请关系（{$yaoqing_num}）</li>
+			</if>
+		<else/>
+			<li data-tab="baoming">报名信息（{$total}）</li>
+    		<if condition="$activity['is_distri'] eq 1">
+    			<li data-tab="yaoqing"  class="active">邀请关系（{$yaoqing_num}）</li>
+			</if>
+		</if>
+        <p class="c_b"></p>
+    </ul>
+    <div <if condition="$type eq 0 or $type eq 1"> class="xiadiv" <else/>  class="xiadiv d_n" </if> id="baoming">
+    	<div class="caozuodiv">
+        	<p class="f_l ziduan">搜索</p><input type="text" class="souinput f_l" placeholder="输入要查找的内容" value="{$keyword}" id="searchname1" /><input type="button" value="搜索" class="soubtn f_l" id="search1" />
+            <input type="button" value="导出数据" class="f_r daochubtn"/>
+            <select class="f_r" id="selectID1" onchange="selectChange()">
+            	<option <?php if($select==2) echo "selected=\"selected\""; ?> value="2">报名类型</option>
+            	<option <?php if($select==1) echo "selected=\"selected\""; ?> value="1">已报名</option>
+            	<option <?php if($select==0) echo "selected=\"selected\""; ?> value="0">已取消</option>
+            </select>
+            <p class="c_b"></p>
+        </div>
+    	<table border="0" cellpadding="0" cellspacing="0" class="formtb wt100">
+        	<tr>
+            	<th width="40"></th>
+            	<th width="110">报名人</th>
+                <th width="125">手机号</th>
+                <th width="147">报名时间</th>
+                <th width="136">备注</th>
+                <th width="125">报名类型</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="form_row" item="vo" >
+            <tr>
+                <td></td>
+                <td>{$vo.username}</td>
+                <td>{$vo.mobile|default="137XXXX123"}</td>
+                <td>{$vo.createtime|date='Y-m-d',###}</td>
+                <td class="p_r beizhuxinxi">
+                    <a href="javascript:void(0)"><if condition=" $vo.remark eq '' "> 添加备注<else />{$vo.remark|msubstr=0,9,'utf-8',false}</if></a>
+                    <div class="beizhu">
+                        <p class="jiantou"></p>
+                        <p class="title">备注信息</p>
+                        <p class="input p_r">
+                            <input type="text" class="bzinput" id="putong{$vo.id}" maxlength="32" value="{$vo.remark}" />
+                            <span>32/32</span>
+                        </p>
+                        <div><p class="btnok f_l putong" data-id="{$vo.id}">确定</p><p class="btnquxiao f_r">取消</p><p class="c_b"></p></div>
+                    </div>
+                </td>
+                <td width="125"><if condition="$activity['is_distri'] eq 1">分销<else />普通</if></td>
+                <td class="p_r">
+                    <a href="javascript:void(0)" onclick="showxinxi(this)">详情</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void(0)" class="delete" data-id="{$vo.id}" >删除</a>
+                    <div class="xinxidiv">
+                        <div class="touxianglan">
+                            <div>
+                                <img src="{$vo.avatar}" />
+                                <p>{$vo.username}</p>
+                            </div>
+                        </div>
+                        <div class="f_r youxinxi p_r">
+                            <span class="fa fa-close"></span>
+                            <p><span>姓名：</span>{$vo.username}</p>
+                            <p><span>电话：</span>{$vo.mobile}</p>
+                            <foreach name="vo.info_detail" item="vv" >
+                            <if condition=" $vv.type neq 4">
+                                <p><span>{$vv.name}：</span>{$vv.value}</p>
+                            <else/>
+                                <p><span>{$vv.name}：</span><img src="{$vv.value}"/></p>
+                            </if>
+                            </foreach>
+                            <p><span>备注：</span>{$vo.remark}</p>
+                            <div class="time">{$vo.createtime|date='Y-m-d',###}</div>
+                        </div>
+                        <p class="c_b"></p>
+                    </div>
+                </td>
+            </tr>
+            </foreach>
+        </table>
+		<div class="pagelist">{$page1}</div>
+    </div>
+        <div <if condition="$type eq 2 and $activity['is_distri'] eq 1"> class="xiadiv " <else/>  class="xiadiv d_n" </if> id="yaoqing">
+        <div class="caozuodiv">
+            <p class="f_l ziduan">搜索</p><input type="text" class="souinput f_l" placeholder="输入要查找的内容" value="{$name}" id="searchname2" /><input type="button" value="搜索" class="soubtn f_l" id="search2" />
+            <input type="button" value="导出数据" class="f_r daochubtn"/>
+            <select class="f_r" id="selectID2" onchange="selectChange2()">
+                <option <?php if($select==2) echo "selected=\"selected\""; ?> value="2">报名类型</option>
+                <option <?php if($select==1) echo "selected=\"selected\""; ?> value="1">已报名</option>
+                <option <?php if($select==0) echo "selected=\"selected\""; ?> value="0">已取消</option>
+            </select>
+            <p class="c_b"></p>
+        </div>
+        <table border="0" cellpadding="0" cellspacing="0" class="formtb wt100">
+            <tr>
+                <th width="40"></th>
+                <th width="110">报名人</th>
+                <th width="125">手机号</th>
+                <th width="147">报名时间</th>
+                <th width="136">备注</th>
+                <th width="125">分享次数</th>
+                <th width="123">邀请人数</th>
+                <th>操作</th>
+            </tr>
+        </table>
+        <foreach name="yaoqing" item="vo" >
+        <dl>
+            <dt>
+            	<table border="0" cellpadding="0" cellspacing="0" class="formtb wt100">
+                    <tr>
+                        <td width="40"><span class="fa fa-angle-down"></span></td>
+                        <td width="110">{$vo.username}</td>
+                        <td width="125">{$vo.mobile|default="137XXXX123"}</td>
+                        <td width="147">{$vo.createtime|date='Y-m-d',###}</td>
+                        <td width="136" class="p_r beizhuxinxi">
+                        	<a href="javascript:void(0)"><if condition=" $vo.remark eq '' "> 添加备注<else />{$vo.remark|msubstr=0,9,'utf-8',false}</if></a>
+                            <div class="beizhu">
+                            	<p class="jiantou"></p>
+                                <p class="title">备注信息</p>
+                                <p class="input p_r">
+                                	<input type="text" class="bzinput" id="noputong{$vo.id}" maxlength="32" value="{$vo.remark}" />
+                                    <span>32/32</span>
+                                </p>
+                                <div><p class="btnok f_l noputong" data-id="{$vo.id}">确定</p><p class="btnquxiao f_r">取消</p><p class="c_b"></p></div>
+                            </div>
+                        </td>
+                        <td width="125">{$vo.share_hits}</td>
+                        <td width="123"><php>echo count($vo['relation'])</php></td>
+                        <td class="p_r">
+                        	<a href="javascript:void(0)" onclick="showxinxi(this)">详情</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void(0)" class="delete" data-id="{$vo.id}">删除</a>
+                            <div class="xinxidiv">
+                            	<div class="touxianglan">
+                                	<div>
+                                    	<img src="{$vo.avatar}" />
+                                        <p>{$vo.username}</p>
+                                    </div>
+                                </div>
+                            	<div class="f_r youxinxi p_r">
+                                	<span class="fa fa-close"></span>
+                                    <p><span>姓名：</span>{$vo.username}</p>
+                                    <p><span>电话：</span>{$vo.mobile}</p>
+                                    <foreach name="vo.info_detail" item="vv" >
+                                        <if condition=" $vv.type neq 4">
+                                            <p><span>{$vv.name}：</span>{$vv.value}</p>
+                                        <else />
+                                            <p><span>{$vv.name}：</span><img src="{$vv.value}"/></p>
+                                        </if>
+                                    </foreach>
+                                    <p><span>备注：</span>{$vo.remark}</p>
+                                    <div class="time">{$vo.createtime|date='Y-m-d',###}</div>
+                                </div>
+                                <p class="c_b"></p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </dt>
+            <dd class="d_n">
+                <table border="0" cellpadding="0" cellspacing="0" class="formtb wt100">
+                <foreach name="vo.relation" item="vv" >
+                	<tr>
+                        <td width="40"></td>
+                        <td width="110">{$vv.username}</td>
+                        <td width="125">{$vv.mobile|default="137XXXX123"}</td>
+                        <td width="147">{$vv.createtime|date='Y-m-d',###}</td>
+                        <td width="136" class="p_r beizhuxinxi">
+                        	<a href="javascript:void(0)"><if condition=" $vv.remark eq '' "> 添加备注<else />{$vv.remark|msubstr=0,9,'utf-8',false}</if></a>
+                            <div class="beizhu">
+                            	<p class="jiantou"></p>
+                                <p class="title">备注信息</p>
+                                <p class="input p_r">
+                                	<input type="text" class="bzinput" id="noputong{$vv.id}" maxlength="32" value="{$vv.remark}" />
+                                    <span>32/32</span>
+                                </p>
+                                <div><p class="btnok f_l noputong" data-id="{$vv.id}">确定</p><p class="btnquxiao f_r">取消</p><p class="c_b"></p></div>
+                            </div>
+                        </td>
+                        <td width="125"></td>
+                        <td width="123"></td>
+                        <td class="p_r">
+                        	<a href="javascript:void(0)" onclick="showxinxi(this)">详情</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void(0)" class="delete" data-id="{$vv.id}">删除</a>
+                            <div class="xinxidiv">
+                            	<div class="touxianglan">
+                                	<div>
+                                    	<img src="{$vv.avatar}" />
+                                        <p>{$vv.username}</p>
+                                    </div>
+                                </div>
+                                <div class="f_r youxinxi p_r">
+                                    <span class="fa fa-close"></span>
+                                    <p><span>姓名：</span>{$vv.username}</p>
+                                    <p><span>电话：</span>{$vv.mobile}</p>
+                                    <foreach name="vv.info_detail" item="vvinfo">
+                                        <if condition=" $vvinfo.type neq 4">
+                                            <p><span>{$vvinfo.name}：</span>{$vvinfo.value}</p>
+                                        <else />
+                                            <p><span>{$vvinfo.name}：</span><img src="{$vvinfo.value}"/></p>
+                                        </if>
+                                    </foreach>
+                                    <p><span>备注：</span>{$vv.remark}</p>
+                                    <div class="time">{$vv.createtime|date="Y-m-d",###}</div>
+                                </div>
+                                <p class="c_b"></p>
+                            </div>
+                        </td>
+                    </tr>
+                </foreach>
+                </table>
+				
+            </dd>
+        </dl>
+        </foreach>
+		<div class="pagelist" >{$page2}</div>
+    </div>
+	
+</div>
+<tc_include file="Public:footer"/>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">13001265153</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">机构项目</td>
+            <td>
+                <label><input type="checkbox" value="1" />幼少儿培训</label>
+                <label><input type="checkbox" value="1" />初高中培训</label>
+                <label><input type="checkbox" value="1" />幼儿园</label>
+                <label><input type="checkbox" value="1" />早教机构</label><br/>
+                <label><input type="checkbox" value="1" />文化课培训</label>
+                <label><input type="checkbox" value="1" />素质教育课程</label>
+                <label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">地区</td>
+            <td class="address">
+                <select>
+                    <option>请选择省份</option>
+                </select>
+                <select style="margin-right:0;">
+                    <option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">规模</td>
+            <td>
+                <label><input type="radio" value="1" />300人以下</label>
+                <label><input type="radio" value="1" />300-800人</label>
+                <label><input type="radio" value="1" />800-3000人</label>
+                <label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd"></td>
+            <td align="center">
+                <input type="submit" class="tijiao" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+	$(".youxinxi .fa").click(function(){
+		$(this).parent().parent().hide();
+	})
+	$("dt td .fa-angle-down").click(function(){
+		$(this).parent().parent().parent().parent().parent().parent().find("dd").toggleClass("d_n");
+	})
+	$(".tab li").click(function(){
+		$(".tab li.active").removeClass("active");
+		//隐藏所有标记
+		$(".xiadiv").hide();
+		//获取标记
+		var idzhi=$(this).attr("data-tab");
+		//显示标记对应的div
+		$("#"+idzhi).show();
+		$(this).addClass("active");
+	})
+	$(".beizhu .btnquxiao").click(function(){
+		$(this).parent().parent().hide();
+	})
+	$(".beizhu .btnok").click(function(){
+		var html=$($(this).parent().parent().find(".input .bzinput")[0]).val();
+        if(html=="")
+            html="添加备注";
+        html=html.substr(0,9);
+		$(this).parent().parent().prev().html(html);
+		$(this).parent().parent().hide();
+		$(this).parent().parent().prev().removeClass("moren");
+	})
+	$(".beizhuxinxi a").click(function(){
+		$(this).parent().find(".beizhu").show();
+	})
+	$(".beizhu .bzinput").keyup(function(){
+		//获取内容数量
+		var html=$(this).val();
+		//显示在右边。
+		$(this).next().html((32-html.length)+"/32");
+	});
+})
+function showxinxi(obj)
+{
+	$(obj).parent().find(".xinxidiv").show();
+}
+$(".putong").click(function(){
+        var id = $(this).attr("data-id");
+        var remark=$('#putong'+id).val();
+        if(remark=="")
+        {
+            return;
+        }
+        $.post("{:U('portal/activity/remark_post')}",
+		{
+		   id:id,
+		   remark:remark
+		},
+  		function(data,status){
+    		if(data.status<0)
+    		{
+    			//alert(data.msg);
+                alert("没有更新备注");
+    		}
+            else
+            {
+                $('#noputong'+id).val(remark);
+            }
+  		});
+    })
+$(".noputong").click(function(){
+        var id = $(this).attr("data-id");
+        var remark=$('#noputong'+id).val();
+		remark = remark.replace(/(^\s*)|(\s*$)/g, ""); 
+        if(remark=="")
+        {
+            return;
+        }
+        $.post("{:U('portal/activity/remark_post')}",
+        {
+           id:id,
+           remark:remark
+        },
+        function(data,status){
+            if(data.status<0)
+            {
+                //alert(data.msg);
+                alert("没有更新备注");
+            }
+            else
+            {
+                $('#putong'+id).val(remark);
+            }
+        });
+    })
+$(".delete").click(function(){
+	var id=$(this).attr('data-id');
+	 $.post("{:U('portal/activity/status_post')}",
+	{
+	   id:id
+	},
+	function(data,status){
+		if(data.status<0)
+		{
+			alert(data.msg);
+		}
+		if(data.status==1)
+		{
+			alert(data.msg);
+		}
+	});
+
+})
+$(".daochubtn").click(function(){
+	//alert("测试导出数据！！！！");
+	var url="{:U('portal/activity/export_data',array('id'=>$_GET['id']))}";
+	window.location.href = url;
+});
+function selectChange()
+{
+    var objS = document.getElementById("selectID1");
+    var value = objS.options[objS.selectedIndex].value;
+    if (value == 1) {
+       var url="{:U('portal/activity/show_baoming',array('form_id'=>$form_id,'status'=>1))}";
+       open(url,'_self');
+    }
+    if (value == 0) {
+       var url="{:U('portal/activity/show_baoming',array('form_id'=>$form_id,'status'=>0))}";
+       open(url,'_self');
+    }
+}
+function selectChange2()
+{
+    var objS = document.getElementById("selectID2");
+    var value = objS.options[objS.selectedIndex].value;
+    if (value == 1) {
+       var url="{:U('portal/activity/show_baoming',array('form_id'=>$form_id,'status'=>1))}";
+       open(url,'_self');
+    }
+    if (value == 0) {
+       var url="{:U('portal/activity/show_baoming',array('form_id'=>$form_id,'status'=>0))}";
+      open(url,'_self');
+    }
+}
+$("#search1").click(function(){
+    var name=$("#searchname1").val();
+    var id="{$_GET['id']}";
+    var url="/index.php/portal/activity/show_join/type/1/"+"id/"+id+"/keyword/"+name+".shtml";
+    window.location.href = url;
+})
+$("#search2").click(function(){
+    var name=$("#searchname2").val();
+    var id="{$_GET['id']}";
+    var url="/index.php/portal/activity/show_join/type/2/"+"id/"+id+"/keyword/"+name+".shtml";
+    window.location.href = url;
+})
+$(".tijiao").click(function(){
+    var school=$("input[name='school']").val();
+    var contact=$("input[name='contact']").val();
+    var mobile=$("input[name='mobile']").val();
+    //alert(school+contact+mobile);
+    $.post("{:U('user/profile/full_post')}",
+        {
+           school:school,
+           contact:contact,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //$('.fuxinxi').hide();
+                window.location.reload();
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+})
+</script>
+</html>

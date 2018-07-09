@@ -1,0 +1,89 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>活动介绍</title>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<style>
+*{ margin:0; padding:0;}
+.wt100{width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+body{width:320px;background:#eeeeee;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+.bgc{position:relative;width:320px;}
+/*活动介绍开始*/
+.content{background-color:#fff;margin-top:10px;padding:0 18px;}
+.content_title{font-size:20px; color:#ff9b4b;text-align:center;padding-top:14px;padding-bottom:8px;}
+.text{font-size:15px;word-break:break-all;line-height:22px;}
+.text img{max-width:100%;}
+/*活动介绍结束*/
+.banquan{text-align:center;font-size:12px;color:#8b8b8b;padding-top:20px;padding-bottom:12px;background-color: #fff;}
+</style>
+</head>
+<body>
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/common/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title">寻找最美萌娃</p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+<div class="caozuoqu">
+    <div class="bgc">
+        <div class="jichu">
+            <img src="http://skt.tongyishidai.com/demo/mengwa/mengwa_pc/images/bg.jpg" width="320" class="thumb" />
+            <span class="czspan" onclick="dianji('thumb','base')" style="top:0;">编辑</span>
+        </div>
+    </div>
+    <img src="http://skt.tongyishidai.com/demo/mengwa/mengwa_pc/images/daojishi.png" alt="" />
+    <!-- 活动介绍开始 -->
+    <div class="content">
+        <div class="content_title">活动介绍</div>
+        <div class="jichu">
+            <div class="text rule">发达的负担山东分公司对方告诉对方师傅告诉对方告诉对方告诉的委托任何地方规划的法规和的岁的服务费收费上调复苏afadfas发达的负担山东分公司对方告诉对方师傅告诉对方告诉对方告诉的委托任何地方规划的法规和的岁的服</div>
+            <span class="czspan" onclick="dianji('rule','guize','guize')">编辑</span>
+        </div>
+    </div>
+<!-- 活动介绍结束 -->
+</div>
+
+
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+</body>
+<script type="text/javascript">
+$(function(){ 
+	 genggai("rule","fwb");
+	 genggai("title");
+	 genggai("thumb","img");
+
+     $(".jichu").bind({
+        'mousemove':function(){
+            $(this).css("border-color","#03C");
+            $(this).children(".czspan").css("display","block");
+        },
+        'mouseout':function(){
+            $(this).css("border-color","transparent");
+            $(this).children(".czspan").css("display","none");
+        }
+    }) 
+})  
+</script>
+</html>

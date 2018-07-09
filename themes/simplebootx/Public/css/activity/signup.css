@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ font-size:14px;}
+.zhongzhaidiv{ width:1058px; margin:35px auto 50px auto;}
+.zhongzhaidiv .daohang,.zhongzhaidiv .daohang a{ font-size:22px; color:#333333; padding:20px 0 27px;}
+.zhongzhaidiv .daohang span{ font-size:22px; margin:0 10px;}
+.xiadiv{ padding:0 14px; border:1px solid #D1D1D1; background-color:#FFF;}
+.tab{ position:relative; z-index:10;}
+.tab li{ float:left; margin-right:10px; padding:0 27px; height:49px; line-height:48px; border:1px solid #C8C8C8; border-radius:5px 5px 0 0; margin-bottom:-1px; cursor:pointer;}
+.tab li.active{ background:#FFF; border-bottom-color:#FFF;}
+.ziduan{ width:87px; text-align:right; line-height:34px;}
+.caozuodiv{ padding:20px 0;}
+.caozuodiv select{ margin-right:10px; height:34px; border:1px solid #C9C9C9; color:#353535;}
+.souinput{ width:288px; height:32px; border:1px solid #D3D3D3; border-right:none; margin-left:19px; border-radius:3px 0 0 3px; padding:0 10px;}
+.soubtn{ padding:0 10px; height:34px; line-height:34px; background-color:#F67519; color:#FFF; font-size:14px; border-radius:0 3px 3px 0; border:none;}
+.daochubtn{ height:34px; padding:0 10px; background-color:#F67519; border:none; color:#FFF; border-radius:3px;}
+.formtb tr{ height:47px;}
+.formtb th{ background-color:#F6F6F6; font-weight:300;}
+.formtb tr td{ text-align:center; padding:5px 0}
+.formtb tr td a{ color:#5293AF;}
+.formtb .fa-angle-down{ font-size:18px;}
+dt{ color:#151515; border-bottom:1px solid #EEEEEE;}
+dd{ color:#B4B4B4;}
+.xinxidiv{ width:624px; position:absolute; top:100%; right:64px; border:1px solid #E5E5E5; background-color:#F6F6F6; min-height:230px; display:none; z-index:10;}
+.youxinxi{ width:388px; text-align:left; background-color:#FFF; min-height:170px; height:100%; padding:17px 22px 53px 22px;}
+.youxinxi .fa{ position:absolute; right:10px; top:10px;}
+.youxinxi .time{ position:absolute; bottom:0; left:22px; right:22px; height:42px; line-height:42px; border-top:1px solid #E6E6E6; text-align:right;}
+.touxianglan{ position:absolute; top:0; left:0; bottom:0; width:192px;}
+.touxianglan div{ position:absolute; top:50%; left:50%; margin-top:-75px; margin-left:-51px; width:103px; height:150px;}
+.touxianglan div img{ width:103px; height:103px;}
+.touxianglan div p{ font-size:13px; line-height:51px;}
+.youxinxi{ color:#343434; font-size:15px;}
+.youxinxi p{ padding:3px 0;}
+.youxinxi img{ width:100px; max-height:50px; vertical-align:text-top;}
+.youxinxi span{ color:#ABABAB;}
+
+.beizhuxinxi a{ color:#8B8989;}
+.beizhuxinxi a.moren{ color:#3E9BC7;}
+.beizhuxinxi a:hover{ text-decoration:underline;}
+.beizhu{ position:absolute; top:100%; left:50%; width:271px; margin-left:-156px; border:1px solid #D2D2D2; background-color:#FFF; z-index:10; padding:20px; color:#5F5F5F; display:none;}
+.jiantou{ position:absolute; width:16px; height:10px; top:-9px; left:50%; margin-left:-8px; background:url(../../images/jiantou.png) 0 0 no-repeat;}
+.beizhu .title{ font-size:16px; margin:11px 0; text-align:left;}
+.beizhu .input{ margin-bottom:21px;}
+.beizhu .input input{ width:225px; height:30px; border:1px solid #BEBEBE; padding:0 38px 0 6px;}
+.beizhu .input span{ position:absolute; top:5px; right:10px;}
+.beizhu .btnok,.beizhu .btnquxiao{ width:110px; height:32px; line-height:32px; text-align:center; font-size:16px; cursor:pointer; border-radius:5px;}
+.beizhu .btnok{background-color:#F67519; color:#FFF;}
+.beizhu .btnquxiao{ border:1px solid #CCC;}

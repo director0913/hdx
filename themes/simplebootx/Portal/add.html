@@ -1,0 +1,227 @@
+<admintpl file="header" />
+<style>
+	.form-horizontal .controls {
+		margin-left: 80px;
+	}
+	.form-horizontal .control-label {
+		float: left;
+		width: 80px;
+		padding-top: 5px;
+		text-align: right;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('form/index')}">活动模板管理</a></li>
+			<li class="active"><a href="{:U('form/add')}">添加活动模板</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('form/add_post')}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">名称：</label>
+					<div class="controls">
+						<input type="text" name="name">
+						<span class="form-required">*</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">首页封面：</label>
+					<div class="controls">
+						<if condition="empty($ad['index_thumb'])">
+						   <img src="__TMPL__Public/images/xiaotu2.jpg" id="index_thumb_preview" style="width:100%;" />
+						<else/>
+						   <img src="{:sp_get_asset_upload_path($info['index_thumb'])}" id="index_thumb_preview" style="width:100%;" />
+						</if>
+                        <p class="btn btn-small" onclick="flashupload('index_thumb_images', '附件上传','index_thumb',index_thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+						<input type=hidden name="index_thumb" id="index_thumb"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">结束时间：</label>
+					<div class="controls">
+						<input type="text" name="endtime" class="js-date date" value=""  autocomplete="off">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">是否分销：</label>
+					<div class="controls">
+						<select name="is_distri">
+							<option value="0">否</option>
+							<option value="1">是</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项1：</label>
+					<div class="controls">
+						<input type="text" name="option1" value="{$ad.option1}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项2：</label>
+					<div class="controls">
+						<input type="text" name="option2" value="{$ad.option2}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项3：</label>
+					<div class="controls">
+						<input type="text" name="option3" value="{$ad.option3}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项4：</label>
+					<div class="controls">
+						<input type="text" name="option4" value="{$ad.option4}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">配置项5：</label>
+					<div class="controls">
+						<input type="text" name="option5" value="{$ad.option4}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">简介：</label>
+					<div class="controls">
+						<textarea name="remark" rows="5" cols="57"></textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">描述：</label>
+					<div class="controls">
+						 <!--<script type="text/plain" id="rule" name="rule"></script>-->
+						 <textarea name="description" id="rule" rows="5" cols="57">{$ad.description}</textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">分销规则：</label>
+					<div class="controls">
+						 <!--<script type="text/plain" id="rule" name="rule"></script>-->
+						 <textarea name="rule" id="share_rule" rows="5" cols="57">{$ad.rule}</textarea>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<table class="table table-bordered">
+				   <caption><h4>报名表单设计</h4></caption>
+				   <thead>
+					  <tr>
+						 <th>名称</th>
+						 <th>类型</th>
+						 <th>默认值</th>
+						 <th>操作</th>
+					  </tr>
+				   </thead>
+				   <tbody>
+					  <tr>
+						 <td><input type="text" name="fname[]" placeholder="请输入控件名称"></td>
+						 <td>
+							<select name="type[]">
+								<option value="1">文本框</option>
+								<option value="2">数字</option>
+								<option value="3">日期</option>
+								<option value="4">图片</option>
+								<option value="5">多行文本</option>
+								<option value="6">单选</option>
+								<option value="7">多选</option>
+							</select>
+						</td>
+						<td><input type="text" name="default[]" placeholder="请输入默认值，选择框用，隔开"></td>
+						<td><a href="javascript:;" onclick="delete_row(this);">删除</a></td>
+					  </tr>
+					   <tr>
+						 <td><input type="text" name="fname[]" placeholder="请输入控件名称"></td>
+						 <td>
+							<select name="type[]">
+								<option value="1">文本框</option>
+								<option value="2">数字</option>
+								<option value="3">日期</option>
+								<option value="4">图片</option>
+								<option value="5">多行文本</option>
+								<option value="6">单选</option>
+								<option value="7">多选</option>
+							</select>
+						</td>
+						<td><input type="text" name="default[]" placeholder="请输入默认值，选择框用，隔开"></td>
+						<td><a href="javascript:;" onclick="delete_row(this);">删除</a></td>
+					  </tr>
+					  <tr>
+						 <td><input type="text" name="fname[]" placeholder="请输入控件名称"></td>
+						 <td>
+							<select name="type[]">
+								<option value="1">文本框</option>
+								<option value="2">数字</option>
+								<option value="3">日期</option>
+								<option value="4">图片</option>
+								<option value="5">多行文本</option>
+								<option value="6">单选</option>
+								<option value="7">多选</option>
+							</select>
+						</td>
+						 <td><input type="text" name="default[]" placeholder="请输入默认值，选择框用，隔开"></td>
+						<td><a href="javascript:;" onclick="delete_row(this);">删除</a></td>
+					  </tr>
+				   </tbody>
+				   <tr><td colspan="4"><button type="button" onclick="add_row(this);"class="btn btn-primary">新增</button></td></tr>
+				</table>
+			<fieldset>
+			<fieldset>
+				<table class="table table-bordered">
+					<tr>
+						<th>图集</th>
+						<td>
+							<fieldset>
+								<legend>图片列表</legend>
+								<ul id="photos" class="pic-list unstyled"></ul>
+							</fieldset>
+							<a href="javascript:;" onclick="javascript:flashupload('albums_images', '图片上传','photos',change_images,'10,gif|jpg|jpeg|png|bmp,0','','','')" class="btn btn-small">选择图片</a>
+						</td>
+					</tr>
+				<table>
+			</fieldset>
+			
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+				<a class="btn" href="{:U('form/index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/content_addtop.js"></script>
+	<script type="text/javascript">
+		//编辑器路径定义
+		var editorURL = GV.DIMAUB;
+	</script>
+	<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script>
+	<script type="text/javascript">
+		var editorcontent = new baidu.editor.ui.Editor();
+		editorcontent.render( 'rule' );
+		editorcontent.render( 'share_rule' );
+		try{editorcontent.sync();}catch(err){};
+		//删除整行数据
+		function delete_row(that){
+			$(that).parent().parent().remove();
+		}
+		//新增
+		function add_row(that){
+			var str = ' <tr>'+
+					  '	 <td><input type="text" name="fname[]" placeholder="请输入控件名称"></td>'+
+					  '	 <td>'+
+					  '		<select name="type[]">'+
+								'<option value="1">文本框</option>'+
+								'<option value="2">下拉框</option>'+
+					'			<option value="3">日期</option>'+
+					  '		</select>'+
+					'	</td>'+
+					'	 <td><input type="text" name="default" placeholder="请输入默认值，选择框用，隔开"></td>'+
+					 '	  <td><a href="javascript:;" onclick="delete_row(this);">删除</a></td>'+
+					 ' </tr>';
+			$("#tbody").append(str);
+		}
+	</script>
+</body>
+</html>

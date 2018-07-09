@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+/*基础样式开始*/
+*{ margin:0; padding:0;}
+.jichu{ position:relative; border:1px dashed transparent;}
+.wt100{ width:100%;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;}
+.modal-body{padding: 0px; height: 458px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ height:569px; overflow:auto; position:relative;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+ </literal>
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+
+body{ background-color:#F9E9C8;}
+.caozuoqu .fenshu{top:366px; left:134px; width:87px; height:18px; line-height:18px; font-size:16px; color:#E42340; text-align:center; font-weight:bold;}
+.caozuoqu .fenshu p{ overflow:hidden;}
+/*基础样式结束*/
+
+.guize,.hecai{background:url(__TMPL__Apps/Thimes/weicheer/images/huabianzhong.png)0 0 repeat-y;background-size:100% 15px;width:302px;margin:0 auto;margin-bottom:56px; margin-top:19px; position:relative;}
+.guize.gz_3{margin-bottom:20px;}
+.guize .titlerule{text-align:center;border-bottom:3px solid #4db9e0;width:92%; margin:0 auto;padding-bottom: 16px;}
+.guize .text{font-size:13px;padding:5px 15px; min-height:50px;}
+.tophua,.bottomhua{ height:19px; background:url(__TMPL__Apps/Thimes/weicheer/images/tophua.png) 0 0 no-repeat; background-size:100% 19px; position:absolute; width:100%;}
+.tophua{ top:-19px;}
+.bottomhua{ background-image:url(__TMPL__Apps/Thimes/weicheer/images/bottomhua.png); bottom:-19px;}
+
+
+</style>
+</head>
+
+<body>
+<!--通用上部开始-->
+<div class="modal-body">
+    <div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/weishare/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title"></p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+    <div class="caozuoqu">
+    <!--通用上部结束-->
+        <img src="__TMPL__Apps/Thimes/weicheer/images/time.png" style="width:320px;"/>
+        <div class="jichu">
+            <img src="__TMPL__Apps/Thimes/weicheer/images/bgc.jpg" style="width:320px;" class="thumb"/>
+            <span class="czspan" onclick="dianji('thumb','base')" style="top:0;">编辑</span>
+        </div>
+		
+        <img src="__TMPL__Apps/Thimes/weicheer/images/renqi.png" alt="" />
+        <div class="jichu p_a fenshu">
+        	<p class="pvalue"></p>
+            <span class="czspan" onclick="dianji('pvalue','base')">编辑</span>
+        </div>
+        <div class="guize gz_1">
+            <p class="tophua"></p>
+            <p class="titlerule"><img src="__TMPL__Apps/Thimes/weicheer/images/gzt.png" alt="" height="19"/></p>
+            <div class="jichu">
+                <span class="czspan" onclick="dianji('rule','guize','guize')">编辑</span>
+                <div class="text rule">1、进入公众号输入喝彩，弹出活动活动页面左下角我要参团进入公众号输入喝彩弹出活动，活动页面左下角，我要参团2、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;
+                    3、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;<br/>4、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;</div>
+            </div>
+            <p class="bottomhua"></p>
+        </div>
+        <div class="guize gz_2">
+        	<p class="tophua"></p>
+            <p class="titlerule"><img src="__TMPL__Apps/Thimes/weicheer/images/jlt.png" alt="" height="19"/></p>
+            <div class="jichu">
+    			<span class="czspan" onclick="dianji('activityprize','guize','guize')">编辑</span>
+                <div class="text activityprize">1、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团<br/>2、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;<br/>
+                3、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;<br/>4、进入公众号输入喝彩，弹出活动，活动页面左下角，我要参团;</div>
+            </div>
+        	<p class="bottomhua"></p>
+        </div>
+        <div class="guize gz_3">
+        	<p class="tophua"></p>
+            <p class="titlerule"><img src="__TMPL__Apps/Thimes/weicheer/images/aboutus.png" alt="" height="19"/></p>
+            <div class="jichu">
+    			<span class="czspan" onclick="dianji('activityremark','guize','guize')">编辑</span>
+            	<div class="text activityremark">1、进入公众号输入喝彩</div>
+            </div>
+        	<p class="bottomhua"></p>
+        </div>
+        <img src="__TMPL__Apps/Thimes/weicheer/images/yuindexwei.jpg" style="margin-bottom:60px;" />
+    <!--通用下部开始-->
+    </div>
+</div>
+<!--通用下部结束-->
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script type="text/javascript">
+$(function(){
+	genggai("title");
+	genggai("pvalue");
+    genggai('thumb','img');
+	editorlod('rule','fwb');
+	editorlod('activityprize','fwb');
+    editorlod('activityremark','fwb');
+})
+</script>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$item['title']}-刮刮乐抽奖</title>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<script type="text/javascript"  src="__TMPL__Apps/Weicheer/js/jquery-1.9.1.min.js"></script>
+    <script src="__TMPL__Apps/Weicheer/js/wScratchPad.js" type="text/javascript"></script>
+    <script type="text/javascript" src="__TMPL__Apps/Weicheer/js/zhezhao.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<style type="text/css">
+<literal>
+*{ margin:0; padding:0;}
+/*计时开始*/
+.jishi{width:750px; height:80px; background-color:#6a6564;margin:0px auto; text-align:center; color:#FFF;}
+.jishi .titletime{font-size:30px;line-height:80px;float:left;margin-right:8px;margin-left: 8px;}
+.jishi>div{font-size:30px; padding:0 8px; margin-left:20px;}
+.jishi div p{width:36px; height:56px; background-color:#303030; color:#fff; line-height:56px; font-size:40px; float:left;margin-right:4px;}
+.jishi div span{ float:left;line-height:56px;margin-left:8px;margin-right:12px; }
+.jishi .shijian{margin-left: 20px;padding-top: 12px;}
+/*计时结束*/
+/*背景音乐开始*/
+#yinyue{position:absolute; top:100px; right:38px; width:70px; height:70px;background:url(__TMPL__Apps/Weicheer/images/music.png) center center no-repeat; animation: bgRotate 6s linear infinite; background-size:auto 100%; -webkit-animation: bgRotate 6s linear infinite; -moz-animation: bgRotate 6s linear infinite; -o-animation: bgRotate 6s linear infinite;}
+@keyframes bgRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@-webkit-keyframes bgRotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes bgRotate{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}}@-o-keyframes bgRotate{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(360deg)}}
+.ting{animation-play-state: paused !important; -webkit-animation-play-state: paused !important; animation:inherit !important; -webkit-animation:inherit !important; -moz-animation:inherit !important; -o-animation:inherit !important;}
+/*背景音乐结束*
+/*遮罩*/
+#fullbg {background-color:rgba(0,0,0,0.9); left:0; opacity:0.9; position:absolute; top:0; z-index:3; filter:alpha(opacity=90); -moz-opacity:0.9; -khtml-opacity:0.9; display:none;}
+/*遮罩*/
+#zhe,#scratchpad, #prize {position: absolute; width:592px; height:228px; top:50%; left:50%; text-align: center; margin-left: -296px;margin-top: -114px;    font-size: 45px !important; line-height: 228px !important; color: #771CC1; font-weight:bold;}
+#zhe{ z-index:1;}
+#fullbg {background-color:rgba(0,0,0,0.8); left:0; opacity:0.8; position:absolute; top:0; bottom:0; right:0; position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+/*姓名手机号开始*/
+.tandiv{ position:fixed !important; z-index:50; top:50%; left:50%; text-align:center;}
+.closeimg2{float:right; margin:28px;}
+.closeimg{position:absolute; top:-28px; right:-28px; width:57px; height:57px;}
+.tishi{ margin-top:209px; text-align:center; color:#505050;}
+#tianxx{ width:678px; height:638px;border-radius:12px; margin:-319px 0 0 -339px; background:#F2F2F2 url(__TMPL__Apps/Weicheer/images/citie.png) center 10px no-repeat; font-size:31px; display:none;}
+.inputdiv{height:72px; margin-top:25px;}
+.inputdiv p{color:#414141; margin-right:25px;}
+.inputdiv input{height:72px; width:435px; border:none; border-radius:12px; font-size:31px; padding-left:20px;}
+.submitip{width:632px; height:94px; line-height:94px; font-size:37px; color:#FFF; background-color:#ffd507; text-align:center; border-radius:8px; margin:45px auto 0 auto;}
+/*姓名手机号结束*/
+.fanhui{font-size:32px;text-align: center;}
+.fanhui a{color:#231f1d;}
+.banquan{text-align:center;font-size:26px; color:#8b8b8b;margin-top:60px;margin-bottom:12px;}
+</literal>
+</style>
+</head>
+<body style="background:#95c3f5 url(__TMPL__Apps/weicheer/images/guabgc.jpg) 0 80px no-repeat; width:750px;font-family:'黑体';position:relative;">
+<div class="jishi">  
+        <div>
+            <div class="titletime">倒计时：</div>
+            <div class="shijian">
+                <p id="tian1">0</p><p id="tian2">0</p><p id="tian3">0</p><span>天</span>
+                <p id="shi1">0</p><p id="shi2">0</p><span>时</span>
+                <p id="fen1">0</p><p id="fen2">0</p><span>分</span>
+                <p id="miao1">0</p><p id="miao2">0</p><span>秒</span>
+            </div>
+        </div>
+    </div>
+<div id="yinyue" ></div>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Weicheer/images/bjmusic.mp3" style="display: none;"></audio>
+<div style="width:634px; height:258px; background:url(__TMPL__Apps/weicheer/images/bg07.png?i=0) 0 0 no-repeat; margin:0 auto; position:relative;margin-top:452px;background-size:100% 100%;box-shadow:box-shadow: 0 0 6px #f00;">
+	<img src="__TMPL__Apps/Weicheer/images/guaka.png?i=1" onclick="dianji(this);" id="zhe" />
+    <div id="prize">
+    </div>
+    <div id="scratchpad">
+    </div>
+</div>
+<div id="fullbg"></div>
+<p style="width:532px; height:86px; margin:68px auto; background:url(__TMPL__Apps/weicheer/images/btnbj1.png) 0 0 repeat-x; border-radius:86px; font-size:32px; line-height:86px; color:#07061d; padding:0 25px;border:3px solid #337fd3;"><marquee scrollamount="3" hspace="6" scrolldelay="3">{$prize_str}</marquee></p>
+<p class="fanhui"><a href="{:U('apps/Weicheer/index',array('id'=>$_GET['id'],'uid'=>$_GET['uid']))}">返回喝彩></a></p>
+<!--填写手机姓名html弹窗开始-->
+	<div id="tianxx" class="tandiv">
+        <img src="__TMPL__Apps/weicheer/images/close1.png" class="closeimg2" onclick="closeBg('fullbg','tianxx')" />
+        <p class="tishi">请认真填写以下信息，以便准确兑换奖品</p>
+        <div class="inputdiv" style="margin-top:45px;">
+            <span>姓名</span>
+            <input type="text" id="gname" value="{$user['username']}" placeholder="请输入姓名" />
+        </div>
+        <div class="inputdiv">
+            <span>手机</span>
+            <input type="text" id="gtel" value="{$user['mobile']}" placeholder="请输入手机号码" />
+        </div>
+        <p class="submitip">提交</p>
+    </div>
+    <!--填写手机姓名html弹窗结束-->
+</body>
+<script type="text/javascript">
+var valid_activity="{$status}";
+var music;
+var tian1obj=$("#tian1");
+var tian2obj=$("#tian2");
+var tian3obj=$("#tian3");
+var shi1obj=$("#shi1");
+var shi2obj=$("#shi2");
+var fen1obj=$("#fen1");
+var fen2obj=$("#fen2");
+var miao1obj=$("#miao1");
+var miao2obj=$("#miao2");
+//var qitime= 0;
+//var zhitime=9999;
+<php>
+    if($status==-1||$status==-2)
+    {
+        echo "var qitime= 0;";
+        echo "var zhitime=0;";
+    }
+    else
+    {
+        echo "var qitime=".time().";";
+        echo "var zhitime=".$item['endtime'].';';
+    }
+</php>
+
+var jitime=null;
+//中奖
+var prize_name="{$prize_name}";
+
+$(function(){
+    daojishi();
+    jitime=setInterval("daojishi()",1000);
+    music=document.getElementById("bgMusic");
+    music.play();
+     $("#yinyue").click(function()
+    {
+        if(music.paused)
+        {
+            music.play();
+            $("#yinyue").removeClass("ting");
+        }
+        else
+        {
+            music.pause();
+            $("#yinyue").addClass("ting");
+        }
+    });
+});
+function daojishi()
+{
+    qitime=parseInt(qitime)+1;
+    var chatime=zhitime-qitime;
+    if(chatime<0)
+    {
+        clearInterval(jitime); return;
+    }
+    var tian=parseInt(chatime/86400);
+	if(tian<100&&tian>9)
+			tian="0"+tian;
+		else if(tian<=9)
+			tian="00"+tian;
+    tian=tian.toString();
+    tian1obj.html(tian[0]);
+    tian2obj.html(tian[1]);
+	tian3obj.html(tian[2]);
+    var shi=parseInt((chatime%86400)/3600);
+    shi=shi>9?shi:"0"+shi;  
+    shi=shi.toString(); 
+    shi1obj.html(shi[0]);
+    shi2obj.html(shi[1]);
+    var fen=parseInt((chatime%86400%3600)/60);
+    fen=fen>9?fen:"0"+fen;
+    fen=fen.toString();
+    fen1obj.html(fen[0]);
+    fen2obj.html(fen[1]);
+    var miao=chatime%60;
+    miao=miao>9?miao:"0"+miao;
+    miao=miao.toString();
+    miao1obj.html(miao[0]);
+    miao2obj.html(miao[1]);
+}
+</script>
+<script type="text/javascript">
+function dianji(kaishibtn){
+	kaishibtn.style.display="none";  
+	document.body.style.mozUserSelect = 'none';         
+	document.body.style.webkitUserSelect = 'none';           
+	var img = new Image();      //定义图片对象。      
+	var canvas = document.querySelector('#guaguakaArea');      //获取涂层对象。
+}
+//显示灰色 jQuery 遮罩层 
+function showBg(tanid) { 
+	var bh = $(document).height();
+	var bw = $("body").width();
+	$("#fullbg").css({ 
+		height:bh, 
+		width:bw, 
+		display:"block" 
+	});
+	if(tanid=="fenxiang")
+	{
+		$("#fullbg").click(function(){
+			closeBg(tanid)
+		})
+	}
+	else
+	{
+		$('#fullbg').unbind("click");
+	}
+	$("#"+tanid).show(); 
+} 
+//关闭灰色 jQuery 遮罩 
+function closeBg(tanid) {
+	$("#fullbg,#"+tanid).hide(); 
+}
+</script>
+<script type="text/javascript">
+//数据的显示操作。
+window.sncode = "null";
+window.prize = "谢谢参与";
+var zjl = false;
+var num = 0;
+var gua = true;
+$(function() {
+	$("#scratchpad").wScratchPad({
+		width: 592,
+		height: 228,
+		color: "#a9a9a7",
+        size:30,
+		scratchMove: function(e,percent) {
+			var award=prize_name;
+			document.getElementById('prize').innerHTML = award;
+			$("#theAward").html(award);
+			if(percent > 30&&gua)
+			{
+                this.clear();
+				gua=false;
+                if(prize_name=='')
+                    prize_name="下次没准就能中哦";
+                if(prize_name!="下次没准就能中哦")
+                {
+                   setTimeout("zhuce()",1000); 
+                }
+			}
+		}
+	});
+	$(".submitip").click(function(){
+		var is_submit = 1;
+		//添加
+        var name=$("#gname").val();
+        var tel=$("#gtel").val();
+        var aid = "{$_GET['id']}";
+        var prize_name="{$prize_name}";
+        //alert('name'+name+'tel'+tel+'aid'+aid+'prize_name'+prize_name+'prize_pic'+prize_pic);
+        if(name=="")
+        {
+            alert("姓名不能为空");
+            return;
+        }
+        if(tel.length!=11){
+            alert("请输入11位手机号");
+            return;
+        }
+		//alert("name:"+name+"tel:"+tel+"prize_name:"+prize_name+"prize_pic:"+prize_pic);
+        var url="{:U('apps/weicheer/addprize')}";
+		if(is_submit){
+			is_submit =0;
+			$.post(url,{name:name,tel:tel,aid:aid,prize_name:prize_name},function(res){
+                    is_submit =1;
+    				res =JSON.parse(res);
+                    if(parseInt(res.status)>0)
+                    {
+                         //window.location.href=res.redirect;
+                         closeBg('fullbg','tianxx');
+                         alert("领奖成功");
+                    }else{
+                       alert(res.msg);
+                    }        
+			});      
+		}
+        
+        //alert("领奖成功");
+	})
+});
+function zhuce()
+{
+	showBg('fullbg','tianxx',false);
+}
+</script>
+<script type="text/javascript" src="__TMPL__Apps/Weicheer/js/zhezhao.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Answer/scripts/fenxiang.js"></script>
+
+</html>

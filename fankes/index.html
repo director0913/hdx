@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="css/tongyong.css"/>
+		<link rel="stylesheet" type="text/css" href="css/prize.css"/>
+	</head>
+	<body>
+		<!--假授权框-->
+		<!--<div class="shouquan" style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.5);z-index:999;display: none;">-->
+			<!--<div style="width:80%;height:40%;margin: auto;margin-top:25%;background-color: #fff;">-->
+				<!--<div style="width:100%;height:150px;line-height: 150px;text-align: center;font-size:50px;">微信用户授权</div>-->
+				<!--<div style="width:80%;height:150px;line-height: 150px;font-size:35px;margin: auto;border-bottom: 2px solid #aaa;">全民砍价申请获取以下权限:</div>-->
+				<!--<div style="width:80%;height:150px;line-height: 150px;font-size:35px;margin: auto;color: #aaa;">获取你的公开信息（昵称、头像等）</div>-->
+				<!--<div style="width:80%;height:50px;font-size:35px;margin: auto;color: #aaa;text-align:right;">-->
+					<!--<span class="jujueshouq" style="color: #aaa;margin-right: 3rem;">拒绝</span>-->
+					<!--<span class="yongxshouq" style="color: #0bb20c;">允许</span>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--加载框-->
+		<div class="jiazaik" style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.2);z-index:998;display: block;">
+			<div id="loading" class="loading">加载中...</div>
+		</div>
+		<!--首页活动遮罩层  -->
+		<div class="zoomss zoom">
+		  <div class="suofangs">
+		    <div class="activity_shuom huodonghsuom">活动说明</div>
+
+		    <div class="wod_Prize wodjiangpin">我的商品</div>
+		    <image src='image/cuowu.png' class="huodcw suofang"></image>
+		  </div>
+		  <div class="huodong_lieb1" >
+		    <div class="huodong_title">活动商品</div>
+		    <div class="hudong_commodity" id="hudong_commodity" >
+		      <div v-for="v in cenames">
+		      	<div>商品名称：{{v.com_name}}</div>
+		      </div>
+		    </div>
+		    <div class="huodong_title">活动时间</div>
+		    <div class="hudong_commodity">
+		      <div><span id="start_time"></span> - <span id="end_time"></span></div>
+		    </div>
+		    <div class="huodong_title">活动说明</div>
+		    <div class="hudong_commodity">
+		      <div id="explain"></div>
+		    </div>
+		  </div>
+		  <div class="huodong_lieb2" style="display: none;">
+		    <div class="zanwujilu" style="display: none;">暂无中奖记录</div>
+		    <div id="wodshangps" style="display: none;">
+		    	<div class="myshangp" v-for="v in recomse">
+			    	<div class="zhongjian" @click='zhongjian(v.or_id)' :data-orid="v.or_id">
+			    		<p>商品名称：{{v.com_name}}</p>
+			    		<p>兑现期限：{{v.do_start_time}} 至 {{v.do_end_time}}</p>
+			    		<p style="color: #F59F5F;font-weight: bold;">可兑换</p>
+			    	</div>
+			    </div>
+			    
+		    </div>
+		  </div>
+		</div>
+		<!-- 背景音乐 -->
+
+		<!-- 音乐图标 -->
+		<div class="musicImg">
+			<img src="image/musicON.png" width="100%"/>
+		</div>
+		<audio id="bgMusic" src="" autoplay="autoplay"></audio>
+		<!--首页  -->
+		<div class="bargain" style="position: absolute;top:0;left:0;background-color:#F7589A;">
+		  <!--首页活动说明  -->
+			<image class="activity_explain fangda" src="image/ruleImg_special.png"></image>
+		  <!--首页顶部图  -->
+		  <image id="ac_thumb" src='' class="bargain_img"></image>
+		  <!--首页参加人数  -->
+		  <div class="canyu_number">已有 <span id="num"></span> 人参与砍价</div>
+		  <!--首页商品列表  -->
+		  <div class="commodity" id="actListBoxs" style="margin-bottom: 1em;">
+		  	
+		  	
+		    <div class="commodity_lieb" v-for="v in recoms">
+		      <div class="commodity_liebs" >
+		        <div class="commodity_imgs">
+		          <image :src='v.thumb' class="commodity_img"></image>
+		          <!--<div class="comm_chakxq">查看详情</div>-->
+		        </div>
+		        <div class="commdity_xq">
+		          <span class="commo_jiaz">{{v.com_name}}</span>
+		          <div>原价：￥{{v.original_price}}</div>
+		          <div>可砍价：￥{{v.cut_price}}</div>
+		          <div>库存：{{v.com_num}}</div>
+		        </div>
+		        <a @click='tiaozdiz(v.com_id,v.com_num)' target="_top"><div class="kanjia_jindu">我要砍价</div></a>
+		      </div>
+		    </div>
+		    
+		    
+		  </div>
+		  
+		  <!--首页创建活动  -->
+			<div class="follow" style="display: none;">关注我们</div>
+			<a class="follows" href="" style="display: none;"></a>
+			<div class="activity">我也要创建活动</div>
+		</div>
+		<div class="dibu">
+		  	<div class="shouye">
+		  		<div class="shouyetu"></div>
+		  		<div class="shouyewenzi">首页</div>
+		  	</div>
+		  	<a href="login.html" target="_top">
+			  	<div class="shouye">
+			  		<div class="wodetu"></div>
+			  		<div class="shouyewenzi">我的</div>
+			  	</div>
+		  	</a>
+		</div>
+		<div class="erweima" style="display: none;">
+			<img class="erweimabuqux" src="" style="width:500px;height:500px;margin-top: 50%;"/>
+		</div>
+		<input type="hidden" class="if_send">
+		<input type="hidden" class="if_partic">
+		<input type="hidden" class="partic">
+		<input type="hidden" class="order_num">
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			$('.fangda').click(function(){
+				$('.zoomss').addClass("activity_explain_ym");
+				$('.zoomss').removeClass("zoom");
+			})
+			$('.suofang').click(function(){
+				$('.zoomss').addClass("zoom");
+				$('.zoomss').removeClass("activity_explain_ym");
+			})
+			$('.huodonghsuom').click(function(){
+				$('.huodong_lieb1').attr('style','display: block;');
+				$('.huodong_lieb2').attr('style','display: none;');
+			})
+			$('.wodjiangpin').click(function(){
+				$('.huodong_lieb1').attr('style','display: none;');
+				$('.huodong_lieb2').attr('style','display: block;');
+			})
+			$('.follow').click(function () {
+				$('.erweima').attr('style','display:block;');
+            })
+            $('.erweima').click(function(){
+                $('.erweima').attr('style','display: none;');
+            })
+            $('.erweimabuqux').click(function(e){
+                e.stopPropagation();
+            })
+            $('.activity').click(function(){
+                alert('您还未登录，请先去登录！');
+                top.location.href = '/fanke/login.html';
+            })
+            $('.musicImg').bind('touchstart',function(){
+                console.log(document.getElementById('bgMusic').paused)
+                if(document.getElementById('bgMusic').paused){
+                    document.getElementById('bgMusic').play();
+                    $('.musicImg img').attr('src','image/musicON.png');
+                }else{
+                    document.getElementById('bgMusic').pause();
+                    $('.musicImg img').attr('src','image/musicOFF.png')
+                }
+            });
+			$(function(){
+				
+				function GetQueryString(name) { 
+				　　　var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+				     var r = window.location.search.substr(1).match(reg); 
+				　　　if (r!=null) return (r[2]); 
+				　　　return null; 
+				}  
+				var end_times='';
+				var suser_id = GetQueryString("user_id"); 
+				var sac_id = GetQueryString("ac_id");
+				if(sac_id!=null){
+					localStorage.setItem('ac_id',sac_id);
+				}
+				if(suser_id!=null){
+					localStorage.setItem('user_id',suser_id);
+				}
+				var user_id = localStorage.getItem('user_id');
+				var ac_id = localStorage.getItem('ac_id');
+				var if_author = '';
+				$.ajax({
+	                url:httpurl+"Cutdown/look_goods",
+	                type:"post",
+	                data:{
+	                	id:ac_id,
+	                	cus_id:user_id,
+	                },
+	                success:function(e){
+	                	if(e.if_zc==0){
+	                		top.location.href = '/index.php/Api/Userinfo/get_user_info?user_id='+user_id;
+	                	}
+	                	var huodong = e.huodong;
+	                	$('#bgMusic').attr('src',huodong.bgm);
+                        var function_button = huodong.function_button;
+	                	if(function_button==1){
+                            $('.follow').attr('style','display:none;');
+						}else if(function_button==2){
+                            $('.follows').html(huodong.button_name);
+                            $('.follows').attr('style','display:block;');
+                            $('.follows').attr('href',huodong.button_content);
+						}else if(function_button==3){
+                            $('.follow').attr('style','display:block;');
+						}
+						if(huodong.if_participants==false){
+                            $('.canyu_number').attr('style','display:none;');
+						}
+						$('.erweimabuqux').attr('src',huodong.button_logo_img);
+	                	$('#start_time').html(huodong.start_time);
+	                	$('#end_time').html(huodong.end_time);
+                        $('#explain').html(huodong.explain);
+                        $('.if_send').val(huodong.if_send);
+                        $('.if_partic').val(huodong.if_partic);
+                        $('.partic').val(huodong.partic);
+                        $('.order_num').val(e.order_num);
+	                	$('#ac_thumb').attr('src',huodong.ac_thumb);
+	                	var items = e.shangp;
+	                	reitems.recoms = reitems.recoms.concat(convert(items));
+	                	names.cenames = names.cenames.concat(convert(items));
+	                	$('#num').html(e.tol);
+	                	var itemss = e.if_end;
+	                	if(itemss!=''){
+	                		$('#wodshangps').attr('style','display: block;');
+	                		reitemse.recomse = reitemse.recomse.concat(converts(itemss));
+	                	}else{
+	                		$('.zanwujilu').attr('style','display: block;');
+	                	}
+	                	end_times = e.end_times;
+                        $('.jiazaik').attr('style','display: none;');
+                        // if_author = e.if_author;
+						// if(e.if_author==0){
+						//     $('.shouquan').attr('style','width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.5);z-index:999;display: block;');
+						// }
+	                },
+	           	});
+                // $('.jujueshouq').click(function () {
+                //     $('.shouquan').attr('style','display: none;');
+                // })
+                // $('.yongxshouq').click(function () {
+                //     $.ajax({
+                //         url:httpurl+"Cutdown/shouquan",
+                //         type:"post",
+                //         data:{
+                //             user_id:user_id,
+                //         },
+                //         success:function(e){
+					// 		if(e==1){
+					// 		    alert('授权成功！');
+					// 		    window.location.reload();
+					// 		}
+                //         },
+                //     });
+                // })
+	           	var reitemse = new Vue({
+					el: '#wodshangps',
+					data: {
+						recomse: [] //列表信息流数据
+					},
+					methods:{
+						zhongjian:function(orid){
+							window.location.href='prize.html?orid='+orid;
+						}
+					}
+				});
+				function converts(items) {
+					var newItems = [];
+					items.forEach(function(item) {
+						newItems.push({
+							com_id: item.com_id,
+							or_id: item.or_id,
+							com_name: item.com_name,
+							do_end_time: item.do_end_time,
+							do_start_time: item.do_start_time
+						});
+					});
+					return newItems;
+				}
+	           	var reitems = new Vue({
+					el: '#actListBoxs',
+					data: {
+						recoms: [] //列表信息流数据
+					},
+					methods:{
+						tiaozdiz:function(id,num){
+							if(num==0){
+								alert('库存不足！');
+								return false;
+							}
+							var dangqian = Date.parse(new Date()) / 1000; 
+							var jieshu = end_times;//结束时间
+							if(dangqian>=jieshu){
+								alert('活动已结束！');
+								return false;
+							}
+							var if_send = $('.if_send').val();
+							if(if_send==0){
+                                alert('活动未发布！');
+                                return false;
+							}else if(if_send==2){
+                                alert('活动已结束！');
+                                return false;
+							}
+                            var if_partic = $('.if_partic').val();
+                            var partic = $('.partic').val();
+                            var order_num = $('.order_num').val();
+							if(if_partic==true){
+							    if(partic<order_num){
+                                    alert('参与人数已达上限！');
+                                    return false;
+								}
+							}
+							// if(if_author==0){
+                             //    alert('未授权不能砍价！');
+                             //    return false;
+							// }
+							window.location.href='bargain.html?com_id='+id+'&user_id='+user_id;
+						}
+					}
+				});
+				var names = new Vue({
+					el: '#hudong_commodity',
+					data: {
+						cenames: [] //列表信息流数据
+					}
+				});
+				function convert(items) {
+					var newItems = [];
+					items.forEach(function(item) {
+						newItems.push({
+							com_id: item.com_id,
+							com_name: item.com_name,
+							com_num: item.com_num,
+							original_price: item.original_price,
+							cut_price: item.cut_price,
+							thumb: item.thumb
+						});
+					});
+					return newItems;
+				}
+                var href = window.location.href;
+                $.ajax({
+                    url:'/getsu.php',
+                    type:"post",
+                    data:{
+                        urls:href,
+                    },
+                    async:false,
+                    success:function(e){
+                        console.log(e);
+                        var obj = JSON.parse(e);
+                        var data = obj.result;
+                        fenxiang(data);
+                    },
+                });
+                function fenxiang(e){
+                    wx.config({
+                        debug: false,
+                        appId: e.appId,
+                        timestamp: e.timestamp,
+                        nonceStr: e.nonceStr,
+                        signature: e.signature,
+                        jsApiList: [
+                            'onMenuShareTimeline',
+                            'onMenuShareAppMessage',
+                        ]
+                    });
+                    fen();
+                }
+                function fen(){
+                    wx.ready(function(){
+                        /*分享到朋友圈*/
+                        wx.onMenuShareTimeline({
+                            title: '全民砍价活动火热hot！', // 分享标题
+                            desc: '鸡蛋要不要？要！火腿要不要？要！免费的要不要？要！要！要！要就来全民砍价', // 分享描述
+                            link:"/fankes/index.html?ac_id="+ac_id, // 分享链接
+                            imgUrl: '/fankes/image/images/AAEIABACGAAg-qyM0gUo_eqN7QIwwgM4_gE.jpg', // 分享图标
+                            success: function () {
+                                // 用户确认分享后执行的回调函数
+                            },
+                            cancel: function () {
+                                // 用户取消分享后执行的回调函数
+                            }
+                        });
+                        //分享给好友
+                        wx.onMenuShareAppMessage({
+                            title:'全民砍价活动火热hot！',
+                            desc:'鸡蛋要不要？要！火腿要不要？要！免费的要不要？要！要！要！要就来全民砍价',//分享描述
+                            link:"/fankes/index.html?ac_id="+ac_id,//分享链接
+                            imgUrl: '/fankes/image/images/AAEIABACGAAg-qyM0gUo_eqN7QIwwgM4_gE.jpg',//分享图标
+                            success:function(){
+
+                            },
+
+                            cancel:function(){
+
+                            }
+
+                        });
+
+                    });
+                }
+            })
+		</script>
+	</body>
+</html>

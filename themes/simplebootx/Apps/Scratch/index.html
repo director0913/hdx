@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>幸运刮刮乐</title>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<!--<script type="text/javascript"  src="../addons/scratch/scripts/zepto.min.js"></script>-->
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<script type="text/javascript">
+	function loading(canvas, options) {
+		this.canvas = canvas;
+		if (options) {
+			this.radius = options.radius || 12;
+			this.circleLineWidth = options.circleLineWidth || 4;
+			this.circleColor = options.circleColor || 'lightgray';
+			this.moveArcColor = options.moveArcColor || 'gray';
+		} else {
+			this.radius = 12;
+			this.circelLineWidth = 4;
+			this.circleColor = 'lightgray';
+			this.moveArcColor = 'gray';
+		}
+	}
+	loading.prototype = {
+		show: function() {
+			var canvas = this.canvas;
+			if (!canvas.getContext) return;
+			if (canvas.__loading) return;
+			canvas.__loading = this;
+			var ctx = canvas.getContext('2d');
+			var radius = this.radius;
+			var me = this;
+			var rotatorAngle = Math.PI * 1.5;
+			var step = Math.PI / 6;
+			canvas.loadingInterval = setInterval(function() {
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				var lineWidth = me.circleLineWidth;
+				var center = {
+					x: canvas.width / 2,
+					y: canvas.height / 2
+				};
+
+				ctx.beginPath();
+				ctx.lineWidth = lineWidth;
+				ctx.strokeStyle = me.circleColor;
+				ctx.arc(center.x, center.y + 20, radius, 0, Math.PI * 2);
+				ctx.closePath();
+				ctx.stroke();
+				//在圆圈上面画小圆   
+				ctx.beginPath();
+				ctx.strokeStyle = me.moveArcColor;
+				ctx.arc(center.x, center.y + 20, radius, rotatorAngle, rotatorAngle + Math.PI * .45);
+				ctx.stroke();
+				rotatorAngle += step;
+
+			},
+			100);
+		},
+		hide: function() {
+			var canvas = this.canvas;
+			canvas.__loading = false;
+			if (canvas.loadingInterval) {
+				window.clearInterval(canvas.loadingInterval);
+			}
+			var ctx = canvas.getContext('2d');
+			if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+		}
+	};
+</script>
+
+<style type="text/css">
+*{ margin:0; padding:0;}
+
+
+/*遮罩*/
+#fullbg {background-color:rgba(0,0,0,0.9); left:0; opacity:0.9; position:absolute; top:0; z-index:3; filter:alpha(opacity=90); -moz-opacity:0.9; -khtml-opacity:0.9;}
+/*遮罩*/
+/*姓名手机号开始*/
+.tandiv{ position:fixed !important; z-index:50; top:50%; left:50%; text-align:center; display:none;}
+.closeimg2{float:right; margin:28px;}
+.closeimg{position:absolute; top:-28px; right:-28px; width:57px; height:57px;}
+.tishi{ margin-top:209px; text-align:center; color:#505050;}
+#tianxx{ width:678px; height:638px;border-radius:8px; margin:-319px 0 0 -339px; background:#F2F2F2 url(__TMPL__Apps/Scratch/images/citie.png) center 10px no-repeat; font-size:31px;}
+.inputdiv{height:72px; margin-top:25px;}
+.inputdiv p{color:#414141; margin-right:25px;}
+.inputdiv input{height:72px; width:435px; border:none; border-radius:8px; font-size:31px; padding-left:20px;}
+.submitip{width:632px; height:94px; line-height:94px; font-size:37px; color:#FFF; background-color:#C42C2B; text-align:center; border-radius:8px; margin:45px auto 0 auto;}
+/*姓名手机号结束*/
+
+/*未抽到奖，遗憾*/
+#msg,#wujiang{ width:475px; height:216px; border-radius:8px; margin:-108px 0 0 -237px; background-color:#F2F2F2; font-size:31px; color:#545454; line-height:53px; font-family:"黑体";position:fixed;z-index:100;}
+#msg .title,#wujiang .title{ position:absolute; top:-65px; left:50%; margin-left:-209px;}
+/*未抽到奖，遗憾*/
+
+<!--#gua1 .kaishi{width:634px;height:274px;background:#ec3e3d;text-align:center;line-height:83px;font-size:28px;color:#fff;margin:0 auto;}-->
+#tanjiang{width:597px; height:509px; border-radius:17px; margin:-228px 0 0 -334px; font-size:32px;}
+#tanjiang .btnok{width:310px; height:65px; line-height:65px; border:2px solid #E25000; font-size:29px; background-color:#36C899; border-radius:10px; color:#FFF; margin:23px auto 0 auto;}
+
+
+
+body{width:750px; font-family:'微软雅黑';background:#6111b0 url(__TMPL__Apps/Scratch/images/dkrAi74Am7zRNF5mDniaRk5R4IdRRM.jpg) 0 0 no-repeat;}
+#guaguakaArea{ width:593px; height:249px; margin:12px 20px; background-color:#666;}
+/*底部css*/
+.didiv{height:90px; width:750px; position:fixed; bottom:0; border-top:1px solid #97888D; background-color:#FFF; text-align:center; font-size:23px; line-height:28px; z-index:4;}
+.difen{width:25%; height:90px; float:left; color:#4F4F4F;}
+.difen div{height:54px; background-position:center center; background-repeat:no-repeat;}
+.shouye div{background-image:url(__TMPL__Apps/Scratch/images/shouye.png);}
+.shouye1 div{background-image:url(__TMPL__Apps/Scratch/images/shouye01.png);}
+.baoxiang div{background-image:url(__TMPL__Apps/Scratch/images/baoxiang.png);}
+.baoxiang1 div{background-image:url(__TMPL__Apps/Scratch/images/baoxiang1.png);}
+.guize div{background-image:url(__TMPL__Apps/Scratch/images/guize.png);}
+.guize1 div{background-image:url(__TMPL__Apps/Scratch/images/guize1.png);}
+.paihang div{background-image:url(__TMPL__Apps/Scratch/images/paihang.png);}
+.paihang1 div{background-image:url(__TMPL__Apps/Scratch/images/paihang1.png);}
+.shouye1 p,.baoxiang1 p,.guize1 p,.paihang1 p{color:#6013b1;}
+#zhe,#scratchpad, #prize {position: absolute; width: 593px; height:249px; top:12px; left:20px; text-align: center; font-size: 45px !important; line-height: 249px !important; color: #771CC1; font-weight:bold;}
+#zhe{ z-index:1;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+	<!--遮罩层html代码开始-->
+	<div id="fullbg"></div>
+	<!--遮罩层html代码结束-->
+	
+	<img src="__TMPL__Apps/Scratch/images/fenxiang.png" id="fenxiang" style="position:fixed; z-index:5; top:0; right:20px; display:none;" />
+	<!--中奖弹窗开始-->
+	<div id="tanjiang" class="tandiv">
+		<img src="__TMPL__Apps/Scratch/images/close.png" class="closeimg" onclick="closeBg('tanjiang')" />
+		<img src="__TMPL__Apps/Scratch/images/zhongjiang.png" />
+		<p class="btnok" onclick="lingqu()">点击领取</p>
+	</div>
+	<!--中奖弹窗结束-->
+	<!--谢谢惠顾html弹窗开始-->
+	<div id="wujiang" class="tandiv">
+		<img src="__TMPL__Apps/Scratch/images/close.png" class="closeimg" onclick="closeBg('wujiang')" />
+		<img src="__TMPL__Apps/Scratch/images/xiexie.png" class="title"/>
+		<p style=" width:374px; margin:0 auto; margin-top:69px;">亲！很遗憾没有中奖，<br/>继续努力哦，还有<span id="keyong1" style="color:#F00;"><php> echo intval($total_num)-intval($day_num);</php></span>次机会</p>
+	</div>
+	<!--谢谢惠顾html弹窗结束-->
+    
+    <div id="msg" class="tandiv">
+        <img src="__TMPL__Apps/Scratch/images/close.png" class="closeimg" onclick="closeBg('msg')" />
+        <img src="__TMPL__Apps/Scratch/images/xiexie.png" class="title"/>
+        <p style=" width:374px; margin:0 auto; margin-top:69px;" id="msgp"></p>
+    </div>
+	<!--填写手机姓名html弹窗开始-->
+	<div id="tianxx" class="tandiv">
+        <img src="__TMPL__Apps/Scratch/images/close1.png" class="closeimg2" onclick="closeBg('tianxx')" />
+        <p class="tishi">请认真填写以下信息，以便奖品准确的送达</p>
+        <div class="inputdiv" style="margin-top:45px;">
+            <span>姓名</span>
+            <input type="text" id="name" placeholder="请输入姓名" />
+        </div>
+        <div class="inputdiv">
+            <span>手机</span>
+            <input type="tel" id="tel" placeholder="请输入手机号码" />
+        </div>
+        <p class="submitip" onclick="regist()">提交</p>
+    </div>
+    <!--填写手机姓名html弹窗结束-->
+<div class="btnp" style="width:634px; height:150px; background-color:rgba(255,255,255,0.2); border-radius:9px; margin:430px auto 33px auto;  padding-top:10px; text-align:center;">
+	<p style="width:610px; height:125px; background-color:rgba(255,255,255,0.2); border-radius:9px; margin-left:12px; font-size:32px; line-height:51px; color:#771CC1; padding-top:15px;">本次活动每人每天可以刮奖<span>{$day_num}</span>次！<br>你共刮了<span id="yiyong"><php>echo $user['total_num'];</php></span>次，今天还可以刮<span id="keyong"><php> echo $day_num - $user['day_num'];</php></span>次.</p></div>
+</div>
+<div style="width:633px; height:274px; background:url(__TMPL__Apps/Scratch/images/bg07.png) 0 0 no-repeat; margin:0 auto; position:relative;">
+	<img src="__TMPL__Apps/Scratch/images/bg05.jpg" onclick="dianji(this)" id="zhe"/>
+    <div id="prize">
+    </div>
+    <div id="scratchpad">
+    </div>
+</div>
+<p style="width:532px; height:86px; margin:27px auto; background:url(__TMPL__Apps/Scratch/images/btnbj1.png) 0 0 repeat-x; border-radius:86px; font-size:32px; line-height:86px; color:#771CC1; padding:0 25px;"><marquee scrollamount="3" hspace="6" scrolldelay="3">{$hjstr}</marquee></p>
+<p style="width:582px; height:85px; margin:0 auto 27px auto; background:url(__TMPL__Apps/Scratch/images/btnbj2.png) 0 0 repeat-x; border-radius:86px; font-size:32px; line-height:85px; color:#771CC1; text-align:center;" onclick="showBg('fenxiang')">分享给好友</p>
+<div style="padding-top:91px;padding-bottom:90px;">
+	<div class="skill_support">
+		<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+			<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+		</a>
+	</div>
+</div>
+    <div class="didiv">
+    	<div class="difen shouye1" onclick="">
+        	<div></div>
+            <p>刮奖</p>
+        </div>
+    	<div class="difen baoxiang" onclick="">
+        	<div></div>
+            <p>宝箱</p>
+        </div>
+    	<div class="difen guize" onclick="">
+        	<div></div>
+            <p>规则</p>
+        </div>
+    	<div class="difen paihang" onclick="">
+        	<div></div>
+            <p>排行</p>
+        </div>
+    </div>
+<tc_include file="Public:mobile" />
+<script src="__TMPL__Apps/Scratch/scripts/wScratchPad.js" type="text/javascript"></script>
+</body>
+
+<script type="text/javascript">
+var zhi=-1;
+var gua=true;
+var is_register = "{$is_register}";
+function dianji(okbtn){
+	gua=true;
+	//异步获取应该是什么奖。
+	var url='{:U("apps/Scratch/getjiang",array("id"=>$id))}';
+	$.post(url,null,function(res){
+		if(res.status>0)
+		{
+			okbtn.style.display="none";
+			//修改已用次数和可用次数。
+			$("#yiyong").html(parseInt($("#yiyong").html())+1);
+			$("#keyong").html(parseInt($("#keyong").html())-1);
+			$("#keyong1").html($("#keyong").html());
+			zhi=res.status;
+			document.getElementById('prize').innerHTML = res.jiang.type;
+			$("#theAward").html(res.jiang.type);
+		}
+		else tanmsg(res.info);
+	});
+}
+
+//点击领取奖品
+function lingqu()
+{
+	//异步判断用户是否已经注册
+	var url='{:U("apps/Scratch/getregist",array("id"=>$id))}';
+	$.post(url,null,function(res){
+		//res =JSON.parse(res);
+		if(res.status<=0)
+		{
+			//隐藏中奖页面。
+			$("#tanjiang").hide();
+			//显示信息页面。
+			$("#tianxx").show();
+		}
+		else
+		{
+			var url='{:U("apps/Scratch/insertjiang",array("id"=>$id))}';
+			$.post(url,null,function(res){
+				//res =JSON.parse(res);
+				if(res.status>0)
+				{
+					closeBg("tanjiang");
+					window.location.href='{:U("apps/Scratch/myprize",array("id"=>$id))}';
+				}
+				else tanmsg("领奖失败");
+			});
+		}
+	});
+}
+
+function tanmsg(msg)
+{
+	$("#msgp").html(msg);
+	showBg("msg");
+}
+function regist()
+{
+	var name=$("#name").val();
+	var tel=$("#tel").val();
+	if(name=="")
+	{
+		alert("姓名不能为空");return;
+	}
+	if(tel=="")
+	{
+		alert("手机号不能为空");return;
+	}
+	
+	var url='{:U("apps/Scratch/register",array("id"=>$id))}';
+	$.post(url,{"name":name,"tel":tel},function(res){
+		res =JSON.parse(res);
+		if(res.status>0)
+		{
+			closeBg("tianxx");
+			var url='{:U("apps/Scratch/insertjiang",array("id"=>$id))}';
+			$.post(url,null,function(res){
+				//res =JSON.parse(res);
+				if(res.status>0)
+				{
+					closeBg("tanjiang");
+					window.location.href='{:U("apps/Scratch/myprize",array("id"=>$id))}';
+				}
+				else tanmsg("领奖失败");
+			});
+			//closeBg("tianxx");
+			//window.location.href='{:U("apps/scratch/myprize",array("id"=>$id))}';
+		}
+		else tanmsg(res.msg);
+	});
+}
+//显示灰色 jQuery 遮罩层 
+function showBg(tanid) { 
+	var bh = $(document).height();
+	var bw = $("body").width(); 
+	$("#fullbg").css({
+		height:bh, 
+		width:bw, 
+		display:"block" 
+	});
+	if(tanid=="fenxiang")
+	{
+		$("#fullbg").click(function(){
+			closeBg(tanid)
+		})
+	}
+	else
+	{
+		$('#fullbg').unbind("click");
+	}
+	$("#"+tanid).show(); 
+} 
+//关闭灰色 jQuery 遮罩 
+function closeBg(tanid) {
+	$("#fullbg,#"+tanid).hide(); 
+}
+</script>
+<script type="text/javascript">
+//数据的显示操作。
+window.sncode = "null";
+var zjl = false;
+var num = 0;
+var goon = true;
+$(function() {
+	
+	$(".shouye,shouye1").click(function(){
+		var url="{:U('apps/Scratch/index',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".baoxiang,baoxiang1").click(function(){
+		var url="{:U('apps/Scratch/myprize',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".guize,guize1").click(function(){
+		var url="{:U('apps/Scratch/rule',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$(".paihang,paihang1").click(function(){
+		var url="{:U('apps/Scratch/rank',array('id'=>$id,'time'=>time()))}";
+		window.location.href = url;
+	});
+	$("#scratchpad").wScratchPad({
+		size:30,
+		width: 593,
+		height: 249,
+		color: "#a9a9a7",
+		scratchMove: function(e,percent) {
+			if(percent > 50&&gua)
+			{
+				this.clear();
+				gua=false;
+				if(zhi!=7)
+					showBg('tanjiang');
+				else showBg('wujiang');
+			}
+		}
+	});
+
+});
+
+</script>
+</html>

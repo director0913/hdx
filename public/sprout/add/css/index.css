@@ -1,0 +1,380 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+ul,ol {
+    list-style: none;
+}
+input,button,select,textarea{
+    outline:none;
+    border-color: #ffffff;
+}
+textarea{
+    resize:none;
+}
+html {
+    background-color: rgb(255,142,163);
+}
+#vote-box {
+    width: 100%;
+    height: auto;
+    background-color: rgb(255,142,163);
+    max-width: 640px;
+    margin: 0 auto;
+}
+/*================头部区域=============*/
+.vote-top {
+    width: 100%;
+    height: 600px;
+}
+.vote-top .vote-top-img {
+    width: 100%;
+    height: 100%;
+}
+
+/*================内容区域=============*/
+.vote-center {
+    width: 100%;
+    height: auto;
+    /*padding-bottom: 500px;*/
+}
+.vote-center .vote-center-partone {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.vote-center .vote-center-partone .vote-center-partone-text {
+    width:80%;
+    height: 80px;
+    margin: 30px auto;
+    display: block;
+    padding: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    background-color: rgba(0,0,0,0.25);
+    border: none;
+    border-radius: 20px;
+    color: #ffffff;
+}
+.vote-center .vote-center-partone .vote-center-text-num {
+    position: absolute;
+    top: 40px;
+    right:80px;
+    color: #fff;
+    font-size: 18px;
+}
+.vote-center .vote-center-partone .vote-center-text-zi {
+    font-size: 18px;
+    text-align: center;
+    color: rgb(138, 92, 255);
+    text-shadow: rgb(255, 255, 255) -1px -1px 0px, rgb(255, 255, 255) 0px -1px 0px, rgb(255, 255, 255) 1px -1px 0px, rgb(255, 255, 255) 1px 0px 0px, rgb(255, 255, 255) 1px 1px 0px, rgb(255, 255, 255) 0px 1px 0px, rgb(255, 255, 255) -1px 1px 0px, rgb(255, 255, 255) -1px 0px 0px;
+    margin-bottom: 40px;
+}
+
+/*=============================防刷设置==================================*/
+.vote-center .vote-center-parttwo .vote-parttwo-wrap {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-wrap > span {
+    padding: 15px;
+    border: 2px dashed #ff5831;
+    border-radius: 15px;
+    margin: 0 5px;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box {
+    width: 80%;
+    height: auto;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 22px;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box-list {
+    width: 100%;
+    height: 100%;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box .vote-parttwo-box-form {
+    text-align: left;
+}
+
+.vote-center .vote-center-parttwo .vote-parttwo-box .vote-parttwo-box-title {
+   padding: 15px 0;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box .vote-parttwo-numm {
+    border: none;
+    margin: 10px 10px 10px 0 ;
+    vertical-align: middle;
+    width: 100px;
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box .vote-parttwo-box-title-a {
+    color: #666;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box .vote-parttwo-btn {
+    margin:0 30px;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box .on {
+    color:#ff4040;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-box .vote-parttwo-box-tip {
+    color:#ff4040;
+    font-size: 16px;
+    margin: 10px;
+}
+.vote-center .vote-center-parttwo .vote-parttwo-aa {
+    font-size: 18px;
+    color: #333333;
+    padding:0 30px;
+    text-align: center;
+    line-height: 32px;
+}
+.vote-parttwo-person {
+    text-align: center;
+    font-size: 22px;
+    margin: 20px auto;
+}
+.vote-parttwo-person > span {
+    vertical-align: middle;
+}
+.vote-parttwo-person .vote-parttwo-numm {
+    border: 1px solid #fff;
+    margin: 10px 10px 10px 0 ;
+    width: 80px;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 5px;
+    background: transparent;
+}
+.vote-center-parttwo .vote-parttwo-bb {
+    width: 500px;
+    color: #fff;
+    font-size: 20px;
+    padding: 20px 10px;
+    line-height: 32px;
+    background-color: rgba(0,0,0,0.6);
+    margin: 10px auto;
+    border-radius: 10px;
+}
+.vote-center-parttwo .vote-parttwo-cc {
+    font-size: 20px;
+    text-align: center;
+}
+/*==========================核心内容区域=============*/
+.vote-content {
+    width: 90%;
+    height: auto;
+    background-color: #fff;
+    padding: 20px 10px;
+    margin: 30px auto;
+}
+.vote-content .vote-content-list {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    font-size: 18px;
+}
+.vote-content .vote-content-list .vote-content-li {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid green;
+    margin-bottom: 30px;
+}
+.vote-content .vote-content-list .vote-content-li > p {
+    line-height: 35px;
+}
+
+
+
+/*================第四张图片============*/
+.vote-content-wrap {
+    width: 100%;
+    height: auto;
+}
+.vote-content-wrap .vote-content-top-list {
+    display: inline-flex;
+    justify-content: space-around;
+    background-color: #ffcc68;
+    width: 100%;
+}
+.vote-content-wrap .vote-content-top-list .vote-content-top-li {
+    width: 33%;
+    border-right: 2px solid #FF9B24;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    font-size: 18px;
+}
+.vote-content-wrap .vote-content-top-list .vote-content-top-li:last-child {
+    border: none    ;
+}
+.vote-content-wrap .vote-content-top-list .vote-content-top-li > img {
+    width:30px;
+}
+
+
+
+.vote-content-center .vote-content-center-title {
+    font-size: 20px;
+    color: #333333;
+    margin: 20px 0 50px;
+}
+.vote-content-center .vote-content-center-strom {
+    font-size: 22px;
+    color: #333333;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #999;
+}
+.vote-content-center-list {
+    width: 100%;
+    height: auto;
+}
+.vote-content-center-list .vote-content-center-li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+.vote-content-center-list .vote-content-center-li > img {
+    width: 36px;
+}
+.vote-content-center-list .vote-content-center-li .vote-content-center-keydown {
+    border: 1px dotted #999;
+    width: 350px;
+    padding: 0 15px;
+    height: 40px;
+    margin-left: 40px;
+    font-size: 18px;
+}
+.vote-content-center-list .vote-content-center-li .vote-content-center-no {
+    width: 350px;
+    padding: 0 15px;
+    margin-left: 40px;
+}
+.vote-content-wrap .addstroms {
+    margin: 30px auto;
+    border-radius: 8px;
+    width: 350px;
+    height: 50px;
+    color: #fff;
+    background-color: #10bee9;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+/*fjdkfjkdsf*/
+
+.vote-content-wrap .vote-content-top-hide {
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+
+}
+.vote-content-top-hide-one {
+    width: 100%;
+    height: 100px;
+    border: 2px dotted #ffcc68;
+    border-radius: 5px;
+    display: none;
+}
+.vote-content-top-hide-one > textarea   {
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    font-size: 20px;
+}
+.vote-content-top-hide-two {
+    width: 100%;
+    height: 200px;
+    border: 2px dotted #ffcc68;
+    border-radius: 5px;
+    position: relative;
+    display: none;
+}
+#thumbnail {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 999;
+}
+.vote-content-top-hide-two > .vote-content-top-hide-two-img   {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+}
+.vote-content-top-hide-two .addimgss   {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+}
+
+.vote-content-top-hide-two .addimgss-text   {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%,0);
+    font-size: 16px;
+    z-index: 1;
+}
+
+.vote-content-top-hide-three {
+    width: 100%;
+    height: 200px;
+    border: 2px dotted #ffcc68;
+    border-radius: 5px;
+    position: relative;
+    display: none;
+}
+.vote-content-top-hide-three .addimgss   {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+}
+.vote-content-top-hide-three .addimgss-text   {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%,0);
+    font-size: 16px;
+    z-index: 1;
+}
+.vote-content-top-hide-three > video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+

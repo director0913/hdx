@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$item['title']}</title>
+<script type="text/javascript">
+//游戏时间。
+var shitime=parseInt("{$item['params']['game_time']}");
+var haomiao=99;
+//挑战成功需要的分数。
+var chenggongfen=parseInt("{$item['params']['success_num']}");
+var fangbx=0;
+//积分范围原始值。
+var tifen="{$item['params']['amount']}";
+//修改个人纪录
+var pjgurl="{:U('apps/Challenge/editmax',array('aid'=>$aid,'uid'=>$user['id']))}";
+//计算打败多少人的比例。
+var calculatedurl="{:U('apps/Challenge/calculated',array('aid'=>$aid))}";
+//添加奖品信息
+var getPrizeurl="{:U('apps/Challenge/getPrize',array('aid'=>$aid))}";
+//获取应得的奖品
+var getjiangurl="{:U('apps/Challenge/getjiang',array('id'=>$aid))}";
+//获取排行榜。
+var getpaihangurl = "{:U('apps/Challenge/getsort',array('id'=>$aid))}";
+//修改答题记录。
+var editdataurl = "{:U('apps/Challenge/editdata',array('aid'=>$aid,'uid'=>$user['id']))}";
+//首页链接。
+var indexurl="{:U('apps/Challenge/index',array('id'=>$aid))}";
+var clickstatus=false;
+var pagecount=0;
+//定义当前页码。
+var page=1;
+//初始排名值。
+var index=1;
+//当前第几道题。
+var num=1;
+//题目id。
+var pid=0;
+//当前题目类型。
+var ptype="{$titype}";
+var tishiyu="{$item['params']['prompt']}";
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/Challenge/styles/dati1.css?a=7" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Challenge/scripts/dati1.js?i=24.3"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+	Pace.on('hide', function(){
+	  music.play();
+    });
+</script>
+<style type="text/css">
+    .tiankong{border:0;height:100%;width:100%;font-size:30px;}
+</style>
+</head>
+
+<body>
+<audio id="shakemusic" src="__TMPL__Apps/Common/scripts/red-01.mp3" style="display: none;"></audio>
+<audio id="openmusic" src="__TMPL__Apps/Common/scripts/red-02.mp3" style="display: none;"></audio>
+<!--背景音乐-->
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Challenge/audio/beijing.mp3" style="display: none;"></audio>
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<img src="__TMPL__Apps/Challenge/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg2','fenxiang')"/>
+<div id="guize">
+	<p class="title">活动说明<img src="__TMPL__Apps/Challenge/images/close.png" onclick="closeBg('fullbg2','guize')"/></p>
+    <p>{$item['rule']|html_entity_decode}</p>
+</div>
+<div id="baoxiang">
+	<p class="title">我的宝箱<img src="__TMPL__Apps/Challenge/images/close.png" onclick="closeBg('fullbg2','baoxiang')"/></p>
+    <p class="defen">我的最高游戏得分<span class="zuigao">{$user['per_num']}</span>分</p>
+    <if condition="count($prizels) eq 0"><p class="wujilu">很遗憾暂时未中奖，继续加油哦！！</p></if>
+    <div class="tanzhongdiv">
+    	<foreach name="prizels" item="vo">
+    	<div class="fendiv">
+        	<div class="tudiv"><img src="{$vo['thumb']}"/></div>
+            <div class="youdiv">
+            	<p class="jiangji">{$vo['type']}</p>
+            	<p class="jiangname">{$vo['name']}</p>
+            </div>
+            <div class="c_b"></div>
+        </div>
+        </foreach>
+    </div>
+</div>
+<div id="paihang">
+	<p class="title">排行榜<img src="__TMPL__Apps/Challenge/images/close.png" onclick="closeBg('fullbg2','paihang')"/></p>
+    <p class="wujilu">暂无排名记录</p>
+    <div class="tanzhongdiv">
+    	<table border="0" width="100%" class="paiming" id="sort">
+        	<tr class="toutable">
+            	<td width="25%">排行</td>
+            	<td width="25%">头像</td>
+            	<td width="25%">昵称</td>
+            	<td width="25%">成绩</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="tianxx" class="tandiv">
+    <img src="__TMPL__Apps/Challenge/images/close1.png" class="closeimg" onclick="window.location.href='{:U('apps/Challenge/index',array('id'=>$aid,'sui'=>time()))}'">
+    <div style="clear:both;"></div>
+    <div class="gift"><img src="#" alt=""></div>
+    <p class="tishi">恭喜你抽中了<span>奥运吉祥物玩偶</span>！</p>
+    <div class="inputdiv" style="margin-top:45px;">
+        <span style="color:#505050;">姓名</span>
+        <input type="text" placeholder="请输入姓名" id="name" value="{$user['username']}">
+    </div>
+    <div class="inputdiv">
+        <span style="color:#505050;">手机</span>
+        <input type="tel" placeholder="请输入手机号码" id="phone" value="{$user['mobile']}">
+    </div>
+    <p class="submitip" onclick="submitxinxi()">提交</p>
+</div>
+<div id="tishixx" class="tandiv">
+    <img src="__TMPL__Apps/Challenge/images/close1.png" class="closeimg" onclick="window.location.href='{:U('apps/Challenge/index',array('id'=>$aid,'sui'=>time()))}'">
+    <div style="clear:both;"></div>
+    <p class="tishi">领奖成功</p>
+    <p class="xinxi" style="margin:0 20px; color:#505050;">{$item['params']['prompt']}</p>
+    <p class="submitip" onclick="window.location.href='{:U('apps/Challenge/index',array('id'=>$aid,'sui'=>time()))}'">确定</p>
+</div>
+<div id="daoshi" class="tandiv">
+    <img class="shangtu" src="__TMPL__Apps/Challenge/images/shijiandao.png"/>
+	<img src="__TMPL__Apps/Challenge/images/biao.png" />
+</div>
+<div id="yaojiang" class="tandiv">
+	<p><marquee scrollamount="3" hspace="6" scrolldelay="3">{$jiangstr}</marquee></p>
+    <img class="shangtu" src="__TMPL__Apps/Challenge/images/chouqian.png"/>
+	<img src="__TMPL__Apps/Challenge/images/yaoyiyao.png" />
+</div>
+<div id="meizhong" class="tandiv">
+	<img src="__TMPL__Apps/Challenge/images/meizhongjiang.png" />
+    <p class="anniu" onclick="window.location.href='{:U('apps/Challenge/index',array('id'=>$aid,'sui'=>time()))}'">返回首页</p>
+</div>
+<div id="huojiang" class="tandiv">
+	<div class="jiangdiv">
+    	<div class="faguang"></div>
+        <p>恭喜你获得了</p>
+        <div class="waidiv">
+        	<div>
+            	<img src="" id="jiangtu"/>
+            </div>
+        </div>
+        <p id="jiangbie"></p>
+        <p id="jiangming"></p>
+    </div>
+    <p class="anniu" onclick="fangbaoxiang()">放入宝箱</p>
+    <p class="anniu anniuduan f_l" onclick="showBg('fullbg2','paihang')">排行榜</p>
+    <p class="anniu anniuduan f_r" onclick="window.location.href='{:U('apps/Challenge/index',array('id'=>$aid,'sui'=>time()))}'">再玩一次</p>
+</div>
+<div id="shibai" class="tandiv">
+	<div class="txdiv"><img src="{$user['avatar']}"/></div>
+	<img src="__TMPL__Apps/Challenge/images/shibai.png" />
+    <p>您的成绩为：<span class="myfen">0</span>分</p>
+    <p>成绩必须达到{$item['params']['success_num']}分才能抽奖</p>
+    <p>最佳成绩为：<span class="zuigao">{$user['per_num']}</span>分</p>
+    <p>今天还有<span id="myjihui"><php> echo $item['day_num']-$user["day_num"]-1;</php></span>次挑战机会</p>
+    <p class="anniu" onclick="window.location.href='{:U('apps/Challenge/index',array('id'=>$aid,'sui'=>time()))}'">再玩一次</p>
+    <p class="anniu anniuduan f_l" onclick="showBg('fullbg2','paihang')">排行榜</p>
+    <p class="anniu anniuduan f_r" onclick="showBg('fullbg2','guize')">活动规则</p>
+</div>
+<div id="chenggong" class="tandiv">
+	<div class="faguang"></div>
+	<div class="txdiv" style="margin-top:180px;"><img src="{$user['avatar']}"/></div>
+	<img src="__TMPL__Apps/Challenge/images/chenggong.png" style="margin-bottom:50px;" />
+    <p>您的成绩为：<span class="myfen">0</span>分</p>
+    <p>成功打败全国<span id="jibai">0</span>%的玩家</p>
+    <p>最佳成绩为：<span id="zuigao">{$user['per_num']}</span>分</p>
+    <p>今天还有<span id="myjihui"><php> echo $item['day_num']-$user["day_num"]-1;</php></span>次挑战机会</p>
+    <p class="anniu" onclick="yaojiang();">赶紧去抽奖</p>
+    <p class="anniu anniuduan f_l" onclick="showBg('fullbg2','paihang')">排行榜</p>
+    <p class="anniu anniuduan f_r" onclick="window.location.href='{:U('apps/Challenge/index',array('id'=>$aid,'sui'=>time()))}'">再玩一次</p>
+</div>
+<div id="alldiv">
+<div class="touxiangdiv">
+	<img src="{$user['avatar']}"/>
+    <p id="fenshu">0</p>
+</div>
+<p class="timetitle">时间</p>
+<p class="timep"><span id="miao">00</span>:<span id="haomiao">00</span></p>
+<div id="yinyue"></div>
+</div>
+<input type="hidden" id="daan" value="-1" />
+<input type="hidden" id="right" value="-1" />
+<input type="hidden" id="tiankong_type" value="0" />
+<ul class="datiqu">
+</ul>
+<p class="btntijiao" onclick="nextti()">下一题{$user['username']}</p>
+</body>
+<script type="text/javascript">
+var question=<?php echo json_encode($timuls)?>;
+var dati_put_url="{:U('apps/Challenge/dati_put',array('aid'=>$_GET['aid'],'titype'=>$_GET['titype']))}";
+var round=1;
+var type="{$_GET['titype']}";
+
+var t="{$_GET['t']}";
+</script>
+</html>
+

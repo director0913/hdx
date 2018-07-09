@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+.baoming{height:136px; margin-top:-1px;}
+.yibao{ height:136px; padding-top:20px;}
+.yibao li{float:left;width:238px;  border-right:3px #ff746b solid;}
+.yibao .text{ font-size:36px; color:#ff746b; text-align:center;}
+/*baoming结束*/
+.biaoqian{  line-height:157px;height:164px; color:#fa6257; font-size:57px;  text-align:center;}
+.content{ width:670px; min-height:498px; border-radius:14px; margin:0 auto; margin-bottom:17px;  font-size:35px; line-height:44px; color:#f86358;}

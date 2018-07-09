@@ -1,0 +1,108 @@
+﻿@charset "UTF-8";
+ *{ margin:0; padding:0;}
+img{border:none;}
+.clear{clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+.fl{float:left;}
+.fr{float:right;}
+body{width:750px;background-color:#ddf5e8;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+#fullbg,#fullbg2{background-color:rgba(0,0,0,0.9); left:0; opacity:0.8;top:0; bottom:0; right:0; position:fixed; display:none; z-index:5; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fullbg2{z-index:6;}
+/*画小人开始*/
+.pointer{position:relative;z-index:3;}
+.bgc{position:relative;width:750px;}
+.explain{position: absolute;top:18px;right:21px;width:108px;height:98px;}   
+.biaoti{font-size:36px;color:#80bb48;width:440px;margin:0 auto;text-align:center;overflow: hidden;height:41px;}
+.title{background:url(../images/hengtiao.png) no-repeat center center;text-align: center;width:660px;height:66px;margin-top:20px;background-size:100% 100%;line-height:54px;font-size:34px;color: #fff;margin:20px auto 30px;}
+.draw_title{height:32px;margin-left:130px;width:auto;}
+.draw{width:495px;height:495px;background-color: #fff;margin:14px auto 30px;-webkit-box-shadow:4px 4px 8px -2px #bce2ce;}
+.painter_btn{margin:0 176px;height:54px;}
+.painter_btn img{height:54px;width:auto;}
+/*画小人结束*/
+/*写祝福开始*/
+.wish{display:none;position:relative;z-index:3;}
+.heka_cont .heka_tu{width:203px;height:203px;float:left;margin:35px 26px;text-align:center;display:table;}
+.xiaoren{width:203px;height:203px;margin:10px auto 0;text-align:center;}
+.xiaoren img{height:203px;}
+.zhufu{background:url(../images/zhufu.png) no-repeat center center;width:540px;height:170px;margin:12px auto 50px;background-size: 100% 100%;}
+.write{font-size:30px;border-radius:0px;box-sizing:border-box;border:none;outline: none;width:470px;height:90px;margin-top:66px;margin-left:37px;line-height:40px;color:#4c4847;}
+.login{margin:0 auto;text-align:center;}
+.login p{margin-bottom:22px;}
+#name,#tel,#age,#cless,#school,#remark{font-size:30px;width:436px;height:80px;padding:0 30px;box-sizing:border-box;border:none;background:url(../images/input.png) no-repeat center center;background-size:100% 100%;text-align: center;color:#7ec19c;}
+input{outline:none;}
+.shuoming{width:420px;margin:26px auto;color:#707773;font-size:24px;}
+.zhufu_btn{width:230px;height:50px;margin:0 auto;}
+.zhufu_btn img{height:50px;width:auto;}
+/*写祝福结束*/
+/*发贺卡开始*/
+.heka{display:none;}
+.heka_title{width:605px;height:106px;background:url(../images/biaoti.png) no-repeat center center;background-size:100% 100%;margin:30px auto 0;}
+.touxiang{width:50px;height:50px;border-radius:50%;overflow: hidden;float:left;border:2px solid #fff;margin-top:26px;margin-left:88px;}
+.heka_title .text{color:#fff;font-size:30px;float:left;margin-top:20px;height:66px;line-height:66px;margin-left:12px;text-align:left;}
+.heka_title .text span{color:#fed503;margin-right:4px;}
+.heka_title .touxiang img{width:100%;height:auto;}
+.heka_cont{width:600px;height:326px;background:url(../images/bgc.png) no-repeat center center;background-size:100% 100%;margin:0 auto;}
+.heka_cont .heka_tu{width:203px;height:203px;float:left;margin:30px 0 35px 60px ;text-align:center;}
+.heka_cont .heka_tu img{height:203px;}
+.heka_cont .heka_neirong{float:left;margin:10px 20px;height:280px;}
+.heka_cont .heka_neirong .baby{width:227px;height:32px;}
+.heka_cont .heka_neirong .heka_write{width:250px;font-size:28px;height:175px;margin-top:12px;line-height:42px;overflow: hidden;}
+.heka_cont .heka_neirong .best{margin-top:20px;}
+.heka_btn{margin:24px auto;position:relative;text-align: center;}
+.heka_btn .zan{width:240px;height:72px;background:url(../images/zan.png) no-repeat 0 0;background-size:100% 100%;color:#fff;line-height:68px;text-align: center;margin:0 auto;font-size:32px;}
+.heka_btn .xiugai{position:absolute;font-size:30px;color:#6e7271;text-decoration:underline;right:77px;top:20px;}
+.dianzan{color:#97a9b9;text-align:center;font-size:24px;}
+.dianzan span{color:#458d16;}
+.user{padding-left:92px;padding-right:92px;margin:0 auto;}
+.user li{margin-right:14px;float:left;margin-top:14px;}
+.user li:last-child,.user li:nth-child(7n){margin-right:0;}
+.user li img{width:68px;height:68px;}
+/*发贺卡结束*/
+/*guize开始*/
+.guize{background:url(../images/bg.png) 0 0 repeat-y;background-size:750px 21px;width:750px;margin:24px auto;}
+.guize{margin-bottom:80px;}
+.guize .guize_title{text-align:center;margin:0px auto;font-size:43px;color:#ff9101;padding-top:60px;padding-bottom:20px;}
+.guize .text{font-size:30px;padding:0 48px 10px;word-break:break-all;color:#29292b;}
+.guize .text img{max-width: 100%;}
+.bg_top,.bg_bottom{height:52px; background:url(../images/bg_top.png) 0 0 no-repeat; background-size:750px 52px; position:absolute; width:750px}
+.bg_bottom{ background-image:url(../images/bg_bottom.png);}
+/*guize结束*/
+/*列表开始*/
+.liebiao{margin-bottom:26px;}
+.liebiao table{margin:36px auto 0;font-size:30px;width:680px;}
+table tr{color:#29292b;}
+.tt{background-color: #ff9101!important;color:#fff!important;line-height:60px;height:60px;}
+.wd120{width:120px;text-align:center;}
+.wd180{width:180px;text-align:center;}
+.wd250{width:250px;text-align:center;}
+.wd160{width:160px;text-align:center;}
+.tt .wd170{text-align:center ;}
+.liebiao td{line-height:50px;height:50px;}
+.liebiao tr{display:block;}
+tr:nth-child(2n){background-color: #bcf2fe;}
+tr:nth-child(2n+1){background-color: #fff;}
+.more{width:676px;text-align: center;background-color:#fff;margin:0 auto;height:80px;line-height:80px;font-size:34px;border-top:1px solid #b2c4d3;color:#8e8e8e;margin-top:-2px;}
+.more img{margin-right:4px;height:32px;width:auto;vertical-align:text-top;}
+/*列表结束*/
+/*活动说明开始*/
+#baoxiang{ position:fixed;top:0; left:0;right:0;z-index:20;padding:52px 0px; color:#FFF; display:none; }
+#baoxiang>.baoxiang_title{line-height:100px; border-bottom:2px solid #FFF; position:relative; font-size:41px; padding-left:16px;margin-left:26px;margin-right:26px;}
+#baoxiang>.baoxiang_title img{position:absolute; right:32px; top:31px;}
+#baoxiang .container{height:800px;overflow:auto;margin:30px;word-break:break-all;}
+#baoxiang .container img{max-width:100%;}
+/*活动说明结束*/
+/*点赞开始*/
+#dianzan{display:none;position:fixed;width:370px;height:570px;top:50%; left:50%; margin-top:-285px; margin-left:-185px; z-index:30;}
+.dianzan_tu{width:370px;height:auto;}
+.wenzi{color:#ffd54b;font-size:40px;text-align:center;margin-top:30px;margin-left:25px;}
+/*点赞结束*/
+#btn{position:fixed;left:20px;bottom:100px;background:url(../images/btn.png) no-repeat 0 0;background-size:100% 100%;width:190px;height:70px;text-align: center;color:#fff;font-size:32px;line-height:66px;z-index:4;}
+.footer_heka{width:750px;z-index:2;}
+.footer{width:750px;bottom:0;left:0;z-index:2;}
+.footer img,.footer_heka img{width:100%;}
+#fenxiang{ position:fixed;width:400px;height:210px;top:50%; left:50%; margin-top:-105px; margin-left:-200px; z-index:30; display:none;}
+</style>

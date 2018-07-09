@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+
+#fullbg {position:fixed; top:0; bottom:0; left:0; right:0; z-index:3; background-color:rgba(0,0,0,0.9); opacity:0.9; filter:alpha(opacity=90); -moz-opacity:0.9; -khtml-opacity:0.9; display:none;}
+#fenxiang{position:fixed; z-index:5; width:60%; top:50%; left:50%; margin-left:-30%; margin-top:-100px; display:none;}
+.tandiv{ position:fixed !important; z-index:5; top:33%; left:50%; text-align:center; display:none;}
+#tanjiang{width:597px; height:509px; border-radius:17px; margin:-254px 0 0 -298px; font-size:32px;}
+.closeimg{position:absolute; top:-28px; right:-28px; width:57px; height:57px;}
+#tanjiang div{width:490px; margin:0 auto;}
+#tanjiang .btnok{width:310px; height:65px; line-height:65px; border:2px solid #E25000; font-size:29px; background-color:#36C899; border-radius:10px; color:#FFF; margin:23px auto 0 auto;}
+#tanjiang .btnok2{float:left; width:200px; margin:0 20px;}
+#msg,#wujiang{ width:475px; min-height:216px; border-radius:8px; margin:-108px 0 0 -237px; background-color:#F2F2F2; font-size:31px; color:#545454; line-height:53px; font-family:"黑体"; padding-bottom:10px;}
+#msg .title,#wujiang .title{ position:absolute; top:-65px; left:50%; margin-left:-209px;}
+#tianxx{ width:678px;border-radius:8px; margin:-319px 0 0 -339px; background:#F2F2F2 url(../images/citie.png) center 10px no-repeat; font-size:31px;}
+#wujiang p,#msg p{ width:374px; margin:0 auto; margin-top:69px;}
+.closeimg2{float:right; margin:28px;}
+.tishi{ margin-top:209px; text-align:center; color:#505050;}
+.inputdiv{height:72px; margin-top:25px;}
+.inputdiv p{color:#414141; margin-right:25px;}
+.inputdiv input,select{height:72px; width:435px; border:none; border-radius:8px; font-size:31px; padding-left:20px;}
+.submitip{width:632px; height:94px; line-height:94px; font-size:37px; color:#FFF; background-color:#C42C2B; text-align:center; border-radius:8px; margin:45px auto 0 auto;}
+.toptu{ width:750px;}
+.btnp{width:700px; height:90px; line-height:90px; font-size:33px; color:#FFF; text-align:center; margin:13px auto 21px auto; background-color:rgba(255,255,255,0.2); border-radius:9px;}
+.chjtdiv{width:692px; height:592px; background:url(../images/jiangpinls.png) 0 0 no-repeat; padding:29px; margin:0 auto;}
+.jiangdiv{width:217px; height:180px; background-color:#FFE443; margin-top:12px; -moz-box-shadow:5px 5px rgba(0,0,0,0.2); -webkit-box-shadow:5px 5px rgba(0,0,0,0.2); box-shadow:5px 5px rgba(0,0,0,0.2); margin-left:11px; text-align:center; float:left; font-size:27px; line-height:52px; color:#5E010B;}
+.jiangdiv div{height:130px; background-position:center center; background-repeat:no-repeat;}
+.jiangimg{width:132px; height:132px;}
+.choudiv{width:316px !important; height:316px !important; float:left; margin-top:4px; margin-left:4px; background:url(../images/choujiang.png) center center no-repeat;}
+.selectjiang{ background-color:#49D2FF;}
+.huojiangxx{height:82px; padding-top:28px; background:url(../images/xinxi.png) 0 0 no-repeat;}
+.huojiangxx p{ width:311px; height:50px; line-height:50px; margin:0 auto; font-size:23px; color:#E61D23;}

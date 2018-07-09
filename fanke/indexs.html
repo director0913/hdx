@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+<title>凡科互动</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta content="telephone=no, address=no" name="format-detection">
+<meta name="viewport" content="user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link href="css/index.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/detailss.css"/>
+
+
+</head>
+	<body>
+<div id="newActContainer" class="container">
+	<div id="hdcontent" style="-webkit-overflow-scrolling: touch; height: 100%;overflow-y: scroll;">
+		<div id="ActiveBox" class="ActiveBox" style="min-height: 1620px;">
+			
+            <div class="active modActive " _style="67" _modid="404">
+            	<div class="activeContent">
+            		<div class="actPic">
+            			<a href="details.html" id="quanmkanj" target="_top">
+	            			<img src="image/AAEIABACGAAg-qyM0gUo_eqN7QIwwgM4_gE.jpg"></div>
+	            			<div class="actDescripe">
+	            				<div class="actName">全民砍价</div>
+	            			</div>
+            			</a>
+            		</div>
+
+            	<div class="recomPic"></div>
+            </div>
+            <div class="active modActive " _style="67" _modid="404">
+            	<div class="activeContent">
+            		<div class="actPic">
+            			<a href="/index.php/Home/Sprout/add" id="quanmkanj" target="_top">
+	            			<img src="image/mengwa.jpg"></div>
+	            			<div class="actDescripe">
+	            				<div class="actName">萌宝投票</div>
+	            			</div>
+            			</a>
+            		</div>
+            		
+            	<div class="recomPic"></div>
+            </div>
+            
+        </div>
+	</div>
+</div>
+<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function(){
+    	var remBase = Math.min(window.innerWidth,window.innerHeight)/16;
+        remBase === 0 && (remBase = 20);
+        document.getElementsByTagName('html')[0].style.fontSize = remBase + 'px';
+        g_rem = parseFloat(remBase);
+    });
+</script>
+<script type="text/javascript">
+		var i = 1;
+		var s = 1;
+		$('.festival').click(function(){
+			if(i==1){
+				$('#festivalDetail').css({'height':'6.9rem'});
+				$('#gameTypeDetail').css({'height':'0rem'});
+				i=2;
+			}else if(i==2){
+				$('#gameTypeDetail').css({'height':'0rem'});
+				$('#festivalDetail').css({'height':'0rem'});
+				i=1;
+			}
+		})
+		$('.gameType').click(function(){
+			if(s==1){
+				$('#gameTypeDetail').css({'height':'6.9rem'});
+				$('#festivalDetail').css({'height':'0rem'});
+				s=2;
+			}else if(s==2){
+				$('#gameTypeDetail').css({'height':'0rem'});
+				$('#festivalDetail').css({'height':'0rem'});
+				s=1;
+			}
+		})
+</script>
+</body>
+</html>

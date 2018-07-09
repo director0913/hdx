@@ -1,0 +1,30 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=640, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/reset.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/index.css"/>
+</head>
+<body>
+<div class="FF_xqWrap">
+    <p class="FF_ctTitle">以下小伙伴正在发起拼团，你可以直接参加</p>
+    <div class="FF_back">
+        <div class="FF_backBtn" onclick="window.location='/index.php/Collage/PcCollage/index'">返回</div>
+    </div>
+    <div class="FF_ctInfos">
+        <div class="FF_ctInfo">
+            <img src="__PUBLIC__/Collage/img/user.png"/>
+            <span class="FF_ctName">{$user["user_name"]}</span>
+            <div class="FF_xxInfo">
+                已有
+                <span class="FF_redWord">{$user["count"]}</span>
+                人参团
+                <span class="FF_ctPrice">(<span class="FF_redWord">288</span>元/人)</span>
+            </div>
+            <div class="FF_IwantCt" onclick="window.location='/index.php/Collage/PcCollage/join?userid={$user[id]}&aid={$aid}'">我要参团</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

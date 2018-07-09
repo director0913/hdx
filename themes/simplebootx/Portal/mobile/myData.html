@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>个人资料</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<script type="text/javascript" src="__PUBLIC__/js/geo.js"></script>
+<style>
+.aui-bar-nav,.aui-btn{background-color:#fff;}
+.aui-title,.aui-bar-nav,.aui-btn{color:#000;}
+header.aui-bar .aui-btn .aui-iconfont{color:#ff9900;}
+.aui-list-view:after{border-top:none;}
+.content.aui-list-view{margin:10px;padding:10px 15px 0;border-radius:4px;border:1px solid #ddd;height:auto;}
+.content .btb{font-size:15px;display:block;border-bottom:1px solid #ddd;margin-top:16px;}
+.content .btb .wenzi{float:left;margin-top:2px;width:45px;font-size:15px;}
+.zhi{overflow:hidden;}
+.zhi li{margin-top:4px;margin-bottom:4px;font-size:13px;}
+.zhi li:after{ content: ""; display:block; clear:both; }
+.zhi li input{margin-right:4px;float:left;margin-top:2px;}
+.zhi li:last-child{padding-bottom:4px;}
+input{outline:none;}
+input[type="text"]{padding:10px 0;}
+#name,#tel,#job,#num{font-size:15px;border:none;width:220px;height:26px;margin-bottom:0px;margin-top:0px;}
+.xue{margin-top:24px;padding-bottom:20px;}
+.area{float:left;width:45px;font-size:15px;margin-top:4px;}
+.diqu,.leibie{overflow:hidden;}
+select{width:inherit;margin-bottom:0;padding:5px 2px;-webkit-appearance:menulist; border:1px solid #ddd;} 
+.sheng,.shi{height:28px;width:100%;font-size:14px;border:1px solid #ddd;border-radius:0;}
+.city{width:50%;float:left;}
+.city:first-child{padding-right: 10px;}
+.city:last-child{padding-left: 10px;}
+.xian{height:28px;width:100%;font-size:14px; border:1px solid #ddd;margin:10px 0 0 0px;border-radius:0;}
+.progect{padding-bottom:10px;margin-top:20px;}
+.progect .title{font-size:15px;width:70px;float: left;margin-top:2px;}
+.progect .zhi li{width:50%;float:left;}
+.btn{text-align: center;height:36px;line-height:36px;color:#fff;background-color:#ff9900;margin:40px auto;}
+.xiugai a{text-align: right;color:#333;font-size:13px;margin-right:12px;display:block;}
+</style>
+</head>
+<!--
+<body onLoad="setup();preselect('河南省',1);">
+-->
+<body onLoad="setup();preselect('{$user['province']}',1);preselect('{$user['city']}',2);preselect('{$user['area']}',3);promptinfo();">
+    <header class="aui-bar aui-bar-nav aui-border-b" id="aui-header">
+        <a class="aui-btn aui-pull-left aui-border-b" href="javascript:history.go(-1);">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" id="header-title">个人资料</div>
+        <p class="xiugai"><a href="{:U('portal/mindex/revise')}">修改密码</a></p>
+    </header>
+    <form action="{:U('user/profile/edit_post')}" class="profile_form" method="post">
+    <div class="content aui-list-view">
+        <div class="denglu">
+        	<input type="hidden" name="flag" value=1>
+            <div class="btb"><span class="wenzi">姓名</span><input type="text" value="{$user['user_nicename']}" name="user_nicename" placeholder="请填写你的姓名（必填）" id="name"></div>
+            <div class="btb"><span class="wenzi">电话</span><input type="text" value="{$user['mobile']}" name="mobile" placeholder="请填写你的手机号（必填）" id="tel"></div>
+            <div class="btb">
+                <span class="wenzi">职务</span>
+                <ul class="zhi">
+                    <li><input type="checkbox" name="like" checked="checked"/><span>投资人/校长</span></li>
+                    <li><input type="checkbox" name="like"/>管理层</li>
+                    <li><input type="checkbox" name="like"/>教师</li>
+                </ul>
+            </div>
+            <div class="btb"><span class="wenzi">名称</span><input type="text" value="{$user['school']}" name="school" placeholder="请填写你的学校名称" id="job"></div>
+            <div class="btb"><span class="wenzi">规模</span>
+                    <select name="amount">
+                        <option value="1" <if condition="$user['amount'] eq 1">selected="selected"</if> >300人以下</option>
+                        <option value="2" <if condition="$user['amount'] eq 2">selected="selected"</if> >300-800人</option>
+                        <option value="3" <if condition="$user['amount'] eq 3">selected="selected"</if> >800-3000人</option>
+                        <option value="4" <if condition="$user['amount'] eq 4">selected="selected"</if> >3000人以上</option>  
+                    </select>
+            </div>
+        </div>
+        <div class="xue aui-border-b">
+            <div class="area">地区</div>
+            <div class="diqu">
+                <div class="city">
+                    <select class="sheng" name="province" id="s1">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="city">
+                    <select class="shi" name="city" id="s2">
+                        <option value=""></option>
+                    </select>
+                </div>
+                    <select class="xian" name="area" id="s3">
+                        <option value=""></option>
+                    </select>
+            </div>
+        </div>
+        <div class="progect aui-border-b">
+            <div class="title">学校项目</div>
+            <ul class="zhi">
+            <php>$item = explode(",",$user['item']);</php>
+                    <li><input type="checkbox" name="item[]" <php> if(in_array(1,$item)) echo 'checked="checked"';</php> value="1" />幼少儿培训</li>
+                    <li><input type="checkbox" name="item[]" <php> if(in_array(2,$item)) echo 'checked="checked"';</php> value="2" />初高中培训</li>
+                    <li><input type="checkbox" name="item[]" <php> if(in_array(3,$item)) echo 'checked="checked"';</php> value="3" />幼儿园</li>
+                    <li><input type="checkbox" name="item[]" <php> if(in_array(4,$item)) echo 'checked="checked"';</php> value="4" />早教机构</li>
+                    <li><input type="checkbox" name="item[]" <php> if(in_array(5,$item)) echo 'checked="checked"';</php> value="5" />文化课培训</li>
+                    <li><input type="checkbox" name="item[]" <php> if(in_array(6,$item)) echo 'checked="checked"';</php> value="6" />素质教育课程</li>
+                    <li><input type="checkbox" name="item[]" <php> if(in_array(7,$item)) echo 'checked="checked"';</php> value="7" />其他</li>
+                </ul>
+        </div>
+        <div class="btn" onClick="submit_form();">确定</div>
+    </div>
+    </form>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+function submit_form(){
+	var url = "{:U('user/profile/edit_post')}";
+	$.post(url,$(".profile_form").serializeArray(),function(res){
+		//alert(res.status+">>>"+res.url+">>>"+res.info);
+		if(res.status){
+			url="{:U('portal/mindex/user_center',array('menu'=>3))}";
+            alert(res.info);
+            window.location.href = url;
+		}else{
+			alert(res.info);
+		}
+	});
+}	
+//这个函数是必须的，因为在geo.js里每次更改地址时会调用此函数
+	function promptinfo()
+	{
+		var address = document.getElementById('address');
+		var s1 = document.getElementById('s1');
+		var s2 = document.getElementById('s2');
+		var s3 = document.getElementById('s3');
+		address.value = s1.value + s2.value + s3.value;
+
+	}
+function subject()
+{
+    //判断必填项是否填写。
+    if($("#school").val()=="")
+    {
+        alert("学校名称不能为空"); return;
+    }
+    if($("#detail").val()=="")
+    {
+        alert("详细地址不能为空"); return;
+    }
+    if($("#amount").val()==0){
+        alert("请选择学校规模"); return;
+    }
+    if($("#contact").val()=="")
+    {
+        alert("校长姓名不能为空"); return;
+    }
+    if($("#phone").val()=="")
+    {
+        alert("校长手机不能为空"); return;
+    }
+    if($("#s1").val()=="省份")
+    {
+        alert("请选择省份"); return;
+    }
+    if($("#s2").val()=="地级市")
+    {
+        alert("请选择城市"); return;
+    }
+    var url="./index.php?i=2&c=site&a=site&do=biaodan&";
+    var data={'id':$("#id").val(),'school':$("#school").val(),'school_num':$("#school_num").val(),'province':$("#s1").val(),'city':$("#s2").val(),'area':$("#s3").val(),'detail':$("#detail").val(),'class':$("#class").val(),'amount':$("#amount").val(),'operation':$("#operation").val(),'operation_tel':$("#operation_tel").val(),'email':$("#email").val(),'contact':$("#contact").val(),'phone':$("#phone").val(),'remark':$("#remark").val(),'weiname':$("#weiname").val(),'weiusername':$("#weiusername").val(),'weipassword':$("#weipassword").val()}
+    $.post(url,data,function(res){
+        res =JSON.parse(res);
+        alert(res.msg);
+        window.location.href="http://train.jialepai100.com/app/index.php?c=site&a=site&cid=1036&i=2&do=vipservice";
+    });
+}
+</script>
+</html>

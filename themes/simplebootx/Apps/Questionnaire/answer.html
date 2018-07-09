@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['titlehuan']}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Questionnaire/css/answer.css?i=1"/>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/zhezhao.js?i=1"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low &&_ww<720){
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<style>
+.bottom:last-child{display:none;}
+.tu1 div{ background-image:url({:sp_get_asset_upload_path($item['params']['prize1_thumb'],true)});}
+.tu2 div{ background-image:url({:sp_get_asset_upload_path($item['params']['prize2_thumb'],true)});}
+.tu3 div{ background-image:url(http://img.tongyishidai.com/images/global/xiexiehuigu.png);}
+.tu4 div{ background-image:url({:sp_get_asset_upload_path($item['params']['prize3_thumb'],true)});}
+.tu5 div{ background-image:url({:sp_get_asset_upload_path($item['params']['prize4_thumb'],true)});}
+.tu6 div{ background-image:url(http://img.tongyishidai.com/images/global/xiexiehuigu.png);}
+.tu7 div{ background-image:url({:sp_get_asset_upload_path($item['params']['prize5_thumb'],true)});}
+.tu8 div{ background-image:url({:sp_get_asset_upload_path($item['params']['prize6_thumb'],true)});}
+</style>
+</head>
+<body>
+<div class="bgc">
+    <img src="__TMPL__Apps/Questionnaire/images/dati.jpg" width="750"/>
+    <div class="biaoti"><p>{$item['params']['school']}</p></div>
+    <div class="title"><p>{$item['titlehuan']}</p></div>
+</div>
+<div class="content">
+    <foreach name="problemls" item="problem">
+    <div class="cont">
+        <p class="tinump">{$key+1}、</p>
+        <div class="timu">
+            <p>{$problem['title']}<input type="hidden" name="tiid[]" value="{$problem['id']}"/></p>
+            <ul>
+                <li><input type="radio" name="serad{$key}" value="1" style="display:none;" /><img src="__TMPL__Apps/Questionnaire/images/yuan.png" class="seleimg"  style="margin-right:20px;" onclick="dian(this);"/>A、{$problem['item1']}</li>
+                <li><input type="radio" name="serad{$key}" value="2" style="display:none;" /><img src="__TMPL__Apps/Questionnaire/images/yuan.png" class="seleimg"  style="margin-right:20px;" onclick="dian(this);"/>B、{$problem['item2']}</li>
+                <li><input type="radio" name="serad{$key}" value="3" style="display:none;" /><img src="__TMPL__Apps/Questionnaire/images/yuan.png" class="seleimg"  style="margin-right:20px;" onclick="dian(this);"/>C、{$problem['item3']}</li>
+            </ul>
+        </div>
+        <if condition="$key+1 LT count($problemls)">
+        <div class="bottom"><img src="__TMPL__Apps/Questionnaire/images/fenge.png" alt="" /></div>
+        </if>
+        <div style="clear:both;"></div>
+    </div>
+    </foreach>
+    <p class="submitp" onclick="jiayou()">提交</p>
+</div>
+<div class="footer"><img src="__TMPL__Apps/Questionnaire/images/bg_bottom.jpg" alt="" /></div>
+<!-- 去抽奖开始 -->
+<div id="cheer">
+    <img src="__TMPL__Apps/Questionnaire/images/jiayou.png" class="fight"/>
+    <p class="wenzi">恭喜你，获得一次抽奖机会！</p> 
+    <div class="cheer_btn"  onclick="zhuanpan()"></div>
+</div>
+<!-- 去抽奖结束 -->
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<!-- 分享好友 -->
+<!-- <img src="images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" /> -->
+<!-- 大转盘开始 -->
+<div id="zhuanpan">
+    <img src="__TMPL__Apps/Questionnaire/images/fenxiang.png" id="fenxiang" style="position:fixed; z-index:5; top:0; right:20px; display:none;" />
+    <img class="toptu" src="__TMPL__Apps/Questionnaire/images/toptu.jpg" width="750" />
+    <div class="zhuanpan_title">{$item['params']['school']}</div>
+    <div class="zhuanpan_cont">{$item['title']}</div>
+    <div class="chakan" onclick='baoxiang()'>兑奖说明>></div>
+    <div class="chjtdiv">
+        <div class="jiangdiv tu1">
+            <div></div>
+            <p>{$item['params']['prize1_name']}</p>
+        </div>
+        <div class="jiangdiv tu2">
+            <div></div>
+            <p>{$item['params']['prize2_name']}</p>
+        </div>
+        <div class="jiangdiv tu3">
+            <div></div>
+            <p>谢谢参与</p>
+        </div>
+        <div class="jiangdiv tu8">
+            <div></div>
+            <p>{$item['params']['prize6_name']}</p>
+        </div>
+        <div class="jiangdiv" id="choudiv" style="background:url(__TMPL__Apps/Questionnaire/images/choujiang.png) center center no-repeat;">
+        </div>
+        <div class="jiangdiv tu4">
+            <div></div>
+            <p>{$item['params']['prize3_name']}</p>
+        </div>
+        <div class="jiangdiv tu7">
+            <div></div>
+            <p>{$item['params']['prize5_name']}</p>
+        </div>
+        <div class="jiangdiv tu6">
+            <div></div>
+            <p>谢谢参与</p>
+        </div>
+        <div class="jiangdiv tu5">
+            <div></div>
+            <p>{$item['params']['prize4_name']}</p>
+        </div>
+    </div>
+</div>
+<!-- 大转盘结束 -->
+<!--填写手机姓名html弹窗开始-->
+    <div id="tianxx" class="tandiv">
+        <img src="__TMPL__Apps/Questionnaire/images/close1.png" class="closeimg" onclick="closeBg('fullbg2','tianxx')" />
+        <div style="clear:both;"></div>
+        <div class="gift"><img src="__TMPL__Apps/Questionnaire/images/gift.jpg" alt="" /></div>
+        <p class="tishi">恭喜你抽中了<span>奥运吉祥物玩偶</span>！</p>
+        <div class="inputdiv" style="margin-top:45px;">
+            <span>姓名</span>
+            <input type="text" placeholder="请输入姓名" name="name" />
+        </div>
+        <div class="inputdiv">
+            <span>手机</span>
+            <input type="text" placeholder="请输入手机号码" name="mobile" />
+        </div>
+        <p class="submitip">提交</p>
+    </div>
+<!--填写手机姓名html弹窗结束-->
+<!-- 未中奖开始 -->
+<div id="nowin">
+    <img src="__TMPL__Apps/Questionnaire/images/close1.png" class="closeimg2" onclick="window.location.href='{:U('apps/Questionnaire/index',array('id'=>$aid))}'" />
+    <div class="present"><img src="__TMPL__Apps/Questionnaire/images/nowin.png" alt=""/></div>
+    <div class="nowin_text">很遗憾,什么都没中!下次再来吧</div>
+</div>
+<!-- 未中奖结束 -->
+<!-- 如何抽奖开始 -->
+<div id="baoxiang">
+    <p class="baoxiang_title">兑奖说明<img src="__TMPL__Apps/Questionnaire/images/close.png" onclick="closeBg('fullbg2','baoxiang')"/></p>
+    <div class="shuoming">{$item['activityremark']|html_entity_decode}</div>
+</div>
+<!-- 如何抽奖结束 -->
+
+<tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+// 转盘开始
+var selejiang=null;
+var seleindex=0;
+var ci=0;
+var zhi=1;
+var jiange=0;
+var jitime=null;
+var tijiaostatus=false;
+var tilength=parseInt("<php>echo count($problemls)</php>");
+var setcheckedurl='{:U("apps/Questionnaire/setchecked",array("id"=>$aid))}';//提交填写的答案。
+var getjiangurl='{:U("apps/Questionnaire/getjiang",array("id"=>$aid))}';//获得应该中的奖品
+var lingjiangurl='{:U("apps/Questionnaire/lingjiang",array("id"=>$aid))}';//获得应该中的奖品
+$(function(){
+	$(".timu li").click(function(){
+		$(this).parent().find("img.seleimg").attr("src","__TMPL__Apps/Questionnaire/images/yuan.png");
+		$(this).parent().find(":radio[name='serad']").attr("checked",false);
+		$(this).find("img.seleimg").attr("src","__TMPL__Apps/Questionnaire/images/yuan1.png");
+		$(this).find("input[type='radio']").attr("checked",true);
+	});
+    $("#choudiv").click(function() {  
+        choujiang();
+    });
+	$(".submitip").click(function(){
+		if(tijiaostatus) return;
+		var name=$("input[name='name']").val();
+		if(name=="")
+		{
+			alert("姓名不能为空哦！");return;
+		}
+		var mobile=$("input[name='mobile']").val();
+		if(mobile=="")
+		{
+			alert("填一下你的手机号吧！");return;
+		}
+		if(mobile.length!=11)
+		{
+			alert("我能看出来你的手机号是不正确的哦！");return;
+		}
+		tijiaostatus=true;
+		$.post(lingjiangurl,{name:name,mobile:mobile}, function(data) {
+			if(data.status>0)
+			{
+				//弹出领奖成功提示
+				alert("领奖成功，您可以在首页中点击宝箱查看！");
+			}
+			else
+			{
+				alert("很遗憾，您的奖品领取失败了，您的奖品信息是：名字："+data.jiang.name+"；类型："+data.jiang.type+"；赶紧截个图给工作人员吧！");
+			}
+			//跳转到首页。
+			window.location.href='{:U("apps/Questionnaire/index",array("id"=>$aid))}';
+		});
+	});
+})
+function choujiang()
+{
+	$("#choudiv").css('background-image','none');
+	$('#choudiv').unbind("click");
+	$.post(getjiangurl,null, function(data) {
+		//alert(data.msg);
+		if(data.status>=0)
+		{
+			$(".gift img").attr("src",data.jiang.thumb);
+			$("#tianxx .tishi span").html(data.jiang.name);
+			ci=48-zhi;
+			zhi=data.status;
+			ci=ci+zhi;
+			jiange=50;
+			//开始旋转。
+			if(selejiang==null)
+			{
+				selejiang=$(".tu1");
+				selejiang.addClass("selectjiang");
+				seleindex=1;
+			}
+			jitime=setInterval("xuanzhuan()",jiange);
+		}
+	});
+}
+function xuanzhuan()
+{
+    //删除当前选中图片的样式。
+    selejiang.removeClass("selectjiang");
+    seleindex++;
+    if(seleindex>=9)
+        seleindex=1;
+    //选中节点为下一个节点
+    selejiang=$(".tu"+seleindex);
+    //为选中节点增加样式。
+    selejiang.addClass("selectjiang");
+    ci--;
+    if(ci<=5)
+    {
+        jiange+=100;
+        clearInterval(jitime);
+        jitime=setInterval("xuanzhuan()",jiange)
+    }
+    if(ci<=0)
+    {
+        clearInterval(jitime);
+        $("#choudiv").click(function() {  
+            alert("你已经抽过奖了，不能再抽了");
+			//跳转到首页
+			window.location.href='{:U("apps/Questionnaire/index",array("id"=>$aid))}';
+        });
+        if(zhi!=3&&zhi!=6)
+			setTimeout("showBg('fullbg2','tianxx')",500);
+        else setTimeout("showBg('fullbg2','nowin')",500);
+    }
+}
+//提交答题信息。
+function jiayou()
+{
+	var checkradiols=$("input[type='radio']:checked");
+	//如果长度不够。
+	if(checkradiols.length<tilength)
+	{
+		alert("大侠，填完再提交吧！");return;
+	}
+	var checkarr=[];
+	for(var i=0;i<checkradiols.length;i++)
+	{
+		//获取值拼接成数组。
+		checkarr[i]=$(checkradiols[i]).val();
+	}
+	var tiidls=$("input[name='tiid[]']");
+	var tiidarr=[];
+	for(var i=0;i<tiidls.length;i++)
+	{
+		//获取值拼接成数组。
+		tiidarr[i]=$(tiidls[i]).val();
+	}
+	$.post(setcheckedurl,{checkarr:checkarr,tiidarr:tiidarr},function(res){
+		if(res.status==1)
+		{
+			showBg('fullbg','cheer');
+		}
+		else
+		{
+			alert(res.msg);
+		}
+		if(res.status==-2)
+		{
+			//跳转到首页
+			window.location.href='{:U("apps/Questionnaire/index",array("id"=>$aid))}';
+		}
+	});
+}
+function zhuce()
+{
+    showBg('fullbg2','tianxx',false);
+}
+function nowin()
+{
+    showBg('fullbg2','nowin',false);
+}
+function zhuanpan()
+{
+    showBg('fullbg','zhuanpan');
+    closeBg('cheer');
+}
+function baoxiang()
+{
+    showBg('fullbg2','baoxiang',false);
+}
+</script>
+</html>

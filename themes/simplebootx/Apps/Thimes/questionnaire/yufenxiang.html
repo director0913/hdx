@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+*{ margin:0; padding:0;}
+.wt100{ width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.caozuoqu{ position:absolute; top:0; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+/*基础样式结束*/
+
+/*每个页面自己的样式开始*/
+.zhongkuaidiv{width:179px; height:79px; position:absolute; top:111px; left:90px;}
+.share_title{font-size:12px; color:#5D5D5D; height:18px; overflow:hidden;word-break:break-all;}
+.tupian{float:left; width:52px; height:52px; margin-top:6px;}
+.share_img{width:52px; height:52px;}
+.miaoshu{float:left; width:116px; height:48px; padding-top:5px; margin-top:6px; margin-left:7px; color:#C2C2C2;}
+.share_des{ height:45px;word-break:break-all; overflow:hidden; line-height:15px; font-size:12px;}
+.alldiv{ position:absolute; top:0; left:0; bottom:0; right:0; overflow:auto;}
+/*每个页面自己的样式结束*/
+</style>
+</head>
+
+<body >
+<div class="caozuoqu">
+    <img src="__TMPL__Apps/Thimes/common/images/yufenxiang.jpg"/>
+    <div class="zhongkuaidiv">
+        <div class="jichu">
+            <p class="share_title">招生秀暑期方案出炉，邀请好友报名得奖品</p>
+            <span class="czspan" onclick="dianji('share_title','fenxiang')">编辑</span>
+        </div>
+        <div class="jichu tupian"><img src="__TMPL__Apps/Thimes/common/images/yufenxiang.jpg" class="share_img"/><span class="czspan" onclick="dianji('share_img','fenxiang')">编辑</span></div>
+        <div class="jichu miaoshu"><p class="share_des">招生秀暑期方案出炉，邀请好友报名得奖品</p><span class="czspan" onclick="dianji('share_des','fenxiang','guize')">编辑</span></div>
+    </div>
+</div>
+</div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script type="text/javascript">
+
+$(function(){
+    genggai("title");
+    genggai("share_title");
+	genggai("share_img","img");
+	genggai("share_des","fwb");
+})
+</script>
+</html>

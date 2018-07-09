@@ -1,0 +1,92 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('form/all_list')}">活动管理</a></li>
+		</ul>
+		<div class="success">当前共有<span style="font-weight:bold;color:red;">{$tcount}</span>个活动,其中未开始的活动有<span style="font-weight:bold;color:red;">{$wcount}</span>个,进行中的活动有<span style="font-weight:bold;color:red;">{$jcount}</span>个,已结束的有<span style="font-weight:bold;color:red;">{$ecount}</span>个。</div>
+		<form class="well form-search" method="post" action="">			分类： 
+		<select class="select_2" name="type"> 
+			<option value="0">全部</option>
+			<foreach name="type" item="vo">
+				<option value="{$key}" <if condition="$formget['type'] eq $key"> selected="selected" </if> >{$vo}</option>
+			</foreach>
+		</select> &nbsp;&nbsp;
+		时间：
+			<input type="text" name="start_time" class="js-date" value="{$formget.start_time|default=''}" style="width: 80px;" autocomplete="off">-
+			<input type="text" class="js-date" name="end_time" value="{$formget.end_time}" style="width: 80px;" autocomplete="off"> &nbsp; &nbsp;
+		活动状态：
+		<select class="select_2" name="status"> 
+			<foreach name="status" item="vo">
+				<option value="{$key}" <if condition="$formget['status'] eq $key"> selected="selected" </if> >{$vo}</option>
+			</foreach>
+		</select> &nbsp;&nbsp;
+		关键字： 
+		<input type="text" name="keyword" style="width: 80px;" value="{$formget.keyword}" placeholder="请输入关键字..."> <input type="submit" class="btn btn-primary" value="搜索"> 
+		</form>
+		<form method="post" class="js-ajax-form">
+			<div><span style="color:red;font-weight:bold;">共{$count}</span>条记录</div>
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/listorders')}">{:L('SORT')}</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('display'=>1))}" data-subcheck="true">{:L('DISPLAY')}</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('hide'=>1))}" data-subcheck="true">{:L('HIDE')}</button>
+			</div>
+			<php> $status=array("1"=>L('DISPLAY'),"0"=>L('HIDDEN')); </php>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="16"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">{:L('SORT')}</th>
+						<!--<th width="50">ID</th>-->
+						<th>名称</th>
+						<th>活动链接</th>
+						<th width="80">活动状态</th>
+						<th width="120">发布时间</th>
+						<!--<th>简介</th>-->
+						<th width="45">{:L('STATUS')}</th>
+						<th width="120">{:L('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+					<tr>
+						<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}"></td>
+						<td><input name='listorders[{$vo.id}]' class="input input-order mr5" type='text' size='3' value='{$vo.listorder}'></td>
+						<!--<td>{$vo.id}</td>-->
+						<td><a href="http://{$_SERVER['HTTP_HOST']}{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}" target="_blank">{$vo.name}</a></td>
+						<td><input type="text" value="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}"></td>
+						<td>
+							<php>
+								$curr_time = time();
+								if($vo['begintime']>$curr_time){
+									echo "活动未开始";
+								}elseif($vo['endtime']<$curr_time){
+									echo "活动已结束";
+								}else{
+									echo "活动进行中";
+								}
+							</php>
+						</td>
+						<td>{$vo['createtime']|date='Y年m月d日',###}</td>
+						<!--<td>{$vo.description}</td>-->
+						<td>{$status[$vo['recommend']]}</td>
+						<td>
+							<a href="{:U('form/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
+							<a href="{:U('form/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/listorders')}">{:L('SORT')}</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('display'=>1))}" data-subcheck="true">{:L('DISPLAY')}</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('hide'=>1))}" data-subcheck="true">{:L('HIDE')}</button>
+			</div>
+		</form>
+	<div class="pagination">{$page}</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

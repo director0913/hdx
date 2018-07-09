@@ -1,0 +1,16 @@
+/.idea
+/.tags
+/data/runtime
+/data/conf
+/data/upload
+/data/.DS_Store
+/phpCAS.log
+/.DS_Store
+/application/.DS_Store
+/application/Apps/.DS_Store
+/application/Comment/.DS_Store
+/application/Common/.DS_Store
+/application/Common/Controller/.DS_Store
+/themes/simplebootx/Public/.DS_Store
+/themes/simplebootx/Public/images/.DS_Store
+/simplewind/Core/Library/Qcloud_cos

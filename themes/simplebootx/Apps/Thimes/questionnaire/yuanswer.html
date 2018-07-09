@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>答题</title>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<style>
+*{ margin:0; padding:0;}
+.wt100{ width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+.o_h{ overflow:hidden;}
+.hangzi1{ height:16px;}
+.hangzi2{ height:32px;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+ /*基础样式结束*/
+a{text-decoration:none;}
+body{width:320px;background:#fff1c3;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+.bgc{position:relative;}
+.biaoti{position:absolute;top:21px;width:114px;height:30px;margin-left:-53px;left:50%;color:#fff;font-size:13px;text-align:center;display:table;}
+.biaoti p{vertical-align:middle;/*display:table-cell;*/}
+.title1{position:absolute;top:64px;left:50%;width:200px;margin-left:-100px;color:#755324;font-size:12px;text-align:center;}
+.title1 p{background:url(__TMPL__Apps/Thimes/questionnaire/images/bgc.png) no-repeat center 0;line-height:20px;background-size:100% 20px;width:180px;margin:0 auto;overflow: hidden;padding-left:10px;padding-right:10px;height:20px;}
+.question{position: relative;}
+.submit{position:absolute;left:50%;margin-left:-40px;width:80px;bottom:65px;}
+.banquan{text-align:center;font-size:12px; color:#666465;padding-top:10px;padding-bottom:12px;background-color: #fff;}
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+</style>
+</head>
+<body>
+<!--通用上部开始-->
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/common/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title"></p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+<!--通用上部结束-->
+<div class="caozuoqu">
+    <div class="bgc">
+        <img src="__TMPL__Apps/Thimes/questionnaire/images/dati.jpg" width="320"/>
+        <div class="biaoti">
+            <div class="jichu">
+                <p class="school o_h hangzi2">陕西旭东教育集团</p>
+                <span class="czspan" onclick="dianji('school','base')" style="top:0;right:-38px;">编辑</span>
+            </div>
+        </div>
+         <div class="title1">
+            <div class="jichu">
+                <p class="title">招生秀邀您回答问题赢大奖</p>
+                <span class="czspan" onclick="dianji('title','base')">编辑</span>
+            </div>
+        </div>
+    </div>
+    <div class="question">
+        <img src="__TMPL__Apps/Thimes/questionnaire/images/question.png" alt="" />
+        <img src="__TMPL__Apps/Thimes/questionnaire/images/btn2.png" class="submit" />
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script>
+$(function(){
+	genggai("title");
+    genggai("school");
+});
+</script>
+</html>

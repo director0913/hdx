@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员特权</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/vip.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="toptu" style="background: url('{$banner.url}') center 0 no-repeat;">
+	<!-- <p class="title">升级会员，享招生秀特权</p>
+    <p class="shuoming">加入会员，你的私家商业秘书，每周学习，一起进步！</p> -->
+</div>
+<p class="c_b"></p>
+<div class="pagediv xiazhong">
+	<div class="fenlan frborder" style="width:527px;">
+    	<div class="zhongtop" style="height:600px;">
+        	<h1 style="font-size:38px; margin-top:30px;">免费会员</h1>
+            <ul style="padding-top:40px;">
+            	<li class="gouxuan"><span class="fa fa-check"></span>部分招生秀活动模板免费使用</li>
+            	<li class="gouxuan"><span class="fa fa-check"></span>部分招生秀应用模板免费使用</li>
+            	<li class="gouxuan"><span class="fa fa-check"></span>每月直播免费观看</li>
+                <li class="gouxuan"><span class="fa fa-check"></span>海量资料免费下载</li>
+                <li class="gouxuan"><span class="fa fa-check"></span>行业方案免费使用</li>
+                <li class="gouxuan"><span class="fa fa-check"></span>在线人工一对一咨询</li>
+            </ul>
+        </div>
+    </div>
+	<div class="fenlan" style="width:521px;">
+    	<div class="zhongtop" style="height:600px;">
+        	<h1 style="font-size:38px; margin-top:30px;">缴费会员</h1>
+            <ul style="padding-top:40px;">
+            	<li class="gouxuan"><span class="fa fa-check"></span>全部定制活动模板免费使用</li>
+            	<li class="gouxuan"><span class="fa fa-check"></span>全部定制线上营销互动工具免费使用</li>
+            	<li class="gouxuan"><span class="fa fa-check"></span>畅听专属精品会员课程</li>
+            	<li class="gouxuan"><span class="fa fa-check"></span>指导师一对一问题答疑</li>
+            	<li class="gouxuan"><span class="fa fa-check"></span>每年1-4次会员校组织参观</li>
+            	<li class="gouxuan"><span class="fa fa-check"></span>每年1-2次大型会员年会受邀参加</li>
+                <li class="gouxuan" style="color:red;">注：校营通会员有效期为1年。会员费用1080元/年。</li>
+            </ul>
+            <if condition="$Think.session.user.level lt 2">
+               <!-- <div class="btnqu"><a href="javascript:void(0);" class="goumai">加入会员</a></div>-->
+            </if>
+        </div>
+    </div>
+    <p class="c_b"></p>
+</div>
+<div class="dibeijing"></div>
+<tc_include file="Public:footer"/>
+<div onclick="closeBg('#fullbg','.tangoumai')" id="fullbg"></div>
+<div class="tangoumai">
+    <div class="tan-content">
+        <div class="title-img">
+            <img src="__TMPL__Public/images/xyt-vip.png">
+        </div>
+        <div class="order">
+            订单：
+            <span id="orderId"></span>
+        </div>
+        <div class="goods">
+            <div class="goods-img">
+                <img src="__TMPL__Public/images/goods-img.png" alt="商品图片">
+            </div>
+            <div class="goods-name">
+                <span>校营通会员</span>
+                <span>每天一元钱，轻松一整年  加入校营通会员，享用所有模板和应用</span>
+            </div>
+        </div>
+        <div class="pay">
+            <div class="pay-title">请选择一下支付方式</div>
+            <div class="pay-way">
+                <div data-pay="1" class="pay-fs pay-zfb">
+                    <img src="__TMPL__Public/images/zfb.png" alt="支付宝">
+                </div>
+                <div data-pay="2" class="pay-fs pay-wx">
+                    <img src="__TMPL__Public/images/wx.png" alt="微信">
+                </div>
+            </div>
+            <div class="kf">
+                <img src="__TMPL__Public/images/kefuweixin.jpg">
+                <p>如有疑问请扫码联系客服</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="paper">应付金额：<span>¥1080.00</span></div>
+        <a class="rise-vip" href="javascript:;">升级会员</a>
+        <div class="clear"></div>
+    </div>
+    <input type="hidden" id="payMode" name="payMode" />
+    <input type="hidden" id="payId" name="payId" />
+    <img src="__TMPL__Public/images/close.png" class="close" onclick="closeBg('#fullbg','.tangoumai')" />
+</div>
+<input type="hidden" value="{$domain_name}" id="domain_name" />
+</body>
+<script type="text/javascript">
+    $(".site-info").css("margin-top","0");
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$(".goumai").click(function(){
+	    var domain_name = document.getElementById('domain_name').value;
+        $.ajax({
+            url: domain_name + '/index.php/portal/order/add_order_info.shtml',
+            dataType : 'json',
+            success : function(data) {
+                if (data.code == -1) {
+                    window.location.href = domain_name + '/index.php/user/base/login.shtml';
+                } else if(data.code == -2) {
+                    alert('创建订单失败！');
+                    location.reload();
+                } else {
+                    showBg("#fullbg",".tangoumai");
+                    $('#payId').val(data.orderId);
+                    $('#orderId').html(data.orderId);
+                }
+            }
+        });
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+    $(".pay-fs").click(function(){
+        $(".pay-fs").removeClass("selected");
+        var payNull=$(this).data("pay");
+        $("#payMode").val(payNull);
+        $(this).addClass("selected");
+    });
+    $(".rise-vip").click(function(){
+        var payMode = $("#payMode").val();
+        var payId = $("#payId").val();
+
+        if (payMode !== "1" && payMode !== "2") {
+            alert("请选择支付方式！");
+            return false;
+        }
+
+        if (payId == '' || !payId) {
+            alert('缺少订单号！');
+            return false;
+        }
+
+        var domain_name = document.getElementById('domain_name').value;
+
+        window.location.href = domain_name + '/index.php/portal/order/pay/orderId/' + payId + '/payType/' + payMode + '/menu/2.shtml';
+    })
+</script>
+</html>

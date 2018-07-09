@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>微砍价</title>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weiprice/css1/index.css?i=4.0"/>
+    <style>
+        body{
+            background:#AADB5D;
+        }
+		.kanjia{
+			background:#AADB5D;
+		}
+		#audio_btn {
+			position: fixed;
+			top:20px;
+			right:33px;
+			height:60px;
+			width:60px;
+			z-index: 9999;
+			background-image: url(__TMPL__Apps/womenday/images/1.jpg);
+			background-size: contain;
+		}
+		.rotate {
+		    animation: rotating 1.2s linear infinite;
+		    -webkit-animation: rotating 1.2s linear infinite;
+		}
+		@keyframes rotating {
+		    from {
+		        -webkit-transform: rotate(0deg);
+		        transform: rotate(0deg);
+		    }
+		    to {
+		        -webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+		    }
+		}
+		.skill_support{width: 100%;background: #fff;text-align: center;}
+		.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+		.skill_support a{ display: block;}
+    </style>
+    <script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low &&_ww<720){
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<script type="text/javascript" src="__TMPL__Apps/Common/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/zhezhao.js"></script>
+</head>
+<body>
+<div class="bgc">
+    <img src="__TMPL__Apps/Weiprice/images1/kanjia.jpg" width="750"/>
+    <div class="biaoti">{$item['title']}</div>
+    <div class="act_time">活动截止时间:{$item['endtime']|date='Y年m月d日',###}</div>
+</div>
+<if condition="$item['params']['bg'] neq no">
+	<div id="audio_btn" class="rotate">
+		<audio loop src="__TMPL__Public/audio/{$item['params']['bg']}.mp3" id="media" autoplay="" preload=""></audio>
+	</div>
+</if>
+<!-- 砍价开始 -->
+<div class="kanjia">
+    <div class="kanjia_biaoti wei_c_b">        
+        <div class="kanjia_title">我是{$shareuser['username']|msubstr=0,4,'utf-8',false}，快来帮我砍价吧！</div>
+        <div class="user"><img src="{$shareuser['avatar']}" alt="" /></div>
+    </div>
+    <div class="kanjia_cont">
+        <div class="kanjia_user"><img src="{$item['params']['p_preview_pic']}" alt="" /></div>
+        <div class="neirong">
+            <div class="school">{$item['params']['p_name']}</div>
+            <div class="kecheng" style="height:60px;overflow:scroll;overflow-x:hidden;">{$item['params']['p_dec']}</div>
+        </div>
+    </div>
+    <div class="price">
+        <div class="price_top" style="width:{$jindu}%;">￥{$dqprice}</div>
+        <div class="progress">
+            <div class="jindu"></div>
+            <div class="jindu1" style="width:{$jindu}%;"></div>
+            <ul class="money wei_c_b">
+                <li>
+                    <img src="__TMPL__Apps/Weiprice/images1/money.png" alt="" />
+                    <p>￥{$item['params']['p_y_price']}</p>
+                </li>
+                <li>
+                    <img src="__TMPL__Apps/Weiprice/images1/<if condition='$jindu EGT 50'>money<else/>kong</if>.png" alt=""class="zhongbao" />
+                    <p>￥<php>echo intval(($item['params']['p_y_price']+$item['params']['p_low_price'])/2*100)/100</php></p>
+                </li>
+                <li>
+                    <img src="__TMPL__Apps/Weiprice/images1/<if condition='$jindu EGT 100'>money<else/>kong</if>.png" alt="" class="weibao" />
+                    <p>￥{$item['params']['p_low_price']}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="btn wei_c_b">
+	<if condition="$astatus neq 1">
+    <p style="font-size:30px; text-align:center;">{$axinxi}</p>
+	<elseif condition="$isme"/>
+    <div class="btn_l" onclick="showBg('fullbg','jilu')">砍价记录</div>
+    <div class="btn_r" onclick="showBg('fullbg','fenxiang',true)">找人帮我砍价</div>
+    <else/>
+    <div class="btn_l" onclick="kanjia()">帮TA砍价</div>
+    <div class="btn_r" onclick='zhuanindex()'><if condition="$user['mobile'] neq ''">我的砍价<else/>我也要参加</if></div>
+    </if>
+</if>
+</div>
+<!-- 砍价结束 -->
+<!-- 活动规则开始 -->
+<if condition="$item['rule'] neq ''">
+<div class="guize">
+    <p class="title">活动说明</p>
+    <div class="text">{$item['rule']|html_entity_decode}</div>
+</div>
+</if>
+<if condition="$item['school_desc'] neq ''">
+<div class="guize">
+    <p class="title">关于我们</p>
+    <div class="text">{$item['school_desc']|html_entity_decode}</div>
+</div>
+</if>
+<!-- 活动规则结束 -->
+<!-- 列表开始 -->
+<div class="liebiao">
+    <table>
+        <tr class="tt">
+            <th class="shenhong wd120">序号</th>
+            <th class="shenhong wd180">姓名</th>
+            <th class="shenhong wd230">手机号</th>
+            <th class="qianhong wd180">最低砍价</th>
+        </tr>
+    </table>
+    <div class="more">
+        <img src="__TMPL__Apps/Weiprice/images1/more.png" alt="" />
+        <span onclick="getpaihang()" class="gengduopm">查看更多排名</span>
+    </div>
+</div>
+<!-- 列表结束 -->
+<!-- 砍价记录开始 -->
+<div id="jilu">
+    <p class="jilu_top">砍价记录</p>
+    <div class="list">
+        <div class="jilu_th wei_c_b">
+                <div class="jilu_user">头像</div>
+                <div class="jilu_name">昵称</div>
+                <div class="jilu_price">砍掉价格</div>
+        </div>
+        <div class="dataqu">
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <div class="shuxian"></div>
+    <div class="close" onclick="closeBg('fullbg','jilu')"><img src="__TMPL__Apps/Weiprice/images1/close.png" alt="" /></div>
+</div>
+<!-- 砍价记录结束 -->
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<img src="__TMPL__Apps/Weiprice/images1/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" />
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+var x = document.getElementById("media");
+	$("#audio_btn").click(function(){
+		$(this).toggleClass("rotate"); //控制音乐图标 自转或暂停
+		//控制背景音乐 播放或暂停
+		if($(this).hasClass("rotate")){
+			x.play();
+		}else{
+			x.pause();
+		}
+	})
+var kanjiaurl='{:U("apps/weiprice/kanjia",array("id"=>$aid,"uid"=>$shareuser["id"],"t"=>$_GET["t"]))}';
+var jiluurl='{:U("apps/weiprice/jilu",array("id"=>$aid,"uid"=>$shareuser["id"]))}';
+var paihangurl='{:U("apps/weiprice/paihang",array("id"=>$aid))}';
+var clickstatus=false;
+var pagecount=0;
+var page=1;
+var paihangclickstatus=false;
+var paihangpagecount=0;
+var paihangpage=1;
+var paihangindex=1;
+var zongjia=parseFloat("{$item['params']['p_y_price']}");
+$(function(){
+	getjilu();
+	getpaihang();
+	$("#jilu .dataqu").scroll(function(){
+		var scrollTop = $(this).scrollTop();
+		var scrollHeight = $(this).height();
+		var windowHeight = $(this).find("ul").height();
+		if(scrollTop + scrollHeight+5 >= windowHeight){
+			getjilu();
+		}
+	});
+})
+//执行砍价操作。
+function kanjia()
+{
+	if(clickstatus) return;
+	clickstatus=true;
+	$.post(kanjiaurl,null,function(res){
+		clickstatus=false;
+		if(res.status>0)
+		{
+			//改变进度值和当前剩余价格。
+			$(".price_top").html("￥"+res.jiage).css("width",res.jindu+"%");
+			$(".jindu1").css("width",res.jindu+"%");
+			if(res.jindu>=50)
+			{
+				$(".zhongbao").attr("src","__TMPL__Apps/weiprice/images1/money.png");
+			}
+			if(res.jindu>=100)
+			{
+				$(".weibao").attr("src","__TMPL__Apps/weiprice/images1/money.png");
+			}
+			alert("你太厉害了，砍掉了"+res.fanwei+"元！");
+		}
+		else
+		{
+			alert(res.msg);
+		}
+	});
+}
+//跳转到首页。
+function zhuanindex()
+{
+	window.location.href='U("apps/weiprice/index",array("id"=>$aid)';
+}
+//获取砍价记录。
+function getjilu()
+{
+	if(page>1&&page>pagecount) return;
+	if(clickstatus) return;
+	clickstatus=true;
+	$.post(jiluurl,{page:page},function(res){
+		clickstatus=false;
+		var jilustr="";
+		if(res.status>0)
+		{
+			for(var i=0;i<res.list.length;i++)
+			{
+				jilustr+='<li>'+
+							'<div class="jilu_user"><img src="'+res.list[i]['avatar']+'" alt=""/></div>'+
+							'<div class="jilu_name">'+res.list[i]['nickname'].substring(0,8)+'</div>'+
+							'<div class="jilu_price">'+res.list[i]['price']+'元</div>'+
+						'</li>';
+			}
+			if(page==1)
+				pagecount=res.pagecount;
+			page++;
+			$("#jilu ul").append(jilustr);
+		}
+		else alert(res.msg);
+	});
+}
+//获取排行。
+function getpaihang()
+{
+	if(paihangpage>1&&paihangpage>paihangpagecount) return;
+	if(paihangclickstatus) return;
+	paihangclickstatus=true;
+	$.post(paihangurl,{page:paihangpage},function(res){
+		paihangclickstatus=false;
+		var paihangstr="";
+		if(res.status>0)
+		{
+			for(var i=0;i<res.list.length;i++)
+			{
+				paihangstr+='<tr>'+
+								'<td class="wd120 padleft30">'+paihangindex+'</td>'+
+								'<td class="wd180">'+res.list[i]['username'].substring(0,4)+'</td>'+
+								'<td class="wd230">'+res.list[i]['mobile']+'</td>'+
+								'<td class="qianhong wd180">'+sub(zongjia,res.list[i]['price'])+'</td>'+
+							'</tr>';
+				paihangindex++;
+			}
+			if(paihangpage==1)
+				paihangpagecount=res.pagecount;
+			paihangpage++;
+			if(paihangpage>paihangpagecount)
+			{
+				$(".gengduopm").html("没有更多了").attr("onclick","");
+			}
+			$(".liebiao tbody").append(paihangstr);
+		}
+		else alert(res.msg);
+	});
+}
+function sub(a, b) {
+    var c, d, e;
+    try {
+        c = a.toString().split(".")[1].length;
+    } catch (f) {
+        c = 0;
+    }
+    try {
+        d = b.toString().split(".")[1].length;
+    } catch (f) {
+        d = 0;
+    }
+    return e = Math.pow(10, Math.max(c, d)), (mul(a, e) - mul(b, e)) / e;
+}
+function mul(a, b) {
+    var c = 0,
+        d = a.toString(),
+        e = b.toString();
+    try {
+        c += d.split(".")[1].length;
+    } catch (f) {}
+    try {
+        c += e.split(".")[1].length;
+    } catch (f) {}
+    return Number(d.replace(".", "")) * Number(e.replace(".", "")) / Math.pow(10, c);
+}
+</script>
+</html>

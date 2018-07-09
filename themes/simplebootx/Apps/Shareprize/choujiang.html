@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['title']}</title>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+    Pace.on('hide', function(){
+      document.getElementById("pagediv").style.display="block";
+      music.play();
+    });
+</script>
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/Shareprize/css/choujiang.css?i=1" />
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Shareprize/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Shareprize/js/zhezhao.js?i=1"></script>
+<style>
+.fanhui{position: fixed;right:40px;bottom:60px;} 
+</style>
+</head>
+<body>
+<php>//var_dump($prize_list);</php>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Shareprize/audio/bjmusic.mp3" style="display: none;"></audio>
+<div id="yinyue" ></div>
+<div class="topdiv">
+	<img src="__TMPL__Apps/Shareprize/images/chou_top.png"/>
+    <p class="title">惊喜好礼抽不停</p>
+</div>
+<div class="biaoti" style="height:30px;overflow: hidden;">{$item['title']}</div>
+<ul class="award">
+    <li class="active"><div class="kuang"></div><img src="{$params['prize1_thumb']}" alt="" /></li>
+    <li><div class="kuang"></div><img src="{$params['prize2_thumb']}" alt="" /></li>
+    <li><div class="kuang"></div><img src="{$params['prize3_thumb']}" alt="" /></li>
+</ul>
+<div style="clear:both;"></div>
+<div class="btn" onclick="choujiang()"><img src="__TMPL__Apps/Shareprize/images/choujiang_btn.png" alt=""/></div>
+<div class="tishi"></div>
+<!-- 中奖开始 -->
+<div class="baoxiang" id="baoxiang">
+    <div class="baoxiang_title">恭喜你，中奖啦</div>
+    <div class="baoxiangtu zhongjiang_pic"><img src="__TMPL__Apps/Shareprize/images/gift.jpg" alt="" /></div>
+    <div class="jiangpin zhongjiang_name">三等奖&nbsp;&nbsp;牙刷架一个</div>
+    <div class="baoxiang_btn" onclick="login()">放入宝箱</div>
+</div>
+<!-- 中奖结束 -->
+<!-- 中奖填姓名手机号 -->
+<div class="login" id="login">
+    <div class="login_title">为保证奖品领取，请输入正确信息</div>
+    <input type="hidden" name="prize">
+    <div class="inputdiv"><input type="text" name="username" value="{$prize_user['username']}" placeholder="姓名"/></div>
+    <div class="inputdiv"><input type="tel" name="mobile" value="{$prize_user['mobile']}" placeholder="手机号"/></div>
+    <div class="login_btn" >提交</div>
+</div>
+<!-- 中奖填姓名手机号结束 -->
+<!-- 未中奖开始 -->
+<div class="weizhong" id="weizhong" >
+    <div class="weizhong_title">很抱歉，手气不佳</div>
+    <div class="weizhong_cont">很遗憾没中奖<br/>可能天气不好，下次再来吧</div>
+    <img src="__TMPL__Apps/Shareprize/images/guanbi.png" class="close" onclick="closeBg('fullbg','weizhong')"/>
+</div>
+<!-- 未中奖结束 -->
+<div id="baoxiangtu">
+    <p class="title">我的宝箱<img src="__TMPL__Apps/Shareprize/images/close.png" onclick="closeBg('baoxiangtu','fullbg')"/></p>
+        <if condition="!$prize_list">
+            <p class="wujilu">很遗憾暂时未中奖，继续加油哦！！</p>
+        </if>
+        <div class="tanzhongdiv">
+            <foreach name="prize_list" item="vo">
+                <div class="fendiv">
+                    <div class="tudiv"><img src="{$vo['thumb']}"/></div>
+                    <div class="youdiv">
+                        <p class="jiangji">{$vo['type']}</p>
+                        <p class="jiangname">{$vo['name']}</p>
+                    </div>
+                    <div class="c_b"></div>
+                </div>
+            </foreach>
+        </div>
+</div>
+<div class="chakan" onclick="showBg('fullbg','baoxiangtu')">查看我的宝箱</div>
+<div class="fanhui"><img src="__TMPL__Apps/Shareprize/images/back1.png" alt="" /></div>
+<div class="fullbg" id="fullbg"></div>
+<tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+var zhuanindex=0;
+var time=null;
+
+
+
+
+var clickstatus=false;
+var a=0;
+var lils=Array();
+var fangxiang=1;
+var qiactive=1;
+var jiangimg=Array("{$params['prize1_thumb']}",
+				   "{$params['prize2_thumb']}",
+				   "{$params['prize3_thumb']}");
+var name="";
+var pic="";
+var type="";			   
+				   
+				   
+				   
+				   
+ var music;
+    $(function(){
+		lils=$(".award li");
+        music=document.getElementById("bgMusic");
+        music.play();
+        $("#yinyue").click(function()
+            {
+            if(music.paused)
+            {
+                music.play();
+                $("#yinyue").removeClass("ting");
+            }
+            else
+            {
+                music.pause();
+                $("#yinyue").addClass("ting");
+            }
+        });
+    	$(".tab li").click(function(){
+    		var class1=$(this).attr("data-class");
+            if(!class1) return;
+    		var id=$(this).attr("data-id");
+    		$(this).parent().find("li.active").removeClass("active");
+    		$(this).addClass("active");
+    		$("."+class1).addClass("d_n");
+    		$("."+id).removeClass("d_n");
+    	});
+        //领奖
+        var lingjiang=1;
+        $('.login_btn').click(function(){
+            if(lingjiang!=1){
+                return;
+            }
+            lingjiang=0;
+            var uname=$("input[name=username]").val();
+            var mobile=$("input[name=mobile]").val();
+            var prize_id=$('input[name=prize]').val();
+            if(uname==""){
+                alert("姓名不能为空");return;
+            }
+            if(mobile==""){
+                alert("手机号不能为空");return;
+            }
+            if(mobile.length!=11){
+                alert("请输入11位手机号！");return false;
+            }
+            var url="{:U('apps/shareprize/add_gift',array('id'=>$_GET['id'],'uid'=>$_GET['uid']))}";
+            $.post(url,{name:uname,mobile:mobile,prize_id:prize_id},function(res){
+                //alert(res.status+'>>>'+res.msg);
+                if(res.status>0){
+                    $('#login').hide();
+                    $('#fullbg').hide();
+					//向宝箱添加奖品
+					var str='<div class="fendiv">'+
+								'<div class="tudiv"><img src="'+pic+'"/></div>'+
+								'<div class="youdiv">'+
+									'<p class="jiangji">'+type+'</p>'+
+									'<p class="jiangname">'+name+'</p>'+
+								'</div>'+
+								'<div class="c_b"></div>'+
+							'</div>';
+					$('.tanzhongdiv').prepend(str);
+                    $('.wujilu').hide();
+                    //查看宝箱
+                    showBg('fullbg','baoxiangtu');
+                }
+            });
+        });
+        //返回按钮
+        $('.fanhui').click(function(){
+            var url="{:U('apps/shareprize/index',array('id'=>$_GET['id'],'uid'=>$_GET['uid']))}";
+            window.location.href=url;
+        });
+
+
+
+    });
+	
+	
+	var baoxiang_kaiguan=1;
+	function choujiang()
+    {
+        var is_zhuli=0;
+            <php>
+            $is_zhuli=session('is_zhuli');
+            if($is_zhuli==1){
+                echo 'is_zhuli='.$is_zhuli.';';
+            }
+            </php>
+            if(is_zhuli!=1){
+                var url="{:U('apps/shareprize/index',array('id'=>$_GET['id'],'uid'=>$_GET['uid']))}"+"?ss=2";
+                alert("请先投票后抽奖");
+                window.location.href=url;
+                return;
+            }
+
+            if(baoxiang_kaiguan!=1){
+                alert("已经抽过奖了");
+                return;
+            }
+            baoxiang_kaiguan=0;
+        var url="{:U('apps/shareprize/get_gift',array('id'=>$_GET['id']))}";
+		if(clickstatus) return;
+		clickstatus=true;
+		$.post(url,null,function(res){
+			clickstatus=false;
+			<php>
+			session('is_zhuli',null); // 删除is_zhuli
+			</php>
+			//获奖。
+			for(var i=0;i<lils.length;i++)
+			{
+				$(lils[i]).find("img").attr("src",jiangimg[i]);
+			}
+			a=res.status==-1?0:res.id;
+			if(res.status>0)
+			{
+                name=res.name;
+                pic=res.pic;
+                type=res.type;
+                $('.zhongjiang_pic img').attr('src',pic);
+                $('.zhongjiang_name').text(name);
+                $('input[name=prize]').val(res.id);
+			}
+			zhuanindex=0;
+			time=setInterval("zhuandong()",100);
+		});
+    }
+	function zhuandong()
+	{
+		zhuanindex++;
+		qiactive+=fangxiang;
+		if(qiactive==3)
+			fangxiang=-1;
+		if(qiactive==1)
+			fangxiang=1;
+		//如果到第40了，如果没有奖，就变图片。
+		if(a==0&&zhuanindex==40)
+		{
+			for(var i=0;i<lils.length;i++)
+			{
+				$(lils[i]).find("img").attr("src","__TMPL__Apps/Shareprize/images/no.jpg");
+			}
+		}
+		//选中指定的框
+		$(".award li.active").removeClass("active");
+		$(lils[qiactive-1]).addClass("active");
+		//判断有没有到地方
+		if(zhuanindex>40)
+		{
+			if((a!=0&&qiactive==a)||a==0)
+			{
+				//停止定时器
+				clearInterval(time);
+			}
+			if(a>0)
+			{
+				showBg('fullbg','baoxiang');
+			}
+			else if(a==0)
+			{
+				showBg('fullbg','weizhong');
+			}
+		}
+	}
+	
+	
+	
+    /*var baoxiang_kaiguan=1;
+    function baoxiang()
+    {
+        var is_zhuli=0;
+            <php>
+            $is_zhuli=session('is_zhuli');
+            if($is_zhuli==1){
+                echo 'is_zhuli='.$is_zhuli.';';
+            }
+            </php>
+            if(is_zhuli!=1){
+                var url="{:U('apps/shareprize/index',array('id'=>$_GET['id'],'uid'=>$_GET['uid']))}"+"?ss=2";
+                alert("请先投票后抽奖");
+                window.location.href=url;
+                return;
+            }
+
+            if(baoxiang_kaiguan!=1){
+                alert("已经抽过奖了");
+                return;
+            }
+            baoxiang_kaiguan=0;
+        var url="{:U('apps/shareprize/get_gift',array('id'=>$_GET['id']))}";
+        $.post(url,{},function(data){
+            //alert(data.status+">>"+data.msg);
+            if(data.status>0){
+                var name=data.name;
+                var pic=data.pic;
+                var type=data.type;
+                $('.zhongjiang_pic img').attr('src',pic);
+                $('.zhongjiang_name').text(name);
+                $('input[name=prize]').val(data.id);
+                //向宝箱添加奖品
+                var str='<div class="fendiv">'+
+                            '<div class="tudiv"><img src="'+pic+'"/></div>'+
+                            '<div class="youdiv">'+
+                                '<p class="jiangji">'+type+'</p>'+
+                                '<p class="jiangname">'+name+'</p>'+
+                            '</div>'+
+                            '<div class="c_b"></div>'+
+                        '</div>';
+                $('.tanzhongdiv').prepend(str);
+                showBg('fullbg','baoxiang');
+                <php>
+                session('is_zhuli',null); // 删除is_zhuli
+                </php>
+            }else{
+                showBg('fullbg','weizhong');
+            }
+        });
+    }*/
+    function weizhong()
+    {
+        showBg('fullbg','weizhong');
+    }
+    function login()
+    {
+        showBg('login');
+        closeBg('baoxiang');
+    }
+</script>
+</html>

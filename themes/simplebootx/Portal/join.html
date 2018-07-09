@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页</title>
+<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+   <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+testjoin
+<br/>
+活动名称:{$form_info['name']}
+<br/>
+备注:{$form_info['remark']}
+<br/>
+报名选项
+<br/>
+<form action="{:U('portal/join/add_post')}" method="post">
+    <input type="hidden" name="form_id" value="{$form_info['id']}">
+    <br/>
+    fromuser<input type="text" name="from_user" value="">
+    <br/>
+    nickname<input type="text" name="nickname" value="">
+    <br/>
+    avatar<input type="text" name="avatar" value="">
+    <br/>
+    <foreach name="form_item_info" item="vo" >
+        {$vo.name}:
+        <if condition="$vo.type eq 1 ">
+              <input type="text" name="t{$key}" value="">
+              <input type="hidden" name="h{$key}" value="{$vo.id}">
+        </if>
+        <br/>
+    </foreach>
+    <input type="hidden" name="key" value="{$key}">
+    <input type="submit" name="submit" />
+</form>
+</body>
+</html>

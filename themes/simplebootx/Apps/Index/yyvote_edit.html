@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发布营销活动</title>
+<tc_include file="Public:head1" />
+<link href="__PUBLIC__/js/artDialog/skins/default.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/addactivity.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+</head>
+<body>
+<tc_include file="Public:nav" />
+<form action="{:U('apps/indx/add_post')}" class="activity_form" method="post">
+<div class="pagediv fabuqu">
+	<div class="f_l zuodiv">
+    	<!--<a href="__ROOT__/"><span class="fa fa-cog"></span>重新选择模板</a>-->
+    </div>
+    <div class="f_r youdiv">
+    	<!--<a href="javascript:void(0);" onclick="yulan()"><span class="fa fa-mobile"></span>预览</a>-->
+    	<a href="javascript:void(0);"  class="lanbtn submit_form"><img src="__TMPL__Public/images/tijiao.png" />提交</a>
+    	<a href="javascript:history.back(-1)" class="huibtn">取消</a>
+    </div>
+    <p class="c_b"></p>
+</div>
+<div class="formdiv p_r">
+    <div class="zuodiv">
+        <div class="shoujike">
+        	<div class="leftjiantou jiantoudiv" onclick="qieiframe(-1)"></div>
+            <div class="youjiantou jiantoudiv" onclick="qieiframe(1)"></div>
+        	<div class="muban">
+            	<php>
+                	$urllist=array();
+                    $pagelist=array('yuindex','yurule','yufenxiang');
+                    for($i=0;$i<count($pagelist);$i++)
+                    {
+                    	$str = U('apps/index/thimes',array('module'=>'yyvote','page'=>$pagelist[$i]));
+                        $urllist[]= "http://".$_SERVER['HTTP_HOST'].$str;
+                    }
+                 </php>
+            	<iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="{$urllist[0]}"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="youdiv">
+    	<div class="daohangdiv">
+        	<ul>
+            	<li class="tab active" data-id="#base" data-class="addhuodong">基本信息<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#guize" data-class="addhuodong">规则设置<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#fenxiang" data-class="addhuodong">分享管理</li>
+                <p class="c_b"></p>
+                <p class="tishi"><span class="fa fa-info"></span>创建活动之后，可以进去我的应用找到创建好的投票活动，点击“报名管理”进行后台上传选手信息。</p>
+            </ul>
+        </div>
+        <div class="neidiv" style="top:93px;">
+        	<div class="addhuodong active" id="base">
+                <div class="itemdiv">
+                    <p class="title">活动名称<span>*</span></p>
+                    <input type="text" class="input required" data-tip="活动名称不能为空" maxlength=15 name="title" placeholder="活动名称"  value="{$title}" onkeyup="genggai(this)"/>
+                </div>
+                <div class="itemdiv timediv">
+                    <p class="title">活动时间<span>*</span></p>
+                    <input type="text" class="shaoduaninput riqizuo" placeholder="开始时间" name="begintime" id="begintime" value="2017-06-01"/>
+                    <select class="timeselect" name="begintime_fen">
+                        <foreach name="time_array" item="tv">
+                                <option value="{$tv}" <if condition="$begin_fen eq $tv">selected="selected"</if>>{$tv}</option>
+                        </foreach>
+                    </select>
+                    <span class="lianjie">至</span>
+                    <input type="text" class="shaoduaninput riqiyou" placeholder="结束时间" name="endtime" id="endtime" value="2017-06-30"/>
+                    <select class="timeselect" name="endtime_fen">
+                        <foreach name="time_array" item="tv">
+                        	<option value="{$tv}" <if condition="$end_fen eq $tv">selected="selected"</if>>{$tv}</option>
+                        </foreach>
+                    </select>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">活动图片<span>*</span></p>
+                    <div class="p_r chuandiv">
+                        <input type="text" class="input thumb required" data-tip ="请上传活动图片" name="thumb" id="thumb" value="{$activity['thumb']}" placeholder="活动图片" oninput="alert(1)" onpropertychange="alert(1)"/>
+                        <p class="chuanbtn" onclick="flashupload('thumb_images', '附件上传','thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                    </div>
+                    <div>
+                        <img src="<if condition="$activity['thumb'] eq ''">__PUBLIC__/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['thumb'])}</if>" id="thumb_preview" class="m_tb10" width="100"/>
+                    </div>
+                    <p class="help">图片大小不能超过2M</p>
+                </div>
+				<!--
+				<div class="itemdiv">
+                    <p class="title">报名需填信息</p>
+                    <input type="text" class="input" placeholder="报名需填信息" name="other_remark" value="{$other_remark}"/>
+					<p class="help">报名时默认必填姓名、手机号，您可以再增加一项报名需填信息，例如年龄、年级”，手机端备注后面应该写“请输入你的**”</p>
+                </div>
+				-->
+				<!--
+				 <div class="itemdiv">
+                    <p class="title">显示前多少<span>*</span></p>
+                    <input type="text" class="input" placeholder="显示排名靠前的" name="show_total" value="{$show_total}" />
+                </div>
+				 <div class="itemdiv">
+                    <p class="title">每页显示数量<span>*</span></p>
+                    <input type="text" class="input" placeholder="每页显示数量" name="page_total" value="{$page_total}" />
+                </div>
+				-->
+				<php>
+					if(empty($activity['total_num'])){
+						$activity['total_num'] =1;
+					}
+					if(empty($activity['day_num'])){
+						$activity['day_num'] =1;
+					}
+				</php>
+				 <div class="itemdiv p_r">
+                    <p class="title p_r">总投票次数</p>
+                    <input type="number" class="input required" data-tip="请填写总投票次数" placeholder="每人最多投票次数" name="total_num" value="{$activity['total_num']}" />
+					<p class="help">活动期间每个好友可以给你投票的总次数。例如设置为1，表示一个好友在活动期间只能给你投票1次</p>
+                </div>
+                <div class="itemdiv">
+					
+                    <p class="title">每人每天最多投票次数</p>
+                    <input type="number" class="input required" data-tip="请填写每人每天最多投票次数" placeholder="每人每天最多投票次数" name="day_num" value="{$activity['day_num']}"/>
+					<p class="help">每个好友每天可以给你投票的次数。例如设置为1，表示一个好友每天可以给你投票1次，受总投票次数限制</p>
+				</div>
+				<div class="itemdiv">
+                    <p class="title">报名者投票次数</p>
+                    <input type="text" class="input required" data-tip="请填写报名者投票次数" placeholder="报名者投票次数" name="join_total" value="{$join_total}"/>
+					<p class="help">报名参与者可以给好友投票的次数。例如设置为3，表示一个报名参与者，可以一共投票3次</p>
+                </div>
+				<div class="itemdiv p_r">
+					<div class="bangzhu">
+						<p>选择是，用户就可以自己在手机端打开活动链接，上传照片填写资料报名参加活动。</p>
+						<img src="__TMPL__Public/images/helpjiantou.png" />
+					</div>
+                    <p class="title p_r">是否开启手机端报名<span class="fa fa-question"></span></p>
+                    <input type="radio" value="0" name="is_front_join" <if condition="$is_front_join eq 0">checked="checked"</if>>关闭&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" value="1" name="is_front_join" <if condition="$is_front_join eq 1">checked="checked"</if>>开启
+                </div>
+				<!--
+				<div class="itemdiv p_r">
+                    <p class="title">是否开启报名审核</p>
+                    <input type="radio" value="0" name="is_check" <if condition="$is_check eq 0">checked="checked"</if>>关闭&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" value="1" name="is_check" <if condition="$is_check eq 1">checked="checked"</if>>开启
+                </div>
+				-->
+            </div>
+            <div class="addhuodong" id="guize">
+                <div class="itemdiv">
+                    <p class="title">活动规则<span>*</span></p>
+                    <textarea name="rule" id="rule" rows="5" cols="57">{$rule}</textarea>
+                </div>
+            </div>
+            <div class="addhuodong" id="fenxiang">
+                <div class="itemdiv">
+                    <p class="title">分享标题<span>*</span></p>
+                    <input type="text" name="share_title" data-tip="分享标题不能为空！" maxlength=20 class="input required" placeholder="分享标题" value="{$share_title}" onkeyup="genggai(this)">
+                </div>
+                <div class="itemdiv">
+                    <p class="title">分享图片<span>*</span></p>
+                    <div class="p_r chuandiv">
+                    	<input type="text" class="input required" name="share_img" id="share_img" value="{$share_img}" placeholder="分享图片"/>
+                        <p class="chuanbtn" onclick="flashupload('share_img_thumb', '附件上传','share_img',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                    </div>
+                    <div>
+                    	<img src="<if condition="$share_img eq ''">__PUBLIC__/images/nopic.jpg<else/>{:sp_get_asset_upload_path($share_img)}</if>" id="share_img_preview" class="m_tb10" width="100"/>
+                    </div>
+                    <p class="help">图片大小不能超过2M</p>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">分享描述<span>*</span></p>
+					<input type="text" name="share_des" data-tip="分享描述不能为空！" maxlength=30  class="input required" placeholder="分享描述" value="{$share_des}" onkeyup="genggai(this)">
+
+					<!--
+                    <textarea name="share_des" id="share_des" class="textarea" rows="5" cols="57" onkeyup="genggai(this)">{$share_des}</textarea>
+					-->
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<input type="hidden" name="type" value="{$module}">
+<input type="hidden" name="id" value="{$id}">
+</form>
+<tc_include file="Public:scripts" />
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/js/jquery-ui.js"></script>
+<script type="text/javascript">
+	//编辑器路径定义
+	var editorURL = GV.DIMAUB;
+</script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/js/zuoyouindex.js"></script>
+<script type="text/javascript">
+$(function(){
+	//编辑器路径定义
+	//顶部个人信息操作下拉效果。
+	$(".dropdown").click(function(){
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	//顶部tab效果点击切换。
+	$(".tab").click(function(){
+		qietab($(this));
+	});
+	//实例化一个百度编辑器。
+	var editorcontent1 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','autotypeset','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight', 'simpleupload','link','removeformat']]});
+	//将指定标签改造成百度编辑器。
+	editorcontent1.render('rule');   
+	var editorcontent2 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','autotypeset','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight', 'simpleupload','link','removeformat']]});
+	//将指定标签改造成百度编辑器。
+	editorcontent2.render('activityremark');   
+	try {
+		editorcontent1.sync();
+		editorcontent2.sync();
+	} catch (err) {
+	}
+	//获取窗口高度，并设置编辑区域的高度。
+	gaisize();
+	//当浏览器大小变化时，重新获取高度并设置编辑区域的高度。
+	$(window).resize(function () {
+		gaisize();
+	});
+	//开始时间和结束时间控件的参数设置。
+	$("#begintime").datepicker();
+	$("#endtime").datepicker();
+	$("#begintime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+	$("#begintime").datepicker("setDate", "{$activity['begintime']}");
+	$("#endtime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+	$("#endtime").datepicker("setDate", "{$activity['endtime']}");
+	
+	//帮助提示鼠标移动上去后显示内容。
+    /**$(".fa-info").hover(function(){
+        //$(".bangzhu").show();
+    },function(){
+        //$(".bangzhu").hide();
+    });**/
+	$(".fa-question").hover(function(){
+		$(this).parent().parent().find(".bangzhu").show();
+		//alert("提示");
+       // $(".bangzhu").show();
+    },function(){
+		$(this).parent().parent().find(".bangzhu").hide()
+		//alert("提示完毕！！");
+        //$(".bangzhu").hide();
+    });
+	//点击提交按钮后
+	$(".submit_form").click(function(){
+		/**
+        var title=$("input[name$='title']").val();
+        if(title.length==0)
+        {
+            alert("请填写活动名称！");
+            return;
+        }
+		**/
+		var flag = true;
+		$(".required").each(function(){
+			var value = $(this).val();
+			if(!value){
+				flag = false;
+				var tip=$(this).attr("data-tip");
+				alert(tip);
+				return false;
+			}
+		});
+        if(flag==false){return false;}
+		//将数据提交到指定页面。
+		var url = "{:U('apps/index/edit_post')}";
+		$.post(url,$(".activity_form").serializeArray(),function(res){
+            if(res.status){
+				alert(res.info);
+				window.location.href=res.url;
+			}else{
+				alert(res.info);
+			}
+		});
+	});
+    editorlod("activityprize");
+    editorlod("rule");
+    editorlod("activityremark");
+})
+
+function qietab(obj)
+{
+	if($(obj).hasClass("active")) return;
+	var dataclass=$(obj).attr("data-class");
+	$(".tab[data-class='"+dataclass+"']").removeClass("active");
+	$(obj).addClass("active");
+	//获取关联div信息
+	$("."+$(obj).attr("data-class")+".active").removeClass("active");
+	$($(obj).attr("data-id")).addClass("active");
+}
+function gaisize()
+{
+	//获取浏览器高度。
+	var windowheight=$(window).height();
+	$(".formdiv").css("height",(windowheight-128)+"px");
+}
+var pagelist=eval('<?php echo json_encode($urllist);?>');
+var dqpage=0;
+</script>
+</body>
+</html>

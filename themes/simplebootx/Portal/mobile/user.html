@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>个人中心</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css" />
+<style>
+.aui-content{margin-top:8px;margin-bottom: 0px;}
+.my-header {background: url(__TMPL__Public/mobile/images/vip_bg.jpg);position:relative;height:185px;width:100%;background-size:100% 100%;}
+#header {position: relative;padding:26px 0 8px;width: 100%;bottom: 0;text-align: center;vertical-align: center;margin-bottom: 0;}
+#header img {width:60px;height:60px;border-radius:50%;}
+.border{width:64px;height:64px;border-radius: 50%;border:2px solid #fff;margin:0 auto;background-color: #fff;box-shadow: 0 0 2px #ddd;}
+.my-info{margin-top:-12px;margin-bottom:8px;}
+.zhuce{color:#fff;margin-top:6px;font-size:13px;}
+.tishi{color:#3b3c40;font-size:12px;margin-top:2px;}
+.my-info p.nickname{margin-top:4px;color: #ffffff;font-size:14px;line-height:24px;}
+.aui-list-view-cell {line-height:26px;}
+#kongdiv{height:55px;}
+.aui-list-view:after{border:none;box-shadow: 0 0 4px #ccc;}
+.aui-list-view-cell>a{ margin:0; padding:0;}
+.aui-nav{ border-top:1px solid #c8c7cc;}
+.aui-content > .aui-list-view:last-child{ margin-bottom:0;}
+.aui-arrow-right:after{right:0px;}
+.aui-list-view i.aui-iconfont {color:inherit;padding:0;font-size:22px;}
+.aui-nav .aui-bar-tab .aui-iconfont,.aui-nav .aui-bar-tab p{color:#444;}
+.btn{display:block;margin:20px 34px;background-color:#a5a3a4;height:40px;line-height:40px;border-radius:2px;text-align:center;color:#000;}
+.shengji{background-color:#fdc825;color:#fff;width:32px;height:12px;border-radius:9px;font-size:12px;padding:2px 4px;margin-left:10px;}
+</style>
+</head>
+<body>
+<section class="my-header" id="header">
+    <div class="my-info">
+        <div class="border"><a href="#">      
+            <if condition="empty($user['avatar'])">
+                <img src="__TMPL__Public/mobile/images/user.jpg" id="avatar" />
+            <else />
+                <img src="{:sp_get_asset_upload_path($user['avatar'])}" id="avatar" />
+            </if>
+        </a></div>
+        <p class="nickname" id="nickname">{$user['user_nicename']}</p>
+        <p class="zhuce">账号类型：
+            <eq name="user['level']" value="0">普通会员</eq>
+            <eq name="user['level']" value="1">亲情会员</eq>
+            <eq name="user['level']" value="2">金牌会员</eq>
+            <a class="shengji" href="{:U('portal/mindex/kefu')}">升级</a>
+        </p>
+        <p class="tishi">
+        <php>
+            $lastmonth = strtotime("-1 month",$user['valid_time']);
+            $now = time();
+            if($user['level']==0)
+            {
+                $endtime =strtotime($user['create_time'])+3600*24*30;
+                echo "（您的账号".date("Y年m月d日",$user['valid_time'])."后将无法使用）";
+            }else if($lastmonth<=$now){
+                echo "（您的账号".date("Y年m月d日",$user['valid_time'])."后将无法使用）";
+            }
+        </php></p>
+    </div>
+</section>
+<section class="aui-content">
+    <ul class="aui-list-view aui-in">
+        <li class="aui-list-view-cell">
+            <a class="aui-arrow-right" href="{:U('portal/mindex/invite')}">
+                <i class="aui-iconfont  aui-icon-present"></i>邀请有礼
+            </a>
+        </li>
+    </ul>
+</section>
+<section class="aui-content">
+    <ul class="aui-list-view aui-in">
+        <li class="aui-list-view-cell">
+            <a class="aui-arrow-right" href="{:U('portal/mindex/myData')}">
+                <i class="aui-iconfont  aui-icon-my"></i>个人资料
+            </a>
+        </li>
+        <li class="aui-list-view-cell">
+            <a class="aui-arrow-right" href="http://train.jialepai100.com/app/index.php?i=2&c=entry&id=52&do=detail&m=join&wxref=mp.weixin.qq.com#wechat_redirect">
+                <i class="aui-iconfont  aui-icon-recharge"></i>会员购买
+            </a>
+        </li>
+        <li class="aui-list-view-cell">
+            <a class="aui-arrow-right" href="{:U('portal/mindex/power')}">
+                <i class="aui-iconfont  aui-icon-selection"></i>会员特权
+            </a>
+        </li>
+    </ul>
+</section>
+<section class="aui-content">
+    <ul class="aui-list-view aui-in">
+        <li class="aui-list-view-cell">
+            <a class="aui-arrow-right" href="{:U('portal/mindex/help',array('menu'=>3))}">
+                <i class="aui-iconfont  aui-icon-question"></i>帮助中心
+            </a>
+        </li>
+        <li class="aui-list-view-cell">
+            <a class="aui-arrow-right" href="{:U('portal/mindex/kefu')}">
+                <i class="aui-iconfont  aui-icon-service"></i>联系客服
+            </a>
+        </li>
+        <li class="aui-list-view-cell">
+            <a class="aui-arrow-right" href="{:U('portal/mindex/advice')}">
+                <i class="aui-iconfont  aui-icon-settings"></i>反馈建议
+            </a>
+        </li>
+    </ul>
+</section>  
+<!-- <a class="btn" href="{:U('user/index/logout',array('flag'=>1))}" >注销</a> -->
+<a class="btn" href="{:U('portal/mindex/loginout')}" >注销</a>
+<div id="kongdiv"></div>
+<tc_include file="Public:mobile" />
+<tc_include file="Public/mobile:footer" />
+</body>
+<script>
+</script>
+</html>

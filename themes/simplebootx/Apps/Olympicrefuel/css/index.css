@@ -1,0 +1,92 @@
+﻿@charset "UTF-8";
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+body{width:750px;background:#e7f8e8;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+#fullbg,#fullbg2{background-color:rgba(0,0,0,0.9); left:0; opacity:0.8;top:0; bottom:0; right:0; position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fullbg2{z-index:20;}
+#fenxiang{ position:fixed;width:400px;height:210px;top:50%; left:50%; margin-top:-105px; margin-left:-200px; z-index:22; display:none;}
+.bgc{position:relative;width:750px;}
+.biaoti{color:#55bc3d;font-size:32px;position: absolute;top:278px;width:440px;left:50%;margin-left:-220px;text-align: center;}
+/*加油开始*/
+.jiayou{background-color:#f74545;margin:0 60px;padding:34px 60px 54px;}
+.zhuwei{border:4px dashed #fbe878;/*height:284px;*/color:#fbe878;/*width:502px;*/padding-top:32px;padding-bottom:32px;}
+.zhuwei_title{font-size:34px;text-align: center;}
+.num{margin:36px 127px;height:74px;}
+.num li{background-color: #fff;width:38px;height:74px;margin-right:14px;float:left;color:#000;font-size:40px;font-weight:bold;text-align: center;line-height: 74px;border-radius:3px;-webkit-box-shadow:0 2px 5px -2px #82b8d4 inset;}
+.num li:last-child{margin-right:0;}
+.canyu{color:#fff;font-size:30px;text-align: center;padding-left: 10px;padding-right: 10px;}
+.canyu span{color: #17b7d7;text-decoration:underline;}
+.btn{color:#ae1800;font-size:34px;background:url(../images/btn_1.png) no-repeat center 0;text-align: center;margin-top:32px;background-size:auto 100%;height:66px;line-height:56px;}
+/*加油结束*/
+/*活动规则开始*/
+.beijing{margin:30px auto;}
+.tophua{ height:20px; background:url(../images/bg_top.png) 0 0 no-repeat; background-size:100% 20px;margin:0 20px;}
+.guize{background:url(../images/bg1.png) no-repeat center 0;margin:0px 20px;position:relative;padding:26px 0;background-size:100% 100%;}
+.guize .title{background:url(../images/title.png) no-repeat center 0;background-size:100% 100%;width:336px;height:64px;margin:0px auto 20px;line-height: 64px;color:#fff;font-size: 32px;text-align: center;}
+.guize .text{font-size:30px;padding:10px 50px 30px;line-height:48px;word-break:break-all;}
+.guize .text img{max-width:100%;}
+.guize .title.tu2{background:url(../images/title2.png)}
+.guize .title.tu3{background:url(../images/title3.png)}
+/*活动规则结束*/
+/*去抽奖开始*/
+#cheer{display: none;position:fixed;width:450px;height:600px;top:50%; left:50%; margin-top:-300px; margin-left:-225px; z-index:4;}
+.fight{width:450px;height: auto;}
+.wenzi{color:#fff;font-size:30px;text-align: center;margin-top: 36px;}
+.cheer_btn{color:#fff;font-size:34px;background:url(../images/btn_2.png) no-repeat center 0;text-align: center;margin-top:52px;background-size:auto 100%;height:66px;line-height:56px;}
+/*去抽奖结束*/
+/*摇奖开始*/
+#yaojiang{display:none;position:fixed;top:0;bottom:0;left:0;right:0;z-index:5;background-color: #a8dde1;}
+#yaojiang img{width:750px;position: relative;}
+#yaojiang p.text{position:absolute;top:457px;color:#fff;font-size:36px;width:510px;left:160px;}
+/*#yaojiang p.fanhui{font-size:36px;width:750px;text-align:center;}*/
+#yaojiang p.fanhui{position:fixed;bottom:40px;font-size:36px;width:300px;left:50%;margin-left:-150px;text-decoration: underline;color:#333;text-align: center;}
+/*摇奖结束*/
+/*姓名手机号开始*/
+.tandiv{ position:fixed !important; z-index:50; top:50%; left:50%; text-align:center;}
+.closeimg2{float:right; margin:28px;}
+.closeimg{position:absolute;top:28px; right:28px; width:57px; height:57px;}
+.tishi{text-align:center;color:#505050;border-bottom:2px dashed #555;margin:0 30px 30px;padding-bottom:30px;}
+#tianxx{ width:678px;height:668px;border-radius:12px; margin:-319px 0 0 -339px; background-color:#F2F2F2; font-size:31px; display:none;text-align: center;}
+.gift{height:140px;margin:45px 150px 30px;text-align:center;overflow:hidden;}
+.gift img{height:100%;}
+.inputdiv{height:72px; margin-top:25px;}
+.inputdiv p{color:#414141; margin-right:25px;}
+.inputdiv input{height:72px; width:435px; border:none; border-radius:12px; font-size:31px; padding-left:20px;}
+.submitip{width:632px; height:94px; line-height:94px; font-size:37px; color:#FFF; background-color:#ffd507; text-align:center; border-radius:8px;margin:45px auto 0 auto;}
+/*姓名手机号结束*/
+/*我的宝箱开始*/
+#baoxiang{ position:fixed;top:0; left:0;right:0;z-index:4;padding:52px 0px; color:#FFF; display:none; }
+#baoxiang>.title{line-height:100px; border-bottom:4px solid #FFF; position:relative; font-size:41px; padding-left:16px;padding-bottom:10px;margin-left: 26px;margin-right:26px;}
+#baoxiang>.title img{position:absolute; right:32px; top:31px;}
+.baoxiang_cont{height:900px;overflow: auto;}
+.baoxiang_cont li{border-radius:10px;border:4px solid #fff;margin:42px 70px 0;padding:40px;}
+.baoxiang_cont li .tudiv{width:154px;height:154px;float: left;overflow: hidden;margin-right:20px;}
+.baoxiang_cont li .text{font-size:30px;overflow: hidden;}
+.baoxiang_cont li .text .text_title{margin-top:10px;margin-bottom:10px;}
+.baoxiang_cont li .text .text_cont{line-height:52px;}
+.baoxiang_cont li img{width:100%;}
+.baoxiang_cont li span{margin-left:26px;float:left;font-size:30px;height:210px;line-height:210px;width:340px;}
+/*我的宝箱结束*/
+.xixun{ background-color:rgba(0,0,0,0.5);position:fixed;bottom:58px; left:0; width:100%;font-size:30px; line-height:70px; height:70px; color: #FFF; padding:5px 0;}
+.xixun img{width:54px;height:54px;border-radius:50%;border:2px solid #fff;vertical-align: middle;margin-right: 6px; margin-left:40px;}
+.banquan{text-align:center;font-size:13px; color:#666465;margin-top:40px;margin-bottom:12px;}
+/*未中奖开始*/
+#nowin{display: none;position:fixed;width:680px;height:680px;top:50%; left:50%; margin-top:-340px; margin-left:-340px; z-index:30;background-color: #fff;border-radius:10px;}
+.present{margin:150px auto 100px;text-align: center;height:220px;}
+.present img{height:100%;}
+.nowin_text{text-align: center;font-size: 32px;}
+/*未中奖结束*/
+.medal{margin:0 auto;text-align: center;width:678px;position: relative; font-family:"黑体";}
+.medal_title{position: absolute;top:20px;left:42px;width:230px;font-size:36px;color:#fff;text-align: center;}
+.medal img{width:100%;}
+.jiangpai_1,.jiangpai_2,.jiangpai_3{position: absolute;top:150px;left:135px;color:#696969;font-size:28px;}
+.medal .jiangpai .jiangpai_2{left:350px;}
+.medal .jiangpai .jiangpai_3{left:565px;}
+.jiangpai_1 p,.jiangpai_2 p,.jiangpai_3 p{color:#333;font-size:34px;margin-top: 10px;}

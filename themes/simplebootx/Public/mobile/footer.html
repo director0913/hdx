@@ -1,0 +1,33 @@
+<footer class="aui-nav" id="aui-footer">
+    <ul class="aui-bar-tab">
+        <li <if condition="$menu eq 1">class="active-orange" </if> >
+        <!--
+            <a class="footer_redirect" data-href="{:U('portal/activity/index',array('menu'=>1,'flag'=>1))}" href="javascript:;">
+        -->
+            <a class="footer_redirect" data-href="{:U('portal/mindex/activity',array('menu'=>1,'flag'=>1))}" href="javascript:;">
+
+                <span class="aui-iconfont aui-icon-discoverfill"></span>
+                <p>我的活动</p>
+            </a>
+        </li>
+        <li <if condition="$menu eq 2">class="active-orange" </if> >
+            <a class="footer_redirect" data-href="{:U('portal/mindex/appCenter',array('menu'=>2))}" href="javascript:;">
+                <span class="aui-iconfont aui-icon-favor"></span>
+                <p>看看</p>
+            </a>
+        </li>
+        <li <if condition="$menu eq 3">class="active-orange" </if>>
+            <a class="footer_redirect" data-href="{:U('portal/mindex/user_center',array('menu'=>3))}" href="javascript:;">
+                <span class="aui-iconfont aui-icon-people"></span>
+                <p>个人中心</p>
+            </a>
+        </li>
+    </ul>
+</footer>
+<script>
+	$(".footer_redirect").click(function(){
+		var tt = Math.random();
+		var url = $(this).attr("data-href")+"?refresh="+tt;
+		window.location.href = url;
+	});
+</script>

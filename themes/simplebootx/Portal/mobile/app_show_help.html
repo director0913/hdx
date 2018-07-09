@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>答题详情</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color:#fafafa;}
+.aui-bar-nav,.aui-btn{background-color:#fff;}
+.aui-title,.aui-bar-nav,.aui-btn{color:#000;}
+header.aui-bar .aui-btn .aui-iconfont{color:#ff9900;}
+.detail{background-color:#fff;padding:10px;margin:14px 0;}
+.detail .touxiang{width:60px;height:60px;float:left;}
+.detail .touxiang img{width:100%;}
+.detail .cont{font-size:13px;overflow:hidden;padding-left:8px;}
+.detail .cont li{float:left;height:30px;line-height:30px;}
+.detail .cont li:nth-child(2n){width:57%;}
+.detail .cont li:nth-child(2n+1){width:43%;padding-right:6px;}
+.piaoshu{color:#fc7219;}
+.wd12{width:12%;}
+.wd17{width:17%;}
+.wd20{width:20%;}
+.wd21{width:21%;}
+.wd22{width:22%;}
+.wd25{width:25%;}
+.wd30{width:30%;}
+.wd100{width:100%;}
+tr{height:36px;background-color:#fff;font-size:13px;width:100%;display:table;}
+.tt{width:100%;}
+tr th{color:#3b3b3b;}
+tr td{color:#717171;display:table-cell;padding:4px;word-break:break-all;}
+tr .user{width:28px;height:28px;margin:0 auto;height:36px;padding-top:4px;}
+tr .user img{width:100%;height:28px;vertical-align: middle;}
+td{text-align: center;}
+.page{padding:10px 12px 20px;clear:both;text-align:center; font-size:0; font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top; text-align:center;} 
+.page a, .page span{display:inline-block;height:28px;line-height:28px;width:28px; margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+.page a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+.page a, .page a:visited{color:#252525} 
+.page a:hover, .page a:active{color:#8D827E} 
+.page .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+.page a.current, .page a.current:visited{color:#8D827E} 
+.page a.current:hover, .page a.current:active{color:#8D827E} 
+.ep-pages-ctrl{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+.ep-pages-e5e5e5{color:#e5e5e5} 
+.ep-pages-all{font-size:12px;vertical-align:top}
+</style>
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top} 
+</style>
+</head>
+<body>
+<php>//print_r($friends[0]);</php>
+<header class="aui-bar aui-bar-nav aui-border-b" id="aui-header">
+    <a class="aui-btn aui-pull-left aui-border-b" href="javascript:history.go(-1);">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title" id="header-title">详情</div>
+</header>
+<div class="detail">
+    <div class="touxiang"><img src="{$me['avatar']}" alt=""></div>
+    <ul class="cont">
+        <li>姓名：{$me['username']}</li>
+        <li>昵称：{$me['nickname']}</li>
+        <li>
+            <if condition="in_array($application['type'],array('weigreet','yyvote'))">点赞数：</if>
+            <if condition="in_array($application['type'],array('flower'))">送花数：</if>
+            <if condition="in_array($application['type'],array('weiprice'))">砍价次数：</if>
+            <if condition="in_array($application['type'],array('midautumn'))">月饼种类</if>
+            <if condition="in_array($application['type'],array('nationday'))">礼盒数量:</if>
+        <span class="piaoshu">
+            <if condition="in_array($application['type'],array('weigreet'))"> {$me['total_num']}</if>
+            <if condition="in_array($application['type'],array('yyvote','flower'))">{$me['per_num']}</if>
+            <if condition="in_array($application['type'],array('weiprice'))">{$me['total_num']}</if>
+            <if condition="in_array($application['type'],array('midautumn'))">{$me['per_num']}</if>
+            <if condition="in_array($application['type'],array('nationday'))">{$me['day_num']}</if>
+        </span></li>
+        <li>手机号：{$me['mobile']}</li>       
+    </ul>
+    <div style="clear:both;"></div>
+</div>
+<table border="0" cellpadding="0" cellspacing="0" class="wd100">
+    <tr class="tt">
+        <th class="wd20">昵称</th>
+        <if condition="in_array($application['type'],array('weigreet','yyvote'))">
+            <th class="wd21">今日点赞数</th>
+            <th class="wd17">总点赞数</th>
+        </if>
+        <if condition="in_array($application['type'],array('flower'))">
+            <th class="wd21">今日送花数</th>
+            <th class="wd17">总送花数</th>
+        </if>
+        <if condition="in_array($application['type'],array('weiprice'))">
+            <th class="wd21">砍掉价格</th>
+        </if>
+        <if condition="in_array($application['type'],array('midautumn'))">
+            <th class="wd21">找到月饼</th>
+        </if>
+        <if condition="in_array($application['type'],array('nationday'))">
+            <th class="wd21">帮助礼盒</th>
+        </if>
+        <th class="wd30">日期</th>
+    </tr>
+    <foreach name="friends" item="vo">
+    <tr>
+        <th class="wd20">{$vo['nickname']}</th>
+        <if condition="in_array($application['type'],array('weigreet','yyvote','flower'))">
+            <th class="wd21">{$vo['day_num']}</th>
+            <th class="wd17">{$vo['total_num']}</th>
+        </if>
+         <if condition="in_array($application['type'],array('weiprice'))">
+            <th class="wd21">{$vo['price']}元</th>
+        </if>
+        <if condition="in_array($application['type'],array('midautumn'))">
+            <php>
+                $bingname="";
+                switch($vo['per_num']){
+                    case 0:$bingname="空"; break;
+                    case 1:$bingname="莲蓉"; break;
+                    case 2:$bingname="冰皮"; break;
+                    case 3:$bingname="五仁"; break;
+                    case 4:$bingname="绿豆沙"; break;
+                    case 5:$bingname="蛋黄"; break;
+                }
+            </php>
+            <th class="wd21">{$bingname}</th>
+        </if>
+        <if condition="in_array($application['type'],array('nationday'))">
+            <php>
+                $p=intval($_GET['p']);
+                if($p==0)$p=1;
+                $pm=($p-1)*10+($key+1);
+                $lihe_name='';
+                if($pm<=7){
+                    $lihe_name="礼盒一";
+                }
+                if(7<$pm&&$pm<=14){
+                    $lihe_name="礼盒二";
+                }
+                if(14<$pm&&$pm<=21){
+                    $lihe_name="礼盒三";
+                }
+            </php>
+            <th class="wd21">{$lihe_name}</th>
+        </if>
+        <th class="wd30">{$vo.createtime|date='Y-m-d',###}</th>
+    </tr>
+    </foreach>
+</table>
+<div class="pagelist">{$page}</div>
+<div class="page" style="display: none;">
+    <span class="ep-pages-ctrl ep-pages-e5e5e5">&lt;</span>
+    <a href="#" target="_self" class="current">1</a>
+    <a href="#" target="_self">2</a>
+    <a href="#" target="_self">3</a>
+    <span>...</span>
+    <a href="#" target="_self" class="ep-pages-ctrl">&gt;</a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+$(function(){
+    $('.baoxiang').click(function(){
+        var uid=$(this).parent().attr('data-id');
+        var url="{:U('portal/mindex/baoxiang')}"+"?id="+"{$_GET['id']}"+"&uid="+uid+"&help=1";
+        window.location.href=url;
+    });
+});
+</script>
+</html>

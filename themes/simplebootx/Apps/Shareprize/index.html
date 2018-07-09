@@ -1,0 +1,722 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['title']}</title>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Shareprize/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Shareprize/js/zhezhao.js"></script>
+<style>
+*{margin:0; padding:0;}
+img{border:none;}
+.clear{ clear:both;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+.fl{float:left;}
+.fr{float:right;}
+.c_b{ clear:both;}
+.o_h{ overflow:hidden;}
+.d_n{ display:none;}
+.wt100{ width:100%;}
+body{width:750px; background:#defdee; font-family:"微软雅黑";}
+#fullbg,#fullbg2{background-color:rgba(0,0,0,0.8); left:0; opacity:0.8; position:absolute; top:0; bottom:0; right:0; position:fixed; display:none; z-index:10; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fullbg2{z-index:20;}
+/*公共样式结束*/
+/*计时开始*/
+.radius_l{border-radius:6px 0 0 6px;padding-left:6px;}
+.radius_r{border-radius:0 6px 6px 0;padding-right:6px;}
+.jishi{width:750px; height:92px; background-color:#342d35;margin:0px auto; text-align:center; color:#FFF;position:relative;}
+.jishi .titletime{font-size:32px;line-height:92px;float:left;margin-right:12px;margin-left:8px;}
+.jishi>div{font-size:30px; padding:0 8px;}
+.jishi div p{width:20px;height:50px; background-color:#fe514e; color:#fff; line-height:50px; font-size:28px; float:left;font-size: "宋体";font-weight:lighter;margin-left:-2px;}
+.jishi div span{ float:left;line-height:50px;margin-left:8px;margin-right:8px; font-size:32px;}
+.jishi .shijian{margin-left: 20px;padding-top:21px;}
+/*计时结束*/
+<literal>
+#yinyue{position:absolute; z-index:2; top:11px; left:652px; width:70px; height:70px;background:url(__TMPL__Apps/Shareprize/images/music.png) center center no-repeat; animation: bgRotate 6s linear infinite; background-size:auto 100%; -webkit-animation: bgRotate 6s linear infinite; -moz-animation: bgRotate 6s linear infinite; -o-animation: bgRotate 6s linear infinite;}
+@keyframes bgRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@-webkit-keyframes bgRotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes bgRotate{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}}@-o-keyframes bgRotate{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(360deg)}}
+</literal>
+.ting{animation-play-state: paused !important; -webkit-animation-play-state: paused !important; animation:inherit !important; -webkit-animation:inherit !important; -moz-animation:inherit !important; -o-animation:inherit !important;}
+/*访问量开始*/
+.baoming{height:146px;}
+.yibao{ height:146px; padding-top:24px;}
+.yibao li{float:left;width:238px;border-right:3px #fe4f4a solid;line-height:50px;}
+.yibao .text{ font-size:32px; color:#fe4f4a; text-align:center;}
+/*访问量结束*/
+/*登录开始*/
+.denglu{margin:-74px 30px 30px;border:8px solid #ff7d73;border-radius:16px;padding-top:70px;}
+.title{text-align: center;margin-top:40px;}
+.login{margin:0 auto;text-align:center;}
+.login p{margin-top:30px;}
+#name,#tel,#age,#cless,#school,#remark,#schools{font-size:30px;width:436px;height:80px;padding:0 30px;box-sizing:border-box;border:none;background:url(__TMPL__Apps/Shareprize/images/input.png) no-repeat center center;background-size:100% 100%;text-align: center;color:#7ec19c;}
+input{outline:none;}
+select{padding-left: 25% !important;box-sizing: border-box;border-radius: 0.2rem;}
+.denglu .shuoming{width:420px;margin:12px auto 26px;color:#707773;font-size:24px;}
+.login_btn{width:260px;height:78px;border-radius:6px;margin:0 auto;color:#fff;background-color: #04c73b;font-size:36px;line-height:78px;text-align: center;margin-bottom:34px;margin-top:34px}
+/*登录结束*/
+/*助跑开始*/
+.run{text-align: center;font-size:30px;display:none;}
+.run_title{width:370px;text-align:center;margin:-30px auto 0;}
+.paodao{width:100%;margin-top:60px;position: relative;}
+.gudingqu{ position:absolute; top:-41px; left:15px; width:580px;}
+.user{position: absolute;top:0px;left:0px;background:url(__TMPL__Apps/Shareprize/images/huangguan.png) no-repeat 0 0;width:93px;height:106px;background-size:100% 100%;}
+.user_tu{width:74px;height:74px;border-radius:50%;border:2px solid #fff;margin-top:-16px;margin-left:-12px;}
+.paodao_bg{margin:0 auto;width:690px;}
+.run_help{margin-top:20px;margin-bottom:6px; margin-left: 24px; margin-right: 24px;height:60px;}
+.run_help span{color:#fe4f4a}
+.run .login_btn.fl{margin-left:54px;background-color: #fe941e;}
+.run .login_btn.fr{margin-right:54px;}
+/*助跑结束*/
+.alldiv{ padding:0 21px; padding-top:20px; background-color:#FFF;}
+.tab{ border-radius:4px; overflow:hidden; margin-bottom:22px;}
+.tab li{ float:left; width:33.3333%; background-color:#2f2331; height:74px;}
+.tab li p{ height:68px; line-height:68px; background-color:#635667; text-align:center; font-size:28px; color:#FFF; border-left:1px solid #837687; border-right:1px solid #514455;}
+.tab li:first-child p{ border-radius:0 0 0 4px;}
+.tab li.you p{ border-radius:0 0 4px 0;}
+.tab li.active p{ color:#ffdb1e;}
+.women .shuoming{ overflow:hidden; margin-bottom:29px;}
+.women .shuoming .biaoti{ background-color:#ff544c; color:#FFF; height:73px; line-height:73px; padding:0 30px; font-size:28px; border-radius:14px 14px 0 0;}
+.women .shuoming .neirong{ padding:9px; border:3px solid #ff544c; border-top-style:none; border-radius:0 0 14px 14px;}
+.women .shuoming .neirong,.women .guize{ font-size:25px; line-height:48px; color:#1e1e1e; word-break:break-all;}
+.women .shuoming .neirong img,.women .guize img{ max-width:100%;}
+table th,table td{ text-align:center; font-size:25px; color:#292929; padding:12px 0; border-bottom:1px dashed #616161;}
+table th{ color:#635667;}
+.gengduo{ height:52px; line-height:52px; border:2px solid #616161; border-radius:7px; text-align:center; font-size:23px; color:#626262; margin-top:20px;}
+.banquan{ font-size:22px; line-height:30px; color:#929292; text-align:center; padding:20px 0;}
+.haoyou li{ padding:16px 0; border-bottom:1px dashed #292929; font-size:28px; line-height:37px;}
+.haoyou li .touxiang{ width:74px; height:74px; border-radius:50%; float:left; margin-right:16px;}
+.haoyou li span{ color:#F00;}
+.zhongkuang{display:table; height:74px; *position:relative;}
+.neikuang{vertical-align:middle; display:table-cell; *position:absolute; *top:50%;}
+.zuizhong{*position:relative; *top:-50%;}
+#fenxiang{ position:fixed;width:260px;height:170px;top:50%; left:50%; margin-top:-85px; margin-left:-130px; z-index:30; display:none;}
+.finish{width:600px;height:430px;background-color: #fe514e;border-radius:20px;position:fixed;top:50%;left:50%;z-index:20;margin-top:-210px;margin-left:-300px;display:none;}
+.finish_cont{background-color: #fff;margin:0 8px 8px;height:322px;font-size:32px;text-align: center;border-radius:0 0 20px 20px;}
+.finish_title{text-align: center;font-size:36px;color:#fff;height:100px;line-height: 100px;}
+.finish img{width:154px;height:140px;margin:35px auto;}
+.gongxi{color:#fe941e;font-size:28px;margin-top:10px;}
+.baoxiang_btn{position: fixed;right:40px;bottom:60px;}
+.baoxiang_btn img{width:100%;}
+#baoxiangtu{ position:fixed; top:70px; left:27px; bottom:70px; right:27px; z-index:30; color:#FFF; display:none; font-family:"微软雅黑";}
+.wujilu{margin-top:200px; text-align:center; font-size:42px;}
+#baoxiangtu .title{line-height:100px; border-bottom:4px solid #FFF; position:relative; font-size:45px; padding-left:20px; margin-bottom:30px;}
+#baoxiangtu .title img{position:absolute; right:32px; top:31px;}
+#baoxiangtu .tanzhongdiv{padding:0 32px; position:absolute; top:174px; left:0; right:0; bottom:0; overflow:auto;}
+#baoxiangtu .fendiv{border:1px solid #FFF; border-radius:10px; margin-top:30px;}
+#baoxiangtu .fendiv .tudiv{width:238px; height:160px; overflow:hidden; margin:42px 34px; float:left;}
+#baoxiangtu .fendiv .tudiv img{width:100%;}
+#baoxiangtu .fendiv .youdiv{overflow:hidden; font-size:31px;}
+#baoxiangtu .fendiv .youdiv .jiangji{height:53px; line-height:53px; margin-top:67px;}
+#baoxiangtu .fendiv .youdiv .jiangname{height:53px; line-height:53px;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+<php>//var_dump($rate);</php>
+<div class="jishi"> 
+    <div>
+        <div class="titletime">活动倒计时:</div>
+        <div class="shijian">
+            <p id="tian1" class="radius_l">0</p><p id="tian2">0</p><p id="tian3" class="radius_r">0</p><span>天</span>
+            <p id="shi1" class="radius_l">0</p><p id="shi2" class="radius_r">0</p><span>时</span>
+            <p id="fen1" class="radius_l">0</p><p id="fen2" class="radius_r">0</p><span>分</span>
+            <p id="miao1" class="radius_l">0</p><p id="miao2" class="radius_r">0</p><span>秒</span>
+        </div>
+    </div>
+</div>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Shareprize/audios/bjmusic.mp3" style="display:none;"></audio>
+<div class="bg">
+    <img src="{$item['thumb']}" width="750"/>
+    <div id="yinyue" ></div>
+</div>
+<div class="baoming">
+	<ul class="yibao">
+    	<li>
+            <p class="text">已报名</p>
+            <p class="text">{$join_count}</p>
+            
+        </li>
+       <li style="width:266px;">
+            <p class="text">参与人次</p>
+            <p class="text">{$vote_count}</p>
+            
+        </li>
+        <li style="border:none;">
+            <p class="text">访问量</p>
+            <p class="text">{$item['hits']}</p>
+           
+        </li>
+    </ul>
+    <div class="clear"></div>
+ </div>
+ <!--baoming结束-->
+<div class="title"><img src="__TMPL__Apps/Shareprize/images/title.png" alt="" /></div>
+ <!-- 登录开始 -->
+ <div class="denglu" <if condition="!$isme or $is_regist">style="display:none;"</if> >
+ 		<php>
+		    if(!$params['other_remark']){
+		    	$params['other_remark']="备注";
+		    }
+			if($params['other_school']){
+		    	$other=explode(',',$params['other_school']);
+		    }
+		</php>
+      <div class="login">
+            <p><input type="text" id="name" name="username" placeholder="请输入姓名"></p>
+            <p><input type="tel" id="tel" name="mobile" placeholder="请输入手机号"></p>
+			<p <if condition="empty($params['age'])">style="display:none" </if>><input type="tel" id="age"  name="age"placeholder="您的年龄"></p>
+        	<p <if condition="empty($params['cless'])">style="display:none" </if>><input type="text" id="cless"  name="cless"placeholder="您的班级"></p>
+			<p <if condition="empty($params['school'])">style="display:none" </if>>      
+				<if condition="empty($params['other_school'])">
+					<input type="text" id="school"  name="school"placeholder="您的学校">
+				<else/>
+					<select id="schools" name="school">
+						<volist name="other" id="vo">
+							<option  id="school" value ="{$vo}">{$vo}</option>
+						</volist>
+					</select>
+				</if>
+			</p>
+			<p <if condition="empty($params['qita'])">style="display:none" </if>><input type="text" id="remark"  name="remark"placeholder="{$params['other_remark']}"></p>
+        </div>
+        <div class="shuoming">*我们不会以任何方式泄露您的信息，请放心填写。</div>
+        <div class="login_btn anniu">开始助跑</div>
+ </div>
+ <!-- 登录结束 -->
+<if condition="$isme and $is_regist">
+    <div class="run" id="run" style="display:block;" >
+         <div class="run_title"><span>{$user['username']}</span>的跑道</div>
+         <div class="paodao">
+            <img src="__TMPL__Apps/Shareprize/images/run.png" alt="" class="paodao_bg"/>
+             <div class="gudingqu">
+                <div class="user">
+                    <img src="{$user['avatar']}" alt="" class="user_tu"/>
+                </div>
+            </div>
+         </div>
+         <if condition="$user['total_num'] egt $item['total_num']">
+            <div class="run_help">已到达终点,快联系我们领奖吧~</div>
+         <else/>
+            <div class="run_help">{$user['username']}已经跑了<span>{$user['total_num']}</span>米，快帮TA助跑一下吧~</div>
+         </if>
+         <div class="login_btn" onclick="showBg('fullbg2','fenxiang',true)">邀请好友</div>
+         <div style="clear:both;"></div>
+     </div>    
+</if>
+<if condition="!$isme">
+    <div class="run" id="run" style="display:block;">
+         <div class="run_title"><span>{$his_info['username']}</span>的跑道</div>
+         <div class="paodao">
+            <img src="__TMPL__Apps/Shareprize/images/run.png" alt="" class="paodao_bg"/>
+             <div class="gudingqu">
+                <div class="user">
+                    <img src="{$his_info['avatar']}" alt="" class="user_tu"/>
+                </div>
+            </div>
+         </div>
+         <if condition="$his_info['total_num'] egt $item['total_num']">
+            <div class="run_help">{$his_info['username']}已到达终点，抱着大奖回家啦~</div>
+            <div class="login_btn fl" onclick="showBg('fullbg2','fenxiang',true)">找人来帮忙</div>
+         <else/>
+            <div class="run_help">{$his_info['username']}已经跑了<span id="hisscore">{$his_info['total_num']}</span>米，快帮TA助跑一下吧~</div>
+            <div class="login_btn fl zhuli_btn" >帮TA助跑</div>
+         </if>
+         
+         <if condition="$is_regist">
+            <div class="login_btn fr canjiahuodong">我的活动</div>
+         <else/>
+            <div class="login_btn fr canjiahuodong">我也要玩</div>
+         </if>
+         <div style="clear:both;"></div>
+     </div>
+</if>
+<img src="__TMPL__Apps/Shareprize/images/huawen.png" class="wt100" />
+ <div class="alldiv">
+    <ul class="tab">
+        <li data-class="qiehuan" class="active" data-id="women"><p>活动说明</p></li>
+        <li class="zuo" data-class="qiehuan" data-id="haoyou"><p>助跑团({$friend_count})</p></li>
+        <li class="you" data-class="qiehuan" data-id="paihang"><p>排行榜({$join_count})</p></li>
+        <p class="c_b"></p>
+    </ul>
+    <div class="women qiehuan">
+        <div class="shuoming">
+            <p class="biaoti">活动说明</p>
+            <div class="neirong">{$item['rule']|html_entity_decode}</div>
+        </div>
+        <div class="guize">{$item['activityremark']|html_entity_decode}</div>
+    </div>
+    <div class="haoyou qiehuan d_n">
+        <ul class="moref">
+        </ul>
+        <p class="gengduo moreff" onclick="morefriend()">点击加载更多……</p>
+    </div>
+    <div class="paihang qiehuan d_n">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="moreu">
+            <tr>
+                <th width="90">名次</th>
+                <th>昵称</th>
+                <th width="166">手机号</th>
+                <th width="166">助跑距离</th>
+                <th width="166">时间</th>
+            </tr>
+        </table>
+        <p class="gengduo moreuu"  onclick="moreuser()">点击加载更多……</p>
+    </div>
+    <img src="__TMPL__Apps/Shareprize/images/banquan.jpg" style="width:100%;"/>
+</div>
+ <!-- 助跑提示 -->
+ <div class="finish" id="thank" onclick="closeBg('fullbg','thank')">
+    <div class="finish_title">非常感谢</div>
+    <div class="finish_cont">
+         <img src="__TMPL__Apps/Shareprize/images/bird.png" alt=""/>
+        <p>你使出洪荒之力，帮TA助跑了<span class="step"></span>米！</p>
+        <p class="gongxi">恭喜您获得一次抽奖机会，GO！</p>  
+    </div>  
+ </div>
+ <!-- 助跑次数用完提示 -->
+ <div class="finish" id="finish">
+    <div class="finish_title">不好意思</div>
+    <div class="finish_cont">
+         <img src="__TMPL__Apps/Shareprize/images/xiaoren.png" alt=""/>
+        <p>你今天的助跑次数已经用完了！</p>
+    </div>  
+ </div>
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<img src="__TMPL__Apps/Shareprize/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg2','fenxiang')"/>
+<!-- 提示分享给好友 -->
+<div class="baoxiang_btn" onclick="showBg('fullbg','baoxiangtu')"><img src="__TMPL__Apps/Shareprize/images/baoxiang.png" alt="" /></div>
+<div id="baoxiangtu">
+    <p class="title" style="text-align:left;">我的宝箱<img src="__TMPL__Apps/Shareprize/images/close.png" onclick="closeBg('baoxiangtu','fullbg')"/></p>
+    <if condition="!$prize_list">
+        <p class="wujilu">很遗憾暂时未中奖，继续加油哦！！</p>
+    </if>
+    <div class="tanzhongdiv">
+        <foreach name="prize_list" item="vo">
+            <div class="fendiv">
+                <div class="tudiv"><img src="{$vo['thumb']}"/></div>
+                <div class="youdiv">
+                    <p class="jiangji">{$vo['type']}</p>
+                    <p class="jiangname">{$vo['name']}</p>
+                </div>
+                <div class="c_b"></div>
+            </div>
+        </foreach>
+    </div>
+</div>
+<div class="skill_support">
+    <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+        <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+    </a>
+</div>
+<tc_include file="Public:mobile"/>
+</body>
+<script type="text/javascript">
+var music;
+var tian1obj=$("#tian1");
+var tian2obj=$("#tian2");
+var tian3obj=$("#tian3");
+var shi1obj=$("#shi1");
+var shi2obj=$("#shi2");
+var fen1obj=$("#fen1");
+var fen2obj=$("#fen2");
+var miao1obj=$("#miao1");
+var miao2obj=$("#miao2");
+var qitime="<php> echo time();</php>";
+var zhitime="{$item['endtime']}";
+// <php>echo "var qitime=".time().";";</php>
+// var zhitime="{$item['endtime']}";
+var jitime=null;
+var status="{$status}";
+var is_can="{$cando}";
+$(function(){
+    if(is_can>0){
+      daojishi();
+      jitime=setInterval("daojishi()",1000);
+    }
+
+    music=document.getElementById("bgMusic");
+    music.play();
+    //播放音乐
+    $("#yinyue").click(function()
+    {
+        if(music.paused)
+        {
+            music.play();
+            $("#yinyue").removeClass("ting");
+        }
+        else
+        {
+            music.pause();
+            $("#yinyue").addClass("ting");
+        }
+    });
+    $(".tab li").click(function(){
+        var class1=$(this).attr("data-class");
+        if(!class1) return;
+        var id=$(this).attr("data-id");
+        $(this).parent().find("li.active").removeClass("active");
+        $(this).addClass("active");
+        $("."+class1).addClass("d_n");
+        $("."+id).removeClass("d_n");
+    });
+    //注册按钮
+    //注册
+    $('.anniu').click(function(){
+        if(status==-1){
+        alert("活动未开始");
+        return;
+       }
+       if(status==-2){
+        alert("活动已结束");
+        return;
+       }
+        var id="{$_GET['id']}";
+        var name=$('input[name=username]').val();
+        var mobile=$('input[name=mobile]').val();
+        var remark=$('input[name=remark]').val();
+		var age=$('input[name=age]').val();
+        var cless=$('input[name=cless]').val();
+        var school=$('[name=school]').val();
+        if(name.length==0)
+        {
+            alert("请填写姓名");
+            return;
+        }
+        if(mobile.length!=11)
+        {
+            alert("请填写11位手机号");
+            return;
+        }
+        $.post("{:U('apps/shareprize/regist',array('id'=>$_GET['id']))}",
+        {
+           name:name,
+           mobile:mobile,
+		   age:age,
+		   cless:cless,
+		   school:school,
+           remark:remark
+        },
+        function(data){
+            //alert(data.status+">>"+data.msg);
+            if(data.status>0){
+                window.location.href=data.url;
+            }else{
+                alert(data.msg);
+            }
+        });
+    });
+    //我也参加
+    $('.canjiahuodong').click(function(){
+        if(status==-1){
+        alert("活动未开始");
+        return;
+       }
+       if(status==-2){
+        alert("活动已结束");
+        return;
+       }
+        var url="{:U('apps/shareprize/index',array('id'=>$_GET['id']))}";
+        window.location.href=url+'?ss=1';
+    });
+    //为TA助力
+    var kaiguan_zhuli=false;
+    $('.zhuli_btn').click(function(){
+       if(status==-1){
+        alert("活动未开始");
+        return;
+       }
+       if(status==-2){
+        alert("活动已结束");
+        return;
+       }
+       if(kaiguan_zhuli) return;
+       kaiguan_zhuli=true;
+       var hisscore=$('#hisscore').text(); 
+       $.post("{:U('apps/shareprize/zhuli',array('id'=>$_GET['id'],'uid'=>$_GET['uid'],'t'=>$_GET['t']))}",
+        {
+            hisscore:hisscore
+        },
+        function(data){
+            //alert(data.status+">>>"+data.msg);
+            kaiguan_zhuli=false;
+            var total="{$item['total_num']}";
+			var rate=parseInt(data.newhisscore/total*100);
+			if(data.status>0)
+            {
+                $('.step').text(data.step);
+				$('#hisscore').text(data.newhisscore);
+                var result=suanzuobiao(rate);
+                $(".user").css(result);
+                showBg('fullbg','thank');
+				//定时器到抽奖页面
+				setTimeout('get_prize()',1500);
+            }
+            else
+            {
+                //alert(data.msg);
+                if(data.status==-1||data.status==-3){
+                    alert(data.msg);
+                }else{
+                    showBg('fullbg','finish',true);
+                }
+            }
+        });
+    });
+//加载喝彩记录
+morefriend();
+//排行榜
+moreuser();
+//算坐标，初始化
+var rate="{$rate}";
+rate=parseInt(rate);
+$(".user").css(suanzuobiao(rate));
+});
+function get_prize(){
+	var url="{:U('apps/shareprize/get_prize',array('id'=>$_GET['id'],'uid'=>$_GET['uid']))}";
+	window.location.href=url;
+}
+function daojishi()
+{
+    qitime=parseInt(qitime)+1;
+    var chatime=zhitime-qitime;
+    if(chatime<0)
+    {
+        clearInterval(jitime); return;
+    }
+    var tian=parseInt(chatime/86400);
+    if(tian<100&&tian>9)
+        tian="0"+tian;
+    else if(tian<=9)
+        tian="00"+tian;
+    tian=tian.toString();
+    tian1obj.html(tian[0]);
+    tian2obj.html(tian[1]);
+    tian3obj.html(tian[2]);
+    var shi=parseInt((chatime%86400)/3600);
+    shi=shi>9?shi:"0"+shi;  
+    shi=shi.toString(); 
+    shi1obj.html(shi[0]);
+    shi2obj.html(shi[1]);
+    var fen=parseInt((chatime%86400%3600)/60);
+    fen=fen>9?fen:"0"+fen;
+    fen=fen.toString();
+    fen1obj.html(fen[0]);
+    fen2obj.html(fen[1]);
+    var miao=chatime%60;
+    miao=miao>9?miao:"0"+miao;
+    miao=miao.toString();
+    miao1obj.html(miao[0]);
+    miao2obj.html(miao[1]);
+}
+function run()
+{
+    $('.denglu').hide();
+    $('.run').show();
+}
+ function thank()
+{
+    showBg('fullbg','thank',true);
+}
+function finish()
+{
+    showBg('fullbg','finish',true);
+}
+//我的喝彩记录
+var page_f=1;
+var kaiguan_f=false;
+function morefriend()
+{
+    if(kaiguan_f) return;
+    kaiguan_f=true;
+    var url ="{:U('apps/shareprize/morefriend',array('id'=>$_GET['id'],'uid'=>$_GET['uid']))}";
+    $.post(url,
+        {
+           page_f:page_f,
+        },
+        function(data,status){
+            kaiguan_f=false;
+            if(data.status>0)
+            {
+                var list=data.list;
+                for(var i=0;i<list.length;i++)
+                {
+                    
+                    var str='<li>'+
+                                '<img src="'+list[i]['avatar']+'" class="touxiang" />'+
+                                '<div class="o_h">'+
+                                    '<div class="zhongkuang">'+
+                                        '<div class="neikuang">'+
+                                            '<div class="zuizhong">'+list[i]['nickname']+'，使出洪荒之力助跑<span>'+list[i]['total_num']+'</span>米！</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                                '<p class="c_b"></p>'+
+                            '</li>';
+                    $('.moref').append(str);
+                }
+                page_f++;
+            }
+            else
+            {
+                $(".moreff").text("没有更多");
+            }
+        });
+}
+//排行榜
+var page_u=1;
+var pagecount=0;
+var size=20;
+var kaiguan_u=false;
+var mingci=1;
+function moreuser()
+{
+    if(kaiguan_u) return;
+    if(pagecount!=0&&page_u>pagecount) return;
+    kaiguan_u=true;
+    var url ="{:U('apps/shareprize/moreuser',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_u:page_u,size:size
+        },
+        function(data,status){
+            //alert(data.testsql);
+            kaiguan_u=false;
+            if(page_u==1)
+                pagecount=data.pagecount;
+            if(data.status>0)
+            {
+                var list=data.list;
+                
+                for(var i=0;i<list.length;i++)
+                {
+                    var mobile=list[i]['mobile'];
+                    if(list[i]['total_num']==0){
+                        //list[i]['total_num']=5;
+                    }
+                    if(list[i]['total_num']==1){
+                        list[i]['total_num']=10;
+                    }
+                    if(list[i]['total_num']==2){
+                        list[i]['total_num']=20;
+                    }
+                    var str='<tr>'+
+                                '<td>'+mingci+'</td>'+
+                                '<td align="left">'+list[i]['username'].substr(0,5)+'</td>'+
+                                '<td>'+mobile.substr(0,3)+'****'+mobile.substr(7,4)+'</td>'+
+                                '<td>'+list[i]['total_num']+'米</td>'+
+                                '<td>'+list[i]['update_time']+'</td>'+
+                            '</tr>';
+                            mingci++;
+                    $('.moreu').append(str);
+                }
+                
+                page_u++;
+            }
+            //alert(page_u+";"+pagecount)
+            if(page_u>pagecount)
+            {
+                //alert(1);
+                $(".moreuu").text("没有更多");
+            }
+        });
+}
+function suanzuobiao(baifenbi)
+{
+    if(baifenbi>100) baifenbi=100;
+    var top="0",left="0";
+    var jieguo=0;
+    if(baifenbi<=3)
+    {
+        left="0";
+        top=(baifenbi*20)+"px";
+    }
+    else if(baifenbi>3&&baifenbi<=97)
+    {
+        left=baifenbi+"%";
+        if(baifenbi>=4&&baifenbi<=47)
+        {
+            var zhi=Math.abs(25-baifenbi);
+            if(zhi<=2)
+            {
+                jieguo=185;
+            }
+            else if(zhi>2&&zhi<=7)
+            {
+                jieguo=180;
+            }
+            else if(zhi>7&&zhi<=9)
+                jieguo=175;
+            else if(zhi>9&&zhi<=12)
+                jieguo=170;
+            else if(zhi>12&&zhi<=14)
+                jieguo=160;
+            else if(zhi>14&&zhi<=16)
+                jieguo=150;
+            else if(zhi>16&&zhi<=18)
+                jieguo=140;
+            else if(zhi>18&&zhi<=20)
+                jieguo=130;
+            else if(zhi>20)
+                jieguo=110;
+        }
+        else if(baifenbi>=48&&baifenbi<=52)
+        {
+            jieguo=100;
+            if(baifenbi==52)
+                jieguo=50;
+            else jieguo=jieguo-(baifenbi-48)*10;
+        }
+        else if(baifenbi>=53&&baifenbi<=97)
+        {
+            var zhi=Math.abs(75-baifenbi);
+            if(zhi<=4)
+            {
+                jieguo=-35;
+            }
+            else if(zhi>4&&zhi<=8)
+            {
+                jieguo=-30;
+            }
+            else if(zhi>8&&zhi<=10)
+                jieguo=-25;
+            else if(zhi>10&&zhi<=12)
+                jieguo=-20;
+            else if(zhi>12&&zhi<=14)
+                jieguo=-10;
+            else if(zhi>14&&zhi<=16)
+                jieguo=0;
+            else if(zhi>16&&zhi<=19)
+                jieguo=10;
+            else if(zhi==20)
+                jieguo=20;
+            else if(zhi==21)
+                jieguo=30;
+            else if(zhi==22)
+                jieguo=40;
+        }
+        top=jieguo+"px";
+    }
+    else if(baifenbi<=100)
+    {
+        jieguo=40;
+        left="100%";
+        top=(((baifenbi-97)*23)+jieguo)+"px";
+    }
+    return {top:top,left:left};
+}
+</script>
+</html>

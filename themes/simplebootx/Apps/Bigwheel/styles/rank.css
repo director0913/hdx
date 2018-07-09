@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.toptu{ width:750px; position:relative; margin-bottom:110px;}
+.btnp{width:680px; height:90px; line-height:90px; font-size:33px; color:#FFF; text-align:center; margin:13px auto 0 auto; background-color:rgba(255,255,255,0.2); border-radius:9px;  position:absolute; bottom:0px; left:35px; letter-spacing:0.1em;}
+
+.paihangbang ul{width:680px;margin:0 auto;}
+.paihangbang li{height:146px;background:#f5696a;border-radius:9px;line-height:146px;margin:20px auto;}
+.paihangbang div{float:left;}
+.paihangbang p{float:left;}
+.paiming{padding-left:15px;width:120px; height:146px;}
+.paiming p{ width:73px !important; text-align:center; margin-top:-15px;}
+.touxiang{height:126px;width:300px;padding-top:20px;}
+.touxiang img{border-radius:100%;display:block;float:left; width:100px; height:100px;}
+.touxiang span{display:block;float:left;color:#8d0f10;font-size:28px;margin-left:12px;margin-top:-20px;letter-spacing:0.1em;}
+.paihangbang p{color:#fff;font-size:26px;width:240px;}

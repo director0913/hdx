@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>报名详情</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color:#fafafa;}
+.aui-bar-nav,.aui-btn{background-color:#fff;}
+.aui-title,.aui-bar-nav,.aui-btn{color:#000;}
+header.aui-bar .aui-btn .aui-iconfont{color:#ff9900;}
+.detail{background-color:#fff;padding:10px;margin:14px 0;}
+.detail .touxiang{width:60px;height:60px;float:left;}
+.detail .touxiang img{width:100%;}
+.detail .cont{font-size:13px;overflow:hidden;padding-left:8px;}
+.detail .cont li{float:left;height:30px;line-height:30px;}
+.detail .cont li:nth-child(2n){width:57%;}
+.detail .cont li:nth-child(2n+1){width:43%;padding-right:6px;}
+.piaoshu{color:#fc7219;}
+.wd12{width:12%;}
+.wd17{width:17%;}
+.wd20{width:20%;}
+.wd21{width:21%;}
+.wd22{width:22%;}
+.wd25{width:25%;}
+.wd30{width:30%;}
+.wd100{width:100%;}
+tr{height:36px;background-color:#fff;font-size:13px;width:100%;display:table;}
+.tt{width:100%;}
+tr th{color:#3b3b3b;}
+tr td{color:#717171;display:table-cell;padding:4px;word-break:break-all;}
+tr .user{width:28px;height:28px;margin:0 auto;height:36px;padding-top:4px;}
+tr .user img{width:100%;height:28px;vertical-align: middle;}
+td{text-align: center;}
+.page{padding:10px 12px 20px;clear:both;text-align:center; font-size:0; font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top; text-align:center;} 
+.page a, .page span{display:inline-block;height:28px;line-height:28px;width:28px; margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+.page a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+.page a, .page a:visited{color:#252525} 
+.page a:hover, .page a:active{color:#8D827E} 
+.page .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+.page a.current, .page a.current:visited{color:#8D827E} 
+.page a.current:hover, .page a.current:active{color:#8D827E} 
+.ep-pages-ctrl{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+.ep-pages-e5e5e5{color:#e5e5e5} 
+.ep-pages-all{font-size:12px;vertical-align:top}
+</style>
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top} 
+</style>
+</head>
+<body>
+<php>//var_dump($me);</php>
+<header class="aui-bar aui-bar-nav aui-border-b" id="aui-header">
+    <a class="aui-btn aui-pull-left aui-border-b" href="javascript:history.go(-1);">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title" id="header-title">详情</div>
+</header>
+<div class="detail">
+    <div class="touxiang"><img src="{$me['avatar']}" alt=""></div>
+    <ul class="cont">
+        <li>姓名：{$me['username']}</li>
+        <li>昵称：{$me['nickname']}</li>
+        <li>
+            <if condition="$application['type'] eq 'cheerchina'">助力次数</if>
+            <if condition="$application['type'] eq 'weidiom'">接龙次数</if>
+            <if condition="$application['type'] eq 'weicheer'">喝彩次数</if>
+            <if condition="$application['type'] eq 'weigreet'">点赞次数</if>
+        ：<span class="piaoshu">
+            <if condition="$application['type'] eq 'weidiom'">{$me['total_num']}</if>
+            <if condition="$application['type'] eq 'weicheer'">{$me['per_num']}</if>
+            <if condition="$application['type'] eq 'cheerchina'">{$me['total_num']}</if>
+            <if condition="$application['type'] eq 'weigreet'">{$me['total_num']}</if>
+        </span></li>
+        <li>手机号：{$me['mobile']}</li>       
+    </ul>
+    <div style="clear:both;"></div>
+</div>
+<table border="0" cellpadding="0" cellspacing="0" class="wd100">
+    <tr class="tt">
+        <th class="wd20">昵称</th>
+        <th class="wd12">头像</th>
+        <th class="wd17">
+            <if condition="$application['type'] eq 'cheerchina'">奖品</if>
+            <if condition="$application['type'] eq 'weidiom'">成语</if>
+            <if condition="$application['type'] eq 'weicheer'">喝彩值</if>
+            <if condition="$application['type'] eq 'weigreet'">今日票数</if>
+        </th>
+        <if condition="$application['type'] eq 'weigreet'"><th class="wd17">总票数</th></if>
+        <if condition="$application['type'] eq 'questionnaire'"><th class="wd17">选择</th></if>
+        <th class="wd30">日期</th>
+    </tr>
+    <foreach name="friends" item="vo">
+    <tr>
+        <td class="wd20">{$vo['nickname']}</td>
+        <td class="wd12"><div class="user"><img src="{$vo['avatar']}" alt=""></div></td>
+        <td class="wd17" data-id="{$vo.id}">
+            <if condition="$application['type'] eq 'weidiom'">{$vo['remark']}</if>
+            <if condition="$application['type'] eq 'weicheer'">{$vo['total_num']}</if>
+            <if condition="$application['type'] eq 'cheerchina'"><span class="baoxiang">奖品</span></if>
+            <if condition="$application['type'] eq 'cheerchina'">{$vo['title']}</if>
+        </td>
+        <td class="wd30">
+            <if condition="$application['type'] eq 'weidiom'">{$vo['createtime']|date="Y-m-d",###}</if>
+            <if condition="$application['type'] eq 'weicheer'">{$vo['update_time']|date="Y-m-d",###}</if>
+            <if condition="$application['type'] eq 'cheerchina'">{$vo['update_time']|date="Y-m-d",###}</if>
+        </td>
+    </tr>
+    </foreach>
+</table>
+<div class="pagelist">{$page}</div>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+$(function(){
+    $('.baoxiang').click(function(){
+        var uid=$(this).parent().attr('data-id');
+        var url="{:U('portal/mindex/baoxiang')}"+"?id="+"{$_GET['id']}"+"&uid="+uid+"&help=1";
+        window.location.href=url;
+    });
+});
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>微信登录</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://res.wx.qq.com/connect/zh_CN/htmledition/style/impowerApp3696b4.css">
+    <link href="https://res.wx.qq.com/connect/zh_CN/htmledition/images/favicon3696b4.ico" rel="Shortcut Icon">
+    <style>
+            body{
+                background: #fff;
+            }
+            .impowerBox{
+                margin-top: 20% !important;
+            }
+            .title{
+                font-size: 300% !important;
+            }
+            .qrcode{
+                background-size:100% !important;
+                width: 80% !important;
+                height: auto !important;
+            }
+            .info{
+                width: 55% !important;
+            }
+            .status{
+                line-height:1.8!important;
+            }
+            .status p{
+                font-size: 180% !important;
+            }
+
+    </style>
+</head>
+<body style="padding: 50px; background-color: rgb(51, 51, 51);">
+<div class="main impowerBox" >
+    <div class="loginPanel normalPanel">
+        <div class="title">微信登录</div>
+        <div class="waiting panelContent">
+            <div class="wrp_code"><img class="qrcode lightBorder" src="/index.php/Home/Userinfo/s_code"></div>
+            <div class="info">
+                <div class="status status_browser js_status normal" id="wx_default_tip">
+                    <p>请使用微信扫描二维码登录</p>
+                    <p>授权获取用户基本信息</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

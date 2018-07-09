@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>修改密码</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<style>
+body{background-color: #fff;}
+.nav{margin:60px 30px 0;height:30px;border-bottom:1px solid #bdbdbd;padding-bottom:10px;color:#bdbdbd;text-align:center;font-size:16px;}
+.content{margin:50px 35px;}
+.list li{position: relative;}
+.list li i{ position:absolute; bottom:20px; left:6px;font-size:20px; color:#bdbdbd;}
+.list li .yanzheng{ position:absolute;bottom:26px; right:8px; font-size:13px; color:#fc7219;}
+input[type="text"],input[type="tel"],input[type="password"]{padding:10px 10px 10px 30px;}
+.btn{height:38px;background-color: #fc7219;color:#fff;border-radius:2px;text-align: center;line-height:38px;font-size:16px;margin-top:20px;display:block;}
+</style>
+</head>
+<body>
+<ul class="nav">修改密码</ul>
+<form action="{:U('user/profile/password_post')}" method="post">
+<div class="content">
+    <ul class="list">
+        <li>
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <input type="password"  id="old_password" name="old_password" placeholder="原始密码"/>
+        </li>
+        <li>
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <input type="password" id="password" name="password" placeholder="新密码"/>
+        </li>
+        <li>
+            <i class="aui-iconfont aui-icon-unlock"></i>
+            <input type="password" id="repassword" name="repassword" placeholder="确认密码"/>
+        </li>
+    </ul>
+    <a class="btn" href="javascript:;">保存</a>
+</div>
+</form>
+</body>
+<tc_include file="Public:mobile" />
+<script>
+ $(".btn").click(function(){
+    var old_password = $("#old_password").val();
+    var password = $("#password").val();
+    var repassword = $("#repassword").val();
+    var url = "{:U('user/profile/password_post')}";
+    $.post(url,{old_password:old_password,password:password,repassword:repassword},function(res){
+        if(res.status){
+            //alert(res.status+">>>"+res.info);
+            window.location.href="{:U('portal/mindex/user_center',array('menu'=>3))}";
+        }else{
+            alert(res.info);
+        }
+    });
+ });
+ </script>
+</html>

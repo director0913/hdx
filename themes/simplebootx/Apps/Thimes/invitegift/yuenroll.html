@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>我要报名</title>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<style>
+*{margin:0;padding:0;}
+.wt100{ width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+/*公共样式结束*/
+body{background-color:#e9f1f3; font-family:"微软雅黑";width:320px;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+a{text-decoration:none; color:#333;}
+.bgc{margin:6px 10px 0;background-color: #fff;}
+.banner{padding:6px 6px 0;}
+.banner img{width:100%;}
+.content{margin-left:8px;margin-right:8px;}
+.biaoti{font-size:16px;padding-top:2px;padding-bottom:8px;background-color: #fff;}
+.data{background-color: #fff;margin-top:10px;font-size: 14px;}
+.data p{padding-top:16px;padding-bottom: 16px;border-bottom:1px solid #ddd;background: url(__TMPL__Apps/Thimes/invitegift/images/time.png) no-repeat 0 center;padding-left:22px;background-size:16px 16px;}
+.data p.tel{border:none;background: url(__TMPL__Apps/Thimes/invitegift/images/phone.png) no-repeat 0 center;background-size:16px 16px;}
+.data p.tel a{display:block;height:20px;line-height:20px;}
+.data p.tel img{float:right;width:auto;height:15px;margin-top:2px;}
+/*活动时间.地点结束*/
+.zhuban{ font-size:16px; line-height:30px; color:#2D2D2D;padding-top:6px;}
+.gongsi{ font-size:14px; color:#76788F;border-bottom:1px solid #D3D3D3;padding-bottom:12px;padding-top:4px;}
+.gongsi:after{ content:""; display:block; clear:both;}
+.gongsi .touxiang{ float:left;width:40px;height:40px;margin-right:15px;}
+.gongsi .touxiang img{ border-radius:50%;width:100%;}
+.gongsi .gongsi_cont{float:left;height:20px;line-height:40px;}
+.jieshao{background-color: #fff;margin-top: 10px;font-size:15px;color:#686868;padding-bottom:20px;}
+.jieshao_title{padding-top:10px;padding-bottom: 10px;font-size:16px;color:#2D2D2D;}
+.jieshao .text{line-height:24px;word-break: break-all;}
+.jieshao img{width:100%;}
+/*介绍结束*/
+.baomingdiv{margin-top:10px;background-color: #fff;padding-left:14px;padding-right:14px;color:#686868;}
+.baomingdiv .baoming_title{ font-size:15px;padding:14px 0;border-bottom:1px solid #ddd;font-weight: bold;}
+.baomingls{white-space:nowrap;overflow-x:scroll;}
+.baomingls div{ text-align:center;display:inline-block;margin-right:10px;}
+.baomingls div img{width:46px;height:46px;border-radius:50%; margin:15px 0 5px; }
+.baomingls div p.name{ font-size:12px;margin-bottom:2px; color:#686868;}
+.baomingls div p.shijian{font-size:10px;margin-bottom:15px; color:#aaa;}
+.banquan{ font-size:12px; color:#999; text-align:center;}
+.onebq{ margin-top:18px;}
+#kongdiv{height:55px;}
+.footer{width:320px;border-top:1px solid #ddd;position:fixed;left:0;bottom:0;}
+.footer li{width:50%;float:left;height:47px;text-align:center;font-size:18px;line-height:47px;}
+.footer li:last-child{background-color:#0099e9;color:#fff;}
+.footer li:first-child{color:#909090;background-color: #f0f0f0;}
+</style>
+</head>
+<body>
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/invitegift/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title"></p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+<div class="caozuoqu">
+    <div class="bgc">
+        <div class="banner">
+            <div class="jichu">
+                <img src="" class="thumb"/>
+                <span class="czspan" onclick="dianji('thumb','base')" style="top:0;">编辑</span>
+            </div>
+            <div class="biaoti">
+                <div class="jichu">
+                    <div class="title"></div>
+                    <span class="czspan" onclick="dianji('title','base')">编辑</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data wd10">
+        <div class="content">
+            <div class="jichu">
+               <p class="timestr"></p>
+                <span class="czspan" onclick="dianji('timestr','base')">编辑</span>
+            </div>
+            <div class="jichu">
+               <p class="tel"></p>
+               <span class="czspan" onclick="dianji('tel','null')">编辑</span>
+            </div>
+        </div>
+    </div> 
+    <div class="jieshao wd10">
+        <div class="content">
+            <p class="zhuban">主办方</p>
+            <div class="gongsi">
+                <div class="touxiang">
+                    <div class="jichu">
+                        <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" class="logo"/>
+                         <span class="czspan" onclick="dianji('logo','base')">编辑</span>
+                    </div>
+                </div>
+                <div class="gongsi_cont">
+                    <div class="jichu">
+                        <p class="school">招生秀</p>
+                        <span class="czspan" onclick="dianji('school','base')">编辑</span>
+                    </div>
+                </div>
+            </div>
+            <div class="jieshao_title">活动介绍</div>
+            <div class="jichu">
+                <div class="text activityremark">暑期趣味招生方案抢先看暑期趣味招生方案暑期趣味招生方案抢先看暑期趣味招生方案暑期趣味招生方案抢先看暑期趣味招生方案暑期趣味招生方案抢先看暑期趣味招生方案</div>
+                <span class="czspan" onclick="dianji('activityremark','guize','guize')">编辑</span>
+            </div>            
+        </div>
+    </div> 
+    <div class="baomingdiv wd10">
+        <p class="baoming_title">已报名&nbsp;56</p>
+        <div class="baomingls">
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">一天前</p>   
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">两天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">两天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">一天前</p>   
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">三天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">三天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">四天前</p>   
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">五天前</p>
+            </div>
+            <div>
+                <img src="__TMPL__Apps/Thimes/invitegift/images/touxiang.jpg" />
+                <p class="name">张三</p>
+                <p class="shijian">五天前</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="kongdiv"></div>
+    <ul class="footer">
+        <li>我要分享</li>
+        <li>我要报名</li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script>
+$(function(){
+    genggai("title");
+    genggai("thumb","img");
+    genggai("timestr");
+    genggai("tel");
+    genggai("school");
+    genggai("logo","img");
+    genggai("activityremark","fwb");
+});
+</script>
+</html>

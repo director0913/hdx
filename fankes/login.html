@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="css/tongyong.css"/>
+	</head>
+	<body>
+	<div class="jiazaik" style="width: 100%;height: 100%;position: absolute;top:0;left:0;background: rgba(0,0,0,0.2);z-index:999;display: block;">
+		<div id="loading" class="loading">加载中...</div>
+	</div>
+		<!--我的商品  -->
+		<div class="bargain" style="position: absolute;top:0;left:0;">
+		  <!--商品列表  -->
+		  <div class="wodeshangp" style="padding-top:2em;"> </div>
+			<div class="commoditys">
+				<image style="width:50px;height:50px;margin:40px;" src="image/wod.png"></image>
+				<div style="width:80%;height:100%;float: right;line-height: 130px;font-size: 45px;">我的商品</div>
+			</div>
+		  <div class="commodity" id="actListBox">
+				
+		    <div class="commodity_lieb" v-for="v in recoms">
+		      <div class="commodity_liebs">
+		        <div class="commodity_imgs">
+		          <image :src='v.thumb' class="commodity_img"></image>
+
+		        </div>
+		        <div class="commdity_xq">
+		          <div class="commo_jiaz">{{v.com_name}}</div>
+		          <div>原价：￥{{v.original_price}}</div>
+		          <div>可砍价：￥{{v.cut_price}}</div>
+		          <div>库存：{{v.num_kuc}}</div>
+		        </div>
+		        <a @click='tiaozdiz(v.com_id)' target="_top"><div class="kanjia_jindu">砍价进度</div></a>
+		      </div>
+		    </div>
+
+
+
+		  </div>
+
+		  <!--创建活动  -->
+		  <!--<div class="activity">我也要创建活动</div>-->
+		</div>
+		<div class="dibu">
+			<a  class="shouyeindex" target="_top">
+			  	<div class="shouye">
+			  		<div class="shouyetus"></div>
+			  		<div class="shouyewenzi">首页</div>
+			  	</div>
+		  	</a>
+		  	<div class="shouye">
+		  		<div class="wodetus"></div>
+		  		<div class="shouyewenzi">我的</div>
+		  	</div>
+		  	
+		</div>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('.fangda').click(function(){
+				$('.zoomss').addClass("activity_explain_ym");
+				$('.zoomss').removeClass("zoom");
+			})
+
+			$('.suofang').click(function(){
+				$('.zoomss').addClass("zoom");
+				$('.zoomss').removeClass("activity_explain_ym");
+			})
+			$('.huodonghsuom').click(function(){
+				$('.huodong_lieb1').attr('style','display: block;');
+				$('.huodong_lieb2').attr('style','display: none;');
+			})
+			$('.wodjiangpin').click(function(){
+				$('.huodong_lieb1').attr('style','display: none;');
+				$('.huodong_lieb2').attr('style','display: block;');
+			})
+			$(function(){
+				var user_id = localStorage.getItem('user_id');
+				var ac_id = localStorage.getItem('ac_id');
+                $('.shouyeindex').click(function(){
+                    top.location.href="index.html?user_id="+user_id+'&ac_id='+ac_id;
+				})
+				var end_time = '';
+				$.ajax({
+                    url:httpurl+"Cutdown/my_kanjia",
+                    type:"post",
+                    data:{
+                        user_id:user_id,
+                        ac_id:ac_id
+                    },
+                    success:function (e) {
+                    	console.log(e);
+                        if(e){
+                        	var items = e;
+                        	end_time = e.end_time
+            				reitems.recoms = reitems.recoms.concat(convert(items));
+                        }
+                        $('.jiazaik').attr('style','display: none;');
+                    }
+                })
+				var reitems = new Vue({
+					el: '#actListBox',
+					data: {
+						recoms: [] //列表信息流数据
+					},
+					methods:{
+						tiaozdiz:function(id){
+							var dangqian = Date.parse(new Date()) / 1000; 
+							var jieshu = end_time;//结束时间
+							if(dangqian>=jieshu){
+								alert('活动已结束！');
+								return false;
+							}
+							window.location.href='bargain.html?com_id='+id+'&user_id='+user_id;
+						}
+					}
+				});
+		
+				function convert(items) {
+					var newItems = [];
+					items.forEach(function(item) {
+						newItems.push({
+							com_id: item.com_id,
+							thumb: item.thumb,
+							com_name: item.com_name,
+							original_price: item.original_price,
+							cut_price: item.cut_price,
+							num_kuc: item.num_kuc
+						});
+					});
+					return newItems;
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$title}</title>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<script type="text/javascript" src="__TMPL__Apps/Flower/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Flower/js/zhezhao.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__Apps/Flower/css/index.css?v=4"/>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<style>
+.pager {margin: 0 auto;width: 670px;padding-top: 30px;padding-bottom: 20px;}
+.pager  a{display: inline-block;width: 56px;height: 66px;line-height: 66px;text-align: center;font-size: 28px;color: #ff9b4b;border-top: 1px solid #ff9b4b;border-bottom: 3px solid #ff9b4b;border-left: 2px solid #ff9b4b;border-right: 2px solid #ff9b4b;margin-right: 10px;  }
+.pager .current {background: #ff9b4b;display: inline-block;width: 59px;height: 69px;line-height: 66px;text-align: center;font-size: 28px;color: #fff;margin-right: 10px;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+<div class="jishi"> 
+    <div>
+        <div class="titletime">倒计时：</div>
+        <div class="shijian">
+            <p id="tian1">0</p><p id="tian2">0</p><p id="tian3">0</p><span>天</span>
+            <p id="shi1">0</p><p id="shi2">0</p><span>时</span>
+            <p id="fen1">0</p><p id="fen2">0</p><span>分</span>
+            <p id="miao1">0</p><p id="miao2">0</p><span>秒</span>
+        </div>
+    </div>
+</div>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Flower/audios/bjmusic.mp3" style="display:none;"></audio>
+<div class="bg">
+    <img src="__TMPL__Apps/Flower/images/banner.jpg" width="750"/>
+    <div id="yinyue" ></div>
+    <div class="jigou">{$school_name}</div>
+    <div class="bg_title">{$slogan}</div>
+</div>
+<div class="baoming">
+	<ul class="yibao">
+    	<li>
+            <p class="text">已报名</p>
+            <p class="text">{$join_count}</p>
+            
+        </li>
+       <li style="width:266px;">
+            <p class="text">累计投票</p>
+            <p class="text">{$vote_count}</p>
+            
+        </li>
+        <li style="border:none;">
+            <p class="text">访问量</p>
+            <p class="text">{$hits}</p>
+           
+        </li>
+    </ul>
+    <div class="clear"></div>
+ </div>
+ <!--baoming结束-->
+<!--sousuo开始-->
+<div class="sousuo">
+	<input  class="inputdiv serchinput" type="text" name="keyword" value="{$keyword}" placeholder="按名字或编号搜索选手"/>
+    <button class="text btnsearch" >搜索</button>
+</div>
+<!--sousuo结束-->
+<!-- 献花开始 -->
+<div class="toupiao">
+   <ul class="child">
+		<foreach name="ulist" item="u">
+			<li>
+				<div class="rank">{$u.id}号</div>
+				<div class="user" data-id="{$u.id}" data-remark="{$u.remark}" data-image ="{:sp_get_asset_upload_path($u['thumb'],true);}">
+					<img src="{$u['thumb']}" alt="" />
+					<div class="toupiao_cont">
+						<p class="fl name">{$u.username}</p>
+						<p class="fr"><span class="per_num">{$u['per_num']}</span>票</p>
+					</div>
+				</div>
+				<!--<div class="xianhua" onclick="xianhua()"><img src="images/hua.png" alt="" />献花</div>-->
+				<div class="xianhua add_vote" data-id="{$u.id}" data-remark="{$u.remark}" ><img src="__TMPL__Apps/Flower/images/hua.png" alt="" />献花</div>
+			</li>
+		</foreach>
+        <div style="clear:both;"></div>
+    </ul>
+	{$page}
+</div>
+<!-- 献花结束 -->
+<!-- 献花详情开始 -->
+<div class="detail" id="detail">
+    <div class="detail_rank"><span class="show_id">94567</span></div>
+    <div class="detail_cont">
+        <div class="detail_user">
+            <img src="__TMPL__Apps/Flower/images/child1.jpg" class="show_img" alt="" />
+            <div class="detail_dt">
+                <p class="detail_name fl">赵一诺</p>
+                <p class="piaoshu fr">票数:<span class="per_total">10978</span></p>
+            </div>
+        </div>
+        <div class="xuanyan_title">参赛宣言</div>
+        <div class="xuanyan">书山有路勤为径，学海无涯苦作舟。</div>
+        <div class="detail_btn fl red deal_vote"><img src="__TMPL__Apps/Flower/images/hua.png" alt=""/>献花</div>
+        <div class="detail_btn fr" onclick="jiayou()">为TA加油</div>
+        <div style="clear:both;"></div>
+    </div>
+    <div class="shuxian"></div>
+    <div class="close" onclick="closeBg('fullbg','detail')"><img src="__TMPL__Apps/Flower/images/close.png" alt="" /></div>
+</div>
+<!-- 献花详情结束 -->
+<!-- 献花成功 -->
+<div id="cheer" onclick="closeBg('fullbg2','cheer')">
+    <div class="faguang"></div>
+    <img src="__TMPL__Apps/Flower/images/flower.png" class="chenggong"/>
+    <p class="wenzi">献花成功</p> 
+</div>
+<!-- 去抽奖结束 -->
+<div style="padding-top:123px;"></div>
+
+<div class="didiv">
+    <div class="skill_support">
+        <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+            <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+        </a>
+    </div>
+    <ul>
+        <li class="difen shouye1" data-href="{:U('Apps/flower/index',array('id'=>$id))}">
+            <div></div>
+            <p>首页</p>
+        </li>
+		<if condition="$is_front_join eq 1 ">
+			<li class="difen jilu" data-href="{:U('Apps/flower/vote_join',array('id'=>$id))}">
+				<div></div>
+				<p>报名</p>
+			</li>
+		</if>
+        <li class="difen guize" data-href="{:U('Apps/flower/rule',array('id'=>$id))}">
+            <div></div>
+            <p>规则</p>
+        </li>
+        <li class="difen paihang" data-href="{:U('Apps/flower/rank',array('id'=>$id))}">
+            <div></div>
+            <p>排名</p>
+        </li>
+    </ul>
+</div>
+<div id="fullbg"></div>
+<div id="fullbg2"></div>
+<div id="fullbg3"></div>
+<img src="__TMPL__Apps/Flower/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg2','fenxiang')"/>
+<!-- 提示分享给好友 -->
+<tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+var music;
+var tian1obj=$("#tian1");
+var tian2obj=$("#tian2");
+var tian3obj=$("#tian3");
+var shi1obj=$("#shi1");
+var shi2obj=$("#shi2");
+var fen1obj=$("#fen1");
+var fen2obj=$("#fen2");
+var miao1obj=$("#miao1");
+var miao2obj=$("#miao2");
+var qitime= "<php> echo time();</php>";
+var zhitime={$endtime};
+var jitime=null;
+var that = null;
+var vote_id = 0;
+var is_vote = false;
+var is_can = "{$cando}";
+$(function(){
+	if(is_can>0){
+	  daojishi();
+	  jitime=setInterval("daojishi()",1000);
+	}
+    music=document.getElementById("bgMusic");
+    music.play();
+	$(".difen").click(function(){
+		var url = $(this).attr("data-href");
+		var time = Math.random();
+		window.location.href = url+"&time="+time;
+	});
+    //播放音乐
+    $("#yinyue").click(function()
+    {
+        if(music.paused)
+        {
+            music.play();
+            $("#yinyue").removeClass("ting");
+        }
+        else
+        {
+            music.pause();
+            $("#yinyue").addClass("ting");
+        }
+    });
+
+	$(".user").click(function(){
+		vote_id = $(this).attr("data-id");
+		that = this;
+		//var image = $(this).parent().find("img").attr("src");
+		var image = $(this).attr("data-image")+"-voteindex530";
+		var username = $(this).parent().find(".name").text();
+		var per_total = $(this).parent().find(".per_num").html();
+		var remark = $(this).attr("data-remark");
+		$(".show_id").text(vote_id);
+		$(".show_img").attr("src",image);
+		$(".per_total").text(per_total);
+		$(".xuanyan").text(remark);
+		$(".detail_name").text(username);
+		//alert("xx:"+username);
+		showBg('fullbg','detail');
+	});
+	$(".add_vote").click(function(){
+		vote_id = $(this).attr("data-id");
+		that = this;
+		if(!is_vote){
+			is_vote = true;
+			$.post("{:U('apps/flower/add_vote',array('id'=>$id))}",{shareid:vote_id},function(res){
+				is_vote = false;
+				if(res.status>0){
+					var curr_total = $(that).parent().find(".per_num").text();
+					curr_total = parseInt(curr_total)+1;
+					$(that).parent().find(".per_num").text(curr_total);
+					showBg('fullbg2','cheer',true);
+				}else{
+					alert(res.info);
+				}
+			});
+		}
+	});
+	$(".deal_vote").click(function(){
+		if(!is_vote){
+			var nthat = this;
+			is_vote = true;
+			$.post("{:U('apps/flower/add_vote',array('id'=>$id))}",{shareid:vote_id},function(res){
+				is_vote = false;
+				if(res.status>0){
+					var curr_total = $(that).parent().find(".per_num").text();
+					curr_total = parseInt(curr_total)+1;
+					$(nthat).parent().find(".per_total").text(curr_total);
+					$(that).parent().find(".per_num").text(curr_total);
+					showBg('fullbg2','cheer',true);
+				}else{
+					alert(res.info);
+				}
+			});
+		}
+	});
+	$('.serchinput').bind('keypress',function(event){  
+		if(event.keyCode == "13"){  
+			var keyword = $('.serchinput').val();
+			if(!keyword){keyword="";}
+			window.location.href = "{:U('apps/flower/index',array('id'=>$id))}" + "?keyword=" + keyword;
+		}  
+	});
+	$(".btnsearch").click(function(){
+		var keyword = $('.serchinput').val();
+		if(!keyword){keyword="";}
+		window.location.href = "{:U('apps/flower/index',array('id'=>$id))}" + "?keyword=" + keyword;
+	});
+});
+function daojishi()
+{
+    qitime=parseInt(qitime)+1;
+    var chatime=zhitime-qitime;
+    if(chatime<0)
+    {
+        clearInterval(jitime); return;
+    }
+    var tian=parseInt(chatime/86400);
+    if(tian<100&&tian>9)
+        tian="0"+tian;
+    else if(tian<=9)
+        tian="00"+tian;
+    tian=tian.toString();
+    tian1obj.html(tian[0]);
+    tian2obj.html(tian[1]);
+    tian3obj.html(tian[2]);
+    var shi=parseInt((chatime%86400)/3600);
+    shi=shi>9?shi:"0"+shi;  
+    shi=shi.toString(); 
+    shi1obj.html(shi[0]);
+    shi2obj.html(shi[1]);
+    var fen=parseInt((chatime%86400%3600)/60);
+    fen=fen>9?fen:"0"+fen;
+    fen=fen.toString();
+    fen1obj.html(fen[0]);
+    fen2obj.html(fen[1]);
+    var miao=chatime%60;
+    miao=miao>9?miao:"0"+miao;
+    miao=miao.toString();
+    miao1obj.html(miao[0]);
+    miao2obj.html(miao[1]);
+}
+function jiayou()
+{
+    closeBg('fullbg','detail');
+    showBg('fullbg2','fenxiang',true);
+}
+ function xianhua()
+{
+     showBg('fullbg2','cheer',true);
+}
+</script>
+</html>

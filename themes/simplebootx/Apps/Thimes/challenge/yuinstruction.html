@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>领奖成功</title>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<style>
+*{ margin:0; padding:0;}
+.wt100{width:100%;}
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.p_r{ position:relative !important;}
+.p_a{position:absolute !important;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+.titlequ div{ position:absolute; top:28px; bottom:10px; left:70px; right:50px; text-align:center; margin:0; padding:0; font-size:14px; line-height:28px; color:#FFF; font-weight:bold;}
+.titlequ div p{ overflow:hidden; margin:0; padding:0; text-overflow: ellipsis;white-space: nowrap; font-size:18px;}
+.caozuoqu{ position:absolute; top:64px; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.caozuoqu::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.caozuoqu::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.caozuoqu::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+body{width:320px;background:#eeeeee;}
+.wei_c_b:after{ content: ""; display:block; clear:both; }
+/*公共样式结束*/
+.bgc{position:relative;width:320px;}
+.shuoming{background-color:#f2f2f2;top:100px;left:30px;width:228px;position:absolute;border-radius:6px;padding:0 16px;}
+.close{position: absolute;top:10px;right:20px;width:18px;height:18px;}
+.biaoti{text-align:center;margin-top:10px;color:#636363;font-size:16px;border-bottom:1px dashed #888;padding-bottom:8px;margin-bottom:6px;}
+.text{color:#636363;font-size:14px;line-height:22px;}
+.btn{background-color: #efc123;text-align: center;height:40px;line-height:40px;margin:10px 0 20px;color:#fff;font-size:18px;border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="titlequ p_r">
+    <img src="__TMPL__Apps/Thimes/challenge/images/wxTitle.jpg" class="wt100" />
+    <div class="jichu">
+        <p class="title">领奖成功</p>
+        <span class="czspan" onclick="dianji('title','base')">编辑</span>
+    </div>
+</div>
+<div class="caozuoqu">
+    <div class="bgc">
+        <img src="__TMPL__Apps/Thimes/challenge/images/bg.jpg" width="320"/>
+        <div class="shuoming">
+            <img src="__TMPL__Apps/Thimes/challenge/images/close1.png" alt="" class="close"/>
+            <div class="biaoti">领奖成功</div>
+                <div class="jichu">
+                     <div class="text prompt"></div>
+                    <span class="czspan" onclick="dianji('prompt','base','guize')">编辑</span>
+                </div>
+            <div class="btn">确定</div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<script type="text/javascript">
+$(function(){
+	genggai("title");
+    genggai("prompt","fwb");
+})
+</script>
+</html>

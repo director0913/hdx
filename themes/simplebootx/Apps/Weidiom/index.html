@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['title']}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weidiom/css/index.css?v=9"/>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low && _ww < 720){
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<link rel="stylesheet" href="__TMPL__Apps/common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/common/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Weidiom/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Weidiom/js/zhezhao.js?i=1"></script>
+    <style type="text/css">
+        .skill_support{width: 100%;background: #fff;text-align: center;}
+        .skill_support img{width: 150px;height: 12px;padding: 14px 0}
+        .skill_support a{ display: block;}
+    </style>
+</head>
+<body>
+<div class="nav"> 
+    <ul>
+        <li>
+            <strong class='fangwen'><span>{$item['hits']}</span>访问</strong>
+        </li>
+        <li>
+            <strong class='ming'><span>{$user_num}</span>报名</strong>
+        </li>
+        <li>
+            <strong class='canyu'><span>{$friend_num}</span>参与</strong>
+        </li>
+    </ul>
+</div>
+<audio id="bgMusic" loop="loop" src="__TMPL__Apps/Weidiom/audios/bjmusic.mp3" style="display: none;"></audio>
+<div class="bgc">
+    <img src="__TMPL__Apps/Weidiom/images/jieli.jpg" width="750"/>
+    <div id="yinyue" ></div>
+</div>
+<if condition="$status eq -1" > <div class="kaishi" >活动未开始</div> </if>
+<if condition="$status eq -2" > <div class="jieshu" >活动已结束</div> </if>
+<!-- 登录开始 -->
+<div class="bgc1">
+    <div class="bgc2">
+    		<!--
+	        <div class="biaoti" id="biaoti">提交信息一起来接力吧</div>
+			-->
+			<php>
+				if(($isme==1)&&$is_regist)
+				{
+					$jielong_num=$user['total_num'];
+				}
+				if($isme==0)
+				{
+					$jielong_num=$his_info['total_num'];
+				}
+			</php>
+			<div class="biaoti <if condition="($isme eq 1) AND (!$is_regist)"><else />biaoti_l</if>" id="biaoti"><if condition="($isme eq 1) AND (!$is_regist)" >提交信息一起来接力吧<else />我是<if condition="$isme eq 0">{$his_info['username']}</if><if condition="($isme eq 1) AND ($is_regist)">{$user['username']}</if><br/>我的成语已经接了<span id="num_jl">{$jielong_num}</span>个</if></div>
+
+		<if condition="($isme eq 1) AND (!$is_regist)">
+	        <div class="login" id="login">
+	            <p class="user"><img src="{$user_info['headimgurl']}" alt="" /></p>
+	            <p class="text">
+	                <input type="text" placeholder="请输入姓名" id="name">
+	                <input type="text" placeholder="请输入手机号" id="tel">
+	            </p>
+	            <p class="submit" onclick="baoming()"><img src="__TMPL__Apps/Weidiom/images/submit.png" alt="" /></p>
+	        </div>
+		</if>
+		<if condition="($isme eq 1) AND ($is_regist) ">
+		        <!-- 登录界面 -->
+		        <div class="jieli" id="jieli" style="display: block;">
+		            <p>当前成语接到 "<span class="chengyu">{$user['remark']}</span>"<br/>快找人来接力吧~</p>
+		        </div>
+		        
+		</if>
+		<if condition="$isme eq 0">
+				<!-- 开始接力界面 -->
+		        <div class="cai" id="cai" style="display:block;">
+		            <ul class="wei_c_b">
+		                <li id="putword1">{$word1}</li>
+		                <li><input type="text" class="word" id="putword2" maxlength="1" onKeyup="jiance('cai')" /></li>
+		                <li id="putword3">{$word3}</li>
+		                <li><input type="text" class="word" id="putword4" maxlength="1" onKeyup="jiance('cai')" /></li>
+		            </ul>
+		            <input type="hidden" id="flag" name="flag" value="{$flag}">
+		            <input type="hidden" id="rightword2" value="{$word2}"/>
+		            <input type="hidden" id="rightword4" value="{$word4}"/>
+		            <input type="hidden" id="word" value="{$word}"/>
+		            <p class="cai_btn"><img src="__TMPL__Apps/Weidiom/images/btn_jie1.png" alt=""/></p>
+		        </div>
+		        <!-- 接力结束界面 -->
+		</if>
+    </div>
+</div>
+<if condition="($isme eq 1) AND ($is_regist) ">
+	<div class="btn" style="display: block;">
+	    <p class="btn_jilu" onclick="btnjilu()"><img src="__TMPL__Apps/Weidiom/images/btn_l.png" alt=""/></p>
+	    <p class="btn_ask" onclick="zhaoren()"><img src="__TMPL__Apps/Weidiom/images/btn_r.png" alt=""/></p>  
+	    <div class="clear"></div>
+	</div>
+</if>
+<if condition="$isme eq 0">
+	<div class="btn" style="display: block;">
+		<if condition="($is_regist)">
+			<p class="btn_jilu" onclick='javascript:window.location.href="{:U('apps/weidiom/index',array('id'=>$_GET['id']))}"'  style="display:block;"><img src="__TMPL__Apps/Weidiom/images/act.png" alt=""/></p>
+	    <else />
+	    	<p class="btn_jilu" onclick='javascript:window.location.href="{:U('apps/weidiom/index',array('id'=>$_GET['id']))}"'    style="display:block;"><img src="__TMPL__Apps/Weidiom/images/canjia.png" alt=""/></p>
+	    </if>
+	    <p class="btn_ask" onclick="zhaoren()" style="display:block;"><img src="__TMPL__Apps/Weidiom/images/btn_r.png" alt=""/></p>
+	   <div class="clear"></div>
+	</div>
+</if>
+<!-- 接力记录、招人接力按钮 -->
+
+<!-- 活动规则开始 -->
+
+<div class="guize" <if condition="!$item['rule']">style="display:none;" </if>  >
+    <p class="title"><img src="__TMPL__Apps/Weidiom/images/gzt.png" alt=""/></p>
+    <div class="text">{$item['rule']|html_entity_decode}</div>
+</div>
+<div class="guize" <if condition="!$item['activityprize']">style="display:none;" </if> >
+    <p class="title"><img src="__TMPL__Apps/Weidiom/images/jlt.png" alt=""/></p>
+    <div class="text">{$item['activityprize']|html_entity_decode}</div>
+</div>
+<div class="guize" <if condition="!$item['activityremark']">style="display:none;" </if> >
+    <p class="title"><img src="__TMPL__Apps/Weidiom/images/aboutus.png" alt=""/></p>
+    <div class="text">{$item['activityremark']|html_entity_decode}</div>
+</div>
+
+<!-- 活动规则结束 -->
+<!-- 列表开始 -->
+<div class="liebiao">
+    <table class="userList moreu">
+        <tr class="tt">
+            <th class="shenhong wd120">名次</th>
+            <th class="shenhong wd180">姓名</th>
+            <th class="shenhong wd250">手机</th>
+            <th class="qianhong wd160">分值</th>
+        </tr>       
+    </table>
+    <div class="test"></div>
+     <div class="more"  onclick="moreuser();">
+        <img src="__TMPL__Apps/Weidiom/images/more.png" alt=""  /><span class="useruu">查看更多排名</span>
+    </div>
+</div>
+<!-- 列表结束 -->
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Weidiom/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')"/>
+<!-- 提示分享给好友 -->
+<!-- 接力成功开始 -->
+<div id="result" class="re_bg1">
+    <div class="re_bg2">
+        <p class="re_title"><img src="__TMPL__Apps/Weidiom/images/biaoti1.png" alt="" /></p>
+        <p class="jieshi"></p>
+        <div class="result_btn" onclick="closeBg('fullbg','result')">确定</div>
+    </div>
+</div>
+<!-- 接力成功结束 -->
+<!-- 接力记录开始 -->
+<div id="jilu">
+    <div class="jilu_bg">
+    <div class="biaoti" id="biaoti">接力记录</div>
+        <img src="__TMPL__Apps/Weidiom/images/close.png" class="close" onclick="closeBg('fullbg','jilu')"  />
+        <ul class="mymorefriend moref">  
+        </ul>
+         <div class="moreff"></div>
+    </div>
+</div>
+<!-- 接力记录结束 -->
+<div class="skill_support">
+    <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+        <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+    </a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+
+//为他喝彩开始
+var aid="{$_GET['id']}";
+var uid="{$shareuid}";
+//为他喝彩结束
+//我的记录页码
+var page_jilu=0;
+//我的记录页码
+//排行榜页码
+var page=0;
+var paiindex=1;
+var total_page = "{$total_page}";
+//排行榜页码
+ var music;
+    $(function(){
+        music=document.getElementById("bgMusic");
+        music.play();
+        $("#yinyue").click(function()
+            {
+            if(music.paused)
+            {
+                music.play();
+                $("#yinyue").removeClass("ting");
+            }
+            else
+            {
+                music.pause();
+                $("#yinyue").addClass("ting");
+            }
+        });
+        moreuser();
+        morefriend();
+    })
+
+    function baoming()
+    {
+        var valid_activity="{$status}";
+        if(valid_activity==-2)
+        {
+            alert("活动已经结束");return;
+        }
+        else if(valid_activity==-1)
+        {
+            alert("活动未开始");return;
+        }
+        var name=$("#name").val();
+        var tel=$("#tel").val();
+        var aid="{$_GET['id']}";
+        if(name=="")
+        {
+            alert("名字不能为空");return;
+        }
+        if(tel.length!=11)
+        {
+            alert("电话必须11位");return;
+        }
+        //alert('name'+name+'tel'+tel+'aid'+aid);
+        var url='{:U('apps/weidiom/regist',array('id'=>$_GET['id']))}';
+        $.post(url,{name:name,tel:tel},function(res){
+            res =JSON.parse(res);
+            if(parseInt(res.status)>0)
+            {
+                window.location.href=window.location.href+"&ss=0";
+            }else{
+				alert(res.msg);
+            }        
+        });
+    }
+    function jiance(objid){
+        var ky=true;
+        var allinput=$("#"+objid+' input');
+        for(i=0;i<allinput.length;i++)
+        {
+            if(allinput[i].value=="")
+            {
+                ky=false;
+                break;
+            }
+        }
+        if(ky)
+        {
+            $('.cai_btn').unbind();
+            $('.cai_btn img').attr("src","__TMPL__Apps/Weidiom/images/btn_jie2.png");
+            $('.cai_btn').click(function(){hisjielong()});
+        }
+        else
+        {
+            $('.cai_btn img').attr("src","__TMPL__Apps/Weidiom/images/btn_jie1.png");
+            $('.cai_btn').unbind();
+        }
+    }
+    function btnjilu()
+    {
+        showBg('fullbg','jilu');
+    }
+    function zhaoren()
+    {
+        showBg('fullbg','fenxiang',true);
+    }
+
+    function hisjielong()
+    {
+        //答案的2,4字
+        var word2=$('#rightword2').val();
+        var word4=$('#rightword4').val();
+        //输入的2,4字
+        var putword2=$('#putword2').val();
+        var putword4=$('#putword4').val();
+        var valid_activity="{$status}";
+        if(valid_activity==-2)
+        {
+            alert("活动已经结束");return;
+        }
+        else if(valid_activity==-1)
+        {
+            alert("活动未开始");return;
+        }
+        //alert("right"+word2+word4+"put"+putword2+putword4);
+        if((word2!=putword2)||(word4!=putword4))
+        {
+             $("#result .re_title img").attr("src","__TMPL__Apps/Weidiom/images/biaoti2.png");
+             $("#result .jieshi").html("再接再厉，没准下次就接对了").css("text-align","center");
+             showBg('fullbg','result'); 
+             return;
+        }
+        //异步处理user表替换成语
+        var flag=$("#flag").val();
+        var word=$("#word").val();
+        var url="{:U('apps/weidiom/jielong',array('id'=>$_GET['id'],'t'=>$_GET['t']))}";
+        $.post(url,{flag:flag,word:word,uid:uid},function(res){
+            res =JSON.parse(res);
+            //alert(res.msg);
+            if(parseInt(res.status)>0)
+            {
+                //异步处理人气值和显示新成语
+                $("#result .re_title img").attr("src","__TMPL__Apps/Weidiom/images/biaoti1.png");
+                $("#result .jieshi").html(res.des).css("text-align","left");
+                showBg('fullbg','result'); 
+                $('#rightword2').val(res.word2);
+                $('#rightword4').val(res.word4);
+                $('#putword1').text(res.word1);
+                $('#putword2').val("");
+                $('#putword3').text(res.word3);
+                $('#putword4').val("");
+                $('#flag').val(res.flag);
+                $('#word').val(res.word);
+                var num=$('#num_jl').text();
+                num++;
+                $('#num_jl').text(num);
+                jiance("cai");
+            }
+            else{
+                    alert(res.msg);
+            }
+        });
+    }
+    function myjilu()
+    {
+        showBg('fullbg','jilu',false);
+    }
+    //我的喝彩记录
+var page_f=1;
+var kaiguan_f=false;
+function morefriend()
+{
+    if(kaiguan_f) return;
+    kaiguan_f=true;
+    var url ="{:U('apps/weidiom/morefriend',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_f:page_f,
+        },
+        function(data,status){
+            kaiguan_f=false;
+            
+            if(data.status>0)
+            {
+                var list=data.list;
+                //alert("jilu"+list[0]['nickname']);
+        
+                
+                for(var i=0;i<list.length;i++)
+                {
+                   var time=new Date(list[i]['createtime']*1000);
+    			   var riqi=time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate()+' '+time.getHours()+':'+time.getMinutes();
+                   var str='<li>'+
+				                '<div class="user">'+
+				                    '<img src="'+list[i]['avatar']+'" alt="" />'+
+				                '</div>'+
+				                '<div class="wenzi">'+
+				                    '<p class="xinxi wei_c_b">'+
+				                        '<span class="name">'+list[i]['nickname'].substr(0,5)+'</span>'+
+				                        '<span class="time">'+riqi+'</span>'+
+				                    '</p>'+
+				                    '<p class="detail">接力成语'+list[i]['remark']+'，分值+'+list[i]['total_num']+'</p>'+
+				                '</div>'+  
+				            '</li>';
+                    $('.moref').append(str);
+                }
+                
+                page_f++;
+            }
+            /*
+            else
+            {
+                $(".moreff").text("没有更多");
+            }
+            */
+        });
+}
+  //排行榜
+var page_u=1;
+var mingci=1;
+var kaiguan_u=false;
+function moreuser()
+{
+	if(kaiguan_u) return;
+	kaiguan_u=true;
+    var url ="{:U('apps/weidiom/moreuser',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_u:page_u
+        },
+        function(data,status){
+        	kaiguan_u=false;
+        	//alert("paihang"+data.status+'>>'+data.list[0]['username']);
+            if(data.status>0)
+            {	
+                var list=data.list;
+                for(var i=0;i<list.length;i++)
+                {
+                    var mobile=list[i]['mobile'];
+					var str='<tr>'+
+					            '<td class="wd120 padleft30">'+mingci+'</td>'+
+					            '<td class="wd180">'+list[i]['username']+'</td>'+
+					            '<td class="wd250">'+mobile.substr(0,3)+'xxxx'+mobile.substr(7,4)+'</td>'+
+					            '<td class="qianhong wd160">'+list[i]['day_num']+'</td>'+
+					        '</tr>';
+							mingci++;
+                    $('.moreu').append(str);
+                }
+                page_u++;
+            }
+            else
+            {
+            	$('.useruu').text('没有更多');
+            }
+  
+        });
+}
+//滑动加载
+$(function(){
+	$(window).scroll(function(){
+		var scrollTop = $(this).scrollTop();
+		var scrollHeight = $(document).height();
+		var windowHeight = $(this).height();
+		if(scrollTop + windowHeight+10 >= scrollHeight){
+			morefriend();
+		}
+	});
+})
+    function checkword()
+    {
+        var valid_activity="{$status}";
+        if(valid_activity==-2)
+        {
+            alert("活动已经结束");return;
+        }
+        else if(valid_activity==-1)
+        {
+            alert("活动未开始");return;
+        }
+        alert("开始分享成语接龙");
+        //如果填写成语正确，处理分享.
+    }
+</script>
+</html>

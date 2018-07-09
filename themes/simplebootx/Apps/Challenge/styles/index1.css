@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+.t_c{ text-align:center;}
+.c_b{ clear:both;}
+.d_n{display:none;}
+/*html,body{ height:100%;}*/
+body{background-color:#2a2335;width:750px;}
+.heidi{ background-color:rgba(0,0,0,0.5);}
+#fullbg { position:fixed; top:0; left:0; bottom:0; right:0; display:none; z-index:3; background-color:rgba(0,0,0,0.9); opacity:0.9; filter:alpha(opacity=90); -moz-opacity:0.9; -khtml-opacity:0.9;}
+#baoxiang,#paihang,#guize{ position:absolute; top:0; left:0; z-index:4; width:696px; padding:70px 27px; color:#FFF; display:none; font-family:"微软雅黑";}
+#paihang{bottom: 70px;}
+.wujilu{margin-top:200px; text-align:center; font-size:42px;}
+.title{line-height:100px; border-bottom:4px solid #FFF; position:relative; font-size:45px; padding-left:20px; margin-bottom:30px;}
+.title img{position:absolute; right:32px; top:31px;}
+.defen{text-align:center; line-height:66px; font-size:36px; border-bottom:1px solid #FFF; margin:0 32px;}
+.defen span{color:#E89614;}
+#guize div{ font-size:35px;}
+#baoxiang .tanzhongdiv{padding:0 32px;}
+#paihang .tanzhongdiv{padding:0 41px; position: absolute; left: 0; right: 0; bottom: 70px; top: 194px; overflow: auto; display:none;}
+#baoxiang .fendiv{border:1px solid #FFF; border-radius:10px; margin-top:30px;}
+#baoxiang .fendiv .tudiv{width:238px; height:160px; overflow:hidden; margin:42px 34px; float:left;}
+#baoxiang .fendiv .tudiv img{width:100%;}
+#baoxiang .fendiv .youdiv{overflow:hidden; font-size:31px;}
+#baoxiang .fendiv .youdiv .jiangji{height:53px; line-height:53px; margin-top:67px;}
+#baoxiang .fendiv .youdiv .jiangname{height:53px; line-height:53px;}
+#pagediv{width:100%; height:100%; background:#353148 url(../images/banner.jpg) 0 0 no-repeat; background-size:100% 100%;display:none;}
+#top{height:582px; position:relative;}
+.logo{position:absolute;width:160px;height:125px;top:15px;left:15px;}
+.logo img{height:100%;max-width:160px;max-height:125px;}
+#alldiv{ position:relative; padding-top:313px; font-size:30px; line-height:54px; color:#FFF; margin-bottom:58px;}
+#yinyue{ position:absolute; z-index:2; top:30px;right:30px; width:70px; height:70px; border:4px solid #FCF6DE; border-radius:50%; background:rgba(0,0,0,0.7) url(../images/yinyue.png) center center no-repeat; animation: bgRotate 6s linear infinite; -webkit-animation: bgRotate 6s linear infinite; -moz-animation: bgRotate 6s linear infinite; -o-animation: bgRotate 6s linear infinite;}
+@keyframes bgRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@-webkit-keyframes bgRotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes bgRotate{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}}@-o-keyframes bgRotate{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(360deg)}}
+.ting{animation-play-state: paused !important; -webkit-animation-play-state: paused !important; animation:inherit !important; -webkit-animation:inherit !important; -moz-animation:inherit !important; -o-animation:inherit !important;}
+.shangxia{width: 100%; height: 383px; padding:0 132px; z-index:1; background-repeat: no-repeat; background-position:center center; background-size: 629px auto; position: absolute; top:101px; -webkit-box-sizing: border-box; box-sizing: border-box;}
+.ggzi{ position:absolute; bottom:36px; width:485px; text-align:center; font-size:43px; color:#FFF; font-weight:bold; text-shadow:0 3px 3px #666; font-family:"黑体";}
+@keyframes updown{from{top:-285px;}to{top:135px}}@-webkit-keyframes updown{from{top:-285px;}to{top:135px}}@-moz-keyframes updown{from{top:-285px;}to{top:135px}}@-o-keyframes updown{from{top:-285px;}to{top:135px}}
+#guizetu{ position:absolute; top:0px; right:0px; z-index:2;}
+#paihangtu{ position:absolute; top:0px; right:30px;}
+#baoxiangtu{ position:absolute; top:114px; right:30px;}
+.selecttidiv{ width:330px;position:absolute; left:50%; top:0; margin-left:-165px; z-index:2;}
+.titype{height:73px; background-color:#F3D132; border-radius:73px;}
+.titype .zuop{ float:left; width:211px; border-right:2px solid #D2BC4F; padding-left:33px; text-align:left; height:73px; line-height:73px; font-size:31px; color:#1D2031;}
+.titype .youp{ float:left; width:83px; text-align:center; height:73px; line-height:73px;}
+.titype .youp img{ margin-top:16px;}
+.selecttidiv ul{ width:310px; margin:14px auto 0 auto; border-radius:4px; list-style-type:none; background-color:#FFF; position:relative;}
+.selecttidiv ul:after {content: ""; position: absolute; right: 25px; top: -8px; height: 0; width: 0; border-color: transparent transparent #F2CD26; border-style: none solid solid; border-width: 0 8px 8px;}
+.selecttidiv ul li{ height:67px; color:#24213C; font-size:33px; line-height:67px; padding-left:24px;}
+.selecttidiv ul li.xuan{ background-color:#F2CD26; color:#FFF;}
+#kaishi{ position:absolute; top:226px; width:333px; left:50%; margin-left:-166px;}
+.paiming{ text-align:center; font-size:32px; border-collapse:collapse;}
+.paiming tr{ height:140px; border-bottom:1px solid #FFF;}
+.paiming td img{width:96px; height:96px; border-radius:100%;}
+.paiming tr.toutable{ height:inherit; border:none;}
+.banquan{text-align:center;font-size:13px; color:#8b8b8b;margin-top:40px;margin-bottom:12px;}
+.tishidiv{position:absolute; top:50%; left:50%; margin-left:-186px; margin-top:-269px; width:372px; z-index:5; text-align:center; display:none;}
+#tixing{font-size:34px; color:#FFF; line-height:50px;}
+/*活动说明开始*/
+.rule{background-color:#fff;margin:37px 34px;position:relative;padding:30px 0;border-radius: 10px;}
+.rule .rule_title{text-align:center;margin:0 auto;padding-bottom: 16px;color:#ef3e3e;font-size:30px;}
+.rule .text{font-size:20px;padding:10px 40px;word-break:break-all;}
+.rule .text img{max-width:100%;}
+/*活动说明结束*/

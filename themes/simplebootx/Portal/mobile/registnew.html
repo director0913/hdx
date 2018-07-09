@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>注册</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<style>
+body{background-color:#2d2d51;color:#fff;}
+.top{position: relative;}
+.top img{width:100%;}
+.shuoming{font-size:13px;color:#f5f5ff;position:absolute;bottom:30px;left:0;right:0;text-align: center;margin:0 10px;}
+.list{margin:0 40px;}
+.inputdiv{position:relative;}
+.inputdiv input[type="tel"]{padding-right:86px;}
+.list  .yanzheng{ position:absolute;bottom:26px; right:8px; font-size:13px; color:#fbd222;padding-left:6px;border-left:1px solid #48495e;}
+input[type="text"],input[type="tel"],input[type="password"]{padding:10px;background-color: #1a1b30;border:none;}
+.btn{width:132px;height:40px;display:block;text-align: center;margin:5px auto 20px;}
+.btn img{width:100%;}
+.code{margin:-26px auto;display:none;text-align: center;position: absolute;left:0;right:0;}
+.code_cont{text-align: center;margin-top:20px;color: #fff;font-size:13px;}
+.code img{width:128px;text-align: center;}
+</style>
+</head>
+<body>
+<div class="top">
+    <img src="__TMPL__Public/mobile/images/zhucebg.jpg" alt="">
+    <div class="shuoming">为了给您提供更好的会员服务，请认真填写以下信息</div>
+</div>
+<div class="list">
+    <input type="text" name="user_nicename" placeholder="姓名"/>
+    <div class="inputdiv">
+        <input type="tel" name="mobile" placeholder="手机"/>
+        <div class="yanzheng getyanzheng">获取验证码</div> 
+    </div>
+    <input type="text" name="vertify" placeholder="验证码"/>
+    <input type="text" name="school" placeholder="机构名称"/>
+    <input type="hidden" name="pid" value="{$_GET['uid']}"/>
+</div>
+<a href="javascript:;" class="btn" ><img src="__TMPL__Public/mobile/images/join_btn.png" alt="" ></a>
+<div class="code">
+    <img src="__TMPL__Public/mobile/images/qrcode.jpg" alt="">
+    <div class="code_cont">好了，您现在已经是我们的亲情会员了。<br/>长按二维码，即刻使用。</div>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+$(function(){
+	//获取验证码
+	$(".getyanzheng").click(function(){dongyanzheng();});
+	//注册
+  //   $(".btn").click(function(){
+  //       var user_nicename = $('input[name=user_nicename]').val();
+  //       var mobile = $('input[name=mobile]').val();
+  //       var vertify =$('input[name=vertify]').val();
+  //       var school = $('input[name=school]').val();
+  //       var yanzheng=1;
+  //       var pid=$('input[name=pid]').val();
+		// if(!user_nicename){alert("用户名不能为空！");return false;}
+  //       if(!mobile||mobile.length!=11){alert("请填写11位手机号！");return false; }
+  //       if(!vertify){alert("请填写验证码！");return false;   }
+  //       if(!school){alert("请填写机构名称！");return false;   }
+  //       var url = "{:U('user/login/dologin')}";
+  //       $.post(url,{username:mobile,vertify:vertify,login_type:yanzheng},function(res){
+  //           if(res.status){
+  //           	//登录成功了
+  //           	url="{:U('portal/mindex/registnew_save')}";
+  //           	$.post(url,{user_nicename:user_nicename,mobile:mobile,school:school,pid:pid},function(res){
+  //           		//alert(res.info);
+  //           		if(res.status){
+  //           			window.location.href="{:U('portal/mindex/index',array('show_invite',1))}";
+  //           		}else{
+  //           			alert(res.info);
+  //           		}
+            		
+  //           	});
+  //               //再次异步保存
+  //           }else{
+  //               alert(res.info);
+  //           }
+  //       });
+  //   });
+
+   //注册
+    $(".btn").click(function(){
+        var user_nicename = $('input[name=user_nicename]').val();
+        var mobile = $('input[name=mobile]').val();
+        var vertify =$('input[name=vertify]').val();
+        var school = $('input[name=school]').val();
+        var yanzheng=1;
+        var pid=$('input[name=pid]').val();
+        if(!user_nicename){alert("用户名不能为空！");return false;}
+        if(!mobile||mobile.length!=11){alert("请填写11位手机号！");return false; }
+        if(!vertify){alert("请填写验证码！");return false;   }
+        if(!school){alert("请填写机构名称！");return false;   }
+         var url="{:U('portal/mindex/registnew_save')}";
+            //alert(res.info);
+		$.post(url,{user_nicename:user_nicename,mobile:mobile,vertify:vertify,school:school,pid:pid},function(res){
+			if(res.status>0){
+				//window.location.href="{:U('portal/mindex/index',array('type'=>1))}";
+        code();
+			}else{
+				alert(res.info);
+			}
+			
+		});
+       
+    });
+
+
+
+
+});
+function dongyanzheng()
+{
+    var mobile = $('input[name=mobile]').val();
+    if(!mobile||mobile.length!=11){
+        alert("请填写11位手机号！");return false;
+    }
+    //解除点击事件。
+   $(".getyanzheng").unbind();
+    //调用发送验证码接口
+    //var url = "{:U('api/checkcode/sendMobbile_msg')}";
+    var n_register=1;
+    var url = "{:U('api/checkcode/sendMobbile_msg')}";
+    $.post(url,{mobile:mobile,type:'register'},function(res){
+        if(res.status){
+			$(".getyanzheng").html("发送中……");
+            zongshi=60;
+            $(".getyanzheng").html(zongshi+"秒后获取").unbind().css("color","#ddd");
+            jishi=setInterval("daoshi()",1000)
+        }else{
+			alert(res.info);
+            $(".getyanzheng").html("获取验证码");
+            $(".getyanzheng").click(function(){dongyanzheng();})
+        }
+    });
+}
+function daoshi()
+{
+    zongshi--;
+    $(".getyanzheng").html(zongshi+"秒后获取");
+    if(zongshi<=0)
+    {
+        $(".getyanzheng").html("获取验证码").css("color","#FA741B");
+        $(".getyanzheng").click(function(){dongyanzheng();});
+        clearInterval(jishi);
+    }
+}
+     function code()
+    {
+        $(".shuoming,.list,.btn").hide();
+        $(".code").show();
+    }
+</script>
+</html>

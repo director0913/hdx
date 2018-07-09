@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$item['title']}</title>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<script type="text/javascript">
+	var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+	var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+	if (is_low && _ww < 720) {
+    document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<style type="text/css">
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{ clear:both;}
+f_l{ float:left;}
+f_r{ float:right;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+body{width:750px; background:#FEE5C6; font-family:"微软雅黑";}
+/*公共样式结束*/
+#fullbg {display:none; position:fixed; z-index:3; left:0; right:0; top:0; bottom:0; background-color:rgba(0,0,0,0.5); opacity:0.5; filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity:0.5;}
+#dialog{ width:643px; min-height:700px; border:6px solid #FFF; border-radius:8px; background-color:#E73C32; position:absolute; top:267px; left:50%; margin-left:-321px; z-index:4; display:none;}
+.close{ position:absolute; top:-16px; right:-16px;}
+.touxiang{ width:66px; height:66px; border-radius:66px; margin:10px; float:left;}
+/*top开始*/
+.toptu{ width:750px;}
+#zhuce{margin-top:13px; text-align:center;}
+.textinput{ width:570px; height:87px; border:2px solid #D9DDDE; border-bottom:none; border-right:none; border-radius:7px; margin-bottom:29px; font-size:31px; padding:0 24px;}
+.anniu{ width:620px; height:90px; line-height:90px; background-color:#E73C32; border-radius:7px; font-size:31px; color:#FFF; margin:0 auto; margin-bottom:29px;}
+.juchi{background: url(__TMPL__Apps/Weishare/images/juchi.png) 0 0 repeat-x; height:9px;}
+.didiv{padding:20px; background-color:#E73C32;}
+.jishi{width:627px; height:190px; background-color:#B12C1B; border-radius:16px; margin:20px auto; text-align:center; color:#FFF;}
+.jishi .titletime{font-size:35px; line-height:67px;}
+.jishi div{font-size:30px; padding:0 8px;}
+.jishi div p{width:84px; height:84px; background-color:#FFF; color:#000; line-height:84px; font-size:40px; float:left; border-radius:5px; margin:0 17px;}
+.jishi div span{ float:left; margin-top:45px}
+.title{background:url(__TMPL__Apps/Weishare/images/titlebj.png) 0 center repeat-x; height:80px; line-height:80px; background-color:transparent; font-size:42px; font-weight:bold; color:#FFC824; font-family:'幼圆'; width:500px; margin:0 auto; text-align:center;}
+.title span{background-color:#E73C32; padding:0 18px;}
+.content{padding-bottom:27px; border-bottom:2px dashed #FFC824; color:#FFF;}
+table{border-collapse:collapse;border-spacing:0;border-left:2px solid #8F1810;border-top:2px solid #921C10;background:#E73C32; text-align:center; color:#F5D01D; font-size:28px;}
+th,td{border-right:2px solid #8F1810;border-bottom:2px solid #8F1810;padding:5px 0px;}
+th{ border-right:none;font-weight:300; background:#C5271C; color:#FFF;}
+.shen{ background-color:#D12A21;}
+#zhuli{ margin:59px auto 34px auto; width:712px; height:306px;}
+.kuangaa{ width:712px; height:194px; background:#fefecc; border-radius:10px; margin-bottom:30px;}
+.kuangaa .tou{ width:227px; float:left; text-align: center;}
+.kuangaa .tou .touxiang{ width:120px; height:120px; border-radius:100%; float: none;}
+.kuangaa .tou .text{ font-size:36px; color:#40413c;}
+
+/*
+.kuangaa .tou .text{ font-size:36px; color:#40413c;}
+*/
+.zuanaa{ float:left; margin-top:15px; width:239px;}
+.zuan{ background-image:url(__TMPL__Apps/Weishare/images/huang.png); background-size:auto 30px ;}
+
+.zhi{height:100px; line-height:100px;  color:#E3392C; font-size:32px; margin-left:40px;}
+.help{height:79px; width:337px; line-height:79px; font-size:34px; color:#FFF; border-radius:11px; background-color:#FFBD07; float:left; text-align:center;}
+.canjia{ float:right; background:#45d6f1; text-align:center;}
+.kuang{width:337px; float:left; text-align:center; margin:0 18px;}
+.biaoti{height:79px; line-height:79px; background:url(__TMPL__Apps/Weishare/images/hong.png) 4px 28px no-repeat;  padding-left:60px; text-align:left; background-size:auto 30px ; font-size:34px; margin-right:60px;}
+.biaotiaa{height:79px; line-height:79px; background:url(__TMPL__Apps/Weishare/images/huang.png) 4px 28px no-repeat;  padding-left:60px; text-align:left; background-size:auto 30px ; font-size:34px; margin-right:60px;
+margin-left:20px;}
+#fenxiang{position:fixed; z-index:5; width:60%; top:50%; left:50%; margin-left:-30%; margin-top:-100px; display:none;}
+
+#fullbg {display:none; position:fixed; z-index:3; left:0; right:0; top:0; bottom:0; background-color:rgba(0,0,0,0.8); opacity:0.8; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Weishare/images/guide.png" id="fenxiang"/>
+<div id="dialog">
+	<img src="__TMPL__Apps/Weishare/images/close.png" class="close" onclick="closeBg('dialog');"/>
+	<div class="moref">
+    	<p class="title"><span>助力小伙伴</span></p>
+    </div>
+    <p class="moreff" onclick="morefriend()" style="padding:50px;font-size:20px;text-align: center;">查看更多记录</p>
+</div>
+<if condition="empty($item['thumb'])">
+        <img src="__TMPL__Apps/Weishare/images/zhuli1.jpg" class="toptu" />
+    <else />
+        <img src="{:sp_get_asset_upload_path($item['thumb'])}" class="toptu"/>
+    </if> 
+
+<if condition="$status eq -1">
+<p style="margin:50px;font-size: 60px;text-align: center;">活动未开始</p>
+<else/>
+<if condition="$status eq -2">
+<p style="margin:50px;font-size: 60px;text-align: center;">活动已结束</p>
+<else/>
+<div id="zhuce" <php>
+                    if($isme==0||$status==-2)
+                    {
+                        echo "style='display:none;'";
+                    }
+                    else
+                    {
+                        if($is_regist||$status==-2) echo "style='display:none;'";
+                    }
+                </php>>
+	<input type="text" name="username" class="textinput" placeholder="请输入姓名"/>
+	<input type="text" name="mobile" class="textinput" placeholder="请输入手机号"/>
+    <p class="anniu">领取{//$params['cardname']}助力</p>
+</div>
+</if>
+<if condition="($isme eq 1)AND($is_regist)">
+    <div id="zhuli">
+        <div class="kuangaa">
+            <div class="tou">
+                <p><img class="touxiang" src="{$user['avatar']}"></p>
+                <p class="text">{$user['username']}</p>
+            </div>
+            <div class="zuanaa">
+                <p class="biaoti">助力值</p>
+                <p class="zhi">{$myscore['per_num']}{$params['unit']}</p>
+            </div>
+            <div class="zuanaa">
+                <p class="biaotiaa">排名</p>
+                <p class="zhi">{$mypm}</p>
+            </div>
+        </div>
+        
+        <p class="help" onclick="showBg('fenxiang')">邀请好友助力</p>
+        <p class="help canjia" onclick="showBg('dialog')">助力记录</p>
+        <div style="clear:both;"></div>
+    </div>
+</if>
+<if condition="($isme eq 0)">
+    <div id="zhuli">
+        <div class="kuangaa">
+            <div class="tou">
+                <p><img class="touxiang" src="{$his_info['avatar']}"></p>
+                <p class="text">{$his_info['username']}</p>
+            </div>
+            <div class="zuanaa">
+                <p class="biaoti">助力值</p>
+                <p class="zhi"><span id="hisscore">{$hisscore['per_num']}</span>{$params['unit']}</p>
+            </div>
+            <div class="zuanaa">
+                <p class="biaotiaa">排名</p>
+                <p class="zhi">{$hispm}</p>
+            </div>
+        </div>
+        
+        <p class="help zhuli_btn">为TA助力</p>
+        <p class="help canjia myactivity"><php>echo $is_regist?"我的活动":"我也要参加";</php></p>
+        <div style="clear:both;"></div>
+    </div>
+</if>
+</if>
+<p class="juchi"></p>
+<div class="didiv">
+<if condition="($params['iscountdown'] eq 1) AND ($status eq 0)">
+	<div class="jishi">
+    	<p class="titletime">时间还剩</p>
+        <div>
+        	<p id="tian">00</p><span>天</span>
+            <p id="shi">00</p><span>时</span>
+            <p id="fen">00</p><span>分</span>
+            <p id="miao">00</p><span>秒</span>
+        </div>
+    </div>
+</if>
+    <if condition="$item['rule']">
+    	<p class="title"><span>活动规则</span></p>
+    	<div class="content">
+        	{$item['rule']|html_entity_decode}
+        </div>
+    </if>
+	<p class="title"><span>助力排行</span></p>
+    <table border="0" cellpadding="0" cellspacing="0" class="moreu">
+        <tr>
+            <th style="width:102px;">名次</th>
+            <th style="width:190px;">姓名</th>
+            <th style="width:243px;">手机</th>
+            <th style="border-right:2px solid #8F1810; width:165px;">助力值</th>
+        </tr> 
+    </table>
+    <p class="moreuu" onclick="moreuser()" style="font-size: 20px;text-align:center; border:1px solid #8F1810; border-top:none; line-height:40px;">查看更多排名</p>
+</div>
+<div class="skill_support">
+    <a href="/index.php/portal/index/show_slogan/id/1.shtml">
+        <img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+    </a>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+<php>echo "var qitime=".time().";";</php>
+var zhitime="{$item['endtime']}";
+var tianobj=$("#tian");
+var shiobj=$("#shi");
+var fenobj=$("#fen");
+var miaoobj=$("#miao");
+var jitime=null;
+//显示灰色 jQuery 遮罩层 
+function showBg(tanid) {
+	$("#fullbg").css({
+		display:"block" 
+	});
+	if(tanid=="fenxiang")
+	{
+		$("#fullbg").click(function(){
+			closeBg(tanid)
+		})
+	}
+	else
+	{
+		$('#fullbg').unbind("click");
+	}
+	$("#"+tanid).show(); 
+}
+ 
+//关闭灰色 jQuery 遮罩 
+function closeBg(tanid) {
+	$("#fullbg,#"+tanid).hide(); 
+}
+$(function(){
+    daojishi();
+    jitime=setInterval("daojishi()",1000);
+    //注册
+    $('.anniu').click(function(){
+        var id="{$_GET['id']}";
+        var name=$('input[name=username]').val();
+        var mobile=$('input[name=mobile]').val();
+        if(name.length==0)
+        {
+            alert("请填写姓名");
+            return;
+        }
+        if(mobile.length!=11)
+        {
+            alert("请填写11位手机号");
+            return;
+        }
+        $.post("{:U('apps/weishare/regist',array('id'=>$_GET['id']))}",
+        {
+           name:name,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //alert(data.id+'>>'+data.username+'>>'+data.mobile);
+                window.location.href=data.url;
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+    });
+
+    //为TA助力
+    var status="{$status}";
+    $('.zhuli_btn').click(function(){
+       if(status==-1){
+       	alert("活动未开始");
+       	return;
+       }
+       if(status==-2){
+       	alert("活动已结束");
+       	return;
+       }
+       var hisscore=$('#hisscore').text(); 
+       $.post("{:U('apps/weishare/zhuli',array('id'=>$_GET['id'],'uid'=>$_GET['uid'],'t'=>$_GET['t']))}",
+        {
+            hisscore:hisscore
+        },
+        function(data,status){
+            alert(data.msg+'>>'+data.newhisscore);
+            if(data.status>0)
+            {
+                //缺少异步添加最新一条助力记录
+                //showBg('dialog');
+                alert(data.msg);
+                $('#hisscore').text(data.newhisscore); 
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+
+       //showBg('dialog'); 
+    });
+    //我的活动我也要参加
+    $(".myactivity").click(function(){
+        window.location.href="{:U('apps/weishare/index',array('id'=>$_GET['id']))}";
+    });
+    //喝彩记录
+    morefriend();
+    //排行榜
+    moreuser();
+});
+function daojishi()
+{
+    qitime=parseInt(qitime)+1;
+    var chatime=zhitime-qitime;
+    var tian=parseInt(chatime/86400);
+    tian=tian>9?tian:"0"+tian;
+    var shi=parseInt((chatime%86400)/3600);
+    shi=shi>9?shi:"0"+shi;
+    var fen=parseInt((chatime%86400%3600)/60);
+    fen=fen>9?fen:"0"+fen;
+    var miao=chatime%60;
+    miao=miao>9?miao:"0"+miao;
+    tianobj.html(tian);
+    shiobj.html(shi);
+    fenobj.html(fen);
+    miaoobj.html(miao);
+}
+//我的喝彩记录
+var page_f=1;
+var kaiguan_f=false;
+function morefriend()
+{
+    if(kaiguan_f) return;
+    kaiguan_f=true;
+    var url ="{:U('apps/weishare/morefriend',array('id'=>$_GET['id']))}";
+    $.post(url,
+        {
+           page_f:page_f,
+        },
+        function(data,status){
+            kaiguan_f=false;
+            if(data.status>0)
+            {
+                var list=data.list;
+                for(var i=0;i<list.length;i++)
+                {
+                    
+                    var str='<ul style="width:598px; margin:0 auto; border-top:2px solid #921813; font-size:28px; color:#FFF;">'+
+                                '<li style="height:86px; line-height:86px; border-bottom:2px solid #921813;">'+
+                                    '<img src="'+list[i]['avatar']+'" class="touxiang" />'+
+                                    list[i]['nickname']+'&nbsp;&nbsp;&nbsp;&nbsp;为我助力了&nbsp;&nbsp;&nbsp;&nbsp;'+list[i]['total_num']+"{$params['unit']}"+
+                                '</li>'+
+                            '</ul>';
+                    $('.moref').append(str);
+                }
+                page_f++;
+            }
+            else
+            {
+                $(".moreff").text("没有更多");
+            }
+        });
+}
+//排行榜
+var page_u=1;
+var pagecount=0;
+var size=20;
+var kaiguan_u=false;
+function moreuser()
+{
+    if(kaiguan_u) return;
+    if(pagecount!=0&&page_u>pagecount) return;
+    kaiguan_u=true;
+    var url ="{:U('apps/weishare/moreuser',array('id'=>$_GET['id'],'sortcount'=>$params['sortcount']))}";
+    $.post(url,
+        {
+           page_u:page_u,size:size
+        },
+        function(data,status){
+            //alert(data.testsql);
+            kaiguan_u=false;
+            if(page_u==1)
+                pagecount=data.pagecount;
+            if(data.status>0)
+            {
+                var list=data.list;
+                
+                for(var i=0;i<list.length;i++)
+                {
+                    var mobile=list[i]['mobile'];
+                    var str='<tr class="shen">'+
+                                '<td>'+((page_u-1)*size+i+1)+'</td>'+
+                                '<td>'+list[i]['username'].substr(0,5)+'</td>'+
+                                '<td>'+mobile.substr(0,3)+'xxxx'+mobile.substr(7,4)+'</td>'+
+                                '<td>'+list[i]['per_num']+'分</td>'+
+                            '</tr>';
+                    $('.moreu').append(str);
+                }
+                
+                page_u++;
+            }
+            //alert(page_u+";"+pagecount)
+            if(page_u>pagecount)
+            {
+                //alert(1);
+                $(".moreuu").text("没有更多");
+            }
+        });
+}
+</script>
+</html>

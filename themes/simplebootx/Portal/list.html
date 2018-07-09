@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$name} {$seo_title} {$site_name}</title>
+	<meta name="keywords" content="{$seo_keywords}" />
+	<meta name="description" content="{$seo_description}">
+    <tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+	<style>
+	@charset "utf-8";
+	/* CSS Document */
+
+	body{ min-width:1150px;}
+.topindex{ position:fixed; left:0; right:0; top:0; height:66px; z-index:20;background-color:#000;background-color:rgba(0,0,0,.8);opacity:0.8;filter:Alpha(opacity=80);}
+	/*.topindex{ height:66px; background-color:#474747; color:#FFF;}*/
+	.caozuo li{ float:left;}
+	.caozuo a{ border:none; color:#d8d8d8; padding:0 15px; margin:0; width:auto; font-size:17px;}
+	.caozuo em{ display:block; float:left; height:20px; width:1px; margin-top:23px; background-color:#d8d8d8;}
+	.caozuo .dropitem{position:absolute; top:100%; left:0; min-width:100%; white-space: nowrap; text-align:left; background-color:#FFF; border:1px solid #eee; z-index:100;}
+	.caozuo .dropitem li{ float:none; padding:5px 0; min-width:100%; width:auto; border-bottom:1px solid #eee;}
+	.caozuo .dropitem li a{ color:#666; float:none; text-align:left;}
+	.toptu{ height:138px; background:url(../images/hometop.jpg) center center no-repeat; background-size:100% 100%;}
+	.toptu .touxiang{ width:90px; height:90px; border-radius:50%; margin:28px 20px 0 0;}
+	.toptu .name{ margin-top:40px; font-size:24px; color:#FFF;}
+	.toptu .bianji{ margin-top:5px;}
+	.toptu .bianji a{ color:#FA741B; font-size:13px;}
+	.toptu .bianji a .fa{ font-size:20px;}
+	.toptu .fenxinxi{ text-align:center; padding:0 23px; color:#FFF; font-size:16px; margin-top:63px;}
+	.toptu .fenxinxi .number,.toptu .fenxinxi .number a{ color:#FFF; font-size:22px;}
+	.toptu .fenxinxi .number a:hover{ text-decoration:underline;}
+	.toptu .fenge{ width:1px; height:28px; background-color:#FFF; margin-top:73px;}
+	/****帮助中心部分样式*****/
+	.zhaizhong{ width:950px; margin:50px auto;}
+	ul.list li span.fa{ color:#e2aaeb;font-size:20px;margin-right:6px;}
+	.list{background-color:#ededed;width:208px;border-top:1px solid #D5D5D5;border-left:1px solid #D5D5D5;float:left;}
+	.list li{width:209px;height:70px;line-height:70px;border-bottom:1px solid #D5D5D5;font-size:17px;color:#4f4f4f;padding-left:25px;}
+	.list li.active{background-color: #fff;color:#689FF2;margin-right:1px;position:relative;width:184px;}
+	.detail{float:left;border:1px solid #D5D5D5;width:710px;background-color: #fff;display:none;min-height:505px;padding:10px;}
+	.detail.active{display:block;}
+	.detail img{max-width:100%;}
+	</style>
+</head>
+<body>
+<tc_include file="Public:nav" />
+<php>
+	$lists = sp_sql_posts_paged("cid:$cat_id;order:post_date DESC;",10);
+</php>
+<div class="zhaizhong">
+    <ul class="list">
+		<volist name="lists['posts']" id="vo">
+			<if condition="$key eq 0">
+			   <li class="tab active"  data-id="#base{$key+1}" data-class="detail"><span class="fa fa-file-text" ></span>{$vo.post_title}</li>
+			<else/>
+				<li class="tab"  data-id="#base{$key+1}" data-class="detail"><span class="fa fa-file-text" ></span>{$vo.post_title}</li>
+			</if>
+		</volist>
+		<!--
+        <li class="tab"  data-id="#base2" data-class="detail"><span class="fa fa-file-text"></span>活动管理</li>
+        <li class="tab"  data-id="#base3" data-class="detail"><span class="fa fa-file-text"></span>活动管理</li>
+		-->
+    </ul>
+	<volist name="lists['posts']" id="vo">
+		<if condition="$key eq 0">
+			<div class="detail active" id="base{$key+1}">
+				{$vo.post_content}
+			</div>
+		<else/>
+			 <div class="detail" id="base{$key+1}">
+				{$vo.post_content}
+			</div>
+		</if>
+	</volist>
+    <div style="clear:both;"></div>
+</div>
+
+<tc_include file="Public:footer" />
+    
+<!-- JavaScript -->
+<tc_include file="Public:scripts" />
+<script type="text/javascript">
+$(function(){
+	$.post("{:U('user/index/is_login')}",{},function(data){
+		if(data.status){
+			$(".is_login").show();$(".isnot_login").hide();
+			if(data.user.user_nicename.length>5){
+				data.user.user_nicename = data.user.user_nicename.substring(0,5);
+			}
+			$(".my_nickname").text(data.user.user_nicename);
+		}else{
+			$(".is_login").hide();$(".isnot_login").show();
+		}
+	});
+
+    $(".dropdown").click(function(){
+        $(this).find(".dropitem").toggleClass("d_n");
+    });
+    $(".tab").click(function(){
+        qietab($(this).attr("data-id"));
+    });
+});	
+function qietab(dataid)
+{
+    var obj=$(".tab[data-id='"+dataid+"']");
+    if($(obj).hasClass("active")) return;
+    var dataclass=$(obj).attr("data-class");
+    $(".tab[data-class='"+dataclass+"']").removeClass("active");
+    $(obj).addClass("active");
+    //获取关联div信息
+    $("."+$(obj).attr("data-class")+".active").removeClass("active");
+    $($(obj).attr("data-id")).addClass("active");
+}
+</script>
+
+</body>
+</html>

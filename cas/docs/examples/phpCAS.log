@@ -1,0 +1,139 @@
+F43C .START (2017-05-17 07:51:34) phpCAS-1.3.5 ****************** [phpCAS.class.php:468]
+F43C .=> phpCAS::client('2.0', 'www.xiaoyingtong.net', 443, '/cas') [example_simple.php:28]
+F43C .|    => CAS_Client::__construct('2.0', false, 'www.xiaoyingtong.net', 443, '/cas', true) [phpCAS.class.php:358]
+F43C .|    |    Starting a new session d863bhnshicbe0a7bsr9fe1bk2 [Client.php:932]
+F43C .|    |    Session is not authenticated [Client.php:938]
+F43C .|    <= ''
+F43C .<= ''
+F43C .=> phpCAS::setNoCasServerValidation() [example_simple.php:37]
+F43C .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [phpCAS.class.php:1644]
+F43C .<= ''
+F43C .=> phpCAS::forceAuthentication() [example_simple.php:40]
+F43C .|    => CAS_Client::forceAuthentication() [phpCAS.class.php:1098]
+F43C .|    |    => CAS_Client::isAuthenticated() [Client.php:1280]
+F43C .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1393]
+F43C .|    |    |    |    no user found [Client.php:1635]
+F43C .|    |    |    <= false
+F43C .|    |    |    no ticket found [Client.php:1494]
+F43C .|    |    <= false
+F43C .|    |    => CAS_Client::redirectToCas(false) [Client.php:1289]
+F43C .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1656]
+F43C .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+F43C .|    |    |    |    |    Final URI: http://localhost/a/docs/examples/example_simple.php [Client.php:3548]
+F43C .|    |    |    |    <= 'http://localhost/a/docs/examples/example_simple.php'
+F43C .|    |    |    <= 'https://www.xiaoyingtong.net/cas/login?service=http%3A%2F%2Flocalhost%2Fa%2Fdocs%2Fexamples%2Fexample_simple.php'
+F43C .|    |    |    Redirect to : https://www.xiaoyingtong.net/cas/login?service=http%3A%2F%2Flocalhost%2Fa%2Fdocs%2Fexamples%2Fexample_simple.php [Client.php:1663]
+F43C .|    |    |    exit()
+F43C .|    |    |    -
+F43C .|    |    -
+F43C .|    -
+7CB1 .START (2017-05-17 07:54:40) phpCAS-1.3.5 ****************** [phpCAS.class.php:468]
+7CB1 .=> phpCAS::client('2.0', 'www.xiaoyingtong.net', 443, '/cas') [example_simple.php:28]
+7CB1 .|    => CAS_Client::__construct('2.0', false, 'www.xiaoyingtong.net', 443, '/cas', true) [phpCAS.class.php:358]
+7CB1 .|    |    Starting a new session n8cfmnausscqujmbu6npq03ff5 [Client.php:932]
+7CB1 .|    |    Session is not authenticated [Client.php:938]
+7CB1 .|    |    Ticket 'ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ' found [Client.php:1020]
+7CB1 .|    <= ''
+7CB1 .<= ''
+7CB1 .=> phpCAS::setNoCasServerValidation() [example_simple.php:37]
+7CB1 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [phpCAS.class.php:1644]
+7CB1 .<= ''
+7CB1 .=> phpCAS::forceAuthentication() [example_simple.php:40]
+7CB1 .|    => CAS_Client::forceAuthentication() [phpCAS.class.php:1098]
+7CB1 .|    |    => CAS_Client::isAuthenticated() [Client.php:1280]
+7CB1 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1393]
+7CB1 .|    |    |    |    no user found [Client.php:1635]
+7CB1 .|    |    |    <= false
+7CB1 .|    |    |    CAS 2.0 ticket `ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ' is present [Client.php:1446]
+7CB1 .|    |    |    => CAS_Client::validateCAS20('', NULL, NULL, false) [Client.php:1448]
+7CB1 .|    |    |    |     [Client.php:3169]
+7CB1 .|    |    |    |    => CAS_Client::getServerServiceValidateURL() [Client.php:3176]
+7CB1 .|    |    |    |    |    => CAS_Client::getURL() [Client.php:453]
+7CB1 .|    |    |    |    |    |    Final URI: http://localhost/a/docs/examples/example_simple.php [Client.php:3548]
+7CB1 .|    |    |    |    |    <= 'http://localhost/a/docs/examples/example_simple.php'
+7CB1 .|    |    |    |    <= 'https://www.xiaoyingtong.net/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2Fa%2Fdocs%2Fexamples%2Fexample_simple.php'
+7CB1 .|    |    |    |    => CAS_Client::_readURL('https://www.xiaoyingtong.net/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2Fa%2Fdocs%2Fexamples%2Fexample_simple.php&ticket=ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ', NULL, NULL, NULL) [Client.php:3191]
+7CB1 .|    |    |    |    |    => CAS_Request_CurlRequest::sendRequest() [AbstractRequest.php:242]
+7CB1 .|    |    |    |    |    |    Response Body: 
+7CB1 .|    |    |    |    |    |    <cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'>
+7CB1 .|    |    |    |    |    |        <cas:authenticationSuccess>
+7CB1 .|    |    |    |    |    |            <cas:user>15090067067</cas:user>
+7CB1 .|    |    |    |    |    |            </cas:authenticationSuccess>
+7CB1 .|    |    |    |    |    |    </cas:serviceResponse>
+7CB1 .|    |    |    |    |    |    
+7CB1 .|    |    |    |    |    |     [CurlRequest.php:84]
+7CB1 .|    |    |    |    |    <= true
+7CB1 .|    |    |    |    <= true
+7CB1 .|    |    |    |    => CAS_Client::_readExtraAttributesCas20(DOMNodeList) [Client.php:3261]
+7CB1 .|    |    |    |    |    Testing for rubycas style attributes [Client.php:3376]
+7CB1 .|    |    |    |    <= ''
+7CB1 .|    |    |    |    Storing Proxy List [Client.php:3270]
+7CB1 .|    |    |    |    => CAS_ProxyChain_AllowedList::isProxyListAllowed(array ()) [Client.php:3273]
+7CB1 .|    |    |    |    |    No proxies were found in the response [AllowedList.php:81]
+7CB1 .|    |    |    |    <= true
+7CB1 .|    |    |    |    => CAS_Client::_renameSession('ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ') [Client.php:3293]
+7CB1 .|    |    |    |    |    Killing session: n8cfmnausscqujmbu6npq03ff5 [Client.php:3682]
+7CB1 .|    |    |    |    |    Starting session: ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ [Client.php:3686]
+7CB1 .|    |    |    |    |    Restoring old session vars [Client.php:3689]
+7CB1 .|    |    |    |    <= ''
+7CB1 .|    |    |    <= true
+7CB1 .|    |    |    CAS 2.0 ticket `ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ' was validated [Client.php:1452]
+7CB1 .|    |    |    => CAS_Client::getURL() [Client.php:1518]
+7CB1 .|    |    |    <= 'http://localhost/a/docs/examples/example_simple.php'
+7CB1 .|    |    |    Prepare redirect to : http://localhost/a/docs/examples/example_simple.php [Client.php:1518]
+7CB1 .|    |    |    => CAS_Client::getURL() [Client.php:1520]
+7CB1 .|    |    |    <= 'http://localhost/a/docs/examples/example_simple.php'
+7CB1 .|    |    |    exit()
+7CB1 .|    |    |    -
+7CB1 .|    |    -
+7CB1 .|    -
+33A2 .START (2017-05-17 07:54:41) phpCAS-1.3.5 ****************** [phpCAS.class.php:468]
+33A2 .=> phpCAS::client('2.0', 'www.xiaoyingtong.net', 443, '/cas') [example_simple.php:28]
+33A2 .|    => CAS_Client::__construct('2.0', false, 'www.xiaoyingtong.net', 443, '/cas', true) [phpCAS.class.php:358]
+33A2 .|    |    Starting a new session ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ [Client.php:932]
+33A2 .|    |    Session is authenticated as: 15090067067 [Client.php:936]
+33A2 .|    <= ''
+33A2 .<= ''
+33A2 .=> phpCAS::setNoCasServerValidation() [example_simple.php:37]
+33A2 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [phpCAS.class.php:1644]
+33A2 .<= ''
+33A2 .=> phpCAS::forceAuthentication() [example_simple.php:40]
+33A2 .|    => CAS_Client::forceAuthentication() [phpCAS.class.php:1098]
+33A2 .|    |    => CAS_Client::isAuthenticated() [Client.php:1280]
+33A2 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1393]
+33A2 .|    |    |    |    user = `15090067067' [Client.php:1622]
+33A2 .|    |    |    <= true
+33A2 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1416]
+33A2 .|    |    <= true
+33A2 .|    |    no need to authenticate [Client.php:1282]
+33A2 .|    <= true
+33A2 .<= ''
+3FBD .START (2017-05-17 08:00:00) phpCAS-1.3.5 ****************** [phpCAS.class.php:468]
+3FBD .=> phpCAS::client('2.0', 'www.xiaoyingtong.net', 443, '/cas') [example_simple.php:28]
+3FBD .|    => CAS_Client::__construct('2.0', false, 'www.xiaoyingtong.net', 443, '/cas', true) [phpCAS.class.php:358]
+3FBD .|    |    Starting a new session ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ [Client.php:932]
+3FBD .|    |    Session is authenticated as: 15090067067 [Client.php:936]
+3FBD .|    <= ''
+3FBD .<= ''
+3FBD .=> phpCAS::setNoCasServerValidation() [example_simple.php:37]
+3FBD .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [phpCAS.class.php:1644]
+3FBD .<= ''
+3FBD .=> phpCAS::forceAuthentication() [example_simple.php:40]
+3FBD .|    => CAS_Client::forceAuthentication() [phpCAS.class.php:1098]
+3FBD .|    |    => CAS_Client::isAuthenticated() [Client.php:1280]
+3FBD .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1393]
+3FBD .|    |    |    |    user = `15090067067' [Client.php:1622]
+3FBD .|    |    |    <= true
+3FBD .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1416]
+3FBD .|    |    <= true
+3FBD .|    |    no need to authenticate [Client.php:1282]
+3FBD .|    <= true
+3FBD .<= ''
+3FBD .=> phpCAS::logout() [example_simple.php:47]
+3FBD .|    => CAS_Client::logout(array ()) [phpCAS.class.php:1450]
+3FBD .|    |    Prepare redirect to : https://www.xiaoyingtong.net/cas/logout [Client.php:1696]
+3FBD .|    |    Destroying session : ST-2-dJ70dRxv2lvCogNphial-iZ25qpbezhxZ [Client.php:1698]
+3FBD .|    |    Session terminated [Client.php:1702]
+3FBD .|    |    exit()
+3FBD .|    |    -
+3FBD .|    -

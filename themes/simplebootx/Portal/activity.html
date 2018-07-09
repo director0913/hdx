@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我发布的活动</title>
+<tc_include file="Public:head1" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/home.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<script type="text/javascript" src="__TMPL__Public/js/ZeroClipboard.js"></script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery.qrcode.min.js"></script>
+<style type="text/css">
+    .pagelist{padding:10px 12px;clear:both;text-align:center; font-size:0;
+    font-family:Arial, "\5B8B\4F53", sans-serif;vertical-align:top} 
+    .pagelist a, .pagelist span{display:inline-block;height:36px;line-height:36px; width:38px;
+    margin:5px 0 0 0;background:#fff;border:1px solid #e5e5e5;overflow:hidden;vertical-align:top; color:#646464;font-size:14px;} 
+    .pagelist a:hover{background:#F1F1F1;border:1px solid #DBDBDB;text-decoration:none} 
+    .pagelist a, .pagelist a:visited{color:#252525} 
+    .pagelist a:hover, .pagelist a:active{color:#8D827E} 
+    .pagelist .current{background:#F1F1F1;border:1px solid #DBDBDB;color:#8D827E} 
+    .pagelist a.current, .pagelist a.current:visited{color:#8D827E} 
+    .pagelist a.current:hover, .pagelist a.current:active{color:#8D827E} 
+    .prev,.next{font-family:"\5B8B\4F53", sans-serif;font-weight:bold;font-size:16px} 
+    .prev{color:#e5e5e5} 
+    .ep-pages-all{font-size:12px;vertical-align:top} 
+	.tixing{width:1050px; margin:23px auto -27px; position:relative;}
+	.tixing p{position:absolute; top:0; right:0; width:35px; height:100%; background-color:#000; text-align:center; cursor:pointer; filter:alpha(opacity=30); -moz-opacity:0.3; opacity:0.3;}
+</style>
+</head>
+<body onLoad="setup();preselect('{$users_info.province}',1);preselect('{$users_info.city}',2);preselect('',3);promptinfo();">
+<tc_include file="Public:nav" />
+
+<div class="toptu">
+    <div class="pagediv1">
+        <div class="f_l">
+            <div class="f_l" >
+                <p class="name">{$users_info.user_nicename}</p>
+                <p class="leixing">
+                    账号类型：
+                    <eq name="users_info['level']" value="1">
+                        免费会员
+                       <!-- <a href="{:U('portal/index/show_shengji',array('menu'=>2))}">升级会员</a>-->
+                    </eq>
+                    <eq name="users_info['level']" value="2">
+                        会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                    <eq name="users_info['level']" value="3">
+                        黄金会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                    <eq name="users_info['level']" value="4">
+                        私人订制会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                    <eq name="users_info['level']" value="5">
+                        校营通会员
+                        <if condition="$lastmonth elt $now">
+                            <span style="color:#FA741B;margin-left:10px;">
+                                (您的账号<php>echo date("Y-m-d",$user['valid_time']);</php>后将无法使用！)
+                            </span>
+                        </if>
+                    </eq>
+                </p>
+            </div>
+        </div>
+        <div class="f_r">
+            <div class="f_l fenxinxi active">
+                <a href="{:U('portal/activity/index')}">
+                    <p class="number">{$activity_num}</p>
+                    <p class="typename">我的活动</p>
+                </a>
+            </div>
+            <p class="fenge f_l"></p>
+            <div class="f_l fenxinxi">
+                <a href="{:U('portal/app/index/menu/1')}">
+                    <p class="number">{$app_num}</p>
+                    <p class="typename">我的应用</p>
+                </a>
+            </div>
+        </div>
+        <p class="c_b"></p>
+    </div>
+</div>
+
+<div style="min-height: 70vh;" class="zhaizhong">
+	<div class="title"><p class="titlep f_l">我的活动</p><div class="f_r search"><input type="text" placeholder="请输入活动关键字" value="{$keyword}" id="searchname1"/><span class="fa fa-search" id="search1"></span><a href="__ROOT__/" class="addbtn">+ 创建新活动</a></div><p class="c_b"></p></div>
+    <ul class="activityls">
+		<php>$current = time();</php>
+    	<foreach name="list" item="vo" >
+    	<li>
+			<if condition="empty($vo['thumb'])">
+				<img src="__TMPL__Public/images/xiaotu2.jpg" class="fengmian f_l" />
+			<else/>
+				<img src="{:sp_get_asset_upload_path($vo['thumb'])}" class="fengmian f_l" />
+			</if>
+            <div class="youdiv f_r">
+            	<div class="zuoxinxi f_l">
+                	<h3>{$vo.name|msubstr=0,20,'utf-8',true}</h3>
+                    <p>{$vo.createtime|date='Y-m-d H:i:s',###}发布</p>
+                    <p>活动状态：<if condition="$current lt $vo['begintime']">未开始<elseif condition=" $current gt $vo['endtime']"/>已结束 <else/>进行中</if></p>
+                </div>
+                <div class="youquyu">
+                	<p class="tongjip">报名人数：{$vo.total}</p>
+                    <div class="caozuoyou">
+                        <?php $str='http://'.$_SERVER['HTTP_HOST']."/index.php/portal/mjoin/index/id/".$vo['id'].".shtml";?>
+                        <ul>
+                        <!--
+                            <li><a href="{:U('portal/activity/activity_delete',array('id'=>$vo['id']))}"><span class="fa fa-close"></span>删除</a></li>
+                        -->
+                            <li><a href="javascript:void(0)" class="activity_delete" data-num="{$vo.total}" data-id="{$vo['id']}"><span class="fa fa-trash-o"></span>删除</a></li>
+                            <li><a href="{:U('portal/activity/edit',array('id'=>$vo['id']))}"><span class="fa fa-pencil-square-o"></span>编辑</a></li>
+                            <li><a href="{:U('portal/activity/show_join',array('id'=>$vo['id']))}"><span class="fa fa-cog"></span>报名管理</a></li>
+                            <li class="p_r">
+                                <a href="javascript:void(0);" class="xianfuzhibtn" data-link="{$str}"><span class="fa fa-file-o"></span>复制链接</a>
+                            </li>
+                            <li class="p_r">
+                                <a href="javascript:void(0)" class="saoma"><span class="fa fa-qrcode"></span>查看二维码</a>
+                                <div class="ewmkuang d_n">
+                                    <div class="erweima" data-url="{$str}"></div>
+                                    <p><a>微信扫一扫</a><a href="javascript:void(0);" class="xiazai" data-url="{$str}">下载二维码</a></p>
+                                    <img src="__TMPL__Public/images/fuzhijiantou.png" class="jiantouimg"/>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="c_b"></p>
+        </li>
+    	</foreach>
+    	<empty name="list"><li style="text-align: center; color:#cdcdcd;">暂时没有活动，快去<a href="__ROOT__/" style="color:#0096eb;">创建活动</a>吧</li></empty>
+    </ul>
+    <div class="pagelist">{$page}</div>
+</div>
+<tc_include file="Public:footer"/>
+<div class="fufuwudiv p_r">
+    <div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+        <p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">13001265153</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" <if condition="$full eq 0">  style="display:none;" </if> >
+    <div class="titlediv">
+        <p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);">下次再说吧~</a></p>
+    </div>
+	<form action="{:U('user/profile/edit_post')}" class="full_info_form" method="post">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="contact_mobile" value="{$users_info['contact_mobile']}"/></td>
+        </tr>
+        <tr>
+            <td class="lefttd" valign="top" style="padding-top:30px;">机构项目</td>
+            <td>
+				<php>$item = explode(",",$users_info['item']);</php>
+                <label><input type="checkbox" name="item[]" <php> if(in_array(1,$item)) echo 'checked="checked"';
+                    if($users_info['item']==0)
+                    {
+                        echo 'checked="checked"';
+                    }
+                </php>
+                value="1" />幼少儿培训</label>
+                <label><input type="checkbox" name="item[]" <php> if(in_array(2,$item)) echo 'checked="checked"';</php>  value="2" />初高中培训</label>
+                <label><input type="checkbox" name="item[]" <php> if(in_array(3,$item)) echo 'checked="checked"';</php> value="3" />幼儿园</label>
+                <label><input type="checkbox" name="item[]" <php> if(in_array(4,$item)) echo 'checked="checked"';</php> value="4" />早教机构</label><br/>
+                <label><input type="checkbox" name="item[]" <php> if(in_array(5,$item)) echo 'checked="checked"';</php> value="5" />文化课培训</label>
+                <label><input type="checkbox" name="item[]" <php> if(in_array(6,$item)) echo 'checked="checked"';</php> value="6" />素质教育课程</label>
+                <label><input type="checkbox" name="item[]" <php> if(in_array(7,$item)) echo 'checked="checked"';</php> value="7" />其他</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">地区</td>
+            <td class="address">
+                <select name="province" id="s1">
+                    <option>请选择省份</option>
+                </select>
+                <select name="city" id="s2" style="margin-right:0;">
+                    <option>请选择城市</option>
+                </select>
+				 <select name="area" id="s3" style="margin-right:0;display:none;">
+                    <option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="lefttd">规模</td>
+            <td>
+                <label><input type="radio" name="amount" <php>if($users_info['amount']==1||empty($users_info['amount'])) echo 'checked="checked"';</php> value="1" />300人以下</label>
+                <label><input type="radio" name="amount" <php>if($users_info['amount']==2) echo 'checked="checked"';</php>  value="2" />300-800人</label>
+                <label><input type="radio" name="amount" <php>if($users_info['amount']==3) echo 'checked="checked"';</php>  value="3" />800-3000人</label>
+                <label><input type="radio" name="amount" <php>if($users_info['amount']==4) echo 'checked="checked"';</php>  value="4" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <input type="button" class="full_info_post" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+	<input type=hidden name="address" id="address">
+	<input type=hidden name="id" id="id" value="{$users_info.id}"/>
+
+	</form>
+</div>
+</body>
+
+<script type="text/javascript">
+//这个函数是必须的，因为在geo.js里每次更改地址时会调用此函数
+function promptinfo()
+{
+	var address = document.getElementById('address');
+	var s1 = document.getElementById('s1');
+	var s2 = document.getElementById('s2');
+	$("#province").val(s1.value);
+	$("#city").val(s2.value);
+	address.value = s1.value + s2.value;
+}
+var target;
+var erweima;
+$(function(){
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+	$(".zaishuo").click(function(){
+		$.post("{:U('user/profile/update_session')}",function(data){});
+		$('.fuxinxi').hide();
+	});
+	$(".xianfuzhibtn").click(function(e){
+		e.stopPropagation();
+		$(".ewmkuang").addClass("d_n");
+		//在当前标签的父节点下添加代码。
+		if($('.fuzhikuang').length > 0 && $(this).get(0) == target){
+			$('.fuzhikuang').remove();
+		}else{
+			//否则就保存当前点击对象。
+			target = $(this).get(0);
+			$('.fuzhikuang').remove();
+			var linkstr=$(this).attr("data-link");
+			var html='<div class="fuzhikuang">'+
+							'<input type="text" value="'+linkstr+'" id="fe_text"/>'+
+							'<a href="javascript:void(0);" class="fuzhibtn" data-clipboard-target="fe_text">复制链接</a>'+
+							'<img src="__TMPL__Public/images/fuzhijiantou.png" class="jiantouimg"/>'+
+						'</div>';
+			$(this).parent().append(html);
+			var fuzhibtn=$('.fuzhibtn');
+			var clip = new ZeroClipboard(fuzhibtn, {
+				moviePath: "__TMPL__Public/js/ZeroClipboard.swf"
+			});
+			clip.on( 'mouseover', function(client, args) {
+			   clip.setText($("#fe_text").val());
+			});
+			clip.on( 'complete', function(client, args) {
+			   alert("复制成功");
+			});
+		}
+	});
+	$(".saoma").click(function(e){
+		e.stopPropagation();
+		$('.fuzhikuang').remove();
+		if($(this).next().get(0) == erweima)
+			$(this).next().toggleClass("d_n");
+		else
+		{
+			erweima=$(this).next().get(0);
+			$(".ewmkuang").addClass("d_n");
+			$(this).next().toggleClass("d_n");
+		}
+	});
+	$(".xiazai").click(function(e){
+		e.stopPropagation();
+		window.location.href="/php/down.php?url="+$(this).attr("data-url");
+	});
+	$(".erweima").map(function(){jQuery(this).qrcode({width: 178,height: 178,text: $(this).attr("data-url")});});
+	
+	 $("#search1").click(function(){
+    var keyword=$("#searchname1").val();
+    var uid="{$user['id']}";
+    //alert("uid"+uid+"keyword"+keyword);
+    var url="/index.php/portal/activity/index/keyword/"+keyword+".shtml";
+    //alert(url);
+    window.location.href = url;
+	})
+
+     $('#searchname1').bind('keypress', function(event) {  
+        if (event.keyCode == "13") {              
+            event.preventDefault();   
+            //回车执行查询  
+            $('#search1').click();  
+        }  
+    });
+	$("body").click(function(){
+		$('.fuzhikuang').remove();
+		$(".ewmkuang").addClass("d_n");
+	});
+    $(".activity_delete").click(function(){
+        var id = $(this).attr('data-id');
+        var num = $(this).attr('data-num');
+        var prompt = "确定要删除这次活动吗？";
+        
+        if (num > 0) {
+            prompt = "活动已经有人报名，确定要删除吗？";
+        }
+
+        if (!confirm(prompt)) {
+            return ;
+        }
+
+        $.post("{:U('portal/activity/activity_delete')}",
+        {
+           id:id,
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                var url="{:U('portal/activity/index')}";
+                window.location.href = url;
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+    });
+
+    $(".full_info_post").click(function(){
+        $.post("{:U('user/profile/edit_post')}",$(".full_info_form").serializeArray(),
+            function(data){
+				//alert(data.info);
+                if(data.status>0)
+                {
+                     $.post("{:U('user/profile/update_session')}",function(data){});
+                     $('.fuxinxi').hide();
+                     //window.location.reload();
+                }
+                else
+                {
+                    $.post("{:U('user/profile/update_session')}",function(data){});
+                    $('.fuxinxi').hide();
+                    //window.location.reload();
+                }
+            });
+    })
+}) 
+</script>
+</html>

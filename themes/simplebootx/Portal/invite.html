@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>邀请有礼</title>
+<script src="__TMPL__Public/mobile/js/jquery.js"></script>
+<style>
+*{padding:0;margin:0;}
+body{background-color: #f0f0f2;font-family:"微软雅黑";}
+ul{list-style:none;}
+.padded-10{padding-top:10px;padding-bottom: 10px;}
+.fl{float:left;}
+.fr{float:left;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+a{text-decoration:none; color:#333;}
+.shuoming{margin:16px 16px 20px;}
+.shuoming_title{font-size:16px;}
+.shuoming .neirong{color:#949494;margin-top:8px;font-size:14px;line-height:20px;}
+.content{background-color:#fff;margin-top:10px;padding-left:16px;padding-right:16px;}
+.xing{color:#f00;margin-left:-8px;margin-right:2px;}
+.name,.tel{border-bottom:1px solid #ddd;color:#696969;font-size:16px;}
+.tel{border-bottom:none;}
+input{outline:none;}
+input[type="text"],input[type="tel"]{padding:10px 0;}
+#name,#tel{font-size:15px;border:none;width:220px;height:28px;}
+/*登录结束*/
+.btn a{display:block;text-align: center;height:44px;line-height:44px;color:#fff;background-color:#21a4ea;margin:17px 16px;}
+</style>
+</head>
+<body>
+<div class="shuoming">
+    <div class="shuoming_title">{$form_info.name}说明</div>
+    <div class="neirong">{$form_info.rule}</div>
+</div>
+<form action="{:U('portal/mjoin/invite_post')}" class="form_post" method="post">
+<input type="hidden" name="form_id" value="{$_GET['id']}" >
+<input type="hidden" name="uid" value="{$uid}" >
+<div class="content">
+    <div class="denglu">
+        <div class="name"><span class="xing">*</span><span class="wenzi">姓名：</span><input type="text" placeholder="请填写你的姓名（必填）" name="name" id="name"></div>
+        <div class="tel"><span class="xing">*</span><span class="wenzi">手机：</span><input type="tel" placeholder="请填写你的手机号（必填）" name="tel" id="tel"></div>
+    </div>
+</div>
+<div class="btn"><a href="javascript:;" class="submit_form">提交</a></div>
+</form>
+ <tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+$(function(){
+	/*
+     $(".submit_form").click(function(){
+        $(".form_post").submit();
+    });
+    */
+     $(".submit_form").click(function(){
+         if($('#name').val()=="")
+         {
+            alert("姓名不能为空");
+            return;
+         }
+         if($('#tel').val()=="")
+         {
+            alert("手机号不能为空");
+            return;
+         }
+         if($('#tel').val().length!=11)
+         {
+            alert("请输入11位手机号");
+            return;
+         }
+		 var url = "{:U('portal/mjoin/invite_post')}" ;
+		 $.post(url,$(".form_post").serializeArray(),function(res){
+			alert(res.info);
+			if(res.status){
+				window.location.href=res.url;
+			}
+		 });
+        //$(".form_post").submit();
+    });
+})
+</script>
+</html>

@@ -1,0 +1,29 @@
+<footer class="aui-nav" id="aui-footer">
+    <ul class="aui-bar-tab">
+        <li <if condition="$menu eq 1">class="active-cheng" </if>>
+            <a  class="footer_redirect" data-href="{:U('portal/nsite/index')}" href="javascript:;">
+                <span class="aui-iconfont fa fa-home"></span>
+                <p>首页</p>
+            </a>
+        </li>
+        <li <if condition="$menu eq 2">class="active-cheng" </if>>
+            <a class="footer_redirect" data-href="{:U('portal/nsite/detail')}" href="javascript:;" >
+                <span class="aui-iconfont fa fa-credit-card"></span>
+                <p>会员购买</p>
+            </a>
+        </li>
+        <li <if condition="$menu eq 3">class="active-cheng" </if>>
+            <a class="footer_redirect" data-href="{:U('portal/nsite/center')}" href="javascript:;" >
+                <span class="aui-iconfont fa fa-user"></span>
+                <p>我的</p>
+            </a>
+        </li>
+    </ul>
+</footer>
+<script>
+	$(".footer_redirect").click(function(){
+		var tt = Math.random();
+		var url = $(this).attr("data-href")+"?refresh="+tt;
+		window.location.href = url;
+	});
+</script>

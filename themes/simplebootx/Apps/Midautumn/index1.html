@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$title}</title>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Bigwheel/styles/public.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Bigwheel/styles/bigwheel.css?i=3" />
+<script type="text/javascript"  src="__TMPL__Apps/Bigwheel/scripts/zepto.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Bigwheel/scripts/public750.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Bigwheel/scripts/zhezhao.js"></script>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<style type="text/css">
+.tu0 div{ background-image:url({:sp_get_asset_upload_path($prize1_thumb)});}
+.tu1 div{ background-image:url({:sp_get_asset_upload_path($prize2_thumb)});}
+.tu2 div{ background-image:url(__TMPL__Apps/Common/images/xiexiehuigu.png);}
+.tu3 div{ background-image:url({:sp_get_asset_upload_path($prize3_thumb)});}
+.tu4 div{ background-image:url({:sp_get_asset_upload_path($prize4_thumb)});}
+.tu5 div{ background-image:url(__TMPL__Apps/Common/images/xiexiehuigu.png);}
+.tu6 div{ background-image:url({:sp_get_asset_upload_path($prize5_thumb)});}
+.tu7 div{ background-image:url({:sp_get_asset_upload_path($prize6_thumb)});}
+.skill_support{width: 100%;background: #fff;text-align: center;}
+.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+.skill_support a{ display: block;}
+</style>
+</head>
+<body style="background:#F03E3E">
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Bigwheel/images/fenxiang.png" id="fenxiang"/>
+<div id="tanjiang" class="tandiv">
+	<img src="__TMPL__Apps/Bigwheel/images/close.png" class="closeimg" onclick="lingqu()" />
+    <img src="__TMPL__Apps/Bigwheel/images/zhongjiang.png" />
+    <div>
+    	<p class="btnok" id="lingjiang" onclick="lingqu()">点击领取</p>
+        <a class="btnok btnok2" id="tiaozhuan" href="#" style="display:none;">查看详情</a>
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div id="wujiang" class="tandiv">
+	<img src="__TMPL__Apps/Bigwheel/images/close.png" class="closeimg" onclick="closeBg('fullbg','wujiang')" />
+    <img src="__TMPL__Apps/Bigwheel/images/xxhg.png" class="title"/>
+    <p>亲！很遗憾没有中奖。</p>
+</div>
+<div id="msg" class="tandiv">
+	<img src="__TMPL__Apps/Bigwheel/images/close.png" class="closeimg" onclick="closeBg('fullbg','msg')" />
+    <img src="__TMPL__Apps/Bigwheel/images/xxhg.png" class="title"/>
+    <p id="msgp"></p>
+</div>
+<div id="tianxx" class="tandiv">
+		<img src="__TMPL__Apps/Bigwheel/images/close1.png" class="closeimg2" onclick="closeBg('fullbg','tianxx')" />
+	    <p class="tishi">请认真填写以下信息，以便奖品准确的送达</p>
+	    <div class="inputdiv" style="margin-top:45px;">
+	    	<span>姓名</span>
+	        <input type="text" id="name" placeholder="请输入姓名" />
+	    </div>
+	    <div class="inputdiv">
+	    	<span>手机</span>
+	        <input type="tel" id="tel" placeholder="请输入手机号码" />
+	    </div>
+		<div class="inputdiv" <if condition="empty($params['age'])">style="display:none" </if>>
+			<span>年龄</span>
+			<input type="tel" id="age" name="age" placeholder="请输入年龄"/>
+		</div>
+		<div class="inputdiv" <if condition="empty($params['cless'])">style="display:none" </if>>
+			<span>班级</span>
+			<input type="text" id="cless" name="cless" placeholder="请输入班级"/>
+		</div>
+		<php>
+		    if(!$params['other_remark']){
+		    	$params['other_remark']="备注";
+		    }
+			if($params['other_school']){
+		    	$other=explode(',',$params['other_school']);
+		    }
+		</php>
+		<if condition="!empty($params['school'])">
+			<div class="inputdiv">
+				<span>学校</span>
+				<if condition="empty($params['other_school'])">
+					<input type="text" class="sign-up-name" id="school" name="school" placeholder="请输入学校"/>
+				<else/>
+					<select  name="school">
+						<volist name="other" id="vo">
+							<option  id="school" value ="{$vo}"  <if condition="$user['school'] eq $vo">selected="selected" </if>>{$vo}</option>
+						</volist>
+					</select>
+				</if>
+			</div>
+		</if>
+		<div class="inputdiv" <if condition="empty($params['qita'])">style="display:none" </if>>
+			<span>{$params['other_remark']}</span>
+			<input type="text" class="sign-up-name" id="remark" name="remark" placeholder="请输入{$params['other_remark']}"/>
+		</div>
+    <p class="submitip" onclick="regist()">提交</p>
+</div>
+
+<div class="chjtdiv" id="chjtdiv">
+	<div class="jiangdiv tu0">
+    	<div></div>
+        <p>{$prize1_name}</p>
+    </div>
+	<div class="jiangdiv tu1">
+    	<div></div>
+        <p>{$prize2_name}</p>
+    </div>
+	<div class="jiangdiv tu2">
+    	<div></div>
+        <p>谢谢参与</p>
+    </div>
+	<div class="jiangdiv tu7">
+    	<div></div>
+        <p>{$prize6_name}</p>
+    </div>
+	<div class="jiangdiv" id="choudiv" style="background:url(__TMPL__Apps/Bigwheel/images/choujiang.png) center center no-repeat;">
+    </div>
+	<div class="jiangdiv tu3">
+    	<div></div>
+        <p>{$prize3_name}</p>
+    </div>
+	<div class="jiangdiv tu6">
+    	<div></div>
+        <p>{$prize5_name}</p>
+    </div>
+	<div class="jiangdiv tu5">
+    	<div></div>
+        <p>谢谢参与</p>
+    </div>
+	<div class="jiangdiv tu4">
+    	<div></div>
+        <p>{$prize4_name}</p>
+    </div>
+</div>
+<div class="huojiangxx">
+	<p>
+    	<marquee scrollamount="3" hspace="6" scrolldelay="3">{$hjstr}</marquee>
+    </p>
+</div>
+    <div class="didiv" style="height:130px;">
+		<div class="difen guize" data-href="{:U('apps/midautumn/index',array('id'=>$id))}">
+			<div></div>
+			<p>首页</p>
+		</div>
+		<div class="difen shouye1" data-href="{:U('apps/midautumn/index1',array('id'=>$id))}">
+			<div></div>
+			<p>抽奖</p>
+		</div>
+		<div class="difen baoxiang" data-href="{:U('apps/midautumn/gift',array('id'=>$id))}">
+			<div></div>
+			<p>宝箱</p>
+		</div>
+		<div class="difen paihang" data-href="{:U('apps/midautumn/rank',array('id'=>$id))}">
+			<div></div>
+			<p>排行</p>
+		</div>
+		<div class="skill_support">
+			<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+				<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+			</a>
+		</div>
+    </div>
+<tc_include file="Public:mobile" />
+</body>
+<script>
+// JavaScript Document
+var checkstatusurl='{:U("apps/midautumn/check_status",array("id"=>$id))}'; //分析是否能够抽奖
+var checkmaurl1=''; //判断随机码是否正确 此版本暂时不支持随机码
+var getjiangurl='{:U("apps/midautumn/get_gift",array("id"=>$id))}';//获得所中的奖品
+var checkzhuceurl='{:U("apps/midautumn/check_regist",array("id"=>$id))}';//判断是否注册
+var insertjiangurl='{:U("apps/midautumn/add_gift",array("id"=>$id))}';//领取奖品
+var lingqutiaourl='{:U("apps/midautumn/gift",array("id"=>$id))}';//领取成功之后跳转地址
+var zhuceurl='{:U("apps/midautumn/index",array("id"=>$id))}';//注册
+var isajax=1;
+var open_random = "0";
+
+function check_status(){
+	var url=checkstatusurl;
+	$.post(url,null,function(res){
+		//res =JSON.parse(res);
+		if(res.status==1)
+		{
+			isajax++;
+			choujiang();
+		}
+		else
+		{
+			return tanmsg(res.info);
+		}
+	});
+}
+
+function choujiang()
+{
+	if(isajax!=2)
+	{
+		return false;
+	}
+	else
+	{
+		if(open_random!=0){
+			var rand=prompt("请输入抽奖码","");
+			if(""==rand){
+				tanmsg("请输入抽奖码");
+			}else{
+				//校验输入的激活码是否正确
+				var url1=checkmaurl1;
+				$.post(url1,{'rand':rand},function(res){
+					//res =JSON.parse(res);
+					if(res.status==1)
+					{
+						isajax++;
+						//调用大转盘执行函数
+						start_game();
+					}
+					else
+					{
+						tanmsg("抽奖码输入错误");
+					}
+				});
+			}
+		}else{
+			//调用大转盘执行函数
+			start_game();
+		}
+	}
+}
+var lottery = {
+	index: 0, //当前转动到哪个位置，起点位置
+	count: 0, //总共有多少个位置
+	timer: 0, //setTimeout的ID，用clearTimeout清除
+	speed: 20, //初始转动速度
+	times: 0, //转动次数
+	cycle: 50, //转动基本次数：即至少需要转动多少次再进入抽奖环节
+	prize: 0, //中奖位置
+	init: function(id) {
+		$lottery = $("#" + id);
+		//$units = $lottery.find(".lottery-unit");
+		this.obj = $lottery;
+		this.count = 8;
+		$lottery.find(".tu" + this.index).addClass("selectjiang");
+	},
+	roll: function() {
+		var index = this.index;
+		var count = this.count;
+		var lottery = this.obj;
+		$(lottery).find(".tu" + index).removeClass("selectjiang");
+		index += 1;
+		if (index > count - 1) {
+			index = 0;
+		}
+		$(lottery).find(".tu" + index).addClass("selectjiang");
+		this.index = index;
+		return false;
+	},
+	stop: function(index) {
+		this.prize = index;
+		return false;
+	}
+};
+
+function roll() {
+	lottery.times += 1;
+	lottery.roll();
+	var prize_site = $("#chjtdiv").attr("prize_site");
+	if (lottery.times > lottery.cycle + 10 && lottery.index == prize_site) {
+		var prize_id = $("#chjtdiv").attr("prize_id");
+		var prize_name = $("#chjtdiv").attr("prize_name");
+		//alert("前端中奖位置："+prize_site+"\n"+"中奖名称："+prize_name+"\n中奖id："+prize_id)
+		clearTimeout(lottery.timer);
+		
+		lottery.prize = -1;
+		lottery.times = 0;
+		click = false;
+		if(prize_site!=2&&prize_site!=5)
+		{
+			setTimeout("showBg('fullbg','tanjiang',false)",1000);
+		}
+		else
+		{
+			if(parseInt($("#keyong1").html())<=0)
+			{
+				tanmsg("亲！很遗憾没有中奖。");
+			}
+			else
+			{
+				setTimeout("showBg('fullbg','wujiang',false)",1500);
+			}
+		}
+
+	} else {
+		if (lottery.times < lottery.cycle) {
+			lottery.speed -= 10;
+		} else if (lottery.times == lottery.cycle) {
+			var index = Math.random() * (lottery.count) | 0;
+			lottery.prize = index;
+		} else {
+			if (lottery.times > lottery.cycle + 10 && ((lottery.prize == 0 && lottery.index == 7) || lottery.prize == lottery.index + 1)) {
+				lottery.speed += 110;
+			} else {
+				lottery.speed += 20;
+			}
+		}
+		if (lottery.speed < 40) {
+			lottery.speed = 40;
+		}
+		lottery.timer = setTimeout(roll, lottery.speed);
+	}
+	return false;
+}
+
+var click = false;
+function start_game()
+{
+	lottery.speed = 100;
+	var url=getjiangurl;
+	$.post(url,null, function(data) {
+	//获取奖品，也可以在这里判断是否登陆状态
+	//alert("随机数是："+data.suiji+";原奖是："+data.yuanzhi+";新奖是："+data.jiangzhi+";停止位置是："+data.status);
+		$("#chjtdiv").attr("prize_site", data.status);
+		if(parseInt($("#keyong1").html())>0)
+			$("#keyong1").html(parseInt($("#keyong1").html())-1);
+		roll();
+		click = true;
+		isajax=1;
+		return false;
+	}, "json")
+}
+$(function() {
+	lottery.init('chjtdiv');
+	$("#choudiv").click(function() {
+		 if (click) {
+			return false;
+		} else {
+			check_status();
+		}
+	});
+	$(".difen").click(function(){
+		var url = $(this).attr("data-href");
+		window.location.href = url;
+	});
+})
+var selejiang=null;
+var seleindex=0;
+var ci=0;
+var zhi=1;
+var jiange=0;
+var jitime=null;
+var is_formal = 1;
+//点击领取奖品
+function lingqu()
+{
+	//异步判断用户是否已经注册
+	var url=checkzhuceurl;
+	$.post(url,null,function(res){
+		//res =JSON.parse(res);
+		if(res.status<=0)
+		{
+			//隐藏中奖页面。
+			$("#tanjiang").hide();
+			//显示信息页面。
+			$("#tianxx").show();
+		}
+		else
+		{
+			var url=insertjiangurl;
+			$.post(url,null,function(res){
+				//res =JSON.parse(res);
+				if(res.status>0)
+				{
+					window.location.href=lingqutiaourl;
+				}
+				else alert(res.msg);
+			});
+		}
+	});
+}
+
+function tanmsg(msg)
+{
+	$("#msgp").html(msg);
+	showBg('fullbg',"msg",false);
+}
+function regist()
+{
+	var name=$("#name").val();
+	var tel=$("#tel").val();
+	if(name=="")
+	{
+		alert("姓名不能为空");return;
+	}
+	if(tel=="")
+	{
+		alert("手机号不能为空");return;
+	}
+	if(tel.length!=11){
+		alert("请输入11位手机号！");return false;
+	}
+	var remark=$('[name="remark"]').val(); 
+	var age=$('[name="age"]').val();
+	var cless=$('[name="cless"]').val();
+	var school=$('[name="school"]').val();
+	var url=insertjiangurl;
+	$.post(url,{name:name,mobile:tel,age:age,cless:cless,school:school,remark:remark},function(res){
+		//res =JSON.parse(res);
+		if(res.status>0)
+		{
+			window.location.href=lingqutiaourl;
+		}
+		else alert(res.msg);
+	});
+}
+</script>
+<tc_include file="Public:mobile" />
+</html>

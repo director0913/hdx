@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<title>{$item['title']}</title>
+<link rel="stylesheet" href="__TMPL__Apps/Envelope/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/Envelope/scripts/pace.min.js"></script>
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weiprice/css1/regist.css?i=3.2"/>
+	<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Weiprice/css1/index.css?i=4.0"/>
+	<style>
+		body{
+			background:#AADB5D;
+		}
+		.biaoti{
+			margin-top:-40px;
+			margin-left:-220px;
+			color:#fff;
+		}
+		select {
+			padding-left: 25% !important;
+			box-sizing: border-box;
+			border-radius: 0.2rem;
+		}
+	</style>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth*(window.devicePixelRatio || 1.5) / 1);
+    if(is_low &&_ww<720){
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    }else{
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    }
+</script>
+<script type="text/javascript" src="__TMPL__Apps/Common/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/zhezhao.js"></script>
+</head>
+<body>
+<div class="kanjia">
+	<div class="kanjia_cont">
+		<div class="kanjia_user"><img src="{$item['params']['p_preview_pic']}" alt="" /></div>
+		<div class="neirong">
+			<div class="school">{$item['params']['p_name']}</div>
+			<div class="kecheng" style="height:60px;overflow:scroll;overflow-x:hidden;">{$item['params']['p_dec']}</div>
+		</div>
+	</div>
+</div>
+<!--<div class="bgc">-->
+    <!--<img src="__TMPL__Apps/Weiprice/images1/banner.jpg?v=1" width="750"/>-->
+    <!--<div class="biaoti"><div>-->
+        <!--<div class="school">{$item['params']['p_name']}</div>-->
+        <!--<div class="biaoti_cont">{$item['params']['p_dec']}</div>       -->
+    <!--</div></div>-->
+    <!--<div class="act_time" style="color:#FFA800;margin-top:-20px;">活动截止时间:{$item['endtime']|date='Y年m月d日',###}</div>-->
+<!--</div>-->
+<!-- 登录开始 -->
+    <div class="login" id="login">
+    <php>
+		$user_info=session('userInfo');
+		$params = sp_get_activity_params($aid);
+		$params = array_column($params, 'value', 'field');
+	</php>
+    <p class="user"><img src="{$user_info['headimgurl']}" alt="" /></p>
+    <div class="text">
+		<php>
+		    if(!$params['other_remark']){
+		    	$params['other_remark']="备注";
+		    }
+			if($params['other_school']){
+		    	$other=explode(',',$params['other_school']);
+		    }
+		</php>
+        <p><input type="text" id="name" placeholder="您的姓名"></p>
+        <p><input type="tel" id="tel" placeholder="您的手机号"></p>
+		<p <if condition="empty($params['age'])">style="display:none" </if>><input type="tel" id="age" placeholder="您的年龄"></p>
+        <p <if condition="empty($params['cless'])">style="display:none" </if>><input type="text" id="cless" placeholder="您的班级"></p>
+		<p <if condition="empty($params['school'])">style="display:none" </if>>      
+			<if condition="empty($params['other_school'])">
+				<input type="text" id="school" placeholder="您的学校">
+			<else/>
+				<select id="schools" name="school">
+					<volist name="other" id="vo">
+						<option  id="school" value ="{$vo}">{$vo}</option>
+					</volist>
+				</select>
+			</if>
+		</p>
+		<p <if condition="empty($params['qita'])">style="display:none" </if>><input type="text" id="remark" placeholder="{$params['other_remark']}"></p>
+    </div>
+    <div class="shuoming">*我们不会以任何方式泄露您的信息，请放心填写。</div>
+    <if condition="$astatus neq 1">
+    <p style="font-size:30px; text-align:center;">{$axinxi}</p>
+	<else/>
+    <p class="submit" onclick="zhuce()" style="width:260px;height:50px;line-height:50px;font-size:30px;color:#fff;background-color:#337ab7;border-color:#2e6da4;border: 1px solid transparent;border-radius: 4px;">生成我的砍价主页</p>
+    </if>
+</div>
+<!-- 登录结束 -->
+<!-- 活动规则开始 -->
+<if condition="$item['rule'] neq ''">
+<div class="guize">
+    <p class="title">活动说明</p>
+    <div class="text">{$item['rule']|html_entity_decode}</div>
+</div>
+</if>
+<if condition="$item['school_desc'] neq ''">
+<div class="guize">
+    <p class="title">关于我们</p>
+    <div class="text">{$item['school_desc']|html_entity_decode}</div>
+</div>
+</if>
+<!-- 活动规则结束 -->
+<!-- 列表开始 -->
+<div class="liebiao">
+    <table>
+        <tr class="tt">
+            <th class="shenhong wd120">序号</th>
+            <th class="shenhong wd180">姓名</th>
+            <th class="shenhong wd230">手机号</th>
+            <th class="qianhong wd180">当前价格</th>
+        </tr>
+    </table>
+    <div class="more">
+        <img src="__TMPL__Apps/Weiprice/images1/more.png" alt="" />
+        <span onclick="getpaihang()" class="gengduopm">查看更多排名</span>
+    </div>
+</div>
+<tc_include file="Public:mobile" />
+</body>
+<script type="text/javascript">
+var registurl='{:U("apps/weiprice/regist",array("id"=>$aid,"uid"=>$user["id"]))}';
+var clickstatus=false;
+var paihangurl='{:U("apps/weiprice/paihang",array("id"=>$aid))}';
+var paihangclickstatus=false;
+var paihangpagecount=0;
+var paihangpage=1;
+var paihangindex=1;
+var zongjia=parseFloat("{$item['params']['p_y_price']}");
+$(function(){
+	getpaihang();
+})
+function zhuce()
+{
+	if(clickstatus) return;
+	var data={};
+	data.name=$("#name").val();
+	data.mobile=$("#tel").val();
+	data.remark=$("#remark").val();
+	data.age=$("#age").val();
+	data.cless=$("#cless").val();
+	data.school=$('[name="school"]').val();
+	if(data.name=="")
+	{
+		alert("姓名不能为空！"); return;
+	}
+	if(data.mobile=="")
+	{
+		alert("手机号不能为空！"); return;
+	}
+	if(data.mobile.length!=11)
+	{
+		alert("手机号不正确！"); return;
+	}
+	clickstatus=true;
+	$.post(registurl,data,function(res){
+		clickstatus=false;
+		if(res.status>0)
+		{
+			window.location.href='{:U("apps/weiprice/index",array("id"=>$aid,"sui"=>time()))}';
+		}
+		else
+		{
+			alert(res.msg);
+		}
+	});
+}
+//获取排行。
+function getpaihang()
+{
+	if(paihangpage>1&&paihangpage>paihangpagecount) return;
+	if(paihangclickstatus) return;
+	paihangclickstatus=true;
+	$.post(paihangurl,{page:paihangpage},function(res){
+		paihangclickstatus=false;
+		var paihangstr="";
+		if(res.status>0)
+		{
+			for(var i=0;i<res.list.length;i++)
+			{
+				paihangstr+='<tr>'+
+								'<td class="wd120 padleft30">'+paihangindex+'</td>'+
+								'<td class="wd180">'+res.list[i]['username'].substring(0,4)+'</td>'+
+								'<td class="wd230">'+res.list[i]['mobile']+'</td>'+
+								'<td class="qianhong wd180">'+sub(zongjia,res.list[i]['price'])+'</td>'+
+							'</tr>';
+				paihangindex++;
+			}
+			if(paihangpage==1)
+				paihangpagecount=res.pagecount;
+			paihangpage++;
+			if(paihangpage>paihangpagecount)
+			{
+				$(".gengduopm").html("没有更多了").attr("onclick","");
+			}
+			$(".liebiao tbody").append(paihangstr);
+		}
+		else alert(res.msg);
+	});
+}
+function sub(a, b) {
+    var c, d, e;
+    try {
+        c = a.toString().split(".")[1].length;
+    } catch (f) {
+        c = 0;
+    }
+    try {
+        d = b.toString().split(".")[1].length;
+    } catch (f) {
+        d = 0;
+    }
+    return e = Math.pow(10, Math.max(c, d)), (mul(a, e) - mul(b, e)) / e;
+}
+function mul(a, b) {
+    var c = 0,
+        d = a.toString(),
+        e = b.toString();
+    try {
+        c += d.split(".")[1].length;
+    } catch (f) {}
+    try {
+        c += e.split(".")[1].length;
+    } catch (f) {}
+    return Number(d.replace(".", "")) * Number(e.replace(".", "")) / Math.pow(10, c);
+}
+</script>
+</html>

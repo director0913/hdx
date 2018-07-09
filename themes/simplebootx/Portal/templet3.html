@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>{$name}</title>
+<script src="__TMPL__Public/js/jquery-1.9.1.min.js"></script>
+<script src="__TMPL__Public/js/zuoyoukuangjia.js"></script>
+<style>
+*{margin:0; padding:0;}
+body{background-color:#6bdfd5; font-family:"微软雅黑";width:320px;}
+.alldiv{ position:absolute; top:0; left:0; bottom:0; right:0; overflow:auto;}
+<literal>
+.alldiv::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); border-radius: 0; background: rgba(0,0,0,0.2);}
+.alldiv::-webkit-scrollbar-thumb{border-radius: 5px; -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4); background: rgba(0,0,0,0.4);}
+.alldiv::-webkit-scrollbar{width: 8px; height: 4px;}
+</literal>
+ul{list-style:none;}
+.fl{float:left;}
+.fr{float:left;}
+.wd100{ width:100%;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+a{text-decoration:none; color:#333;}
+.cont{position:relative;}
+.cont .banner img{width: 100%;}
+.top{position:absolute;top:16px;width:200px;left:50%;margin-left:-100px;text-align:center;color:#daa745;font-size: 16px;}
+.title{position:absolute;top:55px;width:280px;left:50%;margin-left:-140px;text-align:center;color:#de1919;font-size:24px;font-weight:bold;}
+.youhui{margin-top:-24px; position:relative;}
+.hongbao{width:100%;margin-top:-6px;position:relative;}
+.lingqu{position:absolute;top:5px;width:180px;left:50%;margin-left:-90px;text-align:center;color:#f18f00;font-size:16px;font-weight:bold;}
+.money{position:absolute;top:50px;width:190px;left:50%;margin-left:-95px;text-align:center;color:#e93926;font-size:33px;font-weight:bold;}
+.rmb{font-size:20px;padding-right:2px;height:42px;}
+.yuan{font-size:16px;padding-left:2px;}
+.guanzhu{position:absolute;top:100px;width:266px;left:50%;margin-left:-133px;text-align:center;color:#f8ac1f;font-size:12px;}
+.btn{position:absolute;bottom:30px;width:266px;left:50%;margin-left:-133px;text-align:center;color:#e4363c;font-size:18px;font-weight:bold;}
+.btn_lj{position:absolute;bottom:20px;width:190px;left:50%;margin-left:-95px;font-size:20px;}
+
+/*优惠券结束*/
+.guize{position:relative;margin-left:16px;margin-right: 16px;margin-bottom:20px;}
+.rule{text-align:center;padding-top:20px;padding-bottom:15px;background:url(__TMPL__Public/templetimages/top.jpg) no-repeat center 0;}
+.rule span{background-color: #fe4445;border-radius:16px;padding:7px 37px;color:#fff;font-size:14px;}
+.guize_l{background:url(__TMPL__Public/templetimages/neirong.jpg) repeat-y center 0;margin-top: -6px;padding-bottom:15px;}
+.guize_text{color:#7b6043;font-size:12px;padding:5px 12px 5px; min-height:50px;word-break: break-all;}
+.guize .bottom{background:url(__TMPL__Public/templetimages/bottom.jpg) no-repeat center 0;margin-top:-6px;}
+.guize .guize_l img{max-width:100%;}
+/*活动细则结束*/
+.baomingdiv{width:320px; height:152px; background:url(__TMPL__Public/templetimages/dilist.png) no-repeat center 0;background-size:100% 100%;margin-bottom:20px;}
+.baomingdiv .baoming_title{font-size:14px;padding:12px 0px;margin-right:34px;margin-left:34px;border-bottom:2px solid #7c7d7b;}
+.baomingls{white-space:nowrap;overflow-x:scroll;margin-left:26px;margin-right:30px;}
+.baomingls div{ text-align:center;display:inline-block;}
+.baomingls div img{width:46px;height:46px;border-radius:50%; margin:15px 0 5px;margin-right:12px; }
+.baomingls div p.name1{ font-size:12px;margin-bottom:2px; color:#686868;margin-right:12px;}
+.baomingls div p.shijian{font-size:10px;margin-bottom:15px; color:#aaa;margin-right:12px;}
+.youli{position:fixed;right:16px;width:45px;height:45px;border-radius:50%;background-color: #fff;border:3px solid #ffe846;text-align: center;color:#21a7e9;font-size:18px;line-height:22px;padding:8px;top:70%;}
+/*编辑开始*/
+.jichu{ position:relative; border:1px dashed transparent;}
+.czspan{ position:absolute; right:0; top:-28px; color:#FFF; line-height:28px; font-weight:300; background-color:#06C; padding:0 5px; cursor:pointer; display:none;font-size: 14px;}
+</style>
+</head>
+<body>
+<div class="alldiv">
+    <div class="cont">
+        <div class="jichu">
+            <img src="{:sp_get_asset_upload_path($thumb)}" alt="" class="wd100 thumb"/>
+            <span class="czspan" onclick="dianji('thumb',null,'img')" style="top:0;">编辑</span>
+        </div>
+        <div class="top"></div>
+        <div class="title"><div class="jichu"><p class="name">{$name}</p><span class="czspan" onclick="dianji('name',null)">编辑</span></div></div>
+        <img src="__TMPL__Public/templetimages/youhui.png" alt="" class="youhui">
+    </div>
+    <div class="hongbao">
+        <img src="__TMPL__Public/templetimages/hongbao.jpg" alt="">
+        <div class="lingqu">点击立即领取</div>
+        <div class="money"><span class="rmb">￥</span><div class="jichu" style="display:inline-block;"><span class="coupon_price">{$coupon_price}</span></span><span class="czspan" onclick="dianji('coupon_price',null)">编辑</span></div><span class="yuan">元</span></div>
+        <div class="guanzhu"><div class="jichu"><p class="coupon_title">{$coupon_title}</p><span class="czspan" onclick="dianji('coupon_title',null)">编辑</span></div></div>
+        <div class="btn">
+            <img src="__TMPL__Public/templetimages/btn.png" alt="">
+            <div class="btn_lj">立即领取</div>
+        </div>
+    </div>
+    <div class="guize">
+        <div class="rule"><span>活动细则</span></div>
+        <div class="guize_l">
+        	<div class="jichu">
+                <div class="guize_text description">{$description}</div>  
+                <span class="czspan" onclick="dianji('description',null,'guize')">编辑</span>
+        	</div> 
+        </div>
+        <div class="bottom"></div>
+    </div>
+    <div class="baomingdiv">
+    </div>
+    <div class="youli">邀请有礼</div>
+</div>
+</body>
+<script>
+$(function(){
+	genggai("name");
+	genggai("address");
+	genggai("total_limit");
+});
+</script>
+</html>

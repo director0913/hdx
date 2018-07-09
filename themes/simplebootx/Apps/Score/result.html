@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>查询结果</title>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<link rel="stylesheet" href="__TMPL__Apps/common/style/pace-theme-center-circle.css" />
+<script type="text/javascript" src="__TMPL__Apps/common/scripts/pace.min.js"></script>
+<script type="text/javascript">
+    var is_low = navigator.userAgent.toLowerCase().indexOf('android') != -1;
+    var _ww = (window.screen.availWidth * (window.devicePixelRatio || 1.5) / 1);
+    if (is_low && _ww < 720) {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=yes,initial-scale=0.5" />');
+    } else {
+        document.writeln('<meta name="viewport" content="width=750px,target-densitydpi=device-dpi,user-scalable=no" />');
+    } 
+</script>
+<style type="text/css">
+*{ margin:0; padding:0;}
+body{ width:750px; font-family:"微软雅黑"; background-color:#F5F5F5;}
+#fullbg {display:none; position:fixed; z-index:3; left:0; right:0; top:0; bottom:0; background-color:rgba(0,0,0,0.8); opacity:0.8; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fenxiang{position:fixed; z-index:5; top:0; right:20px; display:none;}
+.ding{width:750px; height:100px; line-height:100px; position:fixed; z-index:2; top:0; left:0; border-bottom:1px solid #DBDBDB; text-align:center; font-size:36px; color:#FFF; background-color:#F46902;}
+.ding .fanhui{position:absolute; top:50%; left:20px; margin-top:-20px;}
+.school{ background-color:#FFF; border-bottom:1px solid #E6E6E6; padding-top:15px;}
+.school p{font-size:35px; color:#828282; height:97px; line-height:97px; background:url(images/school.png) 0 center no-repeat;}
+</style>
+</head>
+<body>
+
+<div class="ding chaxun_next"><img src="__TMPL__Apps/Score/images/fanhui.png" class="fanhui" />查询结果</div>
+<p style="height:101px;"></p>
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Score/images/fenxiang.png" id="fenxiang"/>
+		<if condition="$his_info">
+		    <div class="school" style="text-align:center; background-color:transparent;">
+		        <p>姓名：{$his_info['username']}</p>
+		        <p>手机号：<php>echo substr($his_info['mobile'],0,-5)."*****";</php></p>
+		        <p>{$item['title']}&nbsp;&nbsp;总分为：</p>
+		    </div>
+		    <p style="text-align:center; padding:50px 0; margin-bottom:20px; font-size:65px; font-family:宋体; color:#F90; line-height:200px; background:#FFF;">{$his_info['remark']}<span style="font-size:32px;">分</span></p>
+		    <p style="width:40%; float:left; background-color:#f46902; border-radius:10px; height:100px; line-height:100px; font-size:35px; color:#FFF; text-align:center; margin:20px 5%;" class="chaxun_next">再次查询</p>
+		<p style="width:40%; float:left; background-color:#f46902; border-radius:10px; height:100px; line-height:100px; font-size:35px; color:#FFF; text-align:center; margin:20px 5%;" onclick="showBg('fenxiang')">得瑟一下</p>
+		<else />
+
+		<if condition="$result">
+		    <div class="school" style="text-align:center; background-color:transparent;">
+		        <p>姓名：{$result['username']}</p>
+		        <p>手机号：{$result['mobile']}</p>
+		        <p>{$item['title']}&nbsp;&nbsp;总分为：</p>
+		    </div>
+		    <p style="text-align:center; padding:50px 0; margin-bottom:20px; font-size:65px; font-family:宋体; color:#F90; line-height:200px; background:#FFF;">{$result['remark']}<span style="font-size:32px;">分</span></p>
+		    <p style="width:40%; float:left; background-color:#f46902; border-radius:10px; height:100px; line-height:100px; font-size:35px; color:#FFF; text-align:center; margin:20px 5%;" class="chaxun_next">再次查询</p>
+		<p style="width:40%; float:left; background-color:#f46902; border-radius:10px; height:100px; line-height:100px; font-size:35px; color:#FFF; text-align:center; margin:20px 5%;" onclick="showBg('fenxiang')">得瑟一下</p>
+		<else />
+			<p style="text-align:center; font-size:40px; font-family:宋体; color:#F90; line-height:200px; background:#FFF;">暂未查到您的考试成绩</p>
+		    <p style="width:90%; background-color:#f46902; border-radius:10px; height:100px; line-height:100px; font-size:35px; color:#FFF; text-align:center; margin:20px auto;" class="chaxun_next">再次查询</p>
+		</if>
+        
+        </if>
+
+
+
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+$(function(){
+	$('.chaxun_next').click(function(){
+		//alert("lalala");
+		window.location.href="{:U('apps/score/index',array('id'=>$item['id']))}";
+	});
+});
+//显示灰色 jQuery 遮罩层 
+function showBg(tanid) {
+	$("#fullbg").css({
+		display:"block" 
+	});
+	if(tanid=="fenxiang")
+	{
+		$("#fullbg").click(function(){
+			closeBg(tanid)
+		})
+	}
+	else
+	{
+		$('#fullbg').unbind("click");
+	}
+	$("#"+tanid).show(); 
+}
+ 
+//关闭灰色 jQuery 遮罩 
+function closeBg(tanid) {
+	$("#fullbg,#"+tanid).hide(); 
+}
+</script>
+</html>

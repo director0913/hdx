@@ -1,0 +1,567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发布活动</title>
+<tc_include file="Public:head1" />
+<link href="__PUBLIC__/js/artDialog/skins/default.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/addactivity.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<script type="text/javascript" src="__TMPL__Public/js/jquery.qrcode.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/js/zuoyouindex.js"></script>
+<!--
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/kongjian/ueditor1_4_3_3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/kongjian/ueditor1_4_3_3/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/kongjian/ueditor1_4_3_3/lang/zh-cn/zh-cn.js"></script>
+-->
+
+
+</head>
+<body>
+<tc_include file="Public:nav" />
+<form action="{:U('portal/activity/addactivity_post')}" class="form_post" method="post">
+<input type=hidden name="danxun_str" id="danxuan_str">
+<input type=hidden name="duoxuan_str" id="duoxuan_str">
+<input type=hidden name="tid" value="{$info.id}"/>
+<input type=hidden name="option1" value="{$info.option1}"/>
+<input type=hidden name="option2" value="{$info.option2}"/>
+<input type=hidden name="option3" value="{$info.option3}"/>
+<input type=hidden name="option4" value="{$info.option4}"/>
+<input type=hidden name="option5" value="{$info.option5}"/>
+<input type=hidden name="hide_username" id="hide_username" value="1"/>
+<input type=hidden name="hide_mobile" id="hide_mobile" value="1"/>
+<div class="pagediv fabuqu">
+	<div class="f_l zuodiv">
+    	<a href="__ROOT__/"><span class="fa fa-cog"></span>重新选择模板</a>
+    </div>
+    <div class="f_r youdiv">
+    	<a href="javascript:void(0);" onclick="yulan()"><span class="fa fa-mobile"></span>预览</a>
+    	<a href="javascript:void(0);;"  class="lanbtn submit_form"><img src="__TMPL__Public/images/tijiao.png" />提交</a>
+    	<a href="javascript:history.back(-1)" class="huibtn">取消</a>
+    </div>
+    <p class="c_b"></p>
+</div>
+<div class="formdiv p_r">
+    <div class="zuodiv">
+        <div class="shoujike">
+        	<!--<div class="leftjiantou jiantoudiv" onclick="qieiframe(-1)"></div>
+            <div class="youjiantou jiantoudiv" onclick="qieiframe(1)"></div>-->
+        	<div class="muban">
+            	<iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$id,'option'=>$info['option3']))}"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="youdiv">
+    	<!--<div class="daohangdiv">
+        	<ul>
+            	<li class="tab active" data-id="#base" data-class="addhuodong">1.基本信息<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#guize" data-class="addhuodong">2.规则设置<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#fenxiang" data-class="addhuodong">3.分享管理</li>
+                <p class="c_b"></p>
+            </ul>
+        </div>-->
+        <div class="neidiv" style="top:0;">
+        	<div class="addhuodong active" id="base">
+                <div class="itemdiv">
+                    <p class="title">活动名称<span>*</span></p>
+                    <input type="text" class="input required" name="name" data-tip="活动主题不能为空！" maxlength="30" placeholder="请填写活动主题"  value="{$info.name}" onkeyup="genggai(this)"/>
+                </div>
+                <div class="itemdiv timediv">
+                    <p class="title">活动时间<span>*</span></p>
+                    <input type="text" class="shaoduaninput riqizuo" placeholder="开始时间" name="begintime" id="shitime" onchange="gaishijian()" />
+                    <select class="timeselect" name="begintime_fen" onchange="gaishijian()">
+                    </select>
+                    <span class="lianjie">至</span>
+                    <input type="text" class="shaoduaninput riqiyou" placeholder="结束时间" name="endtime" id="zhitime" onchange="gaishijian()" />
+                    <select class="timeselect" name="endtime_fen" onchange="gaishijian()">
+                    </select>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">活动地点<span>*</span></p>
+                    <input type="text" class="input required" data-tip="活动地点不能为空！" placeholder="请填写详细活动地址" name="address" value="{$info.address}" onkeyup="gaidizhi(this)" />
+                    <p class="help">如果有多个地点，请用中文逗号'，'隔开。</p>
+                </div>
+                 <div class="itemdiv">
+                    <p class="title">联系人</p>
+                    <input type="text" class="input required" data-tip="活动联系人不能为空！" placeholder="请填写联系人" name="contact" value="{$info.contact}" onkeyup="genggai(this)" />
+                </div>
+                <div class="itemdiv">
+                    <p class="title">联系电话</p>
+                    <input type="text" class="input required" data-tip="联系电话不能为空！" placeholder="请填写联系电话" name="phone" value="{$info.phone}" onkeyup="genggai(this)" />
+                </div>
+                <if condition="$info['option2'] eq 'coupon_price'">
+                    <div class="itemdiv">
+                        <p class="title">红包金额</p>
+                        <input type="text" class="input" placeholder="请填写红包金额" name="coupon_price" value="{$info.coupon_price}" onkeyup="genggai(this)" />
+                    </div>
+                </if>
+                <if condition="$info['option2'] eq 'coupon_price'">
+                    <div class="itemdiv">
+                        <p class="title">红包说明</p>
+                        <input type="text" class="input" placeholder="请填写红包说明" name="coupon_title" value="{$info.coupon_title}" onkeyup="genggai(this)" />
+                    </div>
+                </if>
+                <div class="itemdiv">
+                    <p class="title">最多报名人数<span>*</span></p>
+                    <input type="text" class="input" placeholder="填写活动最多报名人数" name="total_limit" value="{$info.total_limit}" />
+                    <p class="help">超过限制则不能继续报名</p>
+                </div>
+				<div class="itemdiv">
+					<p class="title">支付二维码<span>*</span></p>
+					 <if condition="empty($info['paycode_thumb'])">
+						<img id="paycode_thumb_preview" src="__TMPL__Public/images/wutu.jpg"  onclick="flashupload('paycode_thumb_thumb', '附件上传','paycode_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;"/>
+					 <else/>
+						<img id="paycode_thumb_preview" src="{:sp_get_asset_upload_path($info['paycode_thumb'])}"  onclick="flashupload('paycode_thumb_thumb', '附件上传','paycode_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;"/>
+					 </if>
+                     <input type="hidden" class="input" name="paycode_thumb" id="paycode_thumb" value="{$info['paycode_thumb']}" placeholder="奖品图片"/>
+					 <p style="    width: 102px;height: 32px; line-height: 32px;border: 1px solid #EEEEF0;text-align: center;color: #463D36;margin:10px;0px;0px;0px;cursor: pointer;" onclick="flashupload('paycode_thumb_thumb', '附件上传','paycode_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+					 <p class="help">上传支付二维码默认为需要支付</p>
+				</div>
+                <div class="itemdiv">
+                    <p class="title">活动海报</p>
+                    <!--
+                    <div class="huodongdiv thumb">
+                        <ul class="f_l">
+                            <foreach name="photos" item="v">
+                                <li><img src="{:sp_get_asset_upload_path($v['url'])}"/><span class="fa fa-check"></span></li>
+                            </foreach>
+                        </ul>
+                        <div class="f_l ziji">
+                            <div class="zidingtu"><img id="thumb_preview" src="__TMPL__Public/images/wutu.jpg" /><span class="fa fa-check"></span></div>
+                            <p class="chuanbtn" onclick="flashupload('thumb_images', '附件上传','thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                            <p class="help">图片尺寸建议为：750*400，图片小于4M</p>
+                        </div>
+                        <input type="hidden" id="thumb" name="thumb" value=""/>
+                        <p class="c_b"></p>
+                    </div>
+                    -->
+                    <div class="huodongdiv thumb">
+                        <ul class="f_l">
+                            <php>$is_same=0;</php>
+                            <foreach name="photos" item="v">
+                                <li <if condition="sp_get_asset_upload_path($v['url']) eq sp_get_asset_upload_path($info['thumb'])"> class="active" <php>$is_same=1;</php></if> ><img src="{:sp_get_asset_upload_path($v['url'])}"/><span class="fa fa-check"></span></li>
+                            </foreach>
+                        </ul>
+                        <div class="f_l ziji">
+                            <if condition="empty($info['thumb']) or $is_same eq 1">
+                                <div class="zidingtu">
+                                <img id="thumb_preview" src="__TMPL__Public/images/wutu.jpg" />
+                            <else/>
+                                <div class="zidingtu active">
+                                <!--
+                                <img id="thumb_preview" src="{:sp_get_asset_upload_path($info['thumb'])}" />
+                                -->
+                                <img id="thumb_preview" src="{:sp_get_asset_upload_path($info['thumb'])}" />
+                            </if>
+                            <span class="fa fa-check"></span></div>
+                            <p class="chuanbtn" onclick="flashupload('thumb_images', '附件上传','thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                            <p class="help">图片尺寸建议为：750*400，图片小于4M</p>
+                        </div>
+                        <input type="hidden" id="thumb" name="thumb" value="{$info.thumb}" />
+                        <p class="c_b"></p>
+                    </div>
+    
+                </div>
+                <div class="itemdiv">
+                    <p class="title">活动详情<span>*</span></p>
+                    <!--<script id="description" type="text/plain" style="width:100%;height:280px;"  name="description"></script>-->
+                     <textarea name="description" id="description" rows="5" cols="57">{$info.description}</textarea>
+                </div>
+                <div class="itemdiv baoming">
+                    <p class="title"><strong>报名填写信息</strong></p>
+                    <div class="baomingdiv d_n">
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem">
+                                <p class="xiaotitle f_l">姓名</p>
+                                <input type="text" class="changinput f_l" placeholder="此项为默认必填项" name="text[]" disabled="true" readOnly="true" />
+                                <div class="icodiv f_l"><p class="xuanze" title="必填"></p></div>
+                                <p class="c_b"></p>
+                            </div>
+                            <div class="xiaoitem">
+                                <p class="xiaotitle f_l">手机</p>
+                                <input type="text" class="changinput f_l" placeholder="此项为默认必填项" name="text[]" disabled="true" readOnly="true" />
+                                <div class="icodiv f_l"><p class="xuanze" title="必填"></p></div>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                        <div class="itemdiv xiaoitem">
+                            <p class="xiaotitle f_l">&nbsp;</p>
+                            <div class="inputdiv zidingyi huakuang f_l">
+                                <div class="tishi">添加一个自定义填写项</div>
+                                <p data-class="danhang"><span>单行文本</span><img src="__TMPL__Public/images/danhang.png" class="f_r m_t11"/></p>
+                                <p data-class="shuzi"><span>数字</span><img src="__TMPL__Public/images/shuzi.png" class="f_r m_t11"/></p>
+                                <p data-class="duohang"><span>多行文本</span><img src="__TMPL__Public/images/duohang.png" class="f_r m_t11"/></p>
+                                <p data-class="danxuan"><span>单选</span><img src="__TMPL__Public/images/danxuan.png" class="f_r m_t11"/></p>
+                                <p data-class="duoxuan"><span>多选</span><img src="__TMPL__Public/images/duoxuan.png" class="f_r m_t11"/></p>
+                                <p data-class="tupian"><span>图片</span><img src="__TMPL__Public/images/tupian.png" class="f_r m_t11"/></p>
+                            </div>
+                            <p class="c_b"></p>
+                        </div>
+                        <div class="shouqidiv"><span class="fa fa-angle-up"></span>收起表单设置</div>
+                    </div>
+                    <div class="xianbaoming"><span>编辑</span>报名表单项，默认收集参与者姓名及手机号</div>
+                </div>
+                <div class="itemdiv p_r">
+                    <div class="bangzhu">
+                        <p>启用活动分销后，参与者可以邀请好友在自己名下报名，激励新老生自发传播，为避免触犯微信分享规定，启用后手机端按钮为"邀请有礼"。</p>
+                        <img src="__TMPL__Public/images/helpjiantou.png" />
+                    </div>
+                    <p class="title"><strong>活动分销</strong><span class="fa fa-info"></span></p>
+                    <div><label class="f_l m_r15"><input type="radio" name="fenxiao" value="1" checked="checked" />启用</label><label class="f_l"><input type="radio" name="fenxiao" value="0" />不启用</label><p class="c_b"></p></div>
+                </div>
+                <div class="itemdiv" id="fenxiaoxiang" >
+                    <div style="text-align: center;"><p class="title">“我要邀请”奖励规则</p></div>
+                    <textarea name="rule" id="rule" rows="5" cols="57">{$info.rule}</textarea>
+                </div>
+            </div>
+        	<div class="addhuodong" id="guize">
+                <div class="itemdiv">
+                    <p class="title">活动规则<span>*</span></p>
+                    <input type="text" class="input" name="guize" placeholder="输入活动名称" />
+                </div>
+            </div>
+        	<div class="addhuodong" id="fenxiang">
+                <div class="itemdiv">
+                    <p class="title">活动分享<span>*</span></p>
+                    <input type="text" class="input" name="fenxiang" placeholder="输入活动名称" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="fullbg"></div>
+<div class="yulanqu">
+	<div class="neidiv">
+    	<div class="f_l waike">
+        	<div class="neirong">
+        	<!--
+            	<iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('option'=>'templet1'))}"></iframe>
+            -->
+            <iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$info['id'],'option'=>$info['option3']))}"></iframe>
+            </div>
+        </div>
+        <div class="youce">
+        	<p class="name">{$info['name']|mb_substr=###,0,16,'utf-8'}<!--<span>免费</span>--></p>
+            <p class="time">发布时间：{$info['createtime']|date="Y-m-d",###}</p>
+            <?php $str='http://'.$_SERVER['HTTP_HOST']."/index.php/portal/mjoin/index/id/".$info['id'].".shtml";?>
+            <div class="erweima">
+            	<div><div class="erweimaimages" data-url="{$str}"></div></div>
+                <p>扫描二维码查看预览效果</p>
+            </div>
+            <a href="#" class="subok">关闭</a>
+        </div>
+        <div class="c_b"></div>
+    </div>
+</div>
+</form>
+<input type="hidden" id="is_free" value="{$info.is_free}" />
+<input type="hidden" id="level" value="{$level}" />
+<input type="hidden" id="domain_name" value="{$domain_name}" />
+<script type="text/javascript">
+    window.onload = function (){
+        var is_free = document.getElementById('is_free').value;
+        var level = document.getElementById('level').value;
+        var domain_name = document.getElementById('domain_name').value;
+        if (is_free == 0) {
+            if (2 > level) {
+                alert('加入会员才可以使用该活动表单！');
+                window.location.href = domain_name + '/index.php/portal/index/show_vip/menu/2.shtml';
+            }
+        }
+    }
+</script>
+<tc_include file="Public:scripts" />
+<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js?v=20170216"></script>
+<script type="text/javascript">
+	//编辑器路径定义
+	var editorURL = GV.DIMAUB;
+</script>
+<script type="text/javascript" src="__TMPL__Public/js/jquery-ui.js"></script>
+</body>
+<script type="text/javascript">
+$(function(){
+	$(".dropdown").click(function(e){
+		e.stopPropagation();
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	$("body").click(function(){
+		$(".dropdown").find(".dropitem").addClass("d_n");
+	});
+	$(".thumb,.timediv").bind("mousemove",function(){
+		$(this).css("box-shadow","");
+	});
+    $(".fa-info").hover(function(){
+        $(".bangzhu").show();
+    },function(){
+        $(".bangzhu").hide();
+    });
+    
+	//切换tab标签。
+	$(".tab").click(function(){
+		qietab($(this));
+	});
+	//var description='{$info.description}';
+	//var ue = UE.getEditor('description',{autoFloatEnabled:false,scaleEnabled:true,elementPathEnabled:false,zIndex:10});
+	/**ue.ready(function() {
+	    ue.setContent(description);
+	});**/
+	var editorcontent1 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','autotypeset','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight', 'simpleupload', 'link','removeformat']]});
+	editorcontent1.render('description');
+	try{editorcontent1.sync();}catch(err){};
+
+	var editorcontent2 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight','removeformat']]});
+	editorcontent2.render('rule');
+	try{editorcontent2.sync();}catch(err){};
+
+	$(".xiaoxiangdiv").on("click",".zixiang span",function(){
+		$(this).parent().remove();
+	});
+	$(".xiaoxiangdiv").on("click",".weixuan",function(){
+		var dataset = $(this).attr("data-set");
+		if(dataset=='username'){
+			$("#hide_username").val(0);
+		}
+		if(dataset=='mobile'){
+			$("#hide_mobile").val(0);
+		}
+		$(this).addClass("xuanze");
+		$(this).removeClass("weixuan");
+	});
+	$(".xiaoxiangdiv").on("click",".xuanze",function(){
+		var dataset = $(this).attr("data-set");
+		if(dataset=='username'){
+			$("#hide_username").val(1);
+		}
+		if(dataset=='mobile'){
+			$("#hide_mobile").val(1);
+		}
+		$(this).addClass("weixuan");
+		$(this).removeClass("xuanze");
+	});
+	$(".shouqidiv").click(function(){
+		$(this).parent().hide();
+		$(".xianbaoming").show();
+	});
+	$(".xiaoxiangdiv").on("click",".icodiv .shanchu",function(){
+		$(this).parent().parent().remove();
+	});
+	$(".xianbaoming").click(function(){
+		$(".baomingdiv").show();
+		$(this).hide();
+	});
+	$(".huakuang p").click(function(){
+		var dataclass=$(this).attr("data-class");
+		var html="";
+		switch(dataclass)
+		{
+			case "danhang": html='<div class="xiaoitem">'+
+									'<p class="xiaotitle f_l">单行文本</p>'+
+									'<input type="text" class="changinput f_l" placeholder="请填写单行文本项名称" name="text[]" />'+
+									'<div class="icodiv f_l"><p class="xuanze" title="必填"></p><p class="shanchu" title="删除"></p></div>'+
+									'<p class="c_b"></p>'+
+								'</div>';break;
+			case "shuzi": html='<div class="xiaoitem">'+
+									'<p class="xiaotitle f_l">数字</p>'+
+									'<input type="text" class="changinput f_l" placeholder="请填写项名称" name="number[]" />'+
+									'<div class="icodiv f_l"><p class="xuanze" title="必填"></p><p class="shanchu" title="删除"></p></div>'+
+									'<p class="c_b"></p>'+
+								'</div>';break;
+			case "tupian": html='<div class="xiaoitem">'+
+									'<p class="xiaotitle f_l">图片</p>'+
+									'<input type="text" class="changinput f_l" placeholder="请填写项名称" name="images[]" />'+
+									'<div class="icodiv f_l"><p class="xuanze" title="必填"></p><p class="shanchu" title="删除"></p></div>'+
+									'<p class="c_b"></p>'+
+								'</div>';break;
+			case "duohang": html='<div class="xiaoitem">'+
+									'<p class="xiaotitle f_l">多行文本</p>'+
+									'<input type="text" class="changinput f_l" placeholder="请填写多行文本项名称" name="textarea[]" />'+
+									'<div class="icodiv f_l"><p class="xuanze" title="必填"></p><p class="shanchu" title="删除"></p></div>'+
+									'<p class="c_b"></p>'+
+								'</div>';break;
+			case "duoxuan": html='<div class="duoxuan1 xiaoitem">'+
+									'<p class="xiaotitle f_l">多项选择</p>'+
+									'<div class="changdiv f_l">'+
+										'<input type="text" class="changinput f_l wt1001" placeholder="请填写多选项名称" />'+
+										'<ul class="zixiang">'+
+											'<li class="p_r"><input type="text" class="wtxianginput1" placeholder="选项名称" name="checkbox[]" /><span class="fa fa-close"></span></li>'+
+											'<li class="p_r"><input type="text" class="wtxianginput1" placeholder="选项名称" name="checkbox[]" /><span class="fa fa-close"></span></li>'+
+										'</ul>'+
+										'<p class="addxiaoitem duoxiang f_l">添加选项</p>'+
+										'<p class="c_b"></p>'+
+									'</div>'+
+									'<div class="icodiv f_l"><p class="xuanze" title="必填"></p><p class="shanchu" title="删除"></p></div>'+
+									'<p class="c_b"></p>'+
+								'</div>';break;
+			case "danxuan": html='<div class="danxuan1 xiaoitem">'+
+									'<p class="xiaotitle f_l">单项选择</p>'+
+									'<div class="changdiv f_l">'+
+										'<input type="text" class="changinput f_l wt1001" placeholder="请填写单选项名称" />'+
+										'<ul class="zixiang">'+
+											'<li class="p_r"><input type="text" class="wtxianginput1" placeholder="选项名称" name="radio[]" /><span class="fa fa-close"></span></li>'+
+											'<li class="p_r"><input type="text" class="wtxianginput1" placeholder="选项名称" name="radio[]" /><span class="fa fa-close"></span></li>'+
+										'</ul>'+
+										'<p class="addxiaoitem danxiang f_l">添加选项</p>'+
+										'<p class="c_b"></p>'+
+									'</div>'+
+									'<div class="icodiv f_l"><p class="xuanze" title="必填"></p><p class="shanchu" title="删除"></p></div>'+
+									'<p class="c_b"></p>'+
+								'</div>';break;
+		}
+		$(".xiaoxiangdiv").append(html);
+	});
+	$(".xiaoxiangdiv").on("click",".duoxiang",function(){
+		var xianginput='<li class="p_r"><input type="text" class="wtxianginput1" name="checkbox[]" /><span class="fa fa-close"></span></li>';
+		$(this).prev().append(xianginput);
+	});
+	$(".xiaoxiangdiv").on("click",".danxiang",function(){
+		var xianginput='<li class="p_r"><input type="text" class="wtxianginput1" name="radio[]" /><span class="fa fa-close"></span></li>';
+		$(this).prev().append(xianginput);
+	});
+	$("input[name='fenxiao']").click(function(){
+		var checkval = $(this).val();
+		if(checkval==0){
+			$("#fenxiaoxiang").css("display","none");
+		}else{
+			$("#fenxiaoxiang").css("display","block");
+		}
+	});
+	gaisize();
+	$(window).resize(function () {          //当浏览器大小变化时
+		gaisize();
+	});
+	$(".huodongdiv li,.zidingtu").click(function(){
+		//清除所有选中状态包括自定义的。
+		$(".huodongdiv li.active,.zidingtu.active").removeClass("active");
+		//为自己添加选中。
+		$(this).addClass('active');
+		$(".huodongdiv").find("input[name='thumb']").val($(this).find("img").attr("src"));
+		changeimg($($(".huodongdiv").find("input[name='thumb']")[0]));
+	});
+	var selecthtml="";
+	for(var i=0;i<24;i++)
+	{
+		selecthtml+='<option value="'+i+':00">'+i+':00</option>';
+		selecthtml+='<option value="'+i+':30">'+i+':30</option>';
+	}
+	$(".timeselect").append(selecthtml);
+	editorlod("description");
+})
+//切换tab标签。	
+function qietab(obj)
+{
+	if($(obj).hasClass("active")) return;
+	var dataclass=$(obj).attr("data-class");
+	$(".tab[data-class='"+dataclass+"']").removeClass("active");
+	$(obj).addClass("active");
+	//获取关联div信息
+	$("."+$(obj).attr("data-class")+".active").removeClass("active");
+	$($(obj).attr("data-id")).addClass("active");
+}		
+function gaishijian()
+{
+	//获取开始时间
+	var begintime=$("input[name='begintime']").val();
+	var begintime_fen=$("select[name='begintime_fen']").val();
+	var endtime=$("input[name='endtime']").val();
+	var endtime_fen=$("select[name='endtime_fen']").val();
+	var kuangobj=$("#yulaniframe").contents().find(".time");
+	kuangobj.html(begintime+" "+begintime_fen+" 至 "+endtime+" "+endtime_fen);
+}
+function gaidizhi(obj)
+{
+	//获取开始时间
+	var val=$(obj).val();
+	var newstr=val.replace(/(，)/g,"<br/>"); 
+	var kuangobj=$("#yulaniframe").contents().find(".address");
+	kuangobj.html(newstr);
+}
+var iframe;
+//定义变量获取上一个阴影的对象。
+var yininput=null;
+function gaisize()
+{
+	//获取浏览器高度。
+	var windowheight=$(window).height();
+	$(".formdiv").css("height",(windowheight-128)+"px");
+}
+function yulan(){
+	showBg("#fullbg",".yulanqu",true);
+	$("body").css("overflow","hidden");
+	$(".yulanqu").click(function(){closeBg("#fullbg",".yulanqu");
+	$("body").css("overflow","auto");});
+	$(".yulanqu .waike,.yulanqu .youce").click(function(){});
+}
+$(".submit_form").click(function(){
+		var flag = true;
+        $(".required").each(function(){
+            var value = $(this).val();
+            if(!value){
+                flag = false;
+                 var tip=$(this).attr("data-tip");
+                alert(tip);
+                return false;
+            }
+        });
+        if(flag==false){return false;}
+        //特殊处理单选和多选的问题
+		var duoxuan = new Array();
+		var danxuan = new Array();
+		var obj1 = {'title':'','item':''};
+		var str1 = "";
+		var obj2 = {'title':'','item':''};
+		var str2 = "";
+		//多选
+		$(".duoxuan1").each(function(){
+			obj1.title=$(this).find(".wt1001").val();
+			str1 = "";
+			$(this).find(".wtxianginput1").each(function(){
+				str1+=$(this).val()+",";
+			});
+			if(str1){
+				str1 = str1.substring(0,str1.length-1);
+			}
+			obj1.item = str1;
+			duoxuan.push(obj1);
+		});
+		$(".danxuan1").each(function(){
+			obj2.title=$(this).find(".wt1001").val();
+			str2 = "";
+			$(this).find(".wtxianginput1").each(function(){
+				str2+=$(this).val()+",";
+			});
+			if(str2){
+				str2 = str2.substring(0,str2.length-1);
+			}
+			obj2.item = str2;
+			danxuan.push(obj2);
+		});
+		var jsonText1 = JSON.stringify(duoxuan);  
+		var jsonText2 = JSON.stringify(danxuan); 
+		$("#danxuan_str").val(jsonText2);
+		$("#duoxuan_str").val(jsonText1);
+		var url = "{:U('portal/activity/addactivity_post')}";
+		$.post(url,$(".form_post").serializeArray(),function(res){
+			alert(res.info);
+			if(res.status){
+				window.location.href=res.url;
+			}
+		});
+    });
+  $(document).ready(function() {
+		$("#shitime").datepicker();
+		$("#zhitime").datepicker();
+		$("#shitime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+		$("#shitime").datepicker("setDate", "{$info.begintime|date='Y-m-d',###}");
+		$("#zhitime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+		$("#zhitime").datepicker("setDate", "{$info.endtime|date='Y-m-d',###}");
+  });
+  $(".erweimaimages").map(function(){jQuery(this).qrcode({width: 168,height: 168,text: $(".erweimaimages").attr("data-url")});});
+  
+/*var pagelist=eval('["http:\/\/tongyishidai.com\/app\/index.php?i=2&c=entry&do=yuindex&m=envelop","http:\/\/tongyishidai.com\/app\/index.php?i=2&c=entry&do=yurule&m=envelop","http:\/\/tongyishidai.com\/app\/index.php?i=2&c=entry&do=yufenxiang&m=envelop"]');
+var dqpage=0;*/
+</script>
+</html>

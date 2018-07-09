@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>{$title}</title>
+<link rel="stylesheet" href="__TMPL__Apps/Common/style/pace-theme-center-circle.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Invitegift/css/public.css?i=11" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Apps/Invitegift/css/invite.css?i=3" />
+<script type="text/javascript" src="__TMPL__Public/js/jquery-1.9.1.min.js "></script>
+<script src="__PUBLIC__/js/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/scripts/pace.min.js"></script>
+<script type="text/javascript" src="__TMPL__Apps/Common/zhezhao.js"></script>
+<style>
+	.skill_support{width: 100%;background: #fff;text-align: center;}
+	.skill_support img{width: 150px;height: 12px;padding: 14px 0}
+	.skill_support a{ display: block;}
+</style>
+</head>
+<body>
+<img src="__TMPL__Apps/Invitegift/images/top.jpg" class="w100"/>
+<div class="top">
+    <p class="wenzi">{$title}</p>
+    <p class="dian"></p>
+		<div class="zhongdiv ">
+		<div class='login <if condition=" $is_me eq 0 or $is_register eq 1"> d_n </if> '>
+           <p class="user"><img src="{$user_info['headimgurl']}" /></p>
+            <p class="text">
+                <input type="text" placeholder="请输入姓名" id="name">
+                <input type="tel" placeholder="请输入手机号" id="tel">
+            </p>
+        </div>
+			<div class='ewm <if condition="$shareid eq 0 and empty($userid)">d_n</if>'>
+			<p class="mymingpian">{$sharename}的特权邀请码</p>
+            <img src="{$qrcode_url}"/>
+            <p class='gz <if condition="$is_me eq 0">d_n</if>' onclick="showBg('fullbg','rule',false)">查看邀请有礼规则></p>
+            <p class='gz <if condition="$is_me eq 1">d_n</if>'>长按二维码即可参与活动</p>
+        </div>
+    </div>
+</div>
+<if condition="$is_me eq 1">
+	<div class='btn weizhuce <if condition="$is_register eq 1 ">d_n</if>'>
+		<p class="shengcheng"><a href="javascript:void(0);" onclick="regist()">生成我的邀请码</a></p>
+		<p class="guize" onclick="showBg('fullbg','rule',false)">查看邀请有礼规则></p>
+	</div>
+	<div class='btn yizhuce <if condition="$is_register eq 0">d_n</if>'>
+		<p class="shengcheng"><a href="javascript:void(0);" onclick="showBg('fullbg','fenxiang',true)">分享我的邀请码</a></p>
+		<p class="guize" onclick="showBg('fullbg','jilu',false)">我的邀请记录></p>
+	</div>
+</if>
+<if condition="$is_me eq 0">
+	<p class="myhuodong">
+		<if condition="$is_register eq 0"> 我也要邀请<else/>进入我的邀请</if>
+	</p>
+</if>
+<div id="fullbg"></div>
+<img src="__TMPL__Apps/Invitegift/images/fenxiang.png" id="fenxiang" onclick="closeBg('fullbg','fenxiang')" />
+<img src="__TMPL__Apps/Invitegift/images/load.gif" id="load"/>
+<div id="rule">
+    <p class="yuan"></p>
+    <p class="youli">邀请有礼</p>
+    <img src="__TMPL__Apps/Invitegift/images/close1.png" class="close" onclick="closeBg('fullbg','rule')"  />
+    <div class="content">{$rule|htmlspecialchars_decode}</div>
+</div>
+<div id="jilu">
+    <p class="yuan"></p>
+    <p class="youli">邀请记录</p>
+    <img src="__TMPL__Apps/Invitegift/images/close1.png" class="close" onclick="closeBg('fullbg','jilu')"  />
+    <ul>
+		<foreach name="jilu" item="j">
+			<li>
+				<img src="{$j['avatar']}"/>
+				<p class="name f_l">{$j['username']}</p>
+				<p class="time f_r"><php> echo date("m-d h:i",$j['createtime']);</php></p>
+			</li>
+		</foreach>
+    </ul>
+</div>
+<div class="skill_support">
+	<a href="/index.php/portal/index/show_slogan/id/1.shtml">
+		<img src="http://vip-10066727.file.myqcloud.com/Uploads/img/170804104651525346c4192bedd2c388a2c1.gif">
+	</a>
+</div>
+</body>
+<script type="text/javascript">
+var sharetitle="{$share.title}";
+var sharedesc="{$share.desc}";
+var shareurl="{$share.url}";
+var shareimg="{$share.imgUrl}";
+var registurl ="http://{$_SERVER['HTTP_HOST']}{:U('apps/Invitegift/register1',array('id'=>$id,'pid'=>$shareid))}";
+var erweimaurl ="http://{$_SERVER['HTTP_HOST']}{:U('apps/Invitegift/geterweima',array('id'=>$id,'uid'=>$shareid))}";
+var indexurl="http://{$_SERVER['HTTP_HOST']}{:U('apps/Invitegift/index',array('id'=>$id))}";
+var shareid=parseInt("{$shareid}");
+// JavaScript Document
+$(function(){
+	$(".myhuodong").click(function(){
+		window.location.href=indexurl;
+	})
+	//如果需要获取二维码，就获取一个。
+	//如果有分享id或没有分享id但自己已经注册了，就获取二维码。
+	/**if(shareid)
+	{
+		showBg('fullbg','load',false);
+		$.post(erweimaurl,{},function(res){
+			closeBg('fullbg','load');
+			res = $.parseJSON(res);
+			if(res.status==1)
+			{
+				//$(".ewm img").attr("src","http://huodong.tongyishidai.com/index.php/apps/invitegift/geterweima/id/157.shtml");
+			}
+		});
+	}**/
+})
+//注册
+var kaiguan=false;
+function regist()
+{
+	if(kaiguan)
+	{
+		return;
+	}
+	
+	kaiguan=true;
+	var name=$("#name").val();
+	var tel=$("#tel").val();
+	if(!name)
+	{
+		kaiguan=false;alert("姓名不能为空！");return;
+	}
+	if(!tel)
+	{
+		kaiguan=false;alert("手机号不能为空！"); return;
+	}
+	if(tel.length!=11)
+	{
+		kaiguan=false;alert("手机号不正确，请重新填写！"); return;
+	}
+	showBg('fullbg','load',false);
+	$.post(registurl,{name:name,tel:tel},function(res){
+		res = $.parseJSON(res);
+		if(res.status==1)
+		{
+			//res1 = $.parseJSON(res1);
+			//$(".ewm img").attr("src","http://huodong.tongyishidai.com/index.php/apps/invitegift/geterweima/id/157.shtml");
+			closeBg('fullbg','load');
+			kaiguan=false;
+			//生成二维码
+			$(".login,.weizhuce").hide();
+			$(".ewm,.yizhuce").show();
+			window.location.href = window.location.href+"&tt=1";
+			/**$(".mymingpian").text(name+"的特权邀请码");
+			$(".ewm img").attr("src",res.url);
+			//修改分享链接。
+			sharedata.link+="&shareid="+res.uid;
+			closeBg('fullbg','load');
+			kaiguan=false;
+			//生成二维码
+			$(".login,.weizhuce").hide();
+			$(".ewm,.yizhuce").show();
+			**/
+		}
+		else
+		{
+			closeBg('fullbg','load');
+			kaiguan=false;
+			alert(res.msg);
+		}
+	});
+}
+</script>
+<tc_include file="Public:mobile" />
+</html>

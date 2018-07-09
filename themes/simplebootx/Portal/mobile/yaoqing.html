@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<title>邀请二维码</title>
+<style type="text/css">
+*{ margin:0; padding:0;}
+body{ background-color:#33373a;}
+ul{ list-style-type:none;}
+.t_c{ text-align:center;}
+.c_b{ clear:both;}
+.alldiv{ padding:0 20px;}
+.toptu{ height:135px; position:relative;}
+.toptu .beijing{ width:100%; height:100%;}
+.toptu .fuxinxi{ position:absolute; top:0; bottom:0; left:0; right:0; text-align:center; color:#FFF; font-size:12px;}
+.toptu .fuxinxi .touxiang{ width:42px; height:42px; border-radius:50%; margin:7px auto;}
+.toptu .fuxinxi .name{ font-size:13px; margin-bottom:6px;}
+.toptu .fuxinxi p{font-size: 15px;text-align: center;margin-left:20px;margin-right: 20px;line-height:20px;}
+.erweimaqu{ width:242px;height:242px; margin:0 auto; border:4px solid #fcd204; border-radius:50%; background-color:#FFF; text-align:center;box-shadow:0 3px 3px 0px #1e1705;overflow:hidden;}
+.erweimaqu img{ width:186px; margin:28px auto;}
+.tishi{ text-align:center; font-size:12px; color:#FFF; margin:20px 0;}
+.title{ border-bottom:1px solid #a5a6a8; font-size:14px; height:34px; line-height:34px; text-align:center; margin-top:33px; color:#FFF;}
+.jilu{ padding:0 13px 13px 13px;}
+.jilu li{ margin-top:20px; color:#a8a9ab; font-size:12px; line-height:17px;}
+.jilu li .touxiang{ width:29px; height:29px; margin-right:7px; float:left;}
+.jilu li .xinxi{ float:left;}
+.jilu li .time{ line-height:29px; float:right;}
+</style>
+<script type="text/javascript" src="__TMPL__Public/mobile/js/jquery.js"></script>
+</head>
+<body>
+<div class="alldiv">
+	<div class="toptu">
+    	<img src="__TMPL__Public/mobile/images/toptu.jpg" class="beijing" />
+        <div class="fuxinxi">
+            <if condition="$user[wx_avatar]">
+                <img src="{$user[wx_avatar]}" class="touxiang" />
+            <else />
+                <img src="__TMPL__Public/mobile/images/touxiang.jpg" class="touxiang" />
+            </if>
+        	
+            <p class="name">{$user[user_nicename]}</p>
+            <p>邀请你一起体验同翼时代，注册即送30天亲情会员</p>
+        </div>
+    </div>
+    <p class="t_c"><img src="__TMPL__Public/mobile/images/huangxian.jpg" style="height:40px;" /></p>
+    <div class="erweimaqu">
+    	<img src="{:U('portal/Mindex/geterweima',array('uid'=>$uid))}" />
+    </div>
+    <!-- <div class="invite">测试邀请地址aa</div> -->
+    <if condition="!$self">
+        <p class="tishi">长按识别二维码</p>
+    </if>
+    <if condition="$nolist neq 1">
+    <p class="title">我的邀请记录∨</p>
+    <ul class="jilu">
+        <foreach name="yaoqing_list" item="vo">
+    	<li>
+            <if condition="$vo['wx_avatar']">
+                <img src="{$vo['wx_avatar']}" class="touxiang" />
+            <else />
+                <img src="__TMPL__Public/mobile/images/touxiang.jpg" class="touxiang" />
+            </if>
+            <div class="xinxi">
+                <p>{$vo['user_nicename']}</p>
+                <p>{$vo['mobile']}</p>
+            </div>
+            <p class="time">{$vo['create_time']}</p>
+            <p class="c_b"></p>
+        </li>
+        </foreach>
+    </ul>
+    </if>
+</div>
+</body>
+<tc_include file="Public:mobile" />
+<script type="text/javascript">
+    $(function(){
+        $('.invite').click(function(){
+            var url="{:U('portal/mindex/registnew',array('pid'=>$_GET['uid']))}";
+            alert(url);
+            window.location.href=url;
+        });
+    });
+</script>
+</html>

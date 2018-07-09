@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>注册</title>
+<link type="text/css" rel="stylesheet" href="css/public.css" />
+<link type="text/css" rel="stylesheet" href="css/home.css" />
+<link type="text/css" rel="stylesheet" href="css/regist.css" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+</head>
+
+<body>
+<div class="p_r topdiv">
+	<img src="images/login_banner.jpg" class="wt100" />
+    <div class="topindex">
+    	<div class="pagediv">
+        	<a href="index.html" class="logo"><img src="images/logo.png" /></a>
+            <ul class="caozuo f_r">
+                <li class="f_l"><a href="login.html">登录</a></li>
+            </ul>
+            <div class="c_b"></div>
+        </div>
+    </div>
+</div>
+<div class="zhongxiaodiv">
+	<p class="topzi">注册<br/><span>REGIST</span></p>
+	<div class="waidiv">
+	<table border="0" cellpadding="0" cellspacing="0" class="zhucebiao">
+    	<tr>
+        	<td align="right">机构名称</td>
+            <td><input type="text" placeholder="输入机构名称"/></td>
+        </tr>
+    	<tr>
+        	<td align="right">负责人名称</td>
+            <td><input type="text" placeholder="输入负责人名称"/></td>
+        </tr>
+    	<tr>
+        	<td align="right">负责人电话</td>
+            <td><input type="text" placeholder="输入负责人电话"/></td>
+        </tr>
+    	<tr>
+        	<td align="right">机构项目</td>
+            <td>
+            	<label><input type="checkbox" value="1" />幼少儿阶段</label>
+            	<label><input type="checkbox" value="1" />素质教育课程</label>
+            	<label><input type="checkbox" value="1" />初高中阶段</label><br/>
+            	<label><input type="checkbox" value="1" />幼儿园</label>
+            	<label><input type="checkbox" value="1" />应试类文化课</label>
+            	<label><input type="checkbox" value="1" />早教</label><br/>
+            	<label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+        	<td align="right">地区</td>
+            <td>
+            	<select>
+                	<option>请选择省份</option>
+                	<option>河南</option>
+                </select>
+            	<select>
+                	<option>请选择城市</option>
+                	<option>郑州</option>
+                </select>
+            </td>
+        </tr>
+    	<tr>
+        	<td>&nbsp;</td>
+            <td><input type="button" class="btn" value="提交" /></td>
+        </tr>
+    </table>
+    </div>
+    <p class="c_b"></p>
+</div>
+</body>
+<script type="text/javascript">
+var jishi=null;
+var zongshi=20;
+$(function(){
+	dongyanzheng();
+})
+function dongyanzheng()
+{
+	$(".getyanzheng").click(function(){
+		zongshi=20;
+		$(this).html(zongshi+"秒后获取").unbind().css("color","#ddd");
+		jishi=setInterval("daoshi()",1000)
+	})
+}
+function daoshi()
+{
+	zongshi--;
+	$(".getyanzheng").html(zongshi+"秒后获取");
+	if(zongshi<=0)
+	{
+		$(".getyanzheng").html("获取验证码").css("color","#FA741B");
+		dongyanzheng();
+		clearInterval(jishi);
+	}
+}
+</script>
+</html>

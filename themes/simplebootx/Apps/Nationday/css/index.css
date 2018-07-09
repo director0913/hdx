@@ -1,0 +1,113 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+ul{ list-style-type:none;}
+.c_b{ clear:both;}
+.d_n{ display:none;}
+.t_c{ text-align:center;}
+.w50{ width:50%;}
+.padded-28{padding:75px 28px 40px;}
+.f_l{ float:left;}
+.f_r{ float:right;}
+.mt20{ margin-top:20px;}
+.fullbg,.fullbg2{ position:fixed; top:0; left:0; right:0; bottom:0; z-index:10; background-color:#000; filter:alpha(opacity=70); -moz-opacity:0.8; -khtml-opacity:0.8; opacity:0.8; display:none;}
+.fullbg2{z-index:30;}
+#fenxiang{ position:fixed;width:260px;height:170px;top:50%; left:50%; margin-top:-85px; margin-left:-130px; z-index:30; display:none;}
+.banquan{ font-size:13px; color:#FFF; margin:40px 0 20px; text-align:center;}
+body{ width:750px; background:#e02d0f url(../images/beijing.jpg) 0 0 no-repeat; background-size:100% 110%; font-family:"微软雅黑";}
+#yinyue{position:absolute; z-index:2; top:20px; right:38px; width:70px; height:70px;background:url(../images/music.png) center center no-repeat; animation: bgRotate 6s linear infinite; background-size:auto 100%; -webkit-animation: bgRotate 6s linear infinite; -moz-animation: bgRotate 6s linear infinite; -o-animation: bgRotate 6s linear infinite;}
+@keyframes bgRotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@-webkit-keyframes bgRotate{from{-webkit-transform:rotate(0deg)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes bgRotate{from{-moz-transform:rotate(0deg)}to{-moz-transform:rotate(360deg)}}@-o-keyframes bgRotate{from{-o-transform:rotate(0deg)}to{-o-transform:rotate(360deg)}}
+.ting{animation-play-state: paused !important; -webkit-animation-play-state: paused !important; animation:inherit !important; -webkit-animation:inherit !important; -moz-animation:inherit !important; -o-animation:inherit !important;}
+.topdiv{position:relative;margin-top:43px;text-align:center;}
+.topdiv img{ width:673px;}
+.topdiv .title{position:absolute;bottom:138px;left:150px;right:165px;font-size:35px; color:#FFF;overflow:hidden;}
+.canyu_num,.canyu .canyu_select{font-size:32px;color:#FFF; text-align:center;width:300px;margin:0 auto;}
+.canyu_num span{ color:#ffd902;}
+.canyu_select{margin-top:30px;}
+.bingqu{ height:342px; background:url(../images/kuang1.png) 0 0 no-repeat; margin:0 21px;}
+.binglist1,.binglist{ margin:40px 51px 0;}
+.binglist1 li,.binglist li{ float:left; margin:0 16px; width:170px; height:170px; position:relative;text-align:center;line-height:170px;}
+.binglist1{margin-left:66px;margin-right:66px;}
+.binglist1 li{border:2px dashed #fff;border-radius: 50%;}
+.binglist1 li img,.binglist li img{vertical-align:middle;}
+.btn{background:url(../images/btn1.png) center center no-repeat;background-size:100% 100%;width:265px;height:86px;margin:60px auto;font-size:36px;line-height:84px;color:#fff;text-shadow:3px 3px 3px #4a691c;text-align: center;}
+/*活动规则开始*/
+.xinxidiv{ margin:0px 20px 20px;}
+.xinxidiv .tab li{ float:left;width:216px;height:80px;line-height:70px; text-align:center; margin:0 10px;background:url(../images/nav2.png) no-repeat center bottom;background-size:100% 100%;font-size:32px;}
+.xinxidiv .tab li.active{background:url(../images/nav1.png) no-repeat center bottom;color:#fff;width:212px;height:80px;line-height:70px;background-size:100% 100%; }
+.xinxidiv .neirongdiv{min-height:200px;border-radius:4px;background-color:#FFF; margin-top:-55px;}
+.neirongdiv .guize,.women{line-height:40px;}
+.xinxidiv .neirongdiv img{ max-width:100%;} 
+.haoyou ul{ padding:50px 30px 15px;}
+.haoyou ul li{ padding:20px 0; border-bottom:1px solid #898989;}
+.haoyou ul li:last-child{border-bottom:none;}
+.haoyou ul li .touxiang{ width:91px; float:left; margin:13px 13px 13px 0;}
+.haoyou ul li div{ float:left; font-size:32px; line-height:52px; color:#252628; margin-top:7px;}
+.haoyou ul li .haoyou_help{margin-left:6px;margin-right:6px;float:right;color:#e32c1a;margin-top:30px;}
+/*活动规则结束*/
+/*选礼盒开始*/
+.login{display:none;}
+.lihe{margin:145px 39px 0;height:144px;}
+.lihe2{margin:70px 123px;}
+.lihe li{float:left; margin:0 12px;width:140px;height:140px;border-radius:50%; position:relative;text-align:center;line-height:140px;margin-bottom:50px;border:2px dashed transparent;}
+.lihe li img{vertical-align:middle;max-width:100px;max-height:100px;}
+.lihe .xuanzhong{border-color:#fff;}
+.login_select{font-size:32px;color:#FFF; text-align:center;margin-bottom:20px;}
+.login_select2{font-size:32px;color:#FFF; text-align:center;margin-bottom:100px;}
+.inputdiv {height:78px;margin:25px auto;text-align: center;}
+.inputdiv input,select{ height:78px;width:490px;border:none;border-radius:16px; font-size:34px; padding-left:24px;padding-right:24px; outline:none;background-color: #f29955;border:1px solid #e01c10;}
+:-moz-placeholder{color:#000102;}
+::-moz-placeholder{color:#000102;}
+input:-ms-input-placeholder{color: #000102;}
+input::-webkit-input-placeholder{color: #000102;}
+.submit{background:url(../images/submit.png) center center no-repeat;background-size:100% 100%;width:212px;height:86px;margin:80px auto 40px;font-size:36px;line-height:84px;color:#fff;text-shadow:3px 3px 3px #4a691c;text-align: center;}
+/*选礼盒结束*/
+/*领取礼盒开始*/
+.lingqu{display:none;}
+.lingqu .touxiang{width:376px; margin:0 auto;}
+.lingqu .touxiang .tupian{ width:85px;height:85px; border:5px solid #f5f0dc; border-radius:50%; background-color:#d7cdc1; padding:1px; float:left; margin-right:14px;}
+.lingqu .touxiang .tupian img{ width:100%; border-radius:50%;}
+.lingqu .touxiang .xinxi p{ font-size:32px; color:#FFF;line-height:50px;}
+.binglist.detail{padding-top:20px;}
+.baomingls{width:674px; margin:10px auto 0; height:150px;padding-left:16px;padding-right: 16px;}
+.baomingls div{text-align:center;display:inline-block;margin-left:9px;margin-right:9px;vertical-align:top;}
+.baomingls div img{width:70px;height:70px;border-radius:50%; margin:10px 0 6px;border:4px solid #fff;}
+.baomingls div .name{font-size:26px;height:30px;color:#fff;}
+.btn_l,.btn_r{background:url(../images/btn1.png) center center no-repeat;background-size:100% 100%;width:265px;height:86px;margin:50px auto;font-size:36px;line-height:84px;color:#fff;text-shadow:3px 3px 3px #4a691c;text-align: center;float:left;margin-left:60px;}
+.btn_r{background:url(../images/submit.png);width:212px;float:right;margin-right:60px;}
+/*领取礼盒结束*/
+/*大礼包开始*/
+.libao{display:none;position:fixed;top:50px;left:50%;z-index:40;width:520px;margin-left:-260px;}
+.libao .lihediv{width:160px;height: auto;margin:130px auto;text-align: center;}
+.libao .konglihe{width:260px;height: auto;margin:170px auto;text-align: center;}
+.libao .konglihe img{width:100%;}
+.faguang{
+    width:520px;
+    height:520px;
+    background-image: url(../images/faguang.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    z-index:-1;
+    border-radius:50%;
+    top:0;
+    left:0;
+    animation: bgRotate 6s linear infinite;
+    -webkit-animation: bgRotate 6s linear infinite;
+    -moz-animation: bgRotate 6s linear infinite;
+    -o-animation: bgRotate 6s linear infinite;
+}
+.xiaoren,.xiaoren2{text-align:right;margin-right:-80px;}
+.jiangpin{width:550px;height:180px;background-color: #fff;border-radius:12px;margin-top:-72px;margin-left:-15px;}
+.jiangpin .jiangpin_tishi{text-align: center;font-size:36px;padding-top:36px;line-height:60px;margin:0 20px;}
+.jiangpin .jiangpin_name{text-align: center;font-size:36px;margin-top:6px;color:#cb2c29;}
+/*大礼包结束*/
+/*宝箱开始*/
+.baoxiang{position:fixed; top:50%; left:50%; z-index:20; width:600px; height:860px; margin-top:-430px; margin-left:-300px; background-color:#fff; text-align:center; border-radius:20px;display:none;}
+.baoxiang ul{margin:30px 40px; height:800px;overflow:auto;}
+.baoxiang ul li{border-bottom:1px solid #111;padding-top:24px;}
+.baoxiang ul li:last-child{border-bottom:none;}
+.baoxiangtu{width:160px;margin-bottom:20px;}
+.baoxiang p{ font-size:32px;color:#626262;}
+.baoxiang .btn{ margin-top:30px;line-height:82px;}
+/*宝箱结束*/

@@ -1,0 +1,52 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('form/index')}">活动模板管理</a></li>
+			<li><a href="{:U('form/add')}">添加活动模板</a></li>
+		</ul>
+		<form method="post" class="js-ajax-form">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('display'=>1))}" data-subcheck="true">{:L('DISPLAY')}</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('hide'=>1))}" data-subcheck="true">{:L('HIDE')}</button>
+			</div>
+			<php> $status=array("1"=>L('DISPLAY'),"0"=>L('HIDDEN')); </php>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="16"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="50">ID</th>
+						<th>封面</th>
+						<th>名称</th>
+						<!--<th>简介</th>-->
+						<th width="45">{:L('STATUS')}</th>
+						<th width="120">{:L('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="ads" item="vo">
+					<tr>
+						<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}"></td>
+						<td>{$vo.id}</td>
+						<td><img src="{:sp_get_asset_upload_path($vo['index_thumb'],true);}" width=80 height=80/></td>
+						<td><a href="{:U('form/edit',array('id'=>$vo['id']))}">{$vo.name}</a></td>
+						<!--<td>{$vo.description}</td>-->
+						<td>{$status[$vo['status']]}</td>
+						<td>
+							<a href="{:U('form/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
+							<a href="{:U('form/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+						</td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('display'=>1))}" data-subcheck="true">{:L('DISPLAY')}</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('form/toggle',array('hide'=>1))}" data-subcheck="true">{:L('HIDE')}</button>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

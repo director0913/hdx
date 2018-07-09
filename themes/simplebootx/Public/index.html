@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<title>首页</title>
+<tc_include file="Public:head1" />
+<link href="__TMPL__Public/css/activity/index.css"  rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<script type="text/javascript" src="__TMPL__Public/js/jquery.qrcode.min.js"></script>
+<style type="text/css">
+    .fix{*zoom:1;}
+    .fix:after{display:block; content:"clear"; height:0; clear:both; overflow:hidden; visibility:hidden;}
+</style>
+</head>
+<body>
+<tc_include file="Public:index_nav" />
+<div class="pagediv fix">
+    <div class="title">创建活动</div>
+    <ul class="list youzheceng">
+		<php>$forms = sp_getforms();</php>
+		<foreach name="forms" item="vo">
+			 <li>
+				<div class="tudiv">
+					<img src="{:sp_get_asset_upload_path($vo['index_thumb'])}" />
+					<div class="zheceng">
+						<ul class="yulanceng">
+							<li class="f_l">
+                                <a href="javascript:void(0);">
+                                    <div class="yuanpian yulan"
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                        data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                        data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}">
+                                        <p></p><img src="__TMPL__Public/images/yulan.png" />
+                                    </div>
+                                    <p class="gongneng">预览</p>
+                                </a>
+							</li>
+							<li class="f_r">
+                                <a href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}">
+                                    <div class="yuanpian bianji" 
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"      data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                        data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}">
+                                        <p></p><img src="__TMPL__Public/images/bianji.png" />
+                                    </div>
+                                    <p class="gongneng">创建</p>
+                                </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<p class="name">{$vo.name}</p>
+			</li>
+		</foreach>
+        <div class="c_b"></div>
+    </ul>
+    <div class="title">精选活动<p class="f_r"><a href="javascript:void(0);" data-ul="moren"  class="active">默认排序</a><a href="javascript:void(0);" data-ul="zuixin">最新发布</a></p></div>
+	<!-- 获取精选活动默认排序和最新发布   -->
+	<php>$default = sp_getRecforms(); $new = sp_getNewforms();</php>
+    <ul class="jingxuan moren">
+		<foreach name="default" item="vo">
+			<li class="listli">
+				<div class="tudiv">
+					<img src="{:sp_get_asset_upload_path($vo['thumb'])}-centerthumb" />
+					<!--<img src="http://resacc.tongyishidai.com/ertong750.jpg-centerthumb" />-->
+					<div class="zheceng">
+						<ul class="yulanceng">
+							<li class="f_l">
+                                <a href="javascript:void(0);">
+                                    <div class="yuanpian yulan"
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                         data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                         data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}" data-name="{$vo['name']|mb_substr=###,0,16,'utf-8'}" data-time="{$vo['createtime']|date="Y-m-d",###}">
+                                        <p></p><img src="__TMPL__Public/images/yulan.png" />
+                                    </div>
+                                    <p class="gongneng">预览</p>
+                                </a>
+							</li>
+							<li class="f_r">
+                                <a href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}">
+                                    <div class="yuanpian bianji" 
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                         data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                         data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}" >
+                                        <p></p><img src="__TMPL__Public/images/bianji.png" />
+                                    </div>
+                                    <p class="gongneng">选用</p>
+                                </a>
+							</li>
+						</ul>
+					</div>
+					<div class="erweimaqu">
+						<div class="erweimaqudiv" data-link="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}"></div>
+					</div>
+				</div>
+				<p class="name">{$vo.name|msubstr=0,15}</p>
+				<div class="dibup">
+					<span class="fa fa-qrcode f_l xiaoerweima"></span>
+					<p class="f_r">
+						<span class="f_l">{$vo.user_nicename}</span>
+						<if condition="empty($vo['avatar'])">
+							<img src="__TMPL__Public/images/touxiang.png" class="f_l" />
+						<else/>
+							<img src="{:sp_get_asset_upload_path($vo['avatar'])}" class="f_l" />
+						</if>
+					</p>
+					<div class="c_b"></div>
+				</div>
+			</li>
+		</foreach>
+    </ul>
+	<ul class="jingxuan zuixin d_n">
+		<foreach name="new" item="vo">
+			<li class="listli">
+				<div class="tudiv">
+					<img src="{:sp_get_asset_upload_path($vo['thumb'])}-centerthumb" />
+					<div class="zheceng">
+						<ul class="yulanceng">
+							<li class="f_l">
+                                <a href="javascript:void(0);">
+                                    <div class="yuanpian yulan"
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                         data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                         data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}" data-name="{$vo['name']|mb_substr=###,0,16,'utf-8'}" data-time="{$vo['createtime']|date="Y-m-d",###}">
+                                        <p></p><img src="__TMPL__Public/images/yulan.png" />
+                                    </div>
+                                    <p class="gongneng">预览</p>
+                                </a>
+							</li>
+							<li class="f_r">
+                                <a href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}">
+                                    <div class="yuanpian bianji" 
+                                        data-yurl ="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('tpl_id'=>$vo['id'],'option'=>$vo['option3']))}"   
+                                         data-href="{:U('portal/activity/addactivity',array('tpl_id'=>$vo['id']))}"
+                                         data-eurl="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}">
+                                        <p></p><img src="__TMPL__Public/images/bianji.png" />
+                                    </div>
+                                    <p class="gongneng">选用</p>
+                                </a>
+							</li>
+						</ul>
+					</div>
+					<div class="erweimaqu">
+						<div class="erweimaqudiv" data-link="http://{$_SERVER['HTTP_HOST']}{:U('portal/mjoin/index',array('id'=>$vo['id']))}"></div>
+					</div>
+				</div>
+				<p class="name">{$vo.name|msubstr=0,15}</p>
+				<div class="dibup">
+					<span class="fa fa-qrcode f_l xiaoerweima"></span>
+					<p class="f_r">
+						<span class="f_l">{$vo.user_nicename}</span>
+						<if condition="empty($vo['avatar'])">
+							<img src="__TMPL__Public/images/touxiang.png" class="f_l" />
+						<else/>
+							<img src="{:sp_get_asset_upload_path($vo['avatar'])}" class="f_l" />
+						</if>
+					</p>
+					<div class="c_b"></div>
+				</div>
+			</li>
+		</foreach>
+    </ul>
+    <img src="__TMPL__Public/images/guanggao.jpg" class="wt100 guanggao" />
+</div>
+<tc_include file="Public:footer"/>
+<div id="fullbg"></div>
+<div class="yulanqu">
+    <div class="neidiv">
+        <div class="f_l waike">
+            <div class="neirong">
+            	<iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="http://{$_SERVER['HTTP_HOST']}{:U('portal/index/templet1',array('option'=>'templet1'))}"></iframe>
+            </div>
+        </div>
+        <div class="youce">
+        	<span class="fa fa-close"></span>
+            <p class="name activity_name">活动秀<!--<span>免费</span>--></p>
+            <p class="time activity_time">发布时间：2016-7-5</p>
+            <div class="erweima">
+                <div id="matu"></div>
+                <p>扫描二维码查看预览效果</p>
+            </div>
+            <a href="#" class="subok">立即使用</a>
+        </div>
+        <div class="c_b"></div>
+    </div>
+</div>
+<div class="fufuwudiv p_r">
+	<div class="fuwutab"><span class="fa fa-user"></span>用户服务</div>
+    <div class="fufuwuqu">
+    	<p class="p1"><span class="fa fa-volume-control-phone"></span>客服电话</p>
+        <p class="p2">13001265153</p>
+        <p class="p3">客服微信</p>
+        <img src="__TMPL__Public/images/kefuweixin.jpg" />
+    </div>
+</div>
+<div class="fuxinxi" style="display:none;">
+	<div class="titlediv">
+    	<p class="dingtitle">完善以下信息，方便我们为您推荐更合适的活动</p>
+        <p class="zaishuo"><a href="javascript:void(0);" onclick="$('.fuxinxi').hide();">下次再说吧~</a></p>
+    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+    	<tr>
+        	<td class="lefttd">机构名称</td>
+            <td><input type="text" placeholder="请输入机构名称" name="school" value="{$users_info['school']}"/></td>
+        </tr>
+    	<tr>
+        	<td class="lefttd">校长/负责人</td>
+            <td><input type="text" placeholder="请输入校长/负责人姓名" name="contact" value="{$users_info['contact']}"/></td>
+        </tr>
+    	<tr>
+        	<td class="lefttd">校长/负责人电话</td>
+            <td><input type="text" placeholder="请输入校长/负责人电话" name="mobile" value="{$users_info['mobile']}"/></td>
+        </tr>
+    	<tr>
+        	<td class="lefttd">机构项目</td>
+            <td>
+            	<label><input type="checkbox" value="1" />幼少儿培训</label>
+            	<label><input type="checkbox" value="1" />初高中培训</label>
+            	<label><input type="checkbox" value="1" />幼儿园</label>
+            	<label><input type="checkbox" value="1" />早教机构</label><br/>
+            	<label><input type="checkbox" value="1" />文化课培训</label>
+            	<label><input type="checkbox" value="1" />素质教育课程</label>
+            	<label><input type="checkbox" value="1" />其他</label>
+            </td>
+        </tr>
+        <tr>
+        	<td class="lefttd">地区</td>
+            <td class="address">
+            	<select>
+                	<option>请选择省份</option>
+                </select>
+            	<select style="margin-right:0;">
+                	<option>请选择城市</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        	<td class="lefttd">规模</td>
+            <td>
+            	<label><input type="radio" value="1" />300人以下</label>
+            	<label><input type="radio" value="1" />300-800人</label>
+            	<label><input type="radio" value="1" />800-3000人</label>
+            	<label><input type="radio" value="1" />3000人以上</label>
+            </td>
+        </tr>
+        <tr>
+        	<td class="lefttd"></td>
+            <td align="center">
+            	<input type="submit" class="tijiao" value="确认提交" />
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+<script type="text/javascript">
+$(function(){
+	$(".dropdown").click(function(){
+		$(this).find(".dropitem").toggleClass("d_n");
+	})
+	$(".jingxuan li").hover(function(){
+		$(this).find(".tudiv").stop(true,false).animate({height:"145px"},300);
+		$(this).find(".xiaoerweima").stop(true,false).animate({marginTop:"0"},100);
+		$(this).find(".zheceng").stop(true,false).show();
+		},function(){
+		$(this).find(".tudiv").stop(true,false).animate({height:"165px"},300);
+		$(this).find(".xiaoerweima").stop(true,false).animate({marginTop:"33px"},100);
+		$(this).find(".zheceng").stop(true,false).hide();
+	});
+	$(".jingxuan li .xiaoerweima").hover(function(){
+		$(this).parent().parent().find(".erweimaqu").show(500);
+		$(this).css({backgroundColor:"#F37119",color:"#FFF"})
+	},
+	function(){
+		$(this).parent().parent().find(".erweimaqu").hide(500);
+		$(this).css({backgroundColor:"#f0f3f4",color:"#949494"})
+	});
+	$(".yulan").parent().click(function(){
+		$(".subok").attr("src","#");
+		var url = $(this).find(".yulan").attr("data-href");
+		var yul = $(this).find(".yulan").attr("data-yurl");
+		var eul = $(this).find(".yulan").attr("data-eurl");
+		var name = $(this).find(".yulan").attr("data-name");
+		var time = $(this).find(".yulan").attr("data-time");
+		$(".activity_name").text(name);
+		$(".activity_time").text(time);
+		$("#yulaniframe").attr("src",yul);
+		$(".subok").attr("href",url);
+		$('#matu').html("");
+		jQuery('#matu').qrcode({width: 158,height: 158,text: eul});
+		showBg("#fullbg",".yulanqu",true);
+		$("body").css("overflow","hidden");
+	});
+	$(".bianji").parent().click(function(){
+		$(".subok").attr("src","#");
+		var url = $(this).find(".bianji").attr("data-href");
+		var yul = $(this).find(".bianji").attr("data-yurl");
+		var eul = $(this).find(".bianji").attr("data-eurl");
+		$("#yulaniframe").attr("src",yul);
+		$(".subok").attr("href",url);
+		$('#matu').html("");
+		jQuery('#matu').qrcode({width: 158,height: 158,text: eul});
+		showBg("#fullbg",".yulanqu",true);
+		$("body").css("overflow","hidden");
+		$(".yulanqu").click(function(){closeBg("#fullbg",".yulanqu");
+		$("body").css("overflow","auto");});
+		$(".yulanqu .waike,.yulanqu .youce").click(function(){});
+	});
+	$(".title p a").click(function(){
+		//所有隐藏
+		$(".jingxuan").hide();
+		//自己显示
+		$("."+$(this).attr("data-ul")).show();
+		$(".title p a").removeClass("active");
+		$(this).addClass("active");
+	});
+	$(".yulanqu .youce .fa-close").click(function(){
+		closeBg('#fullbg','.yulanqu');
+		$('body').css('overflow','auto');
+	});
+	/*//如果滚动的距离到底部时操作区域距离底部80像素，距离底部超过80像素时操作区域距离底部0像素。
+	$(window).scroll(function(){
+		var scrollTop = $(this).scrollTop();
+		if(scrollTop>0)
+		{
+			$(".topindex").css({backgroundColor:"#000",backgroundColor:"rgba(0,0,0,.8)",opacity:"0.8",filter:"Alpha(opacity=80)"});
+		}
+		else
+		{
+			$(".topindex").css({backgroundColor:"transparent",opacity:"1",filter:"Alpha(opacity=100)"});
+		}
+	});*/
+	$(".erweimaqudiv").map(function(){jQuery(this).qrcode({width: 115,height: 115,text: $(this).attr("data-link")});});
+})
+$(".tijiao").click(function(){
+    var school=$("input[name='school']").val();
+    var contact=$("input[name='contact']").val();
+    var mobile=$("input[name='mobile']").val();
+    //alert(school+contact+mobile);
+    $.post("{:U('user/profile/full_post')}",
+        {
+           school:school,
+           contact:contact,
+           mobile:mobile
+        },
+        function(data,status){
+            if(data.status>0)
+            {
+                //$('.fuxinxi').hide();
+                 window.location.reload();
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+})
+</script>
+</html>

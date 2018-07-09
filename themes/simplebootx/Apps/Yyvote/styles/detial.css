@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+
+#fullbg {background-color:rgba(0,0,0,0.8); left:0; opacity:0.8; top:0; bottom:0; right:0; position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+.tandiv{ position:fixed; z-index:50; top:50%; left:50%; text-align:center; display:none;}
+#wujiang{ width:475px; height:216px; border-radius:8px; margin:-108px 0 0 -237px; background-color:#F2F2F2; font-size:31px; color:#545454; line-height:53px; font-family:"黑体";position:fixed;z-index:100;}
+#wujiang .title{ position:absolute; top:-65px; left:50%; margin-left:-209px;}
+#tanjiang{ border-radius:17px; margin:-128px 0 0 -334px; font-size:32px;}
+#tanjiang .btnok{width:310px; height:65px; line-height:65px; border:2px solid #E25000; font-size:29px; background-color:#36C899; border-radius:10px; color:#FFF; margin:23px auto 0 auto;}
+.closeimg{position:absolute; top:-28px; right:-28px; width:57px; height:57px;}
+.top{ width:704px; min-height:650px; background:#f8645a; margin:28px auto 28px auto; padding-bottom:1px;}
+.xiaomao{ padding:20px;}
+.xiaomao p{ font-size:33px; color:#fff; line-height:40px;}
+.xiaomao p span{ font-size:30px;}
+.xiaomao p.right img{vertical-align:middle; margin-right:10px;}
+.tupian{ width:643px; margin:0px auto 30px auto; text-align:center;  overflow:hidden;}
+.tupian img{ max-width:643px;}
+.toupiao{ width:704px; height:90px; background:#f0382c;margin:28px 23px; font-size:33px; color:#fff; line-height:90px; text-align:center; letter-spacing:.1em; border-radius:10px;}
+
+.songhua{height:auto; line-height:inherit; background:none; position:relative;}
+.songhua p{position:absolute; line-height:140px; width:100%; text-align:center; top:0; left:0;}
+canvas {position: fixed; left: 0; top: 0; display:none; z-index: 5; border: 0px solid #000;}

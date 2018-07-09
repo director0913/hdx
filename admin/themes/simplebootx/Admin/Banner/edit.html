@@ -1,0 +1,57 @@
+<admintpl file="header" />
+<style>
+	.form-horizontal .controls {
+		margin-left: 80px;
+	}
+	.form-horizontal .control-label {
+		float: left;
+		width: 80px;
+		padding-top: 5px;
+		text-align: right;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('banner/index')}">轮播图管理</a></li>
+			<li><a href="{:U('banner/add')}">添加轮播图</a></li>
+			<li class="active"><a href="javascript:void(0);">编辑轮播图</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form" action="{:U('banner/edit_post')}">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label">位置：</label>
+					<div class="controls">
+						<select name="name">
+							<option value="activity" <if condition="$data.name eq activity"> selected="selected" </if> >活动中心</option>
+							<option value="application" <if condition="$data.name eq application"> selected="selected" </if> >应用中心</option>
+							<option value="member" <if condition="$data.name eq member"> selected="selected" </if> >会员特权</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">图片：</label>
+					<div class="controls">
+						<img id="url_preview" src="{$data.url}" width="200" />
+                        <p class="btn btn-small" onclick="flashupload('index_thumb_images', '附件上传','url',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+						<input type=hidden name="url" id="url" value="{$data.url}" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">排序：</label>
+					<div class="controls">
+						<input type="text" name="order" value="{$data.order}">
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-actions">
+				<input type="hidden" name="id" value="{$data.id}" />
+				<button type="submit" class="btn btn-primary js-ajax-submit">{:L('ADD')}</button>
+				<a class="btn" href="{:U('banner/index')}">{:L('BACK')}</a>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="__PUBLIC__/js/content_addtop.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=640, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/reset.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/index.css"/>
+</head>
+<body>
+<div class="FF_xqWrap">
+    <div class="FF_ptsmWrap">
+        <div class="FF_xqTitle">{$notes[0]}</div>
+        <php> $coun = count($notes); </php>
+        <for start="2" end="$coun" comparison="lt" step="2" name="i" >
+            <div class="FF_ptRule">
+                <span class="FF_ptNum">{$i}.</span>
+                <p class="FF_ptWord">{$notes[$i]}</p>
+            </div>
+        </for>
+    </div>
+    <div class="FF_back">
+        <div class="FF_backBtn" onclick="window.location='/index.php/Collage/PcCollage/index'">返回</div>
+    </div>
+</div>
+</body>
+</html>

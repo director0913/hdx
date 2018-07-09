@@ -1,0 +1,108 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('ad/index')}">营销活动</a></li>
+		</ul>
+		<div class="success">当前共有<span style="font-weight:bold;color:red;">{$tcount}</span>个活动,其中未开始的活动有<span style="font-weight:bold;color:red;">{$wcount}</span>个,进行中的活动有<span style="font-weight:bold;color:red;">{$jcount}</span>个,已结束的有<span style="font-weight:bold;color:red;">{$ecount}</span>个。</div>
+		<form class="well form-search" method="post" action="">			分类： 
+		<select class="select_2" name="type"> 
+			<option value="0">全部</option>
+			<foreach name="type" item="vo">
+				<option value="{$vo.module}" <if condition="$formget['type'] eq $vo['module']"> selected="selected" </if> >{$vo.slide_name}</option>
+			</foreach>
+		</select> &nbsp;&nbsp;
+		时间：
+			<input type="text" name="start_time" class="js-date" value="{$formget.start_time|default=''}" style="width: 80px;" autocomplete="off">-
+			<input type="text" class="js-date" name="end_time" value="{$formget.end_time}" style="width: 80px;" autocomplete="off"> &nbsp; &nbsp;
+
+		活动状态：
+		<select class="select_2" name="status"> 
+			<foreach name="statuss" item="vo">
+				<option value="{$key}" <if condition="$formget['status'] eq $key"> selected="selected" </if> >{$vo}</option>
+			</foreach>
+		</select> 
+		<!--时间：
+		<input type="text" name="begintime" class="js-date date" value="{$formget.begintime}" style="width: 80px;" autocomplete="off">-
+		<input type="text" class="js-date date" name="endtime" value="{$formget.endtime}" style="width: 80px;" autocomplete="off"> &nbsp; &nbsp;
+		-->
+		关键字： 
+		<input type="text" name="keyword" style="width: 80px;" value="{$formget.keyword}" placeholder="请输入关键字..."> <input type="submit" class="btn btn-primary" value="搜索"> </form>
+
+		<form method="post" class="js-ajax-form">
+			<div><span style="color:red;font-weight:bold;">共{$count}</span>条记录</div>
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('activity/toggle',array('display'=>1))}" data-subcheck="true">推荐</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('activity/toggle',array('hide'=>1))}" data-subcheck="true">取消推荐</button>
+			</div>
+
+			<php> $status=array("1"=>"推荐","0"=>"不推荐"); </php>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="16"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<th width="120">活动名称</th>
+						<th>发布者|机构名称</th>
+						<!--<th>所属机构</th>-->
+						<th>活动链接</th>
+						<th width="80">浏览次数</th>
+						<th width="80">报名人数</th>
+						<th width="80">分享次数</th>
+						<th width="80">活动状态</th>
+						<th width="80">创建日期</th>
+						<th width="45">是否推荐</th>
+						<!--<th width="120">{:L('ACTIONS')}</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="ads" item="vo">
+					<tr>
+						<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.ad_id}"></td>
+						<td><a href="{:U('apps/index/edit',array('module'=>$vo['type'],'id'=>$vo['id']))}" target="_blank">{$vo.title}</a></td>
+						<td>{$vo.user_login}|{$vo.school}</td>
+						<!--<td>{$vo.school}</td>-->
+						 <?php $str='http://'.$_SERVER['HTTP_HOST']."/index.php/apps/".$vo['type']."/index/id/".$vo['id'].".shtml";?>
+						<td><input type=text value="{$str}"></td>
+						<td>{$vo.hits}</td>
+
+						<php>
+							$aid = $vo['id'];
+							$join_count = D("ActivityUser")->where("aid=$aid and username<>''")->count();
+						</php>
+						<td>{$join_count}</td>
+
+						<td>{$vo.share_total}</td>
+						<td>
+							<php>
+								$curr_time = time();
+								if($vo['begintime']>$curr_time){
+									echo "未开始";
+								}elseif($vo['endtime']<$curr_time){
+									echo "已结束";
+								}else{
+									echo "进行中";
+								}
+							</php>
+						</td>
+						<td>{$vo.createtime|date='Y年m月d日',###}</td>
+						<!--<td>{$vo.begintime|date='Y年m月d日 H:i',###}/{$vo.endtime|date='Y年m月d日 H:i',###}</td>-->
+						<td>{$status[$vo['recommend']]}</td>
+						<!--<td>
+							<a href="{:U('apps/index/edit',array('module'=>$vo['type'],'id'=>$vo['id']))}" target="_blank">预览</a>
+							<a href="{:U('ad/delete',array('id'=>$vo['ad_id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+						</td>-->
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$page}</div>
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('activity/toggle',array('display'=>1))}" data-subcheck="true">推荐</button>
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:U('activity/toggle',array('hide'=>1))}" data-subcheck="true">取消推荐</button>
+			</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

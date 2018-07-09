@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>帮助中心</title>
+<link rel="stylesheet" type="text/css" href="__TMPL__Public/mobile/css/aui.css" />
+<style>
+.aui-bar-nav,.aui-btn{background-color:#fff;}
+.aui-title,.aui-bar-nav,.aui-btn{color:#000;}
+header.aui-bar .aui-btn .aui-iconfont{color:#ff9900;}
+.d_n{ display:none;}
+.list{margin-top:12px;}
+.aui-list-view:after{border:none;box-shadow: 0 0 2px #ccc;}
+.aui-list-view.aui-in .aui-list-view-cell:after{left:0;}
+.aui-nav .aui-bar-tab .aui-iconfont,.aui-nav .aui-bar-tab p{color:#444;}
+.neirong{background-color: #f4f4f4;margin-left:-16px;margin-right:-16px;margin-top:11px;margin-bottom:-11px;/*padding-bottom:8px;padding-top:8px;*/word-break:break-all;}
+.neirong img{max-width:100%;}
+#kongdiv{height:55px;}
+</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-border-b" id="aui-header">
+        <a class="aui-btn aui-pull-left aui-border-b" href="javascript:history.go(-1);">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title" id="header-title">帮助中心</div>
+    </header>
+    <ul class="list aui-list-view aui-in">
+		<php>
+			$lists = sp_sql_posts_paged("cid:3;order:post_date DESC;",100);
+			$results = $lists['posts'];
+		</php>
+		<!-- 标题字段 post_title 内容字段叫 post_content
+		  判断部分参考
+			<if condition="$key%2 eq 0 ">
+				{$vo.post_title}-xxx
+			<else /> 
+				{$vo.post_title}-yyy
+			</if>
+		-->
+        <foreach name="results" item="vo">
+			 <li class="aui-list-view-cell">
+				<div class="title">
+					{$vo.post_title}
+					<span class="aui-iconfont aui-icon-right aui-pull-right"></span>
+				</div>
+				<div class="inner neirong aui-content aui-border-t d_n">
+					{$vo.post_content}
+				</div>
+			</li>
+        </foreach>
+    </ul>
+<div id="kongdiv"></div>
+<tc_include file="Public:mobile" />
+<tc_include file="Public/mobile:footer" />
+</body>
+<script type="text/javascript"> 
+$(function(){
+    $('.title').click(function(){
+        var zi=$(this).parent().find(".inner");
+        if(zi.hasClass("aaa"))
+        {
+            $(this).parent().find(".inner").hide().removeClass("aaa");
+            $(this).find("span").removeClass("aui-icon-fold").addClass("aui-icon-right");
+        }
+        else
+        {
+            $(this).parent().find(".inner").show().addClass("aaa");
+            $(this).find("span").removeClass("aui-icon-right").addClass("aui-icon-fold");
+        }
+    })
+})
+</script>
+</html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>支付订单</title>
+<style>
+*{padding:0;margin:0;}
+body{background-color:#f1f1f1;}
+ul{list-style:none;}
+.padded-10{padding-top:10px;padding-bottom:10px;}
+.fl{float:left;}
+.fr{float:right;}
+.clear:after,ul:after {content: ""; display: block; clear: both;}
+a{text-decoration:none; color:#333;}
+.content{margin:10px;background-color: #fff;font-size:16px;padding-bottom:20px;}
+.cont{padding:10px;border-bottom:1px solid #ddd;}
+.title{margin-top:8px;margin-bottom:8px;}
+ul.course li{margin-bottom:12px;}
+.price{color:#f00;font-size: 18px;}
+.tishi{margin:16px 20px;font-size:14px;text-align: center;}
+.tishi span{color:#3398e6;}
+.money{font-size:30px;text-align:center;font-weight:bold;}
+.ewm{text-align:center;width:220px;height:220px;margin:14px auto 0;}
+.ewm img{width:100%;}
+.shuoming{text-align: center;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="content">
+    <div class="cont">
+        <div class="title">活动名称：</div>
+        <ul class="course">
+            <li class="clear">
+                <div class="fl">{$form_info['name']}</div>
+                <div class="fr">X1</div>
+            </li>
+        </ul>
+        <div class="total fl">报名费</div>
+        <div class="price fr">￥{$form_info['coupon_price']}</div>
+		
+        <div class="clear"></div>
+    </div> 
+    <div class="tishi">长按二维码完成微信支付。<span onclick="redirect();">稍后再说</span></div> 
+    <div class="money">￥{$form_info['coupon_price']}</div>
+    <div class="ewm clear"><img src="{$form_info['paycode_thumb']}" alt=""></div>
+</div>
+<div class="shuoming">如果你已支付过，请勿重复购买</div>
+<script>
+ var url = "{:U('mjoin/index',array('id'=>$form_info['id']))}";
+ function redirect(){
+	window.location.href = url;
+ }
+</script>
+</body>
+</html>

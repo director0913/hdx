@@ -1,0 +1,266 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport"  content="width=640,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/reset.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/index.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/animate.min.css"/>
+    <script src="__PUBLIC__/Collage/js/jquery-1.12.4.js"></script>
+    <script src="__PUBLIC__/Collage/js/index.js"></script>
+    <script type="text/javascript">
+        var intDiff = parseInt({$ac["times"]});//倒计时总秒数量
+        function timer(intDiff){
+            window.setInterval(function(){
+                var day=0,
+                    hour=0,
+                    minute=0,
+                    second=0;//时间默认值        
+                if(intDiff > 0){
+                    day = Math.floor(intDiff / (60 * 60 * 24));
+                    hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                    minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                    second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                }
+                if (minute <= 9) minute = '0' + minute;
+                if (second <= 9) second = '0' + second;
+                $('#day').html(day);
+                $('#hour').html(hour);
+                $('#minute').html(minute);
+                $('#second').html(second);
+               intDiff--;
+            }, 1000);
+        };
+        $(function(){
+            timer(intDiff);
+            //我要开团
+            $(".FF_tjBtn").click(function(){
+                var aid = {$ac["id"]};
+                var inputs = $(".FF_maskWrap").find(":input");
+                var data = new FormData();
+                data.append("aid", aid);
+                data.append("username", $(inputs[0]).val());
+                data.append("phone", $(inputs[1]).val());
+                $.ajax({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "/index.php/Collage/PcCollage/regiment",
+                    data: data,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(msg){
+                        if (msg) alert("开团成功");
+                        else alert("开团失败");
+                    }
+                });
+                $(".FF_maskWrap").hide();
+            });
+
+            $(".FF_kaituan").click(function(){
+                $(".FF_maskWrap").fadeIn();
+            });
+        });
+    </script>
+</head>
+<body>
+<!--分享模态框-->
+<div class="FF_fxMask">
+    <div class="FF_haoyou">
+        <img src="__PUBLIC__/Collage/img/fxhy.png" class="FF_haoyouImg">
+        <img src="__PUBLIC__/Collage/img/jiantou.png" class="FF_jiantou animated fadeInDown">
+    </div>
+    <div class="FF_fxMaskCenter animated zoomIn">
+        <div class="FF_fxBtn FF_hy"></div>
+        <div class="FF_fxBtn FF_pyq"></div>
+    </div>
+    <div class="FF_fxpyq animated zoomIn">
+        <div class="FF_erweima"></div>
+        <div class="FF_fuzhi"></div>
+        <img src="__PUBLIC__/Collage/img/pyq.png">
+        <div class="FF_cyfx animated fadeIn">
+            <p class="FF_wxtj">温馨提示</p>
+            <p class="FF_tishi">请先报名后，再点击生成活动二维码哦！</p>
+            <p class="FF_Iknow">我知道了</p>
+        </div>
+        <div class="FF_fuzhicg">复制成功</div>
+    </div>
+</div>
+<div id="FF_wrap">
+    <div class="FF_top">
+        <span class="FF_redWord">8889</span>
+        人查看&nbsp;&nbsp;
+        <span class="FF_redWord">174</span>
+        人分享&nbsp;&nbsp;
+        <span class="FF_redWord">1</span>
+        人报名
+    </div>
+    <div class="FF_music">
+        <img id="FF_musicBtn" src="__PUBLIC__/Collage/img/music.png">
+        <audio id="FF_adMusic" src="{$ac['bgm']}" autoplay></audio>
+    </div>
+    <div class="FF_topWord FF_ts" onclick="window.location='/index.php/Collage/PcCollage/complaintOne?aid={$ac[id]}'">投诉</div>
+    <div id="FF_share" class="FF_topWord FF_fx animated shake">分享</div>
+    <!-- banner背景图部分-->
+    <div class="FF_banner">
+        <div class="FF_daojishi">
+            活动
+            <span class="FF_yWord">结束</span>
+            倒计时
+            <span class="FF_yWord" id="day"></span>
+            天
+            <span class="FF_yWord" id="hour"></span>
+            时
+            <span class="FF_yWord" id="minute"></span>
+            分
+            <span class="FF_yWord" id="second"></span>
+            秒
+        </div>
+    </div>
+    <!-- 拼团玩法部分-->
+    <div class="FF_ptwfWrap">
+        <div class="FF_ptwfTop">
+            <div class="FF_title">拼团玩法</div>
+            <div class="FF_ckxq" onclick="window.location='/index.php/Collage/PcCollage/xq'">查看详情&nbsp;&nbsp;></div>
+        </div>
+        <div class="FF_ptwfRule">
+            <div class="FF_buzhou FF_bzNumber">1</div>
+            <div class="FF_buzhou">
+                <p class="FF_bzWord">支付开团</p>
+                <p class="FF_bzWord">或参加团</p>
+            </div>
+            <div class="FF_buzhou FF_bzNumber">2</div>
+            <div class="FF_buzhou">
+                <p class="FF_bzWord">请好友</p>
+                <p class="FF_bzWord">支付参团</p>
+            </div>
+            <div class="FF_buzhou FF_bzNumber">3</div>
+            <div class="FF_buzhou">
+                <p class="FF_bzWord">达到人数</p>
+                <p class="FF_bzWord">团购成功</p>
+            </div>
+        </div>
+        <div class="FF_jieshao">
+            <php> $i = 1; </php>
+            <foreach name="ac['collage_content']" item="cont" key="k" >
+            <p class="FF_jsWord">{$i}、{$cont}</p>
+            <php> $i++; </php>
+            </foreach>
+        </div>
+        <img class="FF_ptwfImg" src="__PUBLIC__/Collage/img/ptwf.jpg">
+        <div class="FF_fenge"></div>
+        <div class="FF_price">
+            <div class="FF_yuanjia">原价：
+                <span class="FF_redWord">{$ac["price"]}元</span>
+            </div>
+            <div class="FF_xianjia">参与拼团须预付：
+                <span class="FF_redWord">{$ac["advance"]}元</span>
+            </div>
+        </div>
+        <div class="FF_shangpin">
+            <foreach name="ac['collage']" item="coll">
+                <div class="FF_spZhonglei">
+                    <div class="FF_spTitle">
+                        <span class="FF_redWord">{$coll["persons"]}</span>
+                        人团
+                    </div>
+                    <span class="FF_ptPrice">拼团价：{$coll["price"]}元/人</span>
+                </div>
+            </foreach>
+        </div>
+    </div>
+    <!-- 发起拼团部分-->
+    <div class="FF_ptwfWrap">
+        <div class="FF_ptwfTop">
+            <div class="FF_have">
+                <div class="FF_title"><span class="FF_redWord">{$user["user_name"]}</span>邀你</div>
+                来拼团啦!已有<span class="FF_redWord">{$user["count"]}</span>人，盼你如南方人盼暖气
+            </div>
+            <div class="FF_haveUser">
+                <p class="FF_users"><span>团长</span>{$user["user_name"]}</p>
+                <foreach name="user['persons']" item="person">
+                    <p class="FF_users"><span>参团</span>{$person["user_name"]}</p>
+                </foreach>
+                <p class="FF_users"><span>?</span>就差你啦，让小伙伴们都来拼团吧！</p>
+            </div>
+        </div>
+        <div class="FF_ptwfTop">
+            <div class="FF_title">以下小伙</div>伴正在发起拼团，你可以直接参加
+            <div class="FF_noOne">还没有人开团哦！</div>
+        </div>
+    </div>
+    <!-- 领取信息部分-->
+    <div class="FF_ptwfWrap">
+        <div class="FF_ptwfTop">
+            <div class="FF_title">领取信息</div>
+        </div>
+        <div class="FF_jieshao FF_lqXinxi">
+            <p class="FF_jsWord">兑奖时间：{$ac["cashing_time"]}</p>
+            <p class="FF_jsWord">机构地址：{$ac["address"]}</p>
+            <p class="FF_jsWord">领奖电话：{$ac["mobile"]}</p>
+        </div>
+    </div>
+    <!-- 机构介绍部分-->
+    <div class="FF_ptwfWrap">
+        <div class="FF_ptwfTop">
+            <div class="FF_title">机构介绍</div>
+        </div>
+        <div class="FF_jieshao FF_jgjs">
+            <php> $j = 1;$ic = count($ac['introductions']); </php>
+            <for start="0" end="$ic" comparison="lt" step="1" name="i">
+                <p class="FF_jsWord">
+                    <if condition="($i eq 0) OR ($i eq 1)">
+                        {$ac["introductions"][$i]}<br/>
+                        {$ac["introductions"][$i+1]}
+                    <else/>
+                        {$j}、{$ac["introductions"][$i]}<br/>
+                        {$ac["introductions"][$i+1]}
+                    </if>
+                    <php> $i = $i + 1; $j++; </php>
+                </p>
+            </for>
+        </div>
+        <div class="FF_jgjsImgs">
+            <img  class="FF_jgjsImg" src="__PUBLIC__/Collage/img/jgjs1.jpg">
+            <img  class="FF_jgjsImg" src="__PUBLIC__/Collage/img/jgjs2.jpg">
+            <img  class="FF_jgjsImg" src="__PUBLIC__/Collage/img/jgjs3.jpg">
+            <img  class="FF_jgjsImg" src="__PUBLIC__/Collage/img/ptwf.jpg">
+            <img  class="FF_jgjsImg" src="__PUBLIC__/Collage/img/jgjs4.jpg">
+        </div>
+    </div>
+</div>
+<!--底部部分-->
+<div class="FF_bottom">
+    <div class="FF_btmLeft"><img class="FF_phoneImg" src="__PUBLIC__/Collage/img/phone.png">咨询</div>
+    <div class="FF_btmRight">我要开团</div>
+</div>
+<!--我要开团模态框-->
+<div class="FF_maskWrap">
+    <div class="FF_mask">
+        <span class="FF_close">X</span>
+        <img class="FF_maskImg" src="__PUBLIC__/Collage/img/mask.png">
+        <div class="FF_warnWrap">
+            <p class="FF_warn FF_redWord">所留信息不会公开，</p>
+            <p class="FF_warn FF_redWord">仅用于活动兑奖等环节方便联系。</p>
+        </div>
+        <div class="FF_uesrInfo">
+            <div class="FF_infoWrap FF_nameWrap">
+                <span class="FF_infoName">姓名</span>
+                <input type="text" class="FF_nameIn" placeholder="请输入您的真实姓名">
+            </div>
+            <div class="FF_infoWrap FF_phoneWrap">
+                <span class="FF_infoPhone">手机</span>
+                <input type="text" class="FF_phoneIn" placeholder="请输入您的手机号码">
+            </div>
+            <div class="FF_tjBtn">提交</div>
+        </div>
+    </div>
+</div>
+<!--返回顶部-->
+<div id="FF_toTop"><img class="FF_toTopImg" src="__PUBLIC__/Collage/img/toTop.gif"/></div>
+</body>
+</html>

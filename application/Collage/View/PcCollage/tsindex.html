@@ -1,0 +1,46 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=640, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/reset.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/index.css"/>
+    <script src="__PUBLIC__/Collage/js/jquery-1.12.4.js"></script>
+    <script src="__PUBLIC__/Collage/js/index.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var strs = new Array();
+            strs[1] = "虚假活动、活动不真实";
+            strs[2] = "诱导分享、诱导关注";
+            strs[3] = "欺诈、违法";
+            strs[4] = "色情、暴力";
+            strs[5] = "其他";
+            var status = 0;
+            $(".FF_resWrap").children("li").click(function(){
+                status = $.inArray($(this).text(), strs);
+            });
+            $(".FF_nextBtn").click(function(event) {
+                event.preventDefault();
+                if (status == 0) {
+                    alert("未选择任何意见");return;
+                }
+                window.location = "/index.php/Collage/PcCollage/complaintTwo?status=" + status + "&aid=" + {$aid};
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="FF_xqWrap">
+    <div class="FF_reason">请选择投诉原因</div>
+    <ul class="FF_resWrap">
+        <li>虚假活动、活动不真实<img class="FF_rtImg" src="__PUBLIC__/Collage/img/right.png"></li>
+        <li>诱导分享、诱导关注<img class="FF_rtImg" src="__PUBLIC__/Collage/img/right.png"></li>
+        <li>欺诈、违法<img class="FF_rtImg" src="__PUBLIC__/Collage/img/right.png"></li>
+        <li>色情、暴力<img class="FF_rtImg" src="__PUBLIC__/Collage/img/right.png"></li>
+        <li>其他<img class="FF_rtImg" src="__PUBLIC__/Collage/img/right.png"></li>
+    </ul>
+    <p class="FF_how" onclick="window.location='/index.php/Collage/PcCollage/lljc'">遇到网页流量被劫持怎么办?</p>
+    <div class="FF_nextBtn">下一步</div>
+</div>
+</body>
+</html>

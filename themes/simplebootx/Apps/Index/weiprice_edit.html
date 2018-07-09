@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发布营销活动</title>
+<tc_include file="Public:head1" />
+<link href="__PUBLIC__/js/artDialog/skins/default.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/addactivity.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/yulan.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/activity/mypublic.css" />
+<link type="text/css" rel="stylesheet" href="__TMPL__Public/css/font-awesome.min.css" />
+<style type="text/css">
+.table{ font-size:14px; color:#333; margin-bottom: 20px;}
+.table th{ border-bottom:1px solid grey;}
+.table th,.table td{ padding:8px; border-bottom:1px solid #EEE;}
+td input{ width:100%;}
+.addrule{ color:#428bca; text-decoration:none; font-size:14px;}
+.addrule:hover{ color:#036;}
+.baomingdiv{ padding-bottom:20px; margin-bottom:20px; background-color:#fbfbfb;}
+.addpbtn{ height:34px; line-height:34px; font-size:14px; color:#797977; text-align:center; border:1px dashed #D8D8D8; cursor:pointer;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .changinput{ width:200px;}
+.formdiv .youdiv .neidiv .baomingdiv .xiaoitem .xiaotitle{ width:94px;}
+.itemdiv{ margin-bottom: 24px; font-size: 14px; color: #010101; }
+.title{ font-size: 14px; margin-bottom: 11px; }
+.yinyue{ position:relative; margin-bottom: 11px; }
+audio{ display:inline-block; }
+input{ margin:0;padding:0;border:1px solid red; }
+</style>
+</head>
+<body>
+<tc_include file="Public:nav" />
+<form action="{:U('apps/indx/add_post')}" class="activity_form" method="post">
+<div class="pagediv fabuqu">
+	<div class="f_l zuodiv">
+    	<!--<a href="__ROOT__/"><span class="fa fa-cog"></span>重新选择模板</a>-->
+    </div>
+    <div class="f_r youdiv">
+    	<!--<a href="javascript:void(0);" onclick="yulan()"><span class="fa fa-mobile"></span>预览</a>-->
+    	<a href="javascript:void(0);"  class="lanbtn submit_form"><img src="__TMPL__Public/images/tijiao.png" />提交</a>
+    	<a href="javascript:history.back(-1)" class="huibtn">取消</a>
+    </div>
+    <p class="c_b"></p>
+</div>
+<div class="formdiv p_r">
+    <div class="zuodiv">
+        <div class="shoujike">
+        	<div class="leftjiantou jiantoudiv" onclick="qieiframe(-1)"></div>
+            <div class="youjiantou jiantoudiv" onclick="qieiframe(1)"></div>
+        	<div class="muban">
+            	<php>
+                	$urllist=array();
+                    $pagelist=array('yuindex','yufenxiang');
+                    for($i=0;$i<count($pagelist);$i++)
+                    {
+                    	$str = U('apps/index/thimes',array('module'=>'weiprice','page'=>$pagelist[$i]));
+                        $urllist[]= "http://".$_SERVER['HTTP_HOST'].$str;
+                    }
+                 </php>
+            	<iframe width="320" scrolling="no" id="yulaniframe" name="yulaniframe" height="100%" frameborder="0" src="{$urllist[0]}"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="youdiv">
+    	<div class="daohangdiv">
+        	<ul>
+            	<li class="tab active" data-id="#base" data-class="addhuodong">基本信息<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#shangpin" data-class="addhuodong">商品设置<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#gaoji" data-class="addhuodong">高级设置<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#guize" data-class="addhuodong">规则设置<em><span class="fa fa-chevron-right"></span></em></li>
+            	<li class="tab" data-id="#fenxiang" data-class="addhuodong">分享管理</li>
+                <p class="c_b"></p>
+            </ul>
+        </div>
+        <div class="neidiv">
+        	<div class="addhuodong active" id="base">
+                <div class="itemdiv">
+                    <p class="title">活动名称<span>*</span></p>
+                    <input type="text" class="input feikong" name="title" placeholder="活动名称" maxlength="15"  value="{$activity['title']}" onkeyup="genggai(this)"/>
+                </div>
+                <div class="itemdiv timediv">
+                    <p class="title">活动时间<span>*</span></p>
+                    <input type="text" class="shaoduaninput riqizuo" placeholder="开始时间" name="begintime" id="begintime" value="{$activity['begintime']|date='Y-m-d',###}"/>
+                    <select class="timeselect" name="begintime_fen">
+                        <foreach name="time_array" item="tv">
+                                <option value="{$tv}" <if condition="$begin_fen eq $tv">selected="selected"</if>>{$tv}</option>
+                        </foreach>
+                    </select>
+                    <span class="lianjie">至</span>
+                    <input type="text" class="shaoduaninput riqiyou" placeholder="结束时间" name="endtime" id="endtime" value="{$activity['endtime']|date='Y-m-d',###}" onchange="gaishijian()"/>
+                    <select class="timeselect" name="endtime_fen" onchange="gaishijian()">
+                        <foreach name="time_array" item="tv">
+                        	<option value="{$tv}" <if condition="$end_fen eq $tv">selected="selected"</if>>{$tv}</option>
+                        </foreach>
+                    </select>
+                </div>
+				<div class="itemdiv"  onclick="xuaze()">
+						<p class="title">活动填写信息项</p>          
+						<radio class="f_l">&nbsp;&nbsp;<input type="checkbox" name="username" value="username" checked="checked"  disabled="true" />&nbsp;&nbsp;真实姓名&nbsp;&nbsp;</radio>
+				        <radio class="f_l"><input type="checkbox" name="mobile" value="mobile" checked="checked"  disabled="true" />&nbsp;&nbsp;手机号&nbsp;&nbsp;</radio>
+				        <radio class="f_l"><input type="checkbox" name="age" value="age" <if condition="$activity['params']['age'] neq null">checked="checked" </if>/>&nbsp;&nbsp;年龄&nbsp;&nbsp;</radio>
+						<radio class="f_l"><input type="checkbox" name="cless" value="cless" <if condition="$activity['params']['cless'] neq null">checked="checked" </if>/>&nbsp;&nbsp;班级&nbsp;&nbsp;</radio>
+						<radio class="f_l"><input type="checkbox" name="school" value="school" <if condition="$activity['params']['school'] neq null">checked="checked" </if>/>&nbsp;&nbsp;学校&nbsp;&nbsp;</radio>
+						<radio class="f_l"><input type="checkbox" name="qita" value="qita" <if condition="$activity['params']['qita'] neq null">checked="checked" </if>/>&nbsp;&nbsp;其他&nbsp;&nbsp;</radio>
+						</br>
+				</div>
+				<div class="itemdiv school"<if condition="$activity['params']['school'] eq null">style="display:none" 
+				</if>>
+				    <p class="title">校区</p>
+				    <input type="text" class="input" placeholder="填写校区" name="other_school" value="{$other_school}"/>
+					<p class="help">校区与校区之间以逗号隔开，例如“浦东校区,阳光校区” 为空时表示需要用户填写校区名称
+				</p>
+				</div>
+				<div class="itemdiv qita"<if condition="$activity['params']['qita'] eq null">style="display:none" </if>>
+				    <p class="title">报名需填信息</p>
+				    <input type="text" class="input" placeholder="报名需填信息" name="other_remark" value="{$other_remark}"/>
+					<p class="help">除了以上选择的报名时默认必填项，您可以再增加一项报名需填信息，例如地址”，手机端备注后面会显示“请输入你的**”</p>
+				</div>
+                <div class="itemdiv">
+                    <p class="title">背景音乐<span>*</span></p>
+
+                    <div class="yinyue">
+                        <input type="radio" name="bg" value="1" <if condition="$bg eq 1">checked="checked"</if><if condition="$bg eq null">checked="checked"</if>>
+                        <audio src="__TMPL__Public/audio/1.mp3" controls="controls"></audio>
+                    </div>
+                    <div class="yinyue">
+                        <input type="radio" name="bg" value="2"  <if condition="$bg eq 2">checked="checked"</if>>
+                        <audio src="__TMPL__Public/audio/2.mp3" controls="controls"></audio>
+                    </div>
+                    <div class="yinyue">
+                        <input type="radio" name="bg" value="3"  <if condition="$bg eq 3">checked="checked"</if>>
+                        <audio src="__TMPL__Public/audio/3.mp3" controls="controls"></audio>
+                    </div>
+                    <div class="yinyue">
+                        <input type="radio" name="bg" value="no"  <if condition="$bg eq no">checked="checked"</if>>
+                        <span>没有背景音乐</span>
+                    </div>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">总砍价次数<span>*</span></p>
+                    <input type="text" class="input" placeholder="总砍价次数" name="total_num" value="{$activity['total_num']}" />
+                    <p class="help">活动期间每个人可以帮忙砍价的总次数。例如设置为3，表示一个人活动期间可以帮忙砍价3次。</p>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">每天砍价次数<span>*</span></p>
+                    <input type="text" class="input" placeholder="每天砍价次数" name="day_num" value="{$activity['day_num']}" />
+                    <p class="help">每个人每天可以帮忙砍价的次数。例如设置为1，表示一个人每天可以帮忙砍价1次。</p>
+                </div>
+				<div class="itemdiv">
+                    <p class="title">是否需要支付</p>
+					<input type="radio" class="radioItem" name="is_pay" value="1" <if condition="$activity['params']['is_pay'] eq 1">checked</if>>是&nbsp;&nbsp;
+                    <input type="radio" class="radioItem" name="is_pay" value="0" <if condition="$activity['params']['is_pay'] eq 0">checked</if>>否
+                </div>
+				<div class="itemdiv pay_code" <if condition="$activity['params']['is_pay'] eq 0">style="display:none;"</if>>
+                    <p class="title">支付二维码<span>*</span></p>
+                    <div class="p_r chuandiv">
+                        <input type="text" class="input" name="pay_thumb" id="pay_thumb" value="{$activity['params']['pay_thumb']}" placeholder="活动图片" oninput="alert(1)" onpropertychange="alert(1)"/>
+                        <p class="chuanbtn" onclick="flashupload('pay_thumb_images', '附件上传','pay_thumb',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                    </div>
+                    <div>
+                        <img src="<if condition="$pay_thumb eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($pay_thumb)}</if>" id="pay_thumb_preview" class="m_tb10" width="100"/>
+                    </div>
+                    <p class="help">请上传微信收款二维码，图片大小不能超过2M</p>
+                </div>
+            </div>
+        	<div class="addhuodong" id="shangpin">
+                <div class="itemdiv">
+                    <p class="title">商品名称<span>*</span></p>
+                    <input type="text" class="input feikong" name="p_name" maxlength="10" placeholder="商品名称"  value="{$activity['params']['p_name']}" onkeyup="genggai(this)"/>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">商品描述<span>*</span></p>
+                    <input type="text" class="input" name="p_dec" placeholder="商品描述"  value="{$activity['params']['p_dec']}" onkeyup="genggai(this)"/>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">商品缩略图<span>*</span></p>
+                    <div class="p_r chuandiv">
+                    	<input type="text" class="input feikong" name="p_preview_pic" id="p_preview_pic" value="{$activity['params']['p_preview_pic']}" placeholder="商品缩略图"/>
+                        <p class="chuanbtn" onclick="flashupload('p_preview_pic_images', '附件上传','p_preview_pic',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                    </div>
+                    <div>
+                    	<img src="<if condition="$activity['params']['p_preview_pic'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['params']['p_preview_pic'])}</if>" id="p_preview_pic_preview" class="m_tb10" width="100"/>
+                    </div>
+                    <p class="help">图片大小不能超过2M</p>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">商品库存<span>*</span></p>
+                    <input type="text" class="input" placeholder="商品库存" name="p_kc" value="{$activity['params']['p_kc']}" />
+                </div>
+                 <div class="itemdiv">
+                    <p class="title">商品原价</p>
+                    <input type="text" class="input feikong" placeholder="商品原价" name="p_y_price" value="{$activity['params']['p_y_price']}"/>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">商品最低价</p>
+                    <input type="text" class="input feikong" placeholder="商品最低价" name="p_low_price" value="{$activity['params']['p_low_price']}"/>
+                </div>
+            </div>
+            <div class="addhuodong" id="gaoji">
+            <p class="tishi" style=" height:auto; line-height:inherit; padding:5px; margin-bottom:20px;"><span class="fa fa-info"></span>系统默认砍价的价格范围从最高价到最低价。如果想要设置更多区间或者不同砍价范围，请点击“添加砍价规则”。<br/>例如默认的砍价值范围设置从5到10，表示从最高价100开始砍价到最低价10，每次砍掉5-10元；另外添加一个砍价规则，价格范围从50到20，砍价值范围从1-3，表示当价格砍到50元之后，每次砍掉1-3元，直到低于20元，每次砍价恢复5-10元。</p>
+            	<div id="formitemdiv">
+                    <div class="baomingdiv">
+                        <input name="rule_id[]" type="hidden" value='<if condition="count($activity['pricerule']) GT 0">{$activity['pricerule'][0]['id']}</if>'>
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem">
+                                <p class="xiaotitle f_l" style="width:auto;">其他价格范围时砍价范围</p>
+                                <input name="rule_piceshi[]" type="hidden" value="0">
+                                <input name="rule_picezhi[]" type="hidden" value="0">
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem">
+                                <p class="xiaotitle f_l">砍价值范围</p>
+                                <input name="rule_start[]" type="text" class="changinput f_l" value='<if condition="count($activity['pricerule']) GT 0">{$activity['pricerule'][0]['start']}<else/>1</if>'>
+                                <span class="lianjie f_l">至</span>
+                                <input name="rule_end[]" type="text" class="changinput f_l" value='<if condition="count($activity['pricerule']) GT 0">{$activity['pricerule'][0]['end']}<else/>5</if>'>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <for start="1" end="count($activity['pricerule'])">
+                    <div class="baomingdiv">
+                        <input name="rule_id[]" type="hidden" value="{$activity['pricerule'][$i]['id']}">
+                        <php>
+                        	$jiage=explode("、",$activity['pricerule'][$i]['pice']);
+                            if(count($jiage)<2)
+                            	$jiage[1]=0;
+                        </php>
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem">
+                                <p class="xiaotitle f_l">价格范围</p>
+                                <input name="rule_piceshi[]" type="text" class="changinput f_l" value="{$jiage[0]}">
+                                <span class="lianjie f_l">至</span>
+                                <input name="rule_picezhi[]" type="text" class="changinput f_l" value="{$jiage[1]}">
+                                <div class="icodiv f_l"><p class="shanchu" onclick="removeRuleItem(this)"></p></div>
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                        <div class="xiaoxiangdiv">
+                            <div class="xiaoitem">
+                                <p class="xiaotitle f_l">砍价值范围</p>
+                                <input name="rule_start[]" type="text" class="changinput f_l" value="{$activity['pricerule'][$i]['start']}">
+                                <span class="lianjie f_l">至</span>
+                                <input name="rule_end[]" type="text" class="changinput f_l" value="{$activity['pricerule'][$i]['end']}">
+                                <p class="c_b"></p>
+                            </div>
+                        </div>
+                    </div>
+                    </for>
+            	</div>
+                <p class="addpbtn" onclick="addRuleItem();" title="添加规则">+添加规则</p>
+            </div>
+            <div class="addhuodong" id="guize">
+                <div class="itemdiv">
+                    <p class="title">活动规则<span>*</span></p>
+                    <textarea name="rule" id="rule" rows="5" cols="57">{$activity['rule']}</textarea>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">关于我们<span>*</span></p>
+                    <textarea name="school_desc" id="school_desc" rows="5" cols="57">{$activity['school_desc']}</textarea>
+                </div>
+            </div>
+            <div class="addhuodong" id="fenxiang">
+                <div class="itemdiv">
+                    <p class="title">分享标题<span>*</span></p>
+                    <input type="text" name="share_title" class="input feikong" placeholder="分享标题" value="{$activity['share_title']}" onkeyup="genggai(this)">
+                </div>
+                <div class="itemdiv">
+                    <p class="title">分享图片<span>*</span></p>
+                    <div class="p_r chuandiv">
+                    	<input type="text" class="input" name="share_img" id="share_img" value="{$activity['share_img']}" placeholder="分享图片"/>
+                        <p class="chuanbtn" onclick="flashupload('share_img_thumb', '附件上传','share_img',thumb_images,'1,jpg|jpeg|gif|png|bmp,1,,,1','','','');return false;">上传图片</p>
+                    </div>
+                    <div>
+                    	<img src="<if condition="$activity['share_img'] eq ''">__TMPL__Apps/Common/images/nopic.jpg<else/>{:sp_get_asset_upload_path($activity['share_img'])}</if>" id="share_img_preview" class="m_tb10" width="100"/>
+                    </div>
+                    <p class="help">图片大小不能超过2M</p>
+                </div>
+                <div class="itemdiv">
+                    <p class="title">分享描述<span>*</span></p>
+                    <input type="text" name="share_des" id="share_des" class="input feikong"  maxlength="30" placeholder="分享描述" value="{$activity['share_des']}" onkeyup="genggai(this)" />
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<input type=hidden name="type" value="{$module}">
+<input type=hidden name="id" value="{$id}">
+</form>
+<tc_include file="Public:scripts" />
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/js/jquery-ui.js"></script>
+<!-- <script type="text/javascript" charset="utf-8" src="{$REMOTE_UPLOAT_PATH}/public/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$REMOTE_UPLOAT_PATH}/public/js/ueditor/ueditor.all.min.js"></script> -->
+<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/ueditor/ueditor.all.min.js?v=20170216"></script>
+<script type="text/javascript" charset="utf-8" src="__TMPL__Public/js/zuoyouindex.js"></script>
+<script type="text/javascript">
+$(function(){
+	//编辑器路径定义
+	var editorURL = GV.DIMAUB;
+	//顶部个人信息操作下拉效果。
+	$(".dropdown").click(function(){
+		$(this).find(".dropitem").toggleClass("d_n");
+	});
+	//顶部tab效果点击切换。
+	$(".tab").click(function(){
+		qietab($(this));
+	});
+	//实例化一个百度编辑器。
+	var editorcontent1 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','autotypeset','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight', 'simpleupload','link','removeformat']]});
+	//将指定标签改造成百度编辑器。
+	editorcontent1.render('rule');
+	//实例化一个百度编辑器。
+	var editorcontent2 = new baidu.editor.ui.Editor({zIndex:10,elementPathEnabled:false,autoHeightEnabled:false,initialFrameHeight:300,toolbars:[['fullscreen', 'source', 'undo', 'redo','fontfamily', 'fontsize','autotypeset','bold', 'italic', 'underline','forecolor','backcolor','justifyleft', 'justifycenter', 'justifyright','insertorderedlist', 'insertunorderedlist','lineheight', 'simpleupload','link','removeformat']]});
+	//将指定标签改造成百度编辑器。
+	editorcontent2.render('school_desc');
+	//获取窗口高度，并设置编辑区域的高度。
+	gaisize();
+	//当浏览器大小变化时，重新获取高度并设置编辑区域的高度。
+	$(window).resize(function () {
+		gaisize();
+	});
+	//开始时间和结束时间控件的参数设置。
+	$("#begintime").datepicker();
+	$("#endtime").datepicker();
+	$("#begintime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+	$("#begintime").datepicker("setDate", "{$activity['begintime']}");
+	$("#endtime").datepicker('option',{dateFormat: 'yy-mm-dd'});
+	$("#endtime").datepicker("setDate", "{$activity['endtime']}");
+	
+	//帮助提示鼠标移动上去后显示内容。
+    $(".fa-question-circle").hover(function(){
+        $(".bangzhu").show();
+    },function(){
+        $(".bangzhu").hide();
+    });
+	//点击提交按钮后
+	$(".submit_form").click(function(){
+		var feikongls=$(".feikong");
+		for(var i=0;i<feikongls.length;i++)
+		{
+			if($(feikongls[i]).val()=="")
+			{
+				alert($(feikongls[i]).attr("placeholder")+"不能为空"); return;
+			}
+		}
+		//获取所有范围。
+		var fanweils=$("input[name='rule_piceshi[]'],input[name='rule_picezhi[]']");
+		for(var i=0;i<fanweils.length;i++)
+		{
+			if($(fanweils[i]).val()=="")
+			{
+				alert("价格范围不能为空！可以设置值为0。");return;
+			}
+		}
+		var qils=$("input[name='rule_start[]']");
+		for(var i=0;i<qils.length;i++)
+		{
+			if(!parseFloat($(qils[i]).val())>=0.01)
+			{
+				alert("起始值必须大于0.01！");return;
+			}
+		}
+		var zhils=$("input[name='rule_end[]']");
+		for(var i=0;i<zhils.length;i++)
+		{
+			if(!parseFloat($(zhils[i]).val())>=0.01)
+			{
+				alert("结束值必须大于0.01！");return;
+			}
+		}
+		var url = "{:U('apps/index/edit_post')}";
+		$.post(url,$(".activity_form").serializeArray(),function(res){
+			if(res.status){
+				alert(res.info);
+				window.location.href=res.url;
+			}else{
+				alert(res.info);
+			}
+		});
+	});
+	$(".timediv").bind("mousemove",function(){
+		$(this).css("box-shadow","");
+	});
+    editorlod("rule");
+    editorlod("school_desc");
+})
+function addRuleItem()
+{
+	var addstr='<div class="baomingdiv">'+
+					'<input name="rule_id[]" type="hidden" value="">'+
+					'<div class="xiaoxiangdiv">'+
+						'<div class="xiaoitem">'+
+							'<p class="xiaotitle f_l">价格范围</p>'+
+							'<input name="rule_piceshi[]" type="text" class="changinput f_l" value="">'+
+							'<span class="lianjie f_l">至</span>'+
+							'<input name="rule_picezhi[]" type="text" class="changinput f_l" value="">'+
+							'<div class="icodiv f_l"><p class="shanchu" onclick="removeRuleItem(this)"></p></div>'+
+							'<p class="c_b"></p>'+
+						'</div>'+
+					'</div>'+
+					'<div class="xiaoxiangdiv">'+
+						'<div class="xiaoitem">'+
+							'<p class="xiaotitle f_l">砍价值范围</p>'+
+							'<input name="rule_start[]" type="text" class="changinput f_l" value="">'+
+							'<span class="lianjie f_l">至</span>'+
+							'<input name="rule_end[]" type="text" class="changinput f_l" value="">'+
+							'<p class="c_b"></p>'+
+						'</div>'+
+					'</div>'+
+				'</div>';
+	$("#formitemdiv").append(addstr);
+}
+function removeRuleItem(obj)
+{
+	$(obj).parent().parent().parent().parent().remove();
+}
+function qietab(obj)
+{
+	if($(obj).hasClass("active")) return;
+	var dataclass=$(obj).attr("data-class");
+	$(".tab[data-class='"+dataclass+"']").removeClass("active");
+	$(obj).addClass("active");
+	//获取关联div信息
+	$("."+$(obj).attr("data-class")+".active").removeClass("active");
+	$($(obj).attr("data-id")).addClass("active");
+}
+function gaisize()
+{
+	//获取浏览器高度。
+	var windowheight=$(window).height();
+	$(".formdiv").css("height",(windowheight-128)+"px");
+}			
+function gaishijian()
+{
+	var endtime=$("input[name='endtime']").val();
+	var nian=endtime.split("-");
+	var nianstr="";
+	var danwei="年";
+	for(var i=0;i<nian.length;i++)
+	{
+		if(i==1)
+			danwei="月";
+		else if(i==2)
+			danwei="日";
+		nianstr+=nian[i]+danwei;
+	}
+	var endtime_fen=$("select[name='endtime_fen']").val();
+	var shi=endtime_fen.split(":");
+	var shistr="";
+	var danwei="时";
+	for(var i=0;i<shi.length;i++)
+	{
+		if(i==1)
+			danwei="分";
+		shistr+=shi[i]+danwei;
+	}
+	var kuangobj=$("#yulaniframe").contents().find(".time");
+	kuangobj.html("截止时间："+nianstr+shistr);
+	//获取结束时间。
+	//拼接成字符串
+	//为模板页面赋值。
+}
+var pagelist=eval('<?php echo json_encode($urllist);?>');
+var dqpage=0;
+function xuaze(){
+	if($('input[name="qita"]:checked').val()=="qita"){		
+		$('.qita').show();
+	}else{
+		$('.qita').hide();	
+	}
+	if($('input[name="school"]:checked').val()=="school"){		
+		$('.school').show();
+	}else{
+		$('.school').hide();	
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport"  content="width=640, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/reset.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/Collage/css/index.css"/>
+    <script src="__PUBLIC__/Collage/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#save").click(function(){
+                var inputs = $(".FF_tsmsWrap").find(":input");
+                var data = new FormData();
+                data.append("aid", {$aid});
+                data.append("cid", {$status});
+                data.append("content", $(inputs[0]).val());
+                data.append("phone", $(inputs[1]).val());
+                $.ajax({
+                    headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "/index.php/Collage/PcCollage/complaint",
+                    data: data,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(msg){
+                    }
+                });
+                window.location = "/index.php/Collage/PcCollage/complaintOff";
+            });
+        });
+    </script>
+</head>
+<body>
+<div  class="FF_tsmsWrap">
+    <div class="FF_reason FF_msTitle">投诉描述</div>
+    <div class="FF_msRes">
+        <textarea class="FF_msWord" maxlength="200"></textarea>
+        <p class="FF_wordNum">
+            <span id="FF_wnum">0</span>/200
+        </p>
+    </div>
+    <div class="FF_reason FF_msTitle FF_lxfs">联系方式</div>
+    <input class="FF_inPhone" placeholder="请填写您的联系方式，以便联系">
+    <div class="FF_nextBtn FF_msBtn" id="save">提交</div>
+    <div class="FF_nextBtn FF_msBtn FF_shang" onclick="window.location='javascript:history.back(-1);'">上一步</div>
+</div>
+</body>
+<script>
+    var FF_msWord=document.querySelector(".FF_msWord");
+    var FF_wnum=document.querySelector("#FF_wnum");
+    FF_msWord.oninput=function(){
+        var num=FF_msWord.value.length;
+        FF_wnum.innerHTML=num;
+    }
+</script>
+</html>

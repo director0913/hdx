@@ -1,0 +1,82 @@
+﻿@charset "UTF-8";
+/*公共样式开始*/
+*{ margin:0; padding:0;}
+img{border:none;}
+.clear{clear:both;}
+.background{border:none;}
+ul{ list-style:none;}
+a{text-decoration:none;}
+body{width:750px;background:#8abe32;}
+.wei_c_b:after{ content: ""; display:block; clear:both;}
+/*公共样式结束*/
+#fullbg,#fullbg2{background-color:rgba(0,0,0,0.9); left:0; opacity:0.8;top:0; bottom:0; right:0; position:fixed; display:none; z-index:3; filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity:0.8;}
+#fullbg2{z-index:20;}
+.bgc{position:relative;}
+.biaoti{position:absolute;top:285px;width:580px;margin-left:-255px;left:50%;color:#fff;font-size:32px;text-align:center;height: 70px;line-height:70px;overflow:hidden;}
+.act_time{position:absolute;top:460px;width:600px;margin-left:-300px;left:50%;color:#FFA800;font-size:40px;text-align:center;}
+/*登录开始*/
+.kanjia{padding-top:12px;}
+.kanjia .kanjia_biaoti{margin:0 90px;height:116px;}
+.kanjia .user{width:116px;height:116px;border:2px solid #f8d201;border-radius:50%;overflow: hidden;float:right;margin-right:-36px;line-height:120px;}
+.kanjia .user img{width:100%;height:auto;}
+.kanjia .kanjia_title{font-size:28px;background:url(../images1/input.png) no-repeat 0 center;background-size:100% 100%;color:#5c4403;width:440px;height:60px;line-height:60px;float:right;margin-top:28px;padding-left:46px;overflow:hidden;}
+.kanjia .kanjia_cont{background:url(../images1/kecheng.png) no-repeat center center;width:620px;height:200px;margin:20px auto;background-size:100% 100%;color:#1c012c;}
+.kanjia_user{width:120px;height:120px;float:left;margin:45px 24px 45px 32px;}
+.kanjia_user img{width:100%;}
+.kanjia .neirong{float:left;width:430px;margin-top:45px;}
+.kanjia .neirong .school{font-size:32px;}
+.kanjia .neirong .kecheng{margin-top:8px;font-size:28px;color:#491f01;line-height:38px;}
+.price{;width:640px;margin:60px auto 0;}
+.price_top{color:#f00;font-size:30px;text-align: right;height:34px;}
+.progress{position:relative;height:130px;}
+.jindu{margin:44px auto 0;background-color: #eaeaeb;height:10px;}
+.jindu1{position: absolute;left:0;top:0;height:10px;background-color:#fcc016;}
+.money{margin:-30px -20px 0;position:absolute;top:0;left:0;right:0;}
+.money li{float:left;width:33%;}
+.money li:nth-child(2){text-align:center;}
+.money li:last-child{text-align:right;}
+.money li p{color:#491f01;margin-top:8px;font-size:36px;}
+.btn{margin:0 60px 40px;}
+.btn .btn_l,.btn .btn_r{float:left;background:url(../images1/btn_l.png) no-repeat center center;background-size:100% 100%;width:260px;height:98px;text-align:center;line-height:98px;color:#fff;font-size: 32px;}
+.btn .btn_r{float:right;background:url(../images1/btn_r.png) no-repeat center center;background-size:100% 100%;color:#2d0500;}
+/*登录结束*/
+/*活动规则开始*/
+.guize{background:url(../images1/bg.png?v=1) repeat-y center top;padding-top:40px;margin:0 18px 40px;background-size:100% auto;}
+.guize .title{color:#f00;font-size:32px;text-align:center;}
+.guize .text{font-size:30px;padding:30px;color:#5c4403;word-break:break-all;}
+.guize .text img{max-width:100%;}
+/*活动规则结束*/
+/*列表开始*/
+.liebiao{margin-bottom:26px;}
+.liebiao table{margin:36px auto 0;font-size:30px;width:680px;}
+table tr{color:#29292b;background-color: #fff;}
+.tt{background-color: #c12809!important;color:#fff!important;line-height:60px;height:60px;}
+.wd120{width:120px;text-align:center;}
+.wd180{width:180px;text-align:center;}
+.wd230{width:230px;text-align:center;}
+.liebiao td{line-height:50px;height:50px;}
+.liebiao tr{display:block;}
+.more{width:676px;text-align: center;background-color:#fff;margin:0 auto;height:76px;line-height:76px;font-size:30px;border-top:1px solid #b2c4d3;color:#8e8e8e;margin-top:-2px;}
+.more img{margin-right:4px;height:32px;width:auto;vertical-align:text-top;}
+/*列表结束*/
+/*砍价记录开始*/
+#jilu{width:700px;margin:0 auto;position:fixed;left:50%;top:50%;margin-top:-460px;margin-left:-350px;display:none;z-index:10;}
+#jilu .jilu_top{width:700px;background:url(../images1/biaotou.png) no-repeat center center;background-size:100% 100%;width:700px;height:110px;text-align:center;line-height:142px;color:#f94405;font-size:38px;}
+#jilu .list{background-color: #fff;}
+#jilu .jilu_th{line-height:80px;padding:0 30px;}
+#jilu .jilu_th .jilu_price{color:#000;}
+#jilu .jilu_th div{float:left;font-size:34px;border-bottom:4px solid #a5d948;}
+#jilu .dataqu{height:600px;overflow:auto;}
+#jilu ul{padding:0 30px 2px;}
+#jilu ul li div{float:left;font-size:34px;line-height:100px;height:100px;}
+#jilu ul li:after{ content: ""; display:block; clear:both;}
+#jilu .jilu_user{width:120px;text-align:center;}
+#jilu .jilu_name{width:300px;text-align: center;}
+#jilu .jilu_price{width:220px;text-align: center;color:#f94405;}
+#jilu ul li img{width:74px;height:74px;border:2px solid #534032;border-radius:50%;overflow:hidden;margin-top:11px;}
+.shuxian{width:6px;height:70px;margin:0px auto;background-color:#fbfbfc;}
+.close{width:76px;height:76px;margin:0px auto;}
+.close img{width:100%;}
+/*砍价记录结束*/
+#fenxiang{ position:fixed;width:260px;height:170px;top:50%; left:50%; margin-top:-85px; margin-left:-130px; z-index:4; display:none;}
+.banquan{text-align:center;font-size:13px; color:#bbb;margin-top:40px;margin-bottom:12px;}

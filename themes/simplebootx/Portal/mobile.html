@@ -1,0 +1,51 @@
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	wx.config({
+		appId: '{$signPackage.appId}',
+		timestamp: {$signPackage.timestamp},
+		nonceStr: '{$signPackage.nonceStr}',
+		signature: '{$signPackage.signature}',
+		jsApiList: [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo'
+		  ]
+	});
+	wx.ready(function(){
+		// 在这里调用 API
+		wx.onMenuShareTimeline({
+			title: "{$share.title}", // 分享标题
+			desc: "{$share.desc}", // 分享描述
+			link: "{$share.url}", // 分享链接
+			imgUrl: "{$share.imgUrl}", // 分享图标
+			success: function () { 
+				//更新分享次数
+				var url="{$update_url}";
+				$.post(url,null,function(res){});
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		wx.onMenuShareAppMessage({
+			title: "{$share.title}", // 分享标题
+			desc: "{$share.desc}", // 分享描述
+			link: "{$share.url}", // 分享链接
+			imgUrl: "{$share.imgUrl}", // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				//更新分享次数
+				var url="{$update_url}";
+				$.post(url,null,function(res){});
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+
+	});
+
+</script>

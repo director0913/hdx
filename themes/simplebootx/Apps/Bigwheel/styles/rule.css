@@ -1,0 +1,6 @@
+@charset "utf-8";
+/* CSS Document */
+
+.toptu{ width:750px; position:relative; margin-bottom:110px;}
+.btnp{width:680px; height:90px; line-height:90px; font-size:33px; color:#FFF; text-align:center; margin:13px auto 0 auto; background-color:rgba(255,255,255,0.2); border-radius:9px;  position:absolute; bottom:0px; left:35px; letter-spacing:0.1em;}
+.choujiang{width:640px;min-height:512px; border-radius:9px; background:#f5696a; margin:20px 35px; padding:20px;color:#fff; font-size:30px; letter-spacing:0.1em; line-height:50px;}

@@ -1,0 +1,67 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('user/regcode')}">{:L('ADMIN_USER_INDEX')}</a></li>
+			<li><a href="{:U('user/addregcode')}">添加注册码</a></li>
+		</ul>
+		<form class="well form-search" method="post" id="cid-form">
+			<php>$status1 = array("0"=>"全部","1"=>"399会员","2"=>"3999会员");$type1 = array("0"=>"全部","0"=>"未使用","1"=>"已使用");</php>
+			<select class="select_2" name="type" style="width: 100px;" id="selected-cid">
+				<foreach name="status1" item="vo">
+					<option value="{$key}" <if condition="$type eq $key">selected="selected"</if> >{$vo}</option>
+				</foreach>
+			</select>
+			<select class="select_2" name="status" style="width: 100px;" id="selected-cid1">
+				<foreach name="type1" item="vo">
+					<option value="{$key}" <if condition="$status eq $key">selected="selected"</if> >{$vo}</option>
+				</foreach>
+			</select>
+		</form>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="50">ID</th>
+					<th>注册码</th>
+					<th>会员等级</th>
+					<th>{:L('STATUS')}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<php>$user_statuses=array("0"=>'未使用',"1"=>'已使用');$level = array('1'=>'399会员','2'=>'3999会员');</php>
+				<foreach name="list" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.code}</td>
+					<td>{$level[$vo['type']]}</td>
+					<td><span style="font-weight:bold;color:red;">{$user_statuses[$vo['status']]}</span></td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		setCookie('refersh_time', 0);
+		function refersh_window() {
+			var refersh_time = getCookie('refersh_time');
+			if (refersh_time == 1) {
+				window.location.reload();
+			}
+		}
+		setInterval(function() {
+			refersh_window()
+		}, 3000);
+		$(function() {
+			$("#selected-cid").change(function() {
+				$("#cid-form").submit();
+			});
+			$("#selected-cid1").change(function() {
+				$("#cid-form").submit();
+			});
+		});
+	</script>
+</body>
+</html>
